@@ -150,6 +150,7 @@ def main(
     keep_order: bool = False,
     atomic: bool = False,
     dry: bool = False,
+    name: str = "",
 ):
     ufuns = [generate_multi_issue_ufuns(nissues, nvalues) for _ in range(nedges)]
     d = edge_reserved_value_max - edge_reserved_value_min
@@ -199,9 +200,8 @@ def main(
             name=f"n{i}",
             n_steps=nsteps,
         )
-        print(
-            f"Adding edge {i} of type {type_name(edge)} (thread: {m.name} ID: {m.id})"
-        )
+        m.id = m.name = f"n{i}"
+        print(f"Adding edge {i} of type {type_name(edge)} (thread: {m.name})")
         m.add(
             center.create_negotiator(
                 cntxt=dict(center=True, ufun=side_ufun),
@@ -209,6 +209,7 @@ def main(
                 id=f"s{i}",
             )
         )
+        m.negotiators[-1].id = m.negotiators[-1].name = f"s{i}"
         m.add(
             edge.create_negotiator(
                 cntxt=dict(center=False, ufun=edge_ufun),
@@ -216,6 +217,7 @@ def main(
                 id=f"e{i}",
             )
         )
+        m.negotiators[-1].id = m.negotiators[-1].name = f"e{i}"
         mechanisms.append(m)
     center.init()
     for edge in edges:
@@ -224,16 +226,20 @@ def main(
         print("Dry run: negotiations will not  be executed")
 
     SAOMechanism.runall(mechanisms, method=method, keep_order=keep_order)  # type: ignore
-    base = output / unique_name("session", sep=".")
-    base.mkdir(parents=True, exist_ok=True)
+    if not name:
+        name = unique_name("session", sep=".")
+    base = output / name
+    (base / "log").mkdir(parents=True, exist_ok=True)
+    (base / "plots").mkdir(parents=True, exist_ok=True)
     for i, (e, m, u) in enumerate(zip(edges, mechanisms, center_ufun.ufuns)):
         print(
-            f"Mechanism {m.name} ({m.id}) between ({m.negotiator_ids}) ended in {m.current_step} ({m.relative_time:4.3}) with {m.agreement}: "
+            f"Mechanism {m.name} between ({m.negotiator_ids}) ended in {m.current_step} ({m.relative_time:4.3}) with {m.agreement}: "
             f"Edge Utility = {e.ufun(m.agreement) if e.ufun else 'unknown'}, "
             f"Side Utility = {u(m.agreement) if u else 'unknown'}"
         )
         df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
-        df.to_csv(base / f"neg{i}-{m.id}.csv", index_label="index")
+        df.to_csv(base / "log" / f"neg{i}-{m.id}.csv", index_label="index")
+        m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
     print(f"Center Utility: {center_ufun(tuple(_.agreement for _ in mechanisms))}")
 
 
