@@ -1,5 +1,6 @@
 from random import choice, random
 from typing import Any
+from anl_agents.anl2024 import Shochan, AgentRenting2024
 import pandas as pd
 from rich import print
 from pathlib import Path
@@ -17,7 +18,6 @@ from negmas import (
 )
 from negmas.outcomes import Outcome
 from negmas.sao.negotiators import AspirationNegotiator
-from anl_agents import get_agents
 
 TRACE_COLS = (
     "time",
@@ -105,6 +105,26 @@ class Boulware2025(ANL2025Negotiator):
         super().__init__(**kwargs)
 
 
+class AgentRenting2025(ANL2025Negotiator):
+    """
+    You can participate by an agent that runs any SAO negotiator independently for each thread.
+    """
+
+    def __init__(self, **kwargs):
+        kwargs["default_negotiator_type"] = AgentRenting2024
+        super().__init__(**kwargs)
+
+
+class Shochan2025(ANL2025Negotiator):
+    """
+    You can participate by an agent that runs any SAO negotiator independently for each thread.
+    """
+
+    def __init__(self, **kwargs):
+        kwargs["default_negotiator_type"] = Shochan
+        super().__init__(**kwargs)
+
+
 P_END = 0.03
 P_REJECT = 0.999
 
@@ -134,7 +154,7 @@ class RandomNegotiator(ANL2025Negotiator):
 
 
 def main(
-    nedges: int = 3,
+    nedges: int = 10,
     nissues: int = 3,
     nvalues: int = 7,
     nsteps: int = 100,
@@ -176,21 +196,12 @@ def main(
     print(f"Adding center of type {type_name(center)}")
     agents = [RandomNegotiator] if use_random else []  # type: ignore
     if use_anl2024:
-        agents += [
-            lambda ufun, id: ANL2025Negotiator(
-                ufun=ufun,
-                id=id,
-                default_negotiator_type=_,  # type: ignore
-                default_negotiator_params=dict(
-                    private_info=dict(opponent_ufun=center_ufun)
-                ),
-            )
-            for _ in get_agents(2024, finalists_only=True, as_class=True)
-        ]
+        agents += [Shochan2025, AgentRenting2025]
     if use_boulware:
         agents.append(Boulware2025)  # type: ignore
     mechanisms: list[SAOMechanism] = []
     edges: list[ANL2025Negotiator] = []
+    print(f"Will use the following agents for edges\n{[_.__name__ for _ in agents]}")
     for i, (edge_ufun, side_ufun) in enumerate(zip(edge_ufuns, center_ufun.ufuns)):
         edge = choice(agents)(ufun=edge_ufun, id=f"edge{i}")
         edges.append(edge)
@@ -207,6 +218,7 @@ def main(
                 cntxt=dict(center=True, ufun=side_ufun),
                 ufun=side_ufun,
                 id=f"s{i}",
+                private_info=dict(opponent_ufun=edge_ufun),
             )
         )
         m.negotiators[-1].id = m.negotiators[-1].name = f"s{i}"
@@ -215,6 +227,7 @@ def main(
                 cntxt=dict(center=False, ufun=edge_ufun),
                 ufun=edge_ufun,
                 id=f"e{i}",
+                private_info=dict(opponent_ufun=side_ufun),
             )
         )
         m.negotiators[-1].id = m.negotiators[-1].name = f"e{i}"
@@ -238,7 +251,7 @@ def main(
             f"Side Utility = {u(m.agreement) if u else 'unknown'}"
         )
         df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
-        df.to_csv(base / "log" / f"neg{i}-{m.id}.csv", index_label="index")
+        df.to_csv(base / "log" / f"{m.id}.csv", index_label="index")
         m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
     print(f"Center Utility: {center_ufun(tuple(_.agreement for _ in mechanisms))}")
 
