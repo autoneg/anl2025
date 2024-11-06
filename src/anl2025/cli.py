@@ -8,13 +8,6 @@ from .runner import run_session
 
 
 def main(
-    nedges: Annotated[
-        int,
-        typer.Option(
-            help="Number of Edges (the M side of the 1-M negotiation session)",
-            rich_help_panel="Protocol",
-        ),
-    ] = 10,
     nissues: Annotated[
         int,
         typer.Option(
@@ -28,13 +21,10 @@ def main(
             rich_help_panel="Outcome Space",
         ),
     ] = 7,
-    nsteps: Annotated[
-        int,
-        typer.Option(
-            help="Number of negotiation steps (see `atomic` for the exact meaning of this).",
-            rich_help_panel="Protocol",
-        ),
-    ] = 100,
+    center: Annotated[
+        str,
+        typer.Option(help="The type of the center agent", rich_help_panel="Center"),
+    ] = "Boulware2025",
     center_reserved_value: Annotated[
         float,
         typer.Option(
@@ -42,6 +32,28 @@ def main(
             rich_help_panel="Center",
         ),
     ] = 0.0,
+    nedges: Annotated[
+        int,
+        typer.Option(
+            help=(
+                "Number of Edges (the M side of the 1-M negotiation session). "
+                "If you pass this as 0, you can control the edges one by one using --edge"
+            ),
+            rich_help_panel="Protocol",
+        ),
+    ] = 10,
+    edge: Annotated[
+        list[str],
+        typer.Option(
+            help="Types to use for the edges. If nedges is 0, this will define all the edges in order (no randomization)",
+            rich_help_panel="Edges",
+        ),
+    ] = [
+        "Boulware2025",
+        "RandomNegotiator",
+        "Shochan2025",
+        "AgentRenting2025",
+    ],
     edge_reserved_value_min: Annotated[
         float,
         typer.Option(
@@ -56,29 +68,13 @@ def main(
             rich_help_panel="Edges",
         ),
     ] = 0.4,
-    output: Annotated[
-        Path,
+    nsteps: Annotated[
+        int,
         typer.Option(
-            help="A directory to store the negotiation logs and plots",
-            rich_help_panel="Output",
+            help="Number of negotiation steps (see `atomic` for the exact meaning of this).",
+            rich_help_panel="Protocol",
         ),
-    ] = Path.home() / "negmas" / "anl2025" / "session",
-    center_type: Annotated[
-        str,
-        typer.Option(help="The type of the center agent", rich_help_panel="Center"),
-    ] = "Boulware2025",
-    edge_types: Annotated[
-        list[str],
-        typer.Option(
-            help="Types to use for the edges. If nedges is 0, this will define all the edges in order (no randomization)",
-            rich_help_panel="Edges",
-        ),
-    ] = [
-        "Boulware2025",
-        "RandomNegotiator",
-        "Shochan2025",
-        "AgentRenting2025",
-    ],
+    ] = 100,
     keep_order: Annotated[
         bool,
         typer.Option(
@@ -112,10 +108,13 @@ def main(
             rich_help_panel="Output and Logs",
         ),
     ] = False,
-    verbose: Annotated[
-        bool,
-        typer.Option(help="Verbosity", rich_help_panel="Output and Logs"),
-    ] = False,
+    output: Annotated[
+        Path,
+        typer.Option(
+            help="A directory to store the negotiation logs and plots",
+            rich_help_panel="Output",
+        ),
+    ] = Path.home() / "negmas" / "anl2025" / "session",
     name: Annotated[
         str,
         typer.Option(
@@ -123,14 +122,18 @@ def main(
             rich_help_panel="Output and Logs",
         ),
     ] = "",
+    verbose: Annotated[
+        bool,
+        typer.Option(help="Verbosity", rich_help_panel="Output and Logs"),
+    ] = False,
 ):
     results = run_session(
-        center_type=center_type,
+        center_type=center,
         center_reserved_value=center_reserved_value,
         nedges=nedges,
         edge_reserved_value_min=edge_reserved_value_min,
         edge_reserved_value_max=edge_reserved_value_max,
-        edge_types=edge_types,  # type: ignore
+        edge_types=edge,  # type: ignore
         nissues=nissues,
         nvalues=nvalues,
         nsteps=nsteps,
