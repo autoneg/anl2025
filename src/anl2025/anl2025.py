@@ -1,5 +1,6 @@
+from abc import ABC, abstractmethod
 from random import choice, random
-from typing import Any
+from typing import Annotated
 from anl_agents.anl2024 import Shochan, AgentRenting2024
 import pandas as pd
 from rich import print
@@ -10,7 +11,7 @@ from negmas.preferences import BaseUtilityFunction
 from negmas.preferences.generators import generate_multi_issue_ufuns
 from negmas.negotiators import ControlledNegotiator
 from negmas.preferences import UtilityFunction
-from negmas.sao.controllers import ControlledSAONegotiator, SAOController, SAOState
+from negmas.sao.controllers import ABC, SAOController, SAOState, abstractmethod
 from negmas import (
     DiscreteCartesianOutcomeSpace,
     ResponseType,
@@ -30,31 +31,54 @@ TRACE_COLS = (
 )
 
 
-class CenterUFun(UtilityFunction):
+class CenterUFun(UtilityFunction, ABC):
     """
     Base class of center utility functions.
 
     It simply received a tuple of negotiation results and returns a float
     """
 
-    def eval(self, offer: tuple[Outcome | None] | None) -> float: ...
+    @abstractmethod
+    def eval(self, offer: tuple[Outcome | None] | None) -> float:
+        """
+        Evaluates the utility of a given set of offers.
+
+        Remarks:
+            - Order matters: The order of outcomes in the offer is stable over all calls.
+            - A missing offer is represented by `None`
+        """
 
 
-class MaxCenterUFun(CenterUFun):
+class CenterUFunWithEdgeUFuns(CenterUFun):
     """
-    The max center ufun.
+    A center ufun with a sub-ufun defined for each thread.
 
-    The utility of the center is the maximum of the utilities it got in each negotiation (called side utilities)
+    The utility of the center is a function of the ufuns of the edges.
     """
 
     def __init__(self, *args, ufuns: tuple[BaseUtilityFunction, ...], **kwargs):
         super().__init__(*args, **kwargs)
         self.ufuns = ufuns
 
+    @abstractmethod
+    def combine(self, values: tuple[float, ...]) -> float:
+        """Combines the utilities of all negotiation  threads into a single value"""
+
     def eval(self, offer: tuple[Outcome | None] | None) -> float:
         if not offer:
             return self.reserved_value
-        return max(float(u(_)) for u, _ in zip(self.ufuns, offer))
+        return self.combine(tuple(float(u(_)) for u, _ in zip(self.ufuns, offer)))
+
+
+class MaxCenterUFun(CenterUFunWithEdgeUFuns):
+    """
+    The max center ufun.
+
+    The utility of the center is the maximum of the utilities it got in each negotiation (called side utilities)
+    """
+
+    def combine(self, values: tuple[float, ...]) -> float:
+        return max(values)
 
 
 class ANL2025Negotiator(SAOController):
@@ -64,22 +88,9 @@ class ANL2025Negotiator(SAOController):
     See the next two examples of how to implement it.
     """
 
-    def __init__(
-        self,
-        ufun: CenterUFun | BaseUtilityFunction,
-        default_negotiator_type=ControlledSAONegotiator,
-        default_negotiator_params: dict[str, Any] | None = None,
-        *args,
-        **kwargs,
-    ):
-        super().__init__(
-            default_negotiator_type=default_negotiator_type,
-            default_negotiator_params=default_negotiator_params,
-            ufun=ufun,
-            *args,
-            **kwargs,
-        )
-        self.__ufun = ufun
+    def __init__(self, *args, n_edges: int = 0, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._n_edges = n_edges
 
     def init(self):
         """Called after all mechanisms are created to initialize"""
@@ -125,17 +136,23 @@ class Shochan2025(ANL2025Negotiator):
         super().__init__(**kwargs)
 
 
-P_END = 0.03
-P_REJECT = 0.999
-
-
 class RandomNegotiator(ANL2025Negotiator):
     """
     The most general way to implement an agent is to implement propose and respond.
     """
 
-    def propose(self, negotiator_id: str, state: SAOState) -> Outcome | None:
-        """Proposes to the given negotiator"""
+    p_end = 0.03
+    p_reject = 0.999
+
+    def propose(
+        self, negotiator_id: str, state: SAOState, dest: str | None = None
+    ) -> Outcome | None:
+        """
+        Proposes to the given partner (dest) using the side negotiator (negotiator_id).
+
+        Remarks:
+            - the mapping from negotiator_id to source is stable within a negotiation.
+        """
         nmi = self.negotiators[negotiator_id].negotiator.nmi
         os: DiscreteCartesianOutcomeSpace = nmi.outcome_space
         return list(os.sample(1))[0]
@@ -143,34 +160,120 @@ class RandomNegotiator(ANL2025Negotiator):
     def respond(
         self, negotiator_id: str, state: SAOState, source: str | None = None
     ) -> ResponseType:
-        """Responds to the given negotiator"""
+        """
+        Responds to the given partner (source) using the side negotiator (negotiator_id).
 
-        if random() < P_END:
+        Remarks:
+            - negotiator_id is the ID of the side negotiator representing this agent.
+            - source: is the ID of the partner.
+            - the mapping from negotiator_id to source is stable within a negotiation.
+
+        """
+
+        if random() < self.p_end:
             return ResponseType.END_NEGOTIATION
 
-        if random() < P_REJECT:
+        if random() < self.p_reject:
             return ResponseType.REJECT_OFFER
         return ResponseType.ACCEPT_OFFER
 
 
 def main(
-    nedges: int = 10,
-    nissues: int = 3,
-    nvalues: int = 7,
-    nsteps: int = 100,
-    center_reserved_value: float = 0.0,
-    edge_reserved_value_min: float = 0.1,
-    edge_reserved_value_max: float = 0.4,
-    method: str = "serial",
-    output: Path = Path.home() / "negmas" / "anl2025" / "session",
-    center_type: str = "Boulware2025",
-    use_random: bool = True,
-    use_anl2024: bool = False,
-    use_boulware: bool = True,
-    keep_order: bool = False,
-    atomic: bool = False,
-    dry: bool = False,
-    name: str = "",
+    nedges: Annotated[
+        int,
+        typer.Option(
+            help="Number of Edges (the M side of the 1-M negotiation session)"
+        ),
+    ] = 10,
+    nissues: Annotated[int, typer.Option(help="Number of negotiation issues")] = 3,
+    nvalues: Annotated[
+        int, typer.Option(help="Number of values per negotiation issue")
+    ] = 7,
+    nsteps: Annotated[
+        int,
+        typer.Option(
+            help="Number of negotiation steps (see `atomic` for the exact meaning of this)."
+        ),
+    ] = 100,
+    center_reserved_value: Annotated[
+        float,
+        typer.Option(
+            help="Number of Edges (the M side of the 1-M negotiation session)"
+        ),
+    ] = 0.0,
+    edge_reserved_value_min: Annotated[
+        float,
+        typer.Option(
+            help="Number of Edges (the M side of the 1-M negotiation session)"
+        ),
+    ] = 0.1,
+    edge_reserved_value_max: Annotated[
+        float,
+        typer.Option(
+            help="Number of Edges (the M side of the 1-M negotiation session)"
+        ),
+    ] = 0.4,
+    method: Annotated[
+        str,
+        typer.Option(
+            help="The concurrency method for running each thread WITHIN a negotiation step. The only supported option is `serial`"
+        ),
+    ] = "serial",
+    output: Annotated[
+        Path,
+        typer.Option(help="A directory to store the negotiation logs and plots"),
+    ] = Path.home() / "negmas" / "anl2025" / "session",
+    center_type: Annotated[
+        str,
+        typer.Option(help="The type of the center agent"),
+    ] = "Boulware2025",
+    use_random: Annotated[
+        bool,
+        typer.Option(help="Allow the RandomNegotiator in the edges."),
+    ] = True,
+    use_anl2024: Annotated[
+        bool,
+        typer.Option(
+            help="Allow ANL2024 negotiators in the edges (will use Shochan2025 and AgentRenting2025)"
+        ),
+    ] = False,
+    use_boulware: Annotated[
+        bool,
+        typer.Option(help="Allow the Boulware2025 agent in the edges"),
+    ] = True,
+    keep_order: Annotated[
+        bool,
+        typer.Option(
+            help="If given, the mechanisms will be advanced in order in every step."
+        ),
+    ] = True,
+    atomic: Annotated[
+        bool,
+        typer.Option(
+            help=(
+                "If given, each step of a mechanism represents a single offer "
+                "(from a center or an edge but not both). This may make the logs"
+                " wrong though. If --no-atomic (default), a single step corresponds "
+                "to one offer form the center and from an edge"
+            )
+        ),
+    ] = False,
+    share_ufuns: Annotated[
+        bool | None,
+        typer.Option(
+            help="Whether or not to share partner ufun up to reserved value. If any ANL2024 agent is used as center or edge, this MUST be True (default)"
+        ),
+    ] = True,
+    dry: Annotated[
+        bool,
+        typer.Option(help="Dry-run. Does not really run anything."),
+    ] = False,
+    name: Annotated[
+        str,
+        typer.Option(
+            help="The name of this session (a random name will be created if not given)"
+        ),
+    ] = "",
 ):
     ufuns = [generate_multi_issue_ufuns(nissues, nvalues) for _ in range(nedges)]
     d = edge_reserved_value_max - edge_reserved_value_min
@@ -203,7 +306,7 @@ def main(
     edges: list[ANL2025Negotiator] = []
     print(f"Will use the following agents for edges\n{[_.__name__ for _ in agents]}")
     for i, (edge_ufun, side_ufun) in enumerate(zip(edge_ufuns, center_ufun.ufuns)):
-        edge = choice(agents)(ufun=edge_ufun, id=f"edge{i}")
+        edge = choice(agents)(ufun=edge_ufun, id=f"edge{i}", n_edges=nedges)
         edges.append(edge)
         m = SAOMechanism(
             outcome_space=edge_ufun.outcome_space,
@@ -218,7 +321,7 @@ def main(
                 cntxt=dict(center=True, ufun=side_ufun),
                 ufun=side_ufun,
                 id=f"s{i}",
-                private_info=dict(opponent_ufun=edge_ufun),
+                private_info=dict(opponent_ufun=edge_ufun) if share_ufuns else dict(),
             )
         )
         m.negotiators[-1].id = m.negotiators[-1].name = f"s{i}"
@@ -227,7 +330,7 @@ def main(
                 cntxt=dict(center=False, ufun=edge_ufun),
                 ufun=edge_ufun,
                 id=f"e{i}",
-                private_info=dict(opponent_ufun=side_ufun),
+                private_info=dict(opponent_ufun=side_ufun) if share_ufuns else dict(),
             )
         )
         m.negotiators[-1].id = m.negotiators[-1].name = f"e{i}"
