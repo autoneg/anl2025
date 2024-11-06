@@ -9,8 +9,8 @@ from negmas.helpers.types import get_class
 from negmas.preferences.generators import generate_multi_issue_ufuns
 from negmas.negotiators import ControlledNegotiator
 from negmas.sao import SAOMechanism
-from .ufun import CenterUFun
-from .negotiator import (
+from anl2025.ufun import CenterUFun
+from anl2025.negotiator import (
     ANL2025Negotiator,
     Boulware2025,
     Shochan2025,
@@ -93,15 +93,21 @@ def run_session(
     edge_ufuns = [_[0] for _ in ufuns]
     for u in edge_ufuns:
         u.reserved_value = random() * d + edge_reserved_value_min
+    # side ufuns are utilities of the center on individual threads (may or may not be used, see next comment)
     side_ufuns = tuple(_[1] for _ in ufuns)
-    # os = make_os([make_issue(randint(3, 7)) for _ in range(nissues)])
-    # edge_ufuns = [
-    #     U.random(os, reserved_value=random() * d + edge_reserved_value_min)
-    #     for _ in range(nedges)
-    # ]  # tuple(U.random(os) for _ in range(nedges)),
-    center_ufun = get_ufun_class(center_ufun_type)(
-        ufuns=side_ufuns, reserved_value=center_reserved_value
-    )
+    # create center ufun using side-ufuns if possible and without them otherwise.
+    utype = get_ufun_class(center_ufun_type)
+    try:
+        center_ufun = utype(
+            ufuns=side_ufuns,
+            reserved_value=center_reserved_value,
+            outcome_spaces=tuple(u.outcome_space for u in side_ufuns),  # type: ignore
+        )
+    except TypeError:
+        center_ufun = utype(
+            reserved_value=center_reserved_value,
+            outcome_spaces=tuple(u.outcome_space for u in side_ufuns),  # type: ignore
+        )
 
     def type_name(x):
         if isinstance(x, Boulware2025):

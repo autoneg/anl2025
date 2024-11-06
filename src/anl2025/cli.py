@@ -4,7 +4,7 @@ import typer
 from rich import print
 
 from anl2025.ufun import CenterUFun
-from .runner import run_session
+from anl2025.runner import run_session
 
 
 def main(
@@ -25,6 +25,13 @@ def main(
         str,
         typer.Option(help="The type of the center agent", rich_help_panel="Center"),
     ] = "Boulware2025",
+    center_ufun: Annotated[
+        str,
+        typer.Option(
+            help="The type of the center ufun: Any ufun defined in anl2025.ufun is OK. Examples are MaxCenterUFun and MeanSMCenterUFUn",
+            rich_help_panel="Center",
+        ),
+    ] = "MaxCenterUFun",
     center_reserved_value: Annotated[
         float,
         typer.Option(
@@ -131,6 +138,7 @@ def main(
         center_type=center,
         center_reserved_value=center_reserved_value,
         nedges=nedges,
+        center_ufun_type=center_ufun,
         edge_reserved_value_min=edge_reserved_value_min,
         edge_reserved_value_max=edge_reserved_value_max,
         edge_types=edge,  # type: ignore
@@ -147,9 +155,9 @@ def main(
         method="serial",
     )
 
-    center_ufun = results.center.ufun
-    assert isinstance(center_ufun, CenterUFun)
-    side_ufuns = center_ufun.side_ufuns(len(results.edges))
+    cfun = results.center.ufun
+    assert isinstance(cfun, CenterUFun)
+    side_ufuns = cfun.side_ufuns(len(results.edges))
     for i, (e, m, u) in enumerate(
         zip(results.edges, results.mechanisms, side_ufuns, strict=True)  # type: ignore
     ):
