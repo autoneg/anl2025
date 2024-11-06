@@ -32,8 +32,8 @@ wheels = [
 
 [[package]]
 name = "anl"
-version = "0.1.10"
-source = { registry = "https://pypi.org/simple" }
+version = "0.1.11"
+source = { editable = "../anl" }
 dependencies = [
     { name = "click" },
     { name = "gif" },
@@ -46,23 +46,36 @@ dependencies = [
     { name = "streamlit" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/95/31/f81173fa805febd48bfc87ea01cad4cf33ed492bd4a9133eda5c0f49d23b/anl-0.1.10.tar.gz", hash = "sha256:effed0eb9427fd1360a1f6ec819a79b972beb7dec6b320554f101194445d529e", size = 40362 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/f5/60/0a6b70fde2ad6e33bafacdb8847dd558a4b5bcd26542bc3fa0087ee52eac/anl-0.1.10-py2.py3-none-any.whl", hash = "sha256:4a1e3536a64af2e3b333c6abb61bb346b04fc2bcdc45a47256fd990d68aba370", size = 34152 },
+
+[package.metadata]
+requires-dist = [
+    { name = "click" },
+    { name = "gif" },
+    { name = "hypothesis" },
+    { name = "joblib" },
+    { name = "jupyter" },
+    { name = "negmas", specifier = ">=0.10.23" },
+    { name = "prettytable" },
+    { name = "pytest" },
+    { name = "streamlit" },
+    { name = "tqdm" },
 ]
 
 [[package]]
 name = "anl-agents"
 version = "0.1.0"
-source = { registry = "https://pypi.org/simple" }
+source = { editable = "../anl-agents" }
 dependencies = [
     { name = "anl" },
     { name = "tensorflow" },
     { name = "torch" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/40/da/d6c3f273a7437304217f3255dd2e1f4ffa368c7a95c37161d61d192d6e90/anl_agents-0.1.0.tar.gz", hash = "sha256:bd33eea929a1b34052e408fc67d35016dbea5680f2a30cec886a5727793db23b", size = 6625365 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/28/a1/feadbb398af9866dd48e97714a85778cc7a2a136439c994af913d7f330e7/anl_agents-0.1.0-py3-none-any.whl", hash = "sha256:82bab254b7c1836de7219b39bbf65e553cf7edd91065ed03d8fcaf7c4f433b6e", size = 6544855 },
+
+[package.metadata]
+requires-dist = [
+    { name = "anl" },
+    { name = "tensorflow" },
+    { name = "torch" },
 ]
 
 [[package]]
@@ -78,9 +91,9 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "anl", specifier = ">=0.1.10" },
-    { name = "anl-agents", specifier = ">=0.1.0" },
-    { name = "negmas", specifier = ">=0.10.23" },
+    { name = "anl", editable = "../anl" },
+    { name = "anl-agents", editable = "../anl-agents" },
+    { name = "negmas", editable = "../negmas" },
     { name = "typer", specifier = ">=0.12.5" },
 ]
 
@@ -1528,7 +1541,7 @@ wheels = [
 [[package]]
 name = "negmas"
 version = "0.10.23"
-source = { registry = "https://pypi.org/simple" }
+source = { editable = "../negmas" }
 dependencies = [
     { name = "attrs" },
     { name = "click" },
@@ -1559,9 +1572,44 @@ dependencies = [
     { name = "typing" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/76/24/4108f4281fbabc12c0c9316a19ee53dc95c4c2f38ab7533cc543b7580b9f/negmas-0.10.23.tar.gz", hash = "sha256:b30e409e33d651932898e585ea09d411bc65136fef290fc00820d82de7d1747e", size = 553083 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/b6/d4/2b557b51bbb8a5ba2a6daba4ae6e2b7fac5be0efad911a9a8f03186bc6fb/negmas-0.10.23-py2.py3-none-any.whl", hash = "sha256:12c9eec5e1cbef84886f26ab88bff08796e242af989f03def4506a0630066648", size = 600908 },
+
+[package.metadata]
+requires-dist = [
+    { name = "attrs" },
+    { name = "click", specifier = ">=6.0" },
+    { name = "click-config-file" },
+    { name = "cloudpickle" },
+    { name = "colorlog" },
+    { name = "dash", marker = "extra == 'visualization'" },
+    { name = "dash-bootstrap-components", marker = "extra == 'visualization'" },
+    { name = "dash-daq", marker = "extra == 'visualization'" },
+    { name = "dask", extras = ["complete"], marker = "extra == 'dask'" },
+    { name = "dill" },
+    { name = "flask", marker = "extra == 'visualization'" },
+    { name = "gif" },
+    { name = "hypothesis" },
+    { name = "inflect" },
+    { name = "matplotlib" },
+    { name = "networkx" },
+    { name = "numba", marker = "extra == 'numba'" },
+    { name = "numpy", specifier = ">=1.16" },
+    { name = "pandas", specifier = ">=0.24.1" },
+    { name = "progressbar2", specifier = ">=3.39" },
+    { name = "psutil" },
+    { name = "py4j" },
+    { name = "pyqt5", marker = "extra == 'gui'" },
+    { name = "pytest-runner", specifier = ">=4.4" },
+    { name = "pyyaml" },
+    { name = "rich" },
+    { name = "scikit-learn" },
+    { name = "scipy", specifier = ">=1.2" },
+    { name = "seaborn" },
+    { name = "setuptools", specifier = ">=40.8.0" },
+    { name = "stringcase" },
+    { name = "tabulate" },
+    { name = "typer" },
+    { name = "typing" },
+    { name = "typing-extensions", specifier = ">=3.7" },
 ]
 
 [[package]]

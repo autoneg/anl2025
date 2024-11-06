@@ -11,6 +11,14 @@ dependencies = [
     "anl-agents>=0.1.0",
 ]
 
+[tool.uv.sources]
+negmas = { path = "../negmas" , editable = true }
+anl = { path = "../anl" , editable = true }
+anl-agents = { path = "../anl-agents" , editable = true }
+
+[project.scripts]
+anl2025 = "anl2025.cli:main"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
