@@ -142,7 +142,7 @@ class MeanSMCenterUFun(SingleAgreementSideUFunMixin, CenterUFun):
         n_edges = len(offer)
         if n_edges < 2:
             return 0.1
-        vals = defaultdict(lambda: [0.1] * n_edges)
+        vals = defaultdict(lambda: [0.0] * n_edges)
         for e, outcome in enumerate(offer):
             if not outcome:
                 continue

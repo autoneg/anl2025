@@ -17,7 +17,7 @@ anl = { path = "../anl" , editable = true }
 anl-agents = { path = "../anl-agents" , editable = true }
 
 [project.scripts]
-anl2025 = "anl2025.cli:main"
+anl2025 = "anl2025.cli:app"
 
 [build-system]
 requires = ["hatchling"]

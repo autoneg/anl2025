@@ -7,6 +7,10 @@ from anl2025.ufun import CenterUFun
 from anl2025.runner import run_session
 
 
+app = typer.Typer()
+
+
+@app.command()
 def main(
     nissues: Annotated[
         int,
@@ -170,4 +174,4 @@ def main(
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    app()
