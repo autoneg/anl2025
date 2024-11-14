@@ -137,6 +137,11 @@ def main(
         bool,
         typer.Option(help="Verbosity", rich_help_panel="Output and Logs"),
     ] = False,
+    sequential: Annotated[
+        bool,
+        typer.Option(help="Whether the ordering is sequential", rich_help_panel="Protocol"),
+        ] = False,
+
 ):
     results = run_session(
         center_type=center,
@@ -157,6 +162,7 @@ def main(
         name=name,
         dry=dry,
         method="serial",
+        sequential = sequential,
     )
 
     cfun = results.center.ufun

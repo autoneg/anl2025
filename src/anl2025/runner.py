@@ -78,6 +78,7 @@ def run_session(
     keep_order: bool = False,
     share_ufuns: bool = False,
     atomic: bool = False,
+    sequential=False,
     # output and logging
     output: Path | None = Path.home() / "negmas" / "anl2025" / "session",
     name: str = "",
@@ -178,7 +179,9 @@ def run_session(
             agreements=[None] * len(edges),
         )
 
-    SAOMechanism.runall(mechanisms, method=method, keep_order=keep_order)  # type: ignore
+    if sequential:
+        ordering = [i for i in range(nedges) for _ in range(nsteps)]
+    SAOMechanism.runall(mechanisms, method=method, keep_order=keep_order, ordering=ordering)  # type: ignore
     if not name:
         name = unique_name("session", sep=".")
     if output:
