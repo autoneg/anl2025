@@ -156,7 +156,7 @@ def main(
         output=output,
         name=name,
         dry=dry,
-        method="serial",
+        method="ordered",
     )
 
     cfun = results.center.ufun

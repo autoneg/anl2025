@@ -82,7 +82,7 @@ def run_session(
     output: Path | None = Path.home() / "negmas" / "anl2025" / "session",
     name: str = "",
     dry: bool = True,
-    method="serial",
+    method="ordered",
     verbose: bool = False,
 ) -> SessionResults:
     sample_edges = nedges > 0
