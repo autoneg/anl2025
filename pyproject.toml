@@ -9,6 +9,7 @@ dependencies = [
     "typer>=0.12.5",
     "anl>=0.1.10",
     "anl-agents>=0.1.0",
+		"tensorflow>=2.18.0",
 ]
 
 [tool.uv.sources]

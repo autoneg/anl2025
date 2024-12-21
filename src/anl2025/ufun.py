@@ -1,14 +1,19 @@
 from abc import ABC, abstractmethod
 from collections import defaultdict
-from collections.abc import Sequence
-from itertools import chain
+from collections.abc import Sequence, Callable
+from typing import TypeVar
 from negmas.preferences import BaseUtilityFunction
 from negmas.preferences import UtilityFunction
-from negmas.sao.controllers import ABC, abstractmethod
-from negmas.outcomes import Outcome, OutcomeSpace, make_os
+from negmas.outcomes import (
+    CartesianOutcomeSpace,
+    EnumeratingOutcomeSpace,
+    Outcome,
+    OutcomeSpace,
+    make_os,
+    make_issue,
+)
 from negmas.warnings import warn
 import numpy as np
-
 
 TRACE_COLS = (
     "time",
@@ -29,6 +34,76 @@ __all__ = [
     "SingleAgreementSideUFunMixin",
 ]
 
+TUFun = TypeVar("TUFun", bound=UtilityFunction)
+UFunEvaluator = Callable[[tuple[Outcome | None, ...] | None], float]
+OutcomeEvaluator = Callable[[Outcome | None], float]
+
+
+def unflatten_outcome_space(
+    outcome_space: CartesianOutcomeSpace, nissues: tuple[int, ...] | list[int]
+) -> tuple[CartesianOutcomeSpace, ...]:
+    """Distributes the issues of an outcome-space into a tuple of outcome-spaces."""
+    nissues = list(nissues)
+    beg = [0] + nissues[:-1]
+    end = nissues
+    return tuple(
+        make_os(outcome_space.issues[i:j], name=f"OS{i}")
+        for i, j in zip(beg, end, strict=True)
+    )
+
+
+def convert_to_center_ufun(
+    ufun: UtilityFunction,
+    nissues: tuple[int],
+    side_evaluators: list[OutcomeEvaluator] | None = None,
+) -> "CenterUFun":
+    """Creates a center ufun from any standard ufun with ufuns side ufuns"""
+    assert ufun.outcome_space and isinstance(ufun.outcome_space, CartesianOutcomeSpace)
+    evaluator = ufun
+    if side_evaluators is not None:
+        return LambdaCenterUFunWithSides(
+            outcome_spaces=unflatten_outcome_space(ufun.outcome_space, nissues),
+            evaluator=evaluator,
+            side_evaluators=tuple(side_evaluators),
+        )
+    return LambdaCenterUFun(
+        outcome_spaces=unflatten_outcome_space(ufun.outcome_space, nissues),
+        evaluator=evaluator,
+    )
+
+
+def flatten_outcome_spaces(
+    outcome_spaces: tuple[OutcomeSpace, ...],
+    add_index_to_issue_names: bool = False,
+    add_os_to_issue_name: bool = False,
+) -> tuple[CartesianOutcomeSpace, tuple[int, ...]]:
+    """Generates a single outcome-space which is the Cartesian product of input outcome_spaces."""
+
+    def _name(i: int, os_name: str | None, issue_name: str | None) -> str:
+        x = issue_name if issue_name else ""
+        if add_os_to_issue_name and os_name:
+            x = f"{os_name}:{x}"
+        if add_index_to_issue_names:
+            x = f"{x}:{i}"
+        return x
+
+    values, names, nissues = [], [], []
+    for i, os in enumerate(outcome_spaces):
+        if isinstance(os, EnumeratingOutcomeSpace):
+            values.append(list(os.enumerate()))
+            names.append(_name(i, "", os.name))
+            nissues.append(1)
+        elif isinstance(os, CartesianOutcomeSpace):
+            for issue in os.issues:
+                values.append(issue.values)
+                names.append(_name(i, os.name, issue.name))
+            nissues.append(len(os.issues))
+        else:
+            raise TypeError(
+                f"Outcome space of type {type(os)} cannot be combined with other outcome-spaces"
+            )
+    return make_os([make_issue(v, n) for v, n in zip(values, names)]), tuple(nissues)
+
 
 class CenterUFun(UtilityFunction, ABC):
     """
@@ -37,14 +112,35 @@ class CenterUFun(UtilityFunction, ABC):
     It simply received a tuple of negotiation results and returns a float
     """
 
+    def flatten(
+        self,
+        add_index_to_issue_names: bool = False,
+        add_os_to_issue_name: bool = False,
+    ) -> "FlatCenterUFun":
+        os = flatten_outcome_spaces(
+            self._outcome_spaces, add_index_to_issue_names, add_os_to_issue_name
+        )
+        return FlatCenterUFun(
+            base_ufun=self, nissues=self.__nissues, outcome_space=os, **self.__kwargs
+        )
+
     def __init__(self, *args, outcome_spaces: tuple[OutcomeSpace, ...] = (), **kwargs):
         super().__init__(*args, **kwargs)
         self._outcome_spaces = outcome_spaces
+        self.__kwargs = dict(
+            reserved_value=self.reserved_value,
+            owner=self.owner,
+            invalid_value=self._invalid_value,
+            name=self.name,
+            id=self.id,
+        )
         try:
-            self.outcome_space = make_os(chain(_.issues for _ in outcome_spaces))  # type: ignore
+            self.outcome_space, self.__nissues = flatten_outcome_spaces(
+                outcome_spaces, add_index_to_issue_names=True, add_os_to_issue_name=True
+            )
         except Exception:
             warn("Failed to find the Cartesian product of input outcome spaces")
-            self.outcome_space = None
+            self.outcome_space, self.__nissues = None, tuple()
 
     @abstractmethod
     def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
@@ -59,6 +155,108 @@ class CenterUFun(UtilityFunction, ABC):
     @abstractmethod
     def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction, ...]:
         """Should return an independent ufun for each side negotiator of the center."""
+
+
+class LambdaCenterUFun(CenterUFun):
+    """
+    A center utility function that implements an arbitrary evaluator
+    """
+
+    def __init__(self, *args, evaluator: UFunEvaluator, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._eval = evaluator
+
+    def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
+        return self._eval(offer)
+
+    def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction, ...]:
+        raise ValueError("Cannot find side-ufuns for a Lambda Center UFun")
+
+
+class LambdaUtilityFunction(UtilityFunction):
+    """A utility function that implements an arbitrary mapping"""
+
+    def __init__(self, *args, evaluator: OutcomeEvaluator, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._evaluator = evaluator
+
+    def __call__(self, offer: Outcome | None) -> float:
+        return self._evaluator(offer)
+
+    def eval(self, offer: Outcome) -> float:
+        return self._evaluator(offer)
+
+
+class LambdaCenterUFunWithSides(CenterUFun):
+    """
+    A center utility function that implements an arbitrary evaluator
+    """
+
+    def __init__(
+        self,
+        *args,
+        evaluator: UFunEvaluator,
+        side_evaluators: OutcomeEvaluator | Sequence[OutcomeEvaluator] | None = None,
+        **kwargs,
+    ):
+        super().__init__(*args, **kwargs)
+        self._eval = evaluator
+        if not side_evaluators:
+            self._side_ufuns = None
+            return
+        if not isinstance(side_evaluators, Sequence):
+            evaluators = [side_evaluators] * len(self._outcome_spaces)
+        else:
+            evaluators = list(side_evaluators)
+        sides: list[UtilityFunction] = []
+        for e, o in zip(evaluators, self._outcome_spaces):
+            sides.append(LambdaUtilityFunction(outcome_space=o, evaluator=e))
+        self._side_ufuns = tuple(sides)
+
+    def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
+        return self._eval(offer)
+
+    def side_ufuns(self, n_edges: int) -> tuple[UtilityFunction, ...]:
+        if self._side_ufuns is None:
+            raise ValueError("Cannot find side ufuns")
+        return self._side_ufuns
+
+
+class FlatCenterUFun(UtilityFunction):
+    """
+    A flattened version of a center ufun.
+
+    A normal CenterUFun takes outcomes as a tuple of outcomes (one for each edge).
+    A flattened version of the same ufun takes input as just a single outcome containing
+    a concatenation of the outcomes in all edges.
+
+    Example:
+
+        ```python
+        x = CenterUFun(...)
+        y = x.flatten()
+
+        x(((1, 0.5), (3, true), (7,))) == y((1, 0.5, 3 , true, 7))
+        ```
+    """
+
+    def __init__(
+        self, *args, base_ufun: CenterUFun, nissues: tuple[int, ...], **kwargs
+    ):
+        super().__init__(*args, **kwargs)
+        self.__base = base_ufun
+        self.__nissues = list(nissues)
+
+    def _unflatten(self, outcome: Outcome) -> tuple[Outcome, ...]:
+        beg = [0] + self.__nissues[:-1]
+        end = self.__nissues
+        outcomes = []
+        for i, j in zip(beg, end, strict=True):
+            outcomes.append(tuple(outcome[i:j]))
+        return tuple(outcomes)
+
+    def eval(self, offer: Outcome) -> float:
+        return self.__base.eval(self._unflatten(offer))
 
 
 class UtilityCombiningCenterUFun(CenterUFun):
