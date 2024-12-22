@@ -1,4 +1,5 @@
 from pathlib import Path
+import pandas as pd
 import anl2025
 from typing import Annotated
 from anl2025.tournament import Tournament
@@ -355,7 +356,9 @@ def random_tournament(
     )
     t.save(output)
     results = t.run(nreps, output, verbose, dry)
+    data = pd.DataFrame.from_records(results.scores)
     print(f"Got {len(results.scores)} scores")
+    print(data.groupby(["agent"])["utility"].describe())
     print("Scores:")
     print(dict(**results.final_scores))
 

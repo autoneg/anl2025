@@ -119,7 +119,14 @@ class Tournament:
         """Loads the tournament information"""
 
     def run(
-        self, n_repetitions: int, path: Path, verbose: bool = False, dry: bool = False
+        self,
+        n_repetitions: int,
+        path: Path,
+        verbose: bool = False,
+        dry: bool = False,
+        no_double_scores: bool = True,
+        non_comptitor_types: tuple[str | type[ANL2025Negotiator], ...] | None = None,
+        non_comptitor_params: tuple[dict[str, Any], ...] | None = None,
     ) -> TournamentResults:
         """Runs the tournament"""
 
@@ -131,24 +138,46 @@ class Tournament:
         def type_name(x):
             return get_full_type_name(x).replace("anl2025.negotiator.", "")
 
+        if non_comptitor_types:
+            non_comptitor_types = tuple(get_class(_) for _ in non_comptitor_types)
+            non_comptitor_params = (
+                non_comptitor_params
+                if non_comptitor_params
+                else tuple(dict() for _ in range(len(non_comptitor_types)))
+            )
+            non_competitors = [
+                (n, p)
+                for n, p in zip(non_comptitor_types, non_comptitor_params, strict=True)
+            ]
+        else:
+            non_competitors = None
+
         for i in range(n_repetitions):
+            competitors = [
+                (get_class(c), p)
+                for c, p in zip(self.competitors, self.competitor_params, strict=True)
+            ]
             for k, scenario in enumerate(self.scenarios):
                 nedges = len(scenario.edge_ufuns)
                 sname = scenario.name if scenario.name else f"s{k:03}"
-                players = [
-                    (get_class(c), p)
-                    for c, p in zip(
-                        self.competitors, self.competitor_params, strict=True
+                random.shuffle(competitors)
+                for j in range(len(competitors)):
+                    if len(competitors) >= nedges + 1:
+                        players = competitors[: nedges + 1]
+                    else:
+                        # add extra players at the end if not enough competitors are available
+                        players = competitors + list(
+                            random.choices(
+                                non_competitors if non_competitors else competitors,
+                                k=nedges + 1 - len(competitors),
+                            )
+                        )
+                    # ignore the randomly added edges if no-double-scores is set
+                    nedges_counted = (
+                        nedges
+                        if not no_double_scores
+                        else min(len(competitors) - 1, nedges)
                     )
-                ]
-                random.shuffle(players)
-                if len(players) >= nedges + 1:
-                    players = players[: nedges + 1]
-                else:
-                    players = players + list(
-                        random.choices(players, k=nedges + 1 - len(players))
-                    )
-                for j in range(len(players)):
                     output = path / "results" / sname / f"r{j:03}t{i:03}"
                     center, center_params = players[j]
                     edge_info = players[:j] + players[j + 1 :]
@@ -201,7 +230,7 @@ class Tournament:
                         )
                     )
                     final_scores[cname] += r.center_utility
-                    for e, (c, p) in enumerate(edge_info):
+                    for e, (c, p) in enumerate(edge_info[:nedges_counted]):
                         cname = (
                             type_name(c) if not p else f"{type_name(c)}_{hash(str(p))}"
                         )
@@ -218,7 +247,9 @@ class Tournament:
                             )
                         )
                         final_scores[cname] += r.edge_utilities[e]
-                    players = [players[-1]] + players[:-1]
+                    # This rotation guarantees that every competitor is
+                    # the center once per scenario per repetition
+                    competitors = [competitors[-1]] + competitors[:-1]
                     if verbose:
                         print(f"Center Utility: {r.center_utility}")
                         print(f"Edge Utilities: {r.edge_utilities}")
