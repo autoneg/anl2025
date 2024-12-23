@@ -1,3 +1,4 @@
+from rich.table import Table
 from pathlib import Path
 from negmas.outcomes.base_issue import unique_name
 from negmas.serialization import dump
@@ -13,10 +14,86 @@ from anl2025.runner import DEFAULT_METHOD, RunParams, run_session
 
 
 app = typer.Typer()
+tournament = typer.Typer()
+
+app.add_typer(
+    tournament, name="tournament", help="Creates, manages and runs tournaments"
+)
 
 
-@app.command()
-def run(
+def do_run(
+    t: Tournament, nreps: int, output: Path, verbose: bool, dry: bool, njobs: int
+):
+    results = t.run(nreps, output, verbose, dry, n_jobs=njobs if njobs >= 0 else None)
+    data = pd.DataFrame.from_records(results.scores)
+    data["role"] = data["index"].apply(lambda x: "center" if x == 0 else "edge")
+    data.to_csv(output / "scores.csv", index=False)
+    dump(results.final_scores, output / "final_scores.yaml")
+    print(f"Got {len(results.scores)} scores")
+    df = data.groupby(["agent", "role"])["utility"].describe().reset_index()
+    if len(df) > 0:
+        assert isinstance(df, pd.DataFrame)
+        print(df_to_table(df, "Score Summary", empty_repeated_values=("agent",)))
+    # Create a table for display
+    table = Table(title="Final Scores")
+    table.add_column("Rank")
+    table.add_column("Name", style="blue")
+    table.add_column("Score")
+
+    # Add rows to the table
+
+    scores = results.final_scores
+    sorted_scores = dict(sorted(scores.items(), key=lambda item: item[1], reverse=True))
+    for i, (name, score) in enumerate(sorted_scores.items()):
+        table.add_row(str(i + 1), name, f"{score:.3f}")
+
+    # Print the table using rich
+    print(table)
+
+
+def df_to_table(
+    df: pd.DataFrame,
+    title: str,
+    index: bool = False,
+    empty_repeated_values: tuple[str, ...] = tuple(),
+) -> Table:
+    """Convert a pandas.DataFrame obj into a rich.Table obj.
+    Args:
+        df (DataFrame): A Pandas DataFrame to be converted to a rich Table.
+        title: Title to show at the top
+        index: Show or or do not show an index column
+    Returns:
+        Table: A rich Table instance populated with the DataFrame values.
+    """
+    table = Table(title=title)
+    if index:
+        table.add_column("index")
+
+    # Add the columns
+    for column in df.columns:
+        table.add_column(str(column))
+
+    # Add the rows
+    previous_row = ["" for _ in range(len(df.columns))]
+    for ind, value_list in enumerate(df.values.tolist()):
+        row = [f"{x:.3f}" if isinstance(x, float) else str(x) for x in value_list]
+        if empty_repeated_values:
+            row = [
+                a
+                if (c not in empty_repeated_values) or (a != b and isinstance(a, str))
+                else ""
+                for (a, b, c) in zip(row, previous_row, df.columns)
+            ]
+        if index:
+            table.add_row(str(ind), *row)
+        else:
+            table.add_row(*row)
+        previous_row = row
+    return table
+
+
+@app.command(name="run", help="Runs a multi-deal negotiation session")
+def run_multideal(
     nissues: Annotated[
         int,
         typer.Option(
@@ -186,19 +263,22 @@ def run(
     print(f"Center Utility: {results.center_utility}")
 
 
-@app.command()
-def random_tournament(
+# @app.command()
+# def tournament(ctx: typer.Context):
+#     """
+#     Manage tournaments.
+#     """
+#     # This function is called when the "tournament" command is invoked
+#     # You can access the subcommand using ctx.invoked_subcommand
+#     pass  # Add any logic you want to execute before subcommands
+
+
+@tournament.command()
+def make(
     scenarios: Annotated[
         int,
         typer.Option(help="Number of Scenarios", rich_help_panel="Tournament Control"),
     ] = 3,
-    nreps: Annotated[
-        int,
-        typer.Option(
-            help="Number of random shuffling repetitions",
-            rich_help_panel="Tournament Control",
-        ),
-    ] = 2,
     competitor: Annotated[
         list[str],
         typer.Option(
@@ -302,13 +382,6 @@ def random_tournament(
             rich_help_panel="Protocol",
         ),
     ] = True,
-    dry: Annotated[
-        bool,
-        typer.Option(
-            help="Dry-run. Does not really run anything.",
-            rich_help_panel="Output and Logs",
-        ),
-    ] = False,
     output: Annotated[
         Path,
         typer.Option(
@@ -330,10 +403,24 @@ def random_tournament(
             rich_help_panel="Mechanism",
         ),
     ] = DEFAULT_METHOD,
+    dry: Annotated[
+        bool,
+        typer.Option(
+            help="Dry-run. Does not really run anything.",
+            rich_help_panel="Output and Logs",
+        ),
+    ] = False,
     verbose: Annotated[
         bool,
         typer.Option(help="Verbosity", rich_help_panel="Output and Logs"),
     ] = False,
+    nreps: Annotated[
+        int,
+        typer.Option(
+            help="Number of random shuffling repetitions",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = 2,
     njobs: Annotated[
         int,
         typer.Option(
@@ -353,8 +440,6 @@ def random_tournament(
         return x
 
     competitors = tuple(full_name(_) for _ in competitor)
-    if verbose:
-        print(f"Will run {scenarios*nedges*nreps} multi-deal negotiation sessions")
     t = Tournament.from_generated_scenarios(
         competitors=(competitors),
         run_params=RunParams(nsteps, keep_order, share_ufuns, atomic, method),
@@ -368,16 +453,56 @@ def random_tournament(
         edge_reserved_value_min=edge_reserved_value_min,
         edge_reserved_value_max=edge_reserved_value_max,
     )
-    t.save(output / "info.yaml")
-    results = t.run(nreps, output, verbose, dry, n_jobs=njobs if njobs >= 0 else None)
-    data = pd.DataFrame.from_records(results.scores)
-    data.to_csv(output / "scores.csv", index=False)
-    dump(results.final_scores, output / "final_scores.yaml")
-    print(f"Got {len(results.scores)} scores")
-    if verbose:
-        print(data.groupby(["agent", "index"])["utility"].describe())
-    print("Scores:")
-    print(dict(**results.final_scores))
+    path = output / "info.yaml"
+    t.save(path)
+    print(f"Tournament information is saved in {path}. Use `run` to run it")
+    do_run(t, nreps, output, verbose, dry, njobs)
+
+
+@tournament.command()
+def run(
+    path: Annotated[
+        Path,
+        typer.Argument(
+            help="Path to the saved yaml file with tournament info",
+            rich_help_panel="Input",
+        ),
+    ],
+    nreps: Annotated[
+        int,
+        typer.Option(
+            help="Number of random shuffling repetitions",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = 2,
+    output: Annotated[
+        Path,
+        typer.Option(
+            help="A directory to store the negotiation logs and plots",
+            rich_help_panel="Output",
+        ),
+    ] = Path.home() / "negmas" / "anl2025" / "tournament",
+    dry: Annotated[
+        bool,
+        typer.Option(
+            help="Dry-run. Does not really run anything.",
+            rich_help_panel="Output and Logs",
+        ),
+    ] = False,
+    verbose: Annotated[
+        bool,
+        typer.Option(help="Verbosity", rich_help_panel="Output and Logs"),
+    ] = False,
+    njobs: Annotated[
+        int,
+        typer.Option(
+            help="Parallelism. -1 for serial, 0 for maximum parallelism, int>0 for specific number of cores and float less than one for a fraction of cores available",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = -1,
+):
+    t = Tournament.load(path)
+    do_run(t, nreps, output, verbose, dry, njobs)
 
 
 if __name__ == "__main__":

@@ -201,6 +201,8 @@ class Tournament:
         non_comptitor_types: tuple[str | type[ANL2025Negotiator], ...] | None = None,
         non_comptitor_params: tuple[dict[str, Any], ...] | None = None,
         n_jobs: int | float | None = 0,
+        center_multiplier: float | None = None,
+        edge_multiplier: float = 1,
     ) -> TournamentResults:
         """Run the tournament
 
@@ -215,6 +217,10 @@ class Tournament:
             n_jobs: Number of parallel jobs to use.
                     None (and negative numbers) mean serially, 0 means use all cores, fractions mean fraction of available
                     cores, integers mean exact number of cores
+            center_multiplier: A number to multiply center utilities with before calculating the score. Can be used
+                               to give more or less value to being a center. If None, it will be equal to the number of edges.
+            edge_multiplier: A number to multiply edge utilities with before calculating the score. Can be used
+                               to give more or less value to being an edge
 
         Returns:
             `TournamentResults` with all scores and final-scores
@@ -233,6 +239,7 @@ class Tournament:
         assert isinstance(self.competitor_params, tuple)
         final_scores = defaultdict(float)
         scores = []
+        center_multiplier_val = center_multiplier
 
         def type_name(x):
             return get_full_type_name(x).replace("anl2025.negotiator.", "")
@@ -283,7 +290,11 @@ class Tournament:
                     else:
                         output = None
                     center, center_params = players[j]
-                    edge_info = players[:j] + players[j + 1 :]
+                    edge_info = [_ for _ in players[:j] + players[j + 1 :]]
+                    # not sure if the following shuffle is useful!
+                    # It tries to randomize the order of the edges to avoid
+                    # having a systematic bias but we randomize competitors anyway.
+                    random.shuffle(edge_info)
                     edges = [_[0] for _ in edge_info]
                     edge_params = [_[1] if _[1] else dict() for _ in edge_info]
                     assigned = assign_scenario(
@@ -319,6 +330,11 @@ class Tournament:
             print(f"Will run {len(jobs)} negotiations")
 
         def process_info(job: JobInfo, info: SessionInfo):
+            center_multiplier = (
+                center_multiplier_val
+                if center_multiplier_val is not None
+                else len(job.edge_info)
+            )
             r = info.results
             results.append(info)
             center, center_params = job.center, job.center_params
@@ -331,7 +347,7 @@ class Tournament:
             scores.append(
                 dict(
                     agent=cname,
-                    utility=r.center_utility,
+                    utility=r.center_utility * center_multiplier,
                     partner_average_utility=mean_edge_utility,
                     scenario=job.sname,
                     repetition=job.i,
@@ -346,7 +362,7 @@ class Tournament:
                 scores.append(
                     dict(
                         agent=cname,
-                        utility=r.edge_utilities[e],
+                        utility=r.edge_utilities[e] * edge_multiplier,
                         partner_average_utility=r.center_utility,
                         scenario=job.sname,
                         repetition=job.i,
@@ -381,10 +397,7 @@ class Tournament:
                         print(f"Job failed with exception: {e}")
 
         return TournamentResults(
-            final_scores={
-                k: v / (len(self.scenarios) * n_repetitions)
-                for k, v in final_scores.items()
-            },
+            final_scores={k: v for k, v in final_scores.items()},
             scores=scores,
             session_results=results,
         )
