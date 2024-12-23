@@ -1,4 +1,6 @@
 from pathlib import Path
+from negmas.outcomes.base_issue import unique_name
+from negmas.serialization import dump
 import pandas as pd
 import anl2025
 from typing import Annotated
@@ -313,14 +315,14 @@ def random_tournament(
             help="A directory to store the negotiation logs and plots",
             rich_help_panel="Output",
         ),
-    ] = Path.home() / "negmas" / "anl2025" / "session",
+    ] = Path.home() / "negmas" / "anl2025" / "tournament",
     name: Annotated[
         str,
         typer.Option(
             help="The name of this session (a random name will be created if not given)",
             rich_help_panel="Output and Logs",
         ),
-    ] = "",
+    ] = "auto",
     method: Annotated[
         str,
         typer.Option(
@@ -332,7 +334,19 @@ def random_tournament(
         bool,
         typer.Option(help="Verbosity", rich_help_panel="Output and Logs"),
     ] = False,
+    njobs: Annotated[
+        int,
+        typer.Option(
+            help="Parallelism. -1 for serial, 0 for maximum parallelism, int>0 for specific number of cores and float less than one for a fraction of cores available",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = -1,
 ):
+    if name == "auto":
+        name = unique_name("t", sep="")
+    if name:
+        output = output / name
+
     def full_name(x: str) -> str:
         if x in anl2025.negotiator.__all__:
             return f"anl2025.negotiator.{x}"
@@ -354,11 +368,14 @@ def random_tournament(
         edge_reserved_value_min=edge_reserved_value_min,
         edge_reserved_value_max=edge_reserved_value_max,
     )
-    t.save(output)
-    results = t.run(nreps, output, verbose, dry)
+    t.save(output / "info.yaml")
+    results = t.run(nreps, output, verbose, dry, n_jobs=njobs if njobs >= 0 else None)
     data = pd.DataFrame.from_records(results.scores)
+    data.to_csv(output / "scores.csv", index=False)
+    dump(results.final_scores, output / "final_scores.yaml")
     print(f"Got {len(results.scores)} scores")
-    print(data.groupby(["agent"])["utility"].describe())
+    if verbose:
+        print(data.groupby(["agent", "index"])["utility"].describe())
     print("Scores:")
     print(dict(**results.final_scores))
 

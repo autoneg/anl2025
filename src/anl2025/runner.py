@@ -1,10 +1,13 @@
 from random import choice, random
 from typing import Any
 from negmas.preferences import UtilityFunction
+from negmas.preferences.preferences import deserialize
+from numpy import load
 import pandas as pd
 from rich import print
 from attr import define
 from pathlib import Path
+from negmas.serialization import dump, serialize
 from negmas.outcomes import Outcome
 from negmas.helpers.strings import unique_name
 from negmas.helpers.types import get_class
@@ -79,6 +82,22 @@ class MultidealScenario:
     edge_ufuns: tuple[UtilityFunction, ...]
     side_ufuns: tuple[UtilityFunction, ...] | None = None
     name: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        """Converts the scenario to a dictionary"""
+        return dict(
+            name=self.name,
+            center_ufun=serialize(self.center_ufun),
+            edge_ufuns=serialize(self.edge_ufuns),
+            side_ufuns=serialize(self.side_ufuns),
+        )
+
+    def save(self, path: Path):
+        dump(self.to_dict(), path)
+
+    @classmethod
+    def load(cls, path: Path):
+        return deserialize(load(path))
 
 
 @define
@@ -256,7 +275,7 @@ def make_multideal_scenario(
     # edge ufuns
     edge_reserved_value_min: float = 0.1,
     edge_reserved_value_max: float = 0.4,
-):
+) -> MultidealScenario:
     ufuns = [generate_multi_issue_ufuns(nissues, nvalues) for _ in range(nedges)]
     edge_ufuns = [_[0] for _ in ufuns]
     for u in edge_ufuns:
