@@ -1,5 +1,6 @@
 from random import choice, random
 from typing import Any
+from anl2025.common import TYPE_IDENTIFIER
 from negmas.preferences import UtilityFunction
 from negmas.preferences.preferences import deserialize
 from numpy import load
@@ -83,21 +84,27 @@ class MultidealScenario:
     side_ufuns: tuple[UtilityFunction, ...] | None = None
     name: str = ""
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
         """Converts the scenario to a dictionary"""
         return dict(
             name=self.name,
-            center_ufun=serialize(self.center_ufun),
-            edge_ufuns=serialize(self.edge_ufuns),
-            side_ufuns=serialize(self.side_ufuns),
+            center_ufun=serialize(
+                self.center_ufun, python_class_identifier=python_class_identifier
+            ),
+            edge_ufuns=serialize(
+                self.edge_ufuns, python_class_identifier=python_class_identifier
+            ),
+            side_ufuns=serialize(
+                self.side_ufuns, python_class_identifier=python_class_identifier
+            ),
         )
 
-    def save(self, path: Path):
-        dump(self.to_dict(), path)
+    def save(self, path: Path, python_class_identifier=TYPE_IDENTIFIER):
+        dump(self.to_dict(python_class_identifier=python_class_identifier), path)
 
     @classmethod
-    def load(cls, path: Path):
-        return deserialize(load(path))
+    def load(cls, path: Path, python_class_identifier=TYPE_IDENTIFIER):
+        return deserialize(load(path), python_class_identifier=python_class_identifier)
 
 
 @define

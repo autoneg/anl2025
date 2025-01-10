@@ -35,11 +35,11 @@ class ANL2025Negotiator(SAOController):
         # We can pass anything in the cntxt. Currently, we pass the side ufun
         # Examples:
         # 1. Access the CenterUFun associated with the agent. For edge agents, this will be the single ufun it uses.
-        _ = self.ufun
+        # my_ufun = self.ufun
         # 2. Access the side ufun associated with each thread. For edge agents this will be the single ufun it uses.
-        _ = [info.context["ufun"] for neg_id, info in self.negotiators.items()]
+        # my_side_ufuns = [info.context["ufun"] for neg_id, info in self.negotiators.items()]
         # 2. Access the side negotiators connected to different negotiation threads
-        _ = [info.negotiator for neg_id, info in self.negotiators.items()]
+        # my_side_negotiators = [info.negotiator for neg_id, info in self.negotiators.items()]
 
 
 class Boulware2025(ANL2025Negotiator):
@@ -83,8 +83,7 @@ class RandomNegotiator(ANL2025Negotiator):
     def propose(
         self, negotiator_id: str, state: SAOState, dest: str | None = None
     ) -> Outcome | None:
-        """
-        Proposes to the given partner (dest) using the side negotiator (negotiator_id).
+        """Proposes to the given partner (dest) using the side negotiator (negotiator_id).
 
         Remarks:
             - the mapping from negotiator_id to source is stable within a negotiation.
@@ -96,8 +95,7 @@ class RandomNegotiator(ANL2025Negotiator):
     def respond(
         self, negotiator_id: str, state: SAOState, source: str | None = None
     ) -> ResponseType:
-        """
-        Responds to the given partner (source) using the side negotiator (negotiator_id).
+        """Responds to the given partner (source) using the side negotiator (negotiator_id).
 
         Remarks:
             - negotiator_id is the ID of the side negotiator representing this agent.

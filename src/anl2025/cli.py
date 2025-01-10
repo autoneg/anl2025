@@ -1,3 +1,4 @@
+from anl2025.common import TYPE_IDENTIFIER
 from rich.table import Table
 from pathlib import Path
 from negmas.outcomes.base_issue import unique_name
@@ -311,6 +312,13 @@ def make(
             rich_help_panel="Center",
         ),
     ] = "MaxCenterUFun",
+    python_class_identifier: Annotated[
+        str,
+        typer.Option(
+            help="The identifier identifying types in saved files.",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = TYPE_IDENTIFIER,
     center_reserved_value_min: Annotated[
         float,
         typer.Option(
@@ -389,6 +397,13 @@ def make(
             rich_help_panel="Output",
         ),
     ] = Path.home() / "negmas" / "anl2025" / "tournament",
+    separate_scenarios: Annotated[
+        bool,
+        typer.Option(
+            help="Save scenarios in separate folders in the output directory",
+            rich_help_panel="Output",
+        ),
+    ] = True,
     name: Annotated[
         str,
         typer.Option(
@@ -454,7 +469,11 @@ def make(
         edge_reserved_value_max=edge_reserved_value_max,
     )
     path = output / "info.yaml"
-    t.save(path)
+    t.save(
+        path,
+        separate_scenarios=separate_scenarios,
+        python_class_identifier=python_class_identifier,
+    )
     print(f"Tournament information is saved in {path}. Use `run` to run it")
     do_run(t, nreps, output, verbose, dry, njobs)
 
@@ -500,8 +519,15 @@ def run(
             rich_help_panel="Tournament Control",
         ),
     ] = -1,
+    python_class_identifier: Annotated[
+        str,
+        typer.Option(
+            help="The identifier identifying types in saved files.",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = TYPE_IDENTIFIER,
 ):
-    t = Tournament.load(path)
+    t = Tournament.load(path, python_class_identifier=python_class_identifier)
     do_run(t, nreps, output, verbose, dry, njobs)
 
 

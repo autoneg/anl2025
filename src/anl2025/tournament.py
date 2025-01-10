@@ -11,9 +11,9 @@ from pathlib import Path
 from typing import Self
 import random
 from anl2025.ufun import CenterUFun
-from negmas.helpers.types import get_class
-from negmas.serialization import serialize
-from negmas.helpers.inout import dump, load
+from negmas.helpers.types import get_class, get_full_type_name
+from negmas.serialization import serialize, deserialize
+from negmas.helpers.inout import load
 from typing import Any
 from anl2025.negotiator import ANL2025Negotiator
 from anl2025.runner import (
@@ -24,8 +24,8 @@ from anl2025.runner import (
     assign_scenario,
     make_multideal_scenario,
 )
+from anl2025.common import TYPE_IDENTIFIER
 from attr import define
-from negmas.preferences.preferences import deserialize, get_full_type_name
 
 
 class ScoreRecord(TypedDict):
@@ -164,31 +164,75 @@ class Tournament:
             dict() if not _ else _ for _ in self.competitor_params
         )
 
-    def save(self, path: Path):
-        """Saves the tournament information"""
-        dump(
-            dict(
-                competitors=[get_full_type_name(_) for _ in self.competitors],
-                scenarios=[serialize(_) for _ in self.scenarios],
-                run_params=asdict(self.run_params),
-                competitor_params=None
-                if not self.competitor_params
-                else [serialize(_) for _ in self.competitor_params],
-            ),
-            path,
+    def save(
+        self,
+        path: Path,
+        separate_scenarios: bool = False,
+        python_class_identifier=TYPE_IDENTIFIER,
+    ):
+        """
+        Saves the tournament information.
+
+        Args:
+            path: A file to save information about the tournament to
+            separate_scenarios: If `True`, scenarios will be saved inside a `scenarios` folder beside the path given otherwise they will be included in the file
+        """
+        data = dict(
+            competitors=[get_full_type_name(_) for _ in self.competitors],
+            run_params=asdict(self.run_params),
+            competitor_params=None
+            if not self.competitor_params
+            else [
+                serialize(_, python_class_identifier=python_class_identifier)
+                for _ in self.competitor_params
+            ],
         )
+        if separate_scenarios:
+            base = path.resolve().parent / "scenarios"
+            for i, s in enumerate(self.scenarios):
+                name = s.name if s.name else f"s{i:03}"
+                dst = base
+                dst.mkdir(parents=True, exist_ok=True)
+                dump(
+                    serialize(s, python_class_identifier=python_class_identifier),
+                    dst / f"{name}.yaml",
+                )
+        else:
+            data["scenarios"] = [
+                serialize(_, python_class_identifier=python_class_identifier)
+                for _ in self.scenarios
+            ]
+        dump(data, path)
 
     @classmethod
-    def load(cls, path: Path):
+    def load(cls, path: Path, python_class_identifier=TYPE_IDENTIFIER):
         """Loads the tournament information"""
         info = load(path)
+        base = path.resolve().parent / "scenarios"
+        if "scenarios" not in info:
+            info["scenarios"] = []
+        else:
+            info["scenarios"] = list(info["scenarios"])
+
+        if base.exists():
+            info["scenarios"] += [
+                deserialize(f, python_class_identifier=python_class_identifier)
+                for f in base.glob("*.yaml")
+            ]
+
         return cls(
             competitors=info["competitors"],
-            scenarios=[deserialize(_) for _ in info["scenarios"]],  # type: ignore
+            scenarios=[
+                deserialize(_, python_class_identifier=python_class_identifier)
+                for _ in info["scenarios"]
+            ],  # type: ignore
             run_params=RunParams(**info["run_params"]),
             competitor_params=None  # type: ignore
             if not info.get("competitor_params", None)
-            else deserialize(info["competitor_params"]),
+            else deserialize(
+                info["competitor_params"],
+                python_class_identifier=python_class_identifier,
+            ),
         )
 
     def run(
