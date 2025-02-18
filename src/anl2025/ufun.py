@@ -27,17 +27,23 @@ TRACE_COLS = (
 )
 
 __all__ = [
-    "UtilityCombiningCenterUFun",
+    "convert_to_center_ufun",
+    "flatten_outcome_spaces",
+    "unflatten_outcome_space",
     "CenterUFun",
+    "FlatCenterUFun",
+    "LambdaCenterUFun",
+    "LambdaUtilityFunction",
     "MaxCenterUFun",
     "MeanSMCenterUFun",
     "SideUFun",
     "SingleAgreementSideUFunMixin",
+    "UtilityCombiningCenterUFun",
 ]
 
 TUFun = TypeVar("TUFun", bound=UtilityFunction)
-UFunEvaluator = Callable[[tuple[Outcome | None, ...] | None], float]
-OutcomeEvaluator = Callable[[Outcome | None], float]
+CenterEvaluator = Callable[[tuple[Outcome | None, ...] | None], float]
+EdgeEvaluator = Callable[[Outcome | None], float]
 
 
 def unflatten_outcome_space(
@@ -56,7 +62,7 @@ def unflatten_outcome_space(
 def convert_to_center_ufun(
     ufun: UtilityFunction,
     nissues: tuple[int],
-    side_evaluators: list[OutcomeEvaluator] | None = None,
+    side_evaluators: list[EdgeEvaluator] | None = None,
 ) -> "CenterUFun":
     """Creates a center ufun from any standard ufun with ufuns side ufuns"""
     assert ufun.outcome_space and isinstance(ufun.outcome_space, CartesianOutcomeSpace)
@@ -110,7 +116,9 @@ class CenterUFun(UtilityFunction, ABC):
     """
     Base class of center utility functions.
 
-    It simply received a tuple of negotiation results and returns a float
+    Remarks:
+        - Can be constructed by either passing a single `outcome_space` and `n_edges` or a tuple of `outcome_spaces`
+        - It's eval() method  receives a tuple of negotiation results and returns a float
     """
 
     def __init__(
@@ -179,7 +187,7 @@ class LambdaCenterUFun(CenterUFun):
     A center utility function that implements an arbitrary evaluator
     """
 
-    def __init__(self, *args, evaluator: UFunEvaluator, **kwargs):
+    def __init__(self, *args, evaluator: CenterEvaluator, **kwargs):
         super().__init__(*args, **kwargs)
         self._eval = evaluator
 
@@ -194,7 +202,7 @@ class LambdaCenterUFun(CenterUFun):
 class LambdaUtilityFunction(UtilityFunction):
     """A utility function that implements an arbitrary mapping"""
 
-    def __init__(self, *args, evaluator: OutcomeEvaluator, **kwargs):
+    def __init__(self, *args, evaluator: EdgeEvaluator, **kwargs):
         super().__init__(*args, **kwargs)
         self._evaluator = evaluator
 
@@ -213,8 +221,8 @@ class LambdaCenterUFunWithSides(CenterUFun):
     def __init__(
         self,
         *args,
-        evaluator: UFunEvaluator,
-        side_evaluators: OutcomeEvaluator | Sequence[OutcomeEvaluator] | None = None,
+        evaluator: CenterEvaluator,
+        side_evaluators: EdgeEvaluator | Sequence[EdgeEvaluator] | None = None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)

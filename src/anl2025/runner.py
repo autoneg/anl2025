@@ -17,14 +17,16 @@ from anl2025.negotiator import (
     RandomNegotiator,
 )
 from anl2025.scenario import MultidealScenario, make_multideal_scenario
-from anl2025.common import get_agent_class
+from anl2025.common import get_agent_class, RunParams, DEFAULT_METHOD
 
 
 __all__ = [
     "run_session",
     "run_generated_session",
     "SessionResults",
-    "make_multideal_scenario",
+    "RunParams",
+    "AssignedScenario",
+    "assign_scenario",
 ]
 
 TRACE_COLS = (
@@ -36,11 +38,21 @@ TRACE_COLS = (
     "responses",
     "state",
 )
-DEFAULT_METHOD = "sequential"
 
 
 @define
 class SessionResults:
+    """Results of a single multideal negotiation
+
+    Attributes:
+        mechanisms: The mechanisms representing negotiation threads.
+        center: The center agent
+        edges: Edge agents
+        agreements:  Negotiation outcomes for all threads.
+        center_utility: The utility received by the center.
+        edge_utilities: The utilities of all edges.
+    """
+
     mechanisms: list[SAOMechanism]
     center: ANL2025Negotiator
     edges: list[ANL2025Negotiator]
@@ -50,20 +62,15 @@ class SessionResults:
 
 
 @define
-class RunParams:
-    """Defines the running parameters of the multi-deal negotiation like time-limits."""
-
-    # mechanism params
-    nsteps: int = 100
-    keep_order: bool = False
-    share_ufuns: bool = False
-    atomic: bool = False
-    method: str = DEFAULT_METHOD
-
-
-@define
 class AssignedScenario:
-    """A scenario ready to be run"""
+    """A scenario with assigned agents ready to run.
+
+    Attributes:
+        scenario: The scenario
+        run_params: `RunParams` controlling how the session is run
+        center: The center agent
+        edges: edge agents
+    """
 
     scenario: MultidealScenario
     run_params: RunParams
@@ -194,6 +201,22 @@ def assign_scenario(
     verbose: bool = False,
     sample_edges: bool = False,
 ) -> AssignedScenario:
+    """Assigns a multidal scenario to negotiators
+
+    Args:
+        scenario: The multideal scenario
+        run_params: Parameters controlling the session is run (See `RunParams`).
+        center_type: Type of the center agent
+        center_params: Optional parameters to pass to the center agent when it is being constructed
+        edge_types: Types of edge agents
+        edge_params: Optional parameters to pass to edge agents.
+        verbose: Print progress
+        sample_edges: If true, the `edge_types` will be used as a pool to sample from
+                      instead of being assigned to edges in order
+
+    Returns:
+        An `AssignedScenario` ready to run.
+    """
     center_ufun = scenario.center_ufun
     edge_ufuns = scenario.edge_ufuns
     nedges = len(edge_ufuns)
@@ -257,9 +280,39 @@ def run_generated_session(
     output: Path | None = Path.home() / "negmas" / "anl2025" / "session",
     name: str = "",
     dry: bool = True,
-    method="ordered",
+    method=DEFAULT_METHOD,
     verbose: bool = False,
 ) -> SessionResults:
+    """Generates a multideal negotiation session and runs it.
+
+    Args:
+        method: the method to use for running all the sessions.
+                Acceptable options are: sequential, ordered, threads, processes.
+                See `negmas.mechanisms.Mechanism.run_all()` for full details.
+        center_type: Type of the center agent
+        center_params: Optional parameters to pass to the center agent.
+        center_reserved_value_min: Minimum reserved value for the center agent.
+        center_reserved_value_max: Maximum reserved value for the center agent.
+        center_ufun_type: Type of the center agent ufun.
+        center_ufun_params: Parameters to pass to the center agent ufun.
+        nedges: Number of edges.
+        edge_reserved_value_min: Minimum reserved value for edges.
+        edge_reserved_value_max: Maximum reserved value for edges.
+        edge_types: Types of edge agents
+        nissues: Number of issues to use for each thread.
+        nvalues: Number of values per issue for each thread.
+        nsteps: Number of negotiation steps.
+        keep_order: Keep the order of edges when advancing the negotiation.
+        share_ufuns: If given, agents will have access to partner ufuns through `self.opponent_ufun`.
+        atomic: If given, one step corresponds to one offer instead of a full round.
+        output: Folder to store the logs and results within.
+        name: Name of the session
+        dry: IF true, nothing will be run.
+        verbose: Print progress
+
+    Returns:
+        `SessionResults` giving the results of the multideal negotiation session.
+    """
     sample_edges = nedges > 0
     if not sample_edges:
         nedges = len(edge_types)
@@ -314,9 +367,33 @@ def run_session(
     output: Path | None = Path.home() / "negmas" / "anl2025" / "session",
     name: str = "",
     dry: bool = True,
-    method="ordered",
+    method=DEFAULT_METHOD,
     verbose: bool = False,
 ) -> SessionResults:
+    """Runs a multideal negotiation session and runs it.
+
+    Args:
+        scenario: The negotiation scenario (must be `MultidealScenario`).
+        method: the method to use for running all the sessions.
+                Acceptable options are: sequential, ordered, threads, processes.
+                See `negmas.mechanisms.Mechanism.run_all()` for full details.
+        center_type: Type of the center agent
+        center_params: Optional parameters to pass to the center agent.
+        center_ufun_type: Type of the center agent ufun.
+        center_ufun_params: Parameters to pass to the center agent ufun.
+        edge_types: Types of edge agents
+        nsteps: Number of negotiation steps.
+        keep_order: Keep the order of edges when advancing the negotiation.
+        share_ufuns: If given, agents will have access to partner ufuns through `self.opponent_ufun`.
+        atomic: If given, one step corresponds to one offer instead of a full round.
+        output: Folder to store the logs and results within.
+        name: Name of the session
+        dry: IF true, nothing will be run.
+        verbose: Print progress
+
+    Returns:
+        `SessionResults` giving the results of the multideal negotiation session.
+    """
     run_params = RunParams(
         nsteps=nsteps,
         keep_order=keep_order,

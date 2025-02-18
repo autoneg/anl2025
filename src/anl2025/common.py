@@ -1,3 +1,4 @@
+from attrs import define
 from random import random
 from negmas.helpers.types import get_class
 
@@ -9,6 +10,29 @@ SIDES_FILDER_NAME = "sides"
 TYPES_MAP = dict(
     DiscreteCartesianOutcomeSpace="negmas.outcomes.DiscreteCartesianOutcomeSpace"
 )
+
+DEFAULT_METHOD = "sequential"
+
+
+@define
+class RunParams:
+    """Defines the running parameters of the multi-deal negotiation like time-limits.
+
+    Attributes:
+        nsteps: Number of negotiation steps
+        keep_order: Keep the order of  negotiation threads when scheduling next action
+        share_ufuns: If given, agents can access partner ufuns through `self.opponeng_ufun`
+        atomic: Every step is a single offer (if not given, on the other hand, every step is a complete round)
+        method: the method to use for running all the sessions.  Acceptable options are: sequential,
+                ordered, threads, processes. See `negmas.mechanisms.Mechanism.run_all()` for full details
+    """
+
+    # mechanism params
+    nsteps: int = 100
+    keep_order: bool = False
+    share_ufuns: bool = False
+    atomic: bool = False
+    method: str = DEFAULT_METHOD
 
 
 def get_ufun_class(x: str | type) -> type:
@@ -26,6 +50,7 @@ def get_agent_class(x: str | type) -> type:
 
 
 def sample_between(mn: float, mx: float, eps: float = EPSILON) -> float:
+    """Samples a number if the given range"""
     if (mx - mn) > eps:
         return mn + (mx - mn) * random()
     return (mx + mn) / 2.0

@@ -27,8 +27,23 @@ from anl2025.runner import (
 from anl2025.common import TYPE_IDENTIFIER
 from attr import define
 
+__all__ = ["Tournament", "TournamentResults"]
+
 
 class ScoreRecord(TypedDict):
+    """Score of a single run for a single agent
+
+    Attributes:
+        agent: The agent being scored
+        utility: Utility of the agent
+        partner_average_utility: Average utilities of agent partners
+        scenario: The scenario on which this score was received.
+        repetition: The repetition number of this run.
+        rotation: The rotation number of this run.
+        scenario_index: Index of the scenario.
+        index: Overall index of the run.
+    """
+
     agent: str
     utility: float
     partner_average_utility: float
@@ -44,9 +59,9 @@ class JobInfo:
     assigned: AssignedScenario
     output: Path | None
     sname: str
-    i: int
-    j: int
-    k: int
+    rep_index: int
+    competitor_index: int
+    scenario_index: int
     center: type
     center_params: dict[str, Any] | None
     edges: tuple[type, ...] | list[type]
@@ -83,8 +98,8 @@ def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, Sessio
     assigned = job.assigned
     output = job.output
     sname = job.sname
-    i = job.i
-    j = job.j
+    i = job.rep_index
+    j = job.competitor_index
     center = job.center
     center_params = job.center_params
     edges = job.edges
@@ -109,6 +124,15 @@ def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, Sessio
 
 @define
 class Tournament:
+    """Represents a tournament
+
+    Attributes:
+        competitors: the competing agents of type `ANL2025Negotiator` each
+        scenarios: the scenarios in which the competitors are tested
+        run_params: parameters controlling the tournament run (See `RunParams`)
+        competitor_params: Parameters to pass to the competitors
+    """
+
     competitors: tuple[str | type[ANL2025Negotiator], ...]
     scenarios: tuple[MultidealScenario, ...]
     run_params: RunParams
@@ -134,6 +158,27 @@ class Tournament:
         edge_reserved_value_max: float = 0.4,
         competitor_params: tuple[dict[str, Any] | None, ...] | None = None,
     ) -> Self:
+        """Loads a tournament from the given scenarios (optionally generating new ones)
+
+        Args:
+            competitors: Competing agents
+            run_params: `RunParams` controlling the timing of each multideal negotiation
+            scenarios: An optional tuple of predefined scenarios (`MultidealScenario`)
+            n_generated: Number of new scenarios to generate
+            nedges: Number of negotiation threads (only used if `n_generated` > 0)
+            nissues:Number of negotiation issues per thread (only used if `n_generated` > 0)
+            nvalues: Number of values per issue (only used if `n_generated` > 0)
+            center_reserved_value_min: Minimum reserved value of the center for generated scenarios.
+            center_reserved_value_max: Maximum reserved value of the center for generated scenarios.
+            center_ufun_type: center agent ufun for generated scenarios.
+            center_ufun_params: center agent ufun params for generated scenarios.
+            edge_reserved_value_min: Minimum reserved value of  edges for generated scenarios.
+            edge_reserved_value_max: Maximum reserved value of  edges for generated scenarios.
+            competitor_params: Optional competitor paramters
+
+        Returns:
+            A `Tournament` ready to run
+        """
         if nedges > len(competitors):
             raise ValueError(
                 f"We have {len(competitors)} competitors which is not enough for {nedges} edges"
@@ -210,7 +255,7 @@ class Tournament:
 
     @classmethod
     def load(cls, path: Path, python_class_identifier=TYPE_IDENTIFIER):
-        """Loads the tournament information"""
+        """Loads the tournament information."""
         info = load(path)
         base = path.resolve().parent / "scenarios"
         if "scenarios" not in info:
@@ -398,9 +443,9 @@ class Tournament:
                     utility=r.center_utility * center_multiplier,
                     partner_average_utility=mean_edge_utility,
                     scenario=job.sname,
-                    repetition=job.i,
-                    rotation=job.j,
-                    scenario_index=job.k,
+                    repetition=job.rep_index,
+                    rotation=job.competitor_index,
+                    scenario_index=job.scenario_index,
                     index=0,
                 )
             )
@@ -413,9 +458,9 @@ class Tournament:
                         utility=r.edge_utilities[e] * edge_multiplier,
                         partner_average_utility=r.center_utility,
                         scenario=job.sname,
-                        repetition=job.i,
-                        rotation=job.j,
-                        scenario_index=job.k,
+                        repetition=job.rep_index,
+                        rotation=job.competitor_index,
+                        scenario_index=job.scenario_index,
                         index=e + 1,
                     )
                 )

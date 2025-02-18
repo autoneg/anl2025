@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+
+site_name: ANL 2025 Documentation
+site_url: https://yasserfarouk.github.io/anl2025tmp/
+nav:
+    - Introduction: index.md
+    - Installation: install.md
+    - Tutorials:
+        - Running a negotiation: tutorials/Tutorial_run_a_negotiation.md
+        - Develop a new negotiator: tutorials/tutorial_develop.md
+        - Visualize scenarios: tutorials/tutorial_scenarios.md
+    - FAQ: faq.md
+    - Reference: reference.md
+theme:
+  name: "material"
+  features:
+    - content.tabs.link
+plugins:
+- search
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          heading_level: 3
+          summary: true
+          members_order: alphabetical
+          docstring_style: google
+          show_signature: false
+          allow_inspection: true
+          show_root_heading: true
+          show_source: true
+        paths: [..]  # Specify paths to your Python code
+- include-markdown
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true

@@ -21,7 +21,7 @@ class ANL2025Negotiator(SAOController):
     """
     Base class of all participant code.
 
-    See the next two examples of how to implement it.
+    See the next two examples of how to implement it (`Boulware2025`, `RandomNegotiator`).
     """
 
     def __init__(self, *args, n_edges: int = 0, **kwargs):

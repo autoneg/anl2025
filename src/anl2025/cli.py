@@ -1,5 +1,6 @@
 from anl2025.scenario import MultidealScenario
 from rich.table import Table
+import importlib.metadata
 from pathlib import Path
 from negmas.outcomes.base_issue import unique_name
 from negmas.serialization import dump
@@ -24,8 +25,21 @@ app.add_typer(
 )
 
 app.add_typer(
-    session, name="session", help="Runs single sessions of multideal negotiations."
+    session, name="session", help="Runs single sessions of multi-deal negotiations."
 )
+
+
+def get_package_version(name: str | None = None):
+    if not name:
+        name = __name__.split(".")[0]
+    metadata = importlib.metadata.metadata(name)
+
+    return metadata["Version"]
+
+
+@app.command(help="Version information")
+def version():
+    print(f"ANL2025: {get_package_version()}, NegMAS: {get_package_version('negmas')}")
 
 
 def do_make(

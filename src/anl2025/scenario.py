@@ -5,15 +5,10 @@ from negmas.preferences import UtilityFunction
 from attr import define
 from pathlib import Path
 from negmas.serialization import serialize, deserialize
-from negmas.outcomes import Outcome
 from negmas.preferences.generators import generate_multi_issue_ufuns
-from negmas.sao import SAOMechanism
 
 from negmas.helpers.inout import load, dump
 from anl2025.ufun import CenterUFun
-from anl2025.negotiator import (
-    ANL2025Negotiator,
-)
 from anl2025.common import (
     TYPES_MAP,
     CENTER_FILE_NAME,
@@ -37,7 +32,6 @@ TRACE_COLS = (
     "state",
 )
 EPSILON = 1e-6
-DEFAULT_METHOD = "sequential"
 
 
 def type_name_adapter(x: str, types_map=TYPES_MAP) -> str:
@@ -48,28 +42,6 @@ def type_name_adapter(x: str, types_map=TYPES_MAP) -> str:
     if x.endswith(("UtilityFunction", "Fun")) and "." not in x:
         return f"negmas.preferences.{x}"
     return x
-
-
-@define
-class SessionResults:
-    mechanisms: list[SAOMechanism]
-    center: ANL2025Negotiator
-    edges: list[ANL2025Negotiator]
-    agreements: list[Outcome | None]
-    center_utility: float
-    edge_utilities: list[float]
-
-
-@define
-class RunParams:
-    """Defines the running parameters of the multi-deal negotiation like time-limits."""
-
-    # mechanism params
-    nsteps: int = 100
-    keep_order: bool = False
-    share_ufuns: bool = False
-    atomic: bool = False
-    method: str = DEFAULT_METHOD
 
 
 @define
