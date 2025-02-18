@@ -4,17 +4,19 @@ from anl2025.inout import load_multideal_scenario
 from anl2025.runner import MultidealScenario
 from anl2025.ufun import LambdaCenterUFun
 from negmas import DiscreteCartesianOutcomeSpace, UtilityFunction
+import pytest
 
 
-def test_load_multideal():
+@pytest.mark.parametrize("name", ("dinners", "dinners2"))
+def test_load_multideal_dinner(name):
     scenario = load_multideal_scenario(
-        Path(__file__).parent.parent / "scenarios" / "dinners"
+        Path(__file__).parent.parent / "scenarios" / name
     )
     assert isinstance(scenario, MultidealScenario)
     assert isinstance(scenario.center_ufun, LambdaCenterUFun)
     assert all(isinstance(_, UtilityFunction) for _ in scenario.edge_ufuns)
     assert scenario.side_ufuns is None
-    assert scenario.name == "dinners"
+    assert scenario.name == name
     assert scenario.center_ufun.n_edges == 3
     assert all(_.n_edges == 3 for _ in scenario.edge_ufuns)  # type: ignore
     assert (

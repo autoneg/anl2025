@@ -1,0 +1,35 @@
+name: Center
+type: anl2025.ufun.LambdaCenterUFun
+reserved_value: 0.0
+n_edges: 3
+outcome_spaces:
+  - type: DiscreteCartesianOutcomeSpace
+    name: AmyDay
+    issues:
+    - type: CategoricalIssue
+      name: Day
+      values:
+      - 'Fri'
+      - 'Sat'
+      - 'Sun'
+  - type: DiscreteCartesianOutcomeSpace
+    name: EveDay
+    issues:
+    - type: CategoricalIssue
+      name: Day
+      values:
+      - 'Fri'
+      - 'Sat'
+      - 'Sun'
+  - type: DiscreteCartesianOutcomeSpace
+    name: SteveDay
+    issues:
+    - type: CategoricalIssue
+      name: Day
+      values:
+      - 'Fri'
+      - 'Sat'
+      - 'Sun'
+evaluator:
+  type: center.DinnersEvaluator
+  reserved_value: 0.0
