@@ -1,0 +1,11 @@
+name: Amy
+reserved_value: 0.21
+type: LinearAdditiveUtilityFunction
+values:
+- type: TableFun
+  mapping:
+    'Fri': 0.0
+    'Sat': 0.162
+    'Sun': 1.0
+weights:
+- 1.0

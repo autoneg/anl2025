@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from collections import defaultdict
 from collections.abc import Sequence, Callable
+from pathlib import Path
 from typing import TypeVar
 from negmas.preferences import BaseUtilityFunction
 from negmas.preferences import UtilityFunction
@@ -112,21 +113,18 @@ class CenterUFun(UtilityFunction, ABC):
     It simply received a tuple of negotiation results and returns a float
     """
 
-    def flatten(
+    def __init__(
         self,
-        add_index_to_issue_names: bool = False,
-        add_os_to_issue_name: bool = False,
-    ) -> "FlatCenterUFun":
-        os = flatten_outcome_spaces(
-            self._outcome_spaces, add_index_to_issue_names, add_os_to_issue_name
-        )
-        return FlatCenterUFun(
-            base_ufun=self, nissues=self.__nissues, outcome_space=os, **self.__kwargs
-        )
-
-    def __init__(self, *args, outcome_spaces: tuple[OutcomeSpace, ...] = (), **kwargs):
+        *args,
+        outcome_spaces: tuple[OutcomeSpace, ...] = (),
+        n_edges: int = 0,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
+        if not outcome_spaces and self.outcome_space:
+            outcome_spaces = tuple([self.outcome_space] * n_edges)
         self._outcome_spaces = outcome_spaces
+        self.n_edges = len(outcome_spaces)
         self.__kwargs = dict(
             reserved_value=self.reserved_value,
             owner=self.owner,
@@ -141,6 +139,22 @@ class CenterUFun(UtilityFunction, ABC):
         except Exception:
             warn("Failed to find the Cartesian product of input outcome spaces")
             self.outcome_space, self.__nissues = None, tuple()
+
+    @property
+    def outcome_spaces(self) -> tuple[OutcomeSpace, ...]:
+        return self._outcome_spaces
+
+    def flatten(
+        self,
+        add_index_to_issue_names: bool = False,
+        add_os_to_issue_name: bool = False,
+    ) -> "FlatCenterUFun":
+        os = flatten_outcome_spaces(
+            self._outcome_spaces, add_index_to_issue_names, add_os_to_issue_name
+        )
+        return FlatCenterUFun(
+            base_ufun=self, nissues=self.__nissues, outcome_space=os, **self.__kwargs
+        )
 
     @abstractmethod
     def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
@@ -171,6 +185,10 @@ class LambdaCenterUFun(CenterUFun):
 
     def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction, ...]:
         raise ValueError("Cannot find side-ufuns for a Lambda Center UFun")
+
+    @classmethod
+    def load(cls, folder: Path):
+        pass
 
 
 class LambdaUtilityFunction(UtilityFunction):
@@ -332,7 +350,7 @@ class SingleAgreementSideUFunMixin:
 
 
 class MeanSMCenterUFun(SingleAgreementSideUFunMixin, CenterUFun):
-    """A ufun that just returns returns the average mean+std dev. in each issue of the agreements as the utility value"""
+    """A ufun that just  returns the average mean+std dev. in each issue of the agreements as the utility value"""
 
     def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
         if not offer:
