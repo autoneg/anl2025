@@ -1,20 +1,13 @@
-from random import choice, random
 from typing import Any
-from anl2025.common import TYPE_IDENTIFIER
-from negmas.preferences import UtilityFunction
-from negmas.preferences.preferences import deserialize
-from numpy import load
+from random import choice
 import pandas as pd
-from rich import print
 from attr import define
 from pathlib import Path
-from negmas.serialization import dump, serialize
+from negmas import ControlledNegotiator
 from negmas.outcomes import Outcome
-from negmas.helpers.strings import unique_name
-from negmas.helpers.types import get_class
-from negmas.preferences.generators import generate_multi_issue_ufuns
-from negmas.negotiators import ControlledNegotiator
 from negmas.sao import SAOMechanism
+from negmas.helpers import unique_name
+
 from anl2025.ufun import CenterUFun
 from anl2025.negotiator import (
     ANL2025Negotiator,
@@ -23,8 +16,11 @@ from anl2025.negotiator import (
     AgentRenting2025,
     RandomNegotiator,
 )
+from anl2025.scenario import MultidealScenario, make_multideal_scenario
+from anl2025.common import get_agent_class
 
-__all__ = ["run_session", "SessionResults"]
+
+__all__ = ["run_session", "SessionResults", "make_multideal_scenario"]
 
 TRACE_COLS = (
     "time",
@@ -35,22 +31,7 @@ TRACE_COLS = (
     "responses",
     "state",
 )
-EPSILON = 1e-6
 DEFAULT_METHOD = "sequential"
-
-
-def get_ufun_class(x: str | type[CenterUFun]) -> type[CenterUFun]:
-    """Returns the type of the agent"""
-    if not isinstance(x, str):
-        return x
-    return get_class(x, module_name="anl2025.ufun")
-
-
-def get_agent_class(x: str | type[ANL2025Negotiator]) -> type[ANL2025Negotiator]:
-    """Returns the type of the agent"""
-    if not isinstance(x, str):
-        return x
-    return get_class(x, module_name="anl2025.negotiator")
 
 
 @define
@@ -73,38 +54,6 @@ class RunParams:
     share_ufuns: bool = False
     atomic: bool = False
     method: str = DEFAULT_METHOD
-
-
-@define
-class MultidealScenario:
-    """Defines the multi-deal scenario by setting utility functions (and implicitly outcome-spaces)"""
-
-    center_ufun: CenterUFun
-    edge_ufuns: tuple[UtilityFunction, ...]
-    side_ufuns: tuple[UtilityFunction, ...] | None = None
-    name: str = ""
-
-    def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
-        """Converts the scenario to a dictionary"""
-        return dict(
-            name=self.name,
-            center_ufun=serialize(
-                self.center_ufun, python_class_identifier=python_class_identifier
-            ),
-            edge_ufuns=serialize(
-                self.edge_ufuns, python_class_identifier=python_class_identifier
-            ),
-            side_ufuns=serialize(
-                self.side_ufuns, python_class_identifier=python_class_identifier
-            ),
-        )
-
-    def save(self, path: Path, python_class_identifier=TYPE_IDENTIFIER):
-        dump(self.to_dict(python_class_identifier=python_class_identifier), path)
-
-    @classmethod
-    def load(cls, path: Path, python_class_identifier=TYPE_IDENTIFIER):
-        return deserialize(load(path), python_class_identifier=python_class_identifier)
 
 
 @define
@@ -201,7 +150,7 @@ class AssignedScenario:
             base = output / name
             (base / "log").mkdir(parents=True, exist_ok=True)
             (base / "plots").mkdir(parents=True, exist_ok=True)
-            for i, (m, u) in enumerate(
+            for i, (m, _) in enumerate(
                 zip(mechanisms, center_ufun.side_ufuns(len(edges)))
             ):
                 df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
@@ -268,59 +217,6 @@ def assign_scenario(
         center=center,
         edges=edges,
     )
-
-
-def make_multideal_scenario(
-    nedges: int = 10,
-    nissues: int = 3,
-    nvalues: int = 7,
-    # edge ufuns
-    center_reserved_value_min: float = 0.0,
-    center_reserved_value_max: float = 0.0,
-    center_ufun_type: str | type[CenterUFun] = "MaxCenterUFun",
-    center_ufun_params: dict[str, Any] | None = None,
-    # edge ufuns
-    edge_reserved_value_min: float = 0.1,
-    edge_reserved_value_max: float = 0.4,
-) -> MultidealScenario:
-    ufuns = [generate_multi_issue_ufuns(nissues, nvalues) for _ in range(nedges)]
-    edge_ufuns = [_[0] for _ in ufuns]
-    for u in edge_ufuns:
-        u.reserved_value = sample_between(
-            edge_reserved_value_min, edge_reserved_value_max
-        )
-    # side ufuns are utilities of the center on individual threads (may or may not be used, see next comment)
-    side_ufuns = tuple(_[1] for _ in ufuns)
-    # create center ufun using side-ufuns if possible and without them otherwise.
-    center_r = sample_between(center_reserved_value_min, center_reserved_value_max)
-    utype = get_ufun_class(center_ufun_type)
-    center_ufun_params = center_ufun_params if center_ufun_params else dict()
-    try:
-        center_ufun = utype(
-            ufuns=side_ufuns,
-            reserved_value=center_r,
-            outcome_spaces=tuple(u.outcome_space for u in side_ufuns),  # type: ignore
-            **center_ufun_params,
-        )
-    except TypeError:
-        # if the center ufun does not take `ufuns` as an input, do not pass it
-        center_ufun = utype(
-            reserved_value=center_r,
-            outcome_spaces=tuple(u.outcome_space for u in side_ufuns),  # type: ignore
-            **center_ufun_params,
-        )
-
-    return MultidealScenario(
-        center_ufun=center_ufun,
-        side_ufuns=side_ufuns,
-        edge_ufuns=tuple(edge_ufuns),
-    )
-
-
-def sample_between(mn: float, mx: float, eps: float = EPSILON) -> float:
-    if (mx - mn) > eps:
-        return mn + (mx - mn) * random()
-    return (mx + mn) / 2.0
 
 
 def run_session(

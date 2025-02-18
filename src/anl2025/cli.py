@@ -1,4 +1,3 @@
-from anl2025.common import TYPE_IDENTIFIER
 from rich.table import Table
 from pathlib import Path
 from negmas.outcomes.base_issue import unique_name
@@ -11,6 +10,7 @@ import typer
 from rich import print
 
 from anl2025.ufun import CenterUFun
+from anl2025.common import TYPE_IDENTIFIER
 from anl2025.runner import DEFAULT_METHOD, RunParams, run_session
 
 
