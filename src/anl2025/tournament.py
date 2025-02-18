@@ -115,11 +115,12 @@ class Tournament:
     competitor_params: tuple[dict[str, Any] | None, ...] | None = None
 
     @classmethod
-    def from_generated_scenarios(
+    def from_scenarios(
         cls,
         competitors: Sequence[str | type[ANL2025Negotiator]],
         run_params: RunParams,
-        n_scenarios: int = 10,
+        scenarios: tuple[MultidealScenario, ...] = tuple(),
+        n_generated: int = 0,
         nedges: int = 3,
         nissues: int = 3,
         nvalues: int = 7,
@@ -142,18 +143,21 @@ class Tournament:
             competitor_params=competitor_params,
             run_params=run_params,
             scenarios=tuple(
-                make_multideal_scenario(
-                    nedges=nedges,
-                    nissues=nissues,
-                    nvalues=nvalues,
-                    center_reserved_value_min=center_reserved_value_min,
-                    center_reserved_value_max=center_reserved_value_max,
-                    center_ufun_type=center_ufun_type,
-                    center_ufun_params=center_ufun_params,
-                    edge_reserved_value_min=edge_reserved_value_min,
-                    edge_reserved_value_max=edge_reserved_value_max,
-                )
-                for _ in range(n_scenarios)
+                list(scenarios)
+                + [
+                    make_multideal_scenario(
+                        nedges=nedges,
+                        nissues=nissues,
+                        nvalues=nvalues,
+                        center_reserved_value_min=center_reserved_value_min,
+                        center_reserved_value_max=center_reserved_value_max,
+                        center_ufun_type=center_ufun_type,
+                        center_ufun_params=center_ufun_params,
+                        edge_reserved_value_min=edge_reserved_value_min,
+                        edge_reserved_value_max=edge_reserved_value_max,
+                    )
+                    for _ in range(n_generated)
+                ]
             ),
         )
 

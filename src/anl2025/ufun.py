@@ -166,9 +166,12 @@ class CenterUFun(UtilityFunction, ABC):
             - A missing offer is represented by `None`
         """
 
-    @abstractmethod
-    def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction, ...]:
+    def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction | None, ...]:
         """Should return an independent ufun for each side negotiator of the center."""
+        return tuple(
+            SideUFun(center_ufun=self, n_edges=self.n_edges, index=i)
+            for i in range(n_edges)
+        )
 
 
 class LambdaCenterUFun(CenterUFun):
@@ -182,9 +185,6 @@ class LambdaCenterUFun(CenterUFun):
 
     def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
         return self._eval(offer)
-
-    def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction, ...]:
-        raise ValueError("Cannot find side-ufuns for a Lambda Center UFun")
 
     @classmethod
     def load(cls, folder: Path):
@@ -234,9 +234,9 @@ class LambdaCenterUFunWithSides(CenterUFun):
     def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
         return self._eval(offer)
 
-    def side_ufuns(self, n_edges: int) -> tuple[UtilityFunction, ...]:
+    def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction | None, ...]:
         if self._side_ufuns is None:
-            raise ValueError("Cannot find side ufuns")
+            return super().side_ufuns(n_edges)
         return self._side_ufuns
 
 

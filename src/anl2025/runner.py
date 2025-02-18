@@ -90,8 +90,11 @@ class AssignedScenario:
             print(f"Adding center of type {type_name(center)}")
 
         mechanisms = []
+        side_ufuns = center_ufun.side_ufuns(nedges)
+        if not side_ufuns:
+            side_ufuns = [None] * len(edges)
         for i, (edge_ufun, side_ufun, edge) in enumerate(
-            zip(edge_ufuns, center_ufun.side_ufuns(nedges), edges, strict=True)
+            zip(edge_ufuns, side_ufuns, edges, strict=True)
         ):
             m = SAOMechanism(
                 outcome_space=edge_ufun.outcome_space,

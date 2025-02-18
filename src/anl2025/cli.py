@@ -1,3 +1,4 @@
+from anl2025.scenario import MultidealScenario
 from rich.table import Table
 from pathlib import Path
 from negmas.outcomes.base_issue import unique_name
@@ -20,6 +21,97 @@ tournament = typer.Typer()
 app.add_typer(
     tournament, name="tournament", help="Creates, manages and runs tournaments"
 )
+
+
+def do_make(
+    path: Path | None,
+    generated: int | None = None,
+    competitor: list[str] = [
+        "Boulware2025",
+        "RandomNegotiator",
+        "Shochan2025",
+        "AgentRenting2025",
+    ],
+    nissues: int = 3,
+    nvalues: int = 7,
+    center_ufun: str = "MaxCenterUFun",
+    python_class_identifier: str = TYPE_IDENTIFIER,
+    center_reserved_value_min: float = 0.0,
+    center_reserved_value_max: float = 0.0,
+    nedges: int = 3,
+    edge_reserved_value_min: float = 0.1,
+    edge_reserved_value_max: float = 0.4,
+    nsteps: int = 100,
+    keep_order: bool = True,
+    atomic: bool = False,
+    share_ufuns: bool = True,
+    output: Path = Path.home() / "negmas" / "anl2025" / "tournament",
+    separate_scenarios: bool = True,
+    name: str = "auto",
+    method: str = DEFAULT_METHOD,
+    edge_knows_details: bool = True,
+):
+    if generated is None:
+        generated = 3 if path is None else 0
+    if name == "auto":
+        name = unique_name("t", sep="")
+    if name:
+        output = output / name
+
+    def full_name(x: str) -> str:
+        if x in anl2025.negotiator.__all__:
+            return f"anl2025.negotiator.{x}"
+        return x
+
+    competitors = tuple(full_name(_) for _ in competitor)
+    scenarios = []
+    if path is not None:
+        for f in path.glob("*.yml"):
+            try:
+                if f.is_file():
+                    s = MultidealScenario.from_file(
+                        f,
+                        python_class_identifier=python_class_identifier,
+                    )
+                    if not s:
+                        continue
+                    scenarios.append(s)
+            except Exception:
+                pass
+        for d in path.glob("**/*"):
+            try:
+                if d.is_dir():
+                    s = MultidealScenario.from_folder(
+                        d,
+                        edges_know_details=edge_knows_details,
+                        python_class_identifier=python_class_identifier,
+                    )
+                    if not s:
+                        continue
+                    scenarios.append(s)
+            except Exception:
+                pass
+    t = Tournament.from_scenarios(
+        competitors=(competitors),
+        scenarios=tuple(scenarios),
+        run_params=RunParams(nsteps, keep_order, share_ufuns, atomic, method),
+        n_generated=generated,
+        nedges=nedges,
+        nissues=nissues,
+        nvalues=nvalues,
+        center_reserved_value_min=center_reserved_value_min,
+        center_reserved_value_max=center_reserved_value_max,
+        center_ufun_type=center_ufun,
+        edge_reserved_value_min=edge_reserved_value_min,
+        edge_reserved_value_max=edge_reserved_value_max,
+    )
+    path = output / "info.yaml"
+    t.save(
+        path,
+        separate_scenarios=separate_scenarios,
+        python_class_identifier=python_class_identifier,
+    )
+    return t, path
 
 
 def do_run(
@@ -274,12 +366,201 @@ def run_multideal(
 #     pass  # Add any logic you want to execute before subcommands
 
 
-@tournament.command()
+@tournament.command(help="Makes a tournament without running it")
 def make(
-    scenarios: Annotated[
+    scenarios_path: Annotated[
+        Path,
+        typer.Option(
+            help="Path to a folder to load scenarios from",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = None,  # type: ignore
+    generate: Annotated[
         int,
         typer.Option(help="Number of Scenarios", rich_help_panel="Tournament Control"),
+    ] = None,  # type: ignore
+    competitor: Annotated[
+        list[str],
+        typer.Option(
+            help="Competitor types",
+            rich_help_panel="Edges",
+        ),
+    ] = [
+        "Boulware2025",
+        "RandomNegotiator",
+        "Shochan2025",
+        "AgentRenting2025",
+    ],
+    nissues: Annotated[
+        int,
+        typer.Option(
+            help="Number of negotiation issues", rich_help_panel="Outcome Space"
+        ),
     ] = 3,
+    nvalues: Annotated[
+        int,
+        typer.Option(
+            help="Number of values per negotiation issue",
+            rich_help_panel="Outcome Space",
+        ),
+    ] = 7,
+    center_ufun: Annotated[
+        str,
+        typer.Option(
+            help="The type of the center ufun: Any ufun defined in anl2025.ufun is OK. Examples are MaxCenterUFun and MeanSMCenterUFUn",
+            rich_help_panel="Center",
+        ),
+    ] = "MaxCenterUFun",
+    python_class_identifier: Annotated[
+        str,
+        typer.Option(
+            help="The identifier identifying types in saved files.",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = TYPE_IDENTIFIER,
+    center_reserved_value_min: Annotated[
+        float,
+        typer.Option(
+            help="Minimum value for the center reserved value",
+            rich_help_panel="Center",
+        ),
+    ] = 0.0,
+    center_reserved_value_max: Annotated[
+        float,
+        typer.Option(
+            help="Maximim value for the center reserved value",
+            rich_help_panel="Center",
+        ),
+    ] = 0.0,
+    nedges: Annotated[
+        int,
+        typer.Option(
+            help=(
+                "Number of Edges (the M side of the 1-M negotiation session). "
+                "If you pass this as 0, you can control the edges one by one using --edge"
+            ),
+            rich_help_panel="Protocol",
+        ),
+    ] = 3,
+    edge_reserved_value_min: Annotated[
+        float,
+        typer.Option(
+            help="Number of Edges (the M side of the 1-M negotiation session)",
+            rich_help_panel="Edges",
+        ),
+    ] = 0.1,
+    edge_reserved_value_max: Annotated[
+        float,
+        typer.Option(
+            help="Number of Edges (the M side of the 1-M negotiation session)",
+            rich_help_panel="Edges",
+        ),
+    ] = 0.4,
+    nsteps: Annotated[
+        int,
+        typer.Option(
+            help="Number of negotiation steps (see `atomic` for the exact meaning of this).",
+            rich_help_panel="Protocol",
+        ),
+    ] = 100,
+    keep_order: Annotated[
+        bool,
+        typer.Option(
+            help="If given, the mechanisms will be advanced in order in every step.",
+            rich_help_panel="Protocol",
+        ),
+    ] = True,
+    atomic: Annotated[
+        bool,
+        typer.Option(
+            help=(
+                "If given, each step of a mechanism represents a single offer "
+                "(from a center or an edge but not both). This may make the logs"
+                " wrong though. If --no-atomic (default), a single step corresponds "
+                "to one offer form the center and from an edge"
+            ),
+            rich_help_panel="Protocol",
+        ),
+    ] = False,
+    share_ufuns: Annotated[
+        bool,
+        typer.Option(
+            help="Whether or not to share partner ufun up to reserved value. If any ANL2024 agent is used as center or edge, this MUST be True (default)",
+            rich_help_panel="Protocol",
+        ),
+    ] = True,
+    output: Annotated[
+        Path,
+        typer.Option(
+            help="A directory to store the negotiation logs and plots",
+            rich_help_panel="Output",
+        ),
+    ] = Path.home() / "negmas" / "anl2025" / "tournament",
+    separate_scenarios: Annotated[
+        bool,
+        typer.Option(
+            help="Save scenarios in separate folders in the output directory",
+            rich_help_panel="Output",
+        ),
+    ] = True,
+    name: Annotated[
+        str,
+        typer.Option(
+            help="The name of this session (a random name will be created if not given)",
+            rich_help_panel="Output and Logs",
+        ),
+    ] = "auto",
+    method: Annotated[
+        str,
+        typer.Option(
+            help="The method for conducting the multi-deal negotiation. Supported methods are sequential and ordered",
+            rich_help_panel="Mechanism",
+        ),
+    ] = DEFAULT_METHOD,
+):
+    if scenarios_path is None and generate is None:
+        print(
+            "[red]ERROR[/red] You did not specify a scenarios path using --scenarios-path "
+            "nor a number of scenarios to generate using --generate. Please specify at least one of them"
+        )
+    _, path = do_make(
+        path=scenarios_path,
+        generated=generate,
+        competitor=competitor,
+        nissues=nissues,
+        nvalues=nvalues,
+        center_ufun=center_ufun,
+        python_class_identifier=python_class_identifier,
+        center_reserved_value_min=center_reserved_value_min,
+        center_reserved_value_max=center_reserved_value_max,
+        nedges=nedges,
+        edge_reserved_value_min=edge_reserved_value_min,
+        edge_reserved_value_max=edge_reserved_value_max,
+        nsteps=nsteps,
+        keep_order=keep_order,
+        atomic=atomic,
+        share_ufuns=share_ufuns,
+        output=output,
+        separate_scenarios=separate_scenarios,
+        name=name,
+        method=method,
+    )
+    print(f"Tournament information is saved in {path}. Use `run` to run it")
+
+
+@tournament.command(help="Makes and executes a tournament")
+def run(
+    scenarios_path: Annotated[
+        Path,
+        typer.Option(
+            help="Path to a folder to load scenarios from",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = None,  # type: ignore
+    generate: Annotated[
+        int,
+        typer.Option(help="Number of Scenarios", rich_help_panel="Tournament Control"),
+    ] = None,  # type: ignore
     competitor: Annotated[
         list[str],
         typer.Option(
@@ -444,42 +725,39 @@ def make(
         ),
     ] = -1,
 ):
-    if name == "auto":
-        name = unique_name("t", sep="")
-    if name:
-        output = output / name
-
-    def full_name(x: str) -> str:
-        if x in anl2025.negotiator.__all__:
-            return f"anl2025.negotiator.{x}"
-        return x
-
-    competitors = tuple(full_name(_) for _ in competitor)
-    t = Tournament.from_generated_scenarios(
-        competitors=(competitors),
-        run_params=RunParams(nsteps, keep_order, share_ufuns, atomic, method),
-        n_scenarios=scenarios,
-        nedges=nedges,
+    if scenarios_path is None and generate is None:
+        print(
+            "[red]ERROR[/red] You did not specify a scenarios path using --scenarios-path "
+            "nor a number of scenarios to generate using --generate. Please specify at least one of them"
+        )
+    t, path = do_make(
+        path=scenarios_path,
+        generated=generate,
+        competitor=competitor,
         nissues=nissues,
         nvalues=nvalues,
+        center_ufun=center_ufun,
+        python_class_identifier=python_class_identifier,
         center_reserved_value_min=center_reserved_value_min,
         center_reserved_value_max=center_reserved_value_max,
-        center_ufun_type=center_ufun,
+        nedges=nedges,
         edge_reserved_value_min=edge_reserved_value_min,
         edge_reserved_value_max=edge_reserved_value_max,
-    )
-    path = output / "info.yaml"
-    t.save(
-        path,
+        nsteps=nsteps,
+        keep_order=keep_order,
+        atomic=atomic,
+        share_ufuns=share_ufuns,
+        output=output,
         separate_scenarios=separate_scenarios,
-        python_class_identifier=python_class_identifier,
+        name=name,
+        method=method,
     )
     print(f"Tournament information is saved in {path}. Use `run` to run it")
     do_run(t, nreps, output, verbose, dry, njobs)
 
 
-@tournament.command()
-def run(
+@tournament.command(help="Executes a tournament made using the make command.")
+def execute(
     path: Annotated[
         Path,
         typer.Argument(
