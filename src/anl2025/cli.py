@@ -879,7 +879,7 @@ def run(
         method=method,
     )
     print(f"Tournament information is saved in {path}. Use `run` to run it")
-    do_run(t, nreps, output, verbose, dry, njobs)
+    do_run(t, nreps, path.parent, verbose, dry, njobs)
 
 
 @tournament.command(help="Executes a tournament made using the make command.")
@@ -898,13 +898,6 @@ def execute(
             rich_help_panel="Tournament Control",
         ),
     ] = 2,
-    output: Annotated[
-        Path,
-        typer.Option(
-            help="A directory to store the negotiation logs and plots",
-            rich_help_panel="Output",
-        ),
-    ] = Path.home() / "negmas" / "anl2025" / "tournament",
     dry: Annotated[
         bool,
         typer.Option(
@@ -932,7 +925,7 @@ def execute(
     ] = TYPE_IDENTIFIER,
 ):
     t = Tournament.load(path, python_class_identifier=python_class_identifier)
-    do_run(t, nreps, output, verbose, dry, njobs)
+    do_run(t, nreps, path.parent, verbose, dry, njobs)
 
 
 if __name__ == "__main__":
