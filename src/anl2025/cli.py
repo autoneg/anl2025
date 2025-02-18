@@ -675,7 +675,7 @@ def make(
 
 
 @tournament.command(help="Makes and executes a tournament")
-def session(
+def run(
     scenarios_path: Annotated[
         Path,
         typer.Option(
