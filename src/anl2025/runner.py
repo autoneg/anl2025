@@ -20,7 +20,12 @@ from anl2025.scenario import MultidealScenario, make_multideal_scenario
 from anl2025.common import get_agent_class
 
 
-__all__ = ["run_session", "SessionResults", "make_multideal_scenario"]
+__all__ = [
+    "run_session",
+    "run_generated_session",
+    "SessionResults",
+    "make_multideal_scenario",
+]
 
 TRACE_COLS = (
     "time",
@@ -222,7 +227,7 @@ def assign_scenario(
     )
 
 
-def run_session(
+def run_generated_session(
     # center
     center_type: str = "Boulware2025",
     center_params: dict[str, Any] | None = None,
@@ -284,5 +289,48 @@ def run_session(
         edge_types=edge_types,
         verbose=verbose,
         sample_edges=sample_edges,
+    )
+    return assigned.run(output=output, name=name, dry=dry, verbose=verbose)
+
+
+def run_session(
+    scenario: MultidealScenario,
+    # center
+    center_type: str = "Boulware2025",
+    center_params: dict[str, Any] | None = None,
+    # edges
+    edge_types: list[str | type[ANL2025Negotiator]] = [
+        Boulware2025,
+        RandomNegotiator,
+        Shochan2025,
+        AgentRenting2025,
+    ],
+    # mechanism params
+    nsteps: int = 100,
+    keep_order: bool = False,
+    share_ufuns: bool = False,
+    atomic: bool = False,
+    # output and logging
+    output: Path | None = Path.home() / "negmas" / "anl2025" / "session",
+    name: str = "",
+    dry: bool = True,
+    method="ordered",
+    verbose: bool = False,
+) -> SessionResults:
+    run_params = RunParams(
+        nsteps=nsteps,
+        keep_order=keep_order,
+        share_ufuns=share_ufuns,
+        atomic=atomic,
+        method=method,
+    )
+    assigned = assign_scenario(
+        scenario=scenario,
+        run_params=run_params,
+        center_type=center_type,
+        center_params=center_params,
+        edge_types=edge_types,
+        verbose=verbose,
+        sample_edges=True,
     )
     return assigned.run(output=output, name=name, dry=dry, verbose=verbose)
