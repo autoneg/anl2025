@@ -1,4 +1,4 @@
-from .party import *
+from .dinners import *
 
 
-__all__ = party.__all__
+__all__ = dinners.__all__

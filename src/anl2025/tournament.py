@@ -215,7 +215,7 @@ class Tournament:
 
     def save(
         self,
-        path: Path,
+        path: Path | str,
         separate_scenarios: bool = False,
         python_class_identifier=TYPE_IDENTIFIER,
     ):
@@ -226,6 +226,7 @@ class Tournament:
             path: A file to save information about the tournament to
             separate_scenarios: If `True`, scenarios will be saved inside a `scenarios` folder beside the path given otherwise they will be included in the file
         """
+        path = path if isinstance(path, Path) else Path(path)
         data = dict(
             competitors=[get_full_type_name(_) for _ in self.competitors],
             run_params=asdict(self.run_params),
@@ -254,8 +255,10 @@ class Tournament:
         dump(data, path)
 
     @classmethod
-    def load(cls, path: Path, python_class_identifier=TYPE_IDENTIFIER):
+    def load(cls, path: Path | str, python_class_identifier=TYPE_IDENTIFIER):
         """Loads the tournament information."""
+
+        path = path if isinstance(path, Path) else Path(path)
         info = load(path)
         base = path.resolve().parent / "scenarios"
         if "scenarios" not in info:
@@ -287,7 +290,7 @@ class Tournament:
     def run(
         self,
         n_repetitions: int,
-        path: Path | None = None,
+        path: Path | str | None = None,
         verbose: bool = False,
         dry: bool = False,
         no_double_scores: bool = True,
@@ -318,6 +321,8 @@ class Tournament:
         Returns:
             `TournamentResults` with all scores and final-scores
         """
+        if path is not None:
+            path = path if isinstance(path, Path) else Path(path)
         if n_jobs is not None:
             if isinstance(n_jobs, float) and n_jobs < 1.0:
                 n_jobs = int(0.5 + cpu_count() * n_jobs)

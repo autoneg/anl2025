@@ -68,7 +68,7 @@ def do_make(
     separate_scenarios: bool = True,
     name: str = "auto",
     method: str = DEFAULT_METHOD,
-    edge_knows_details: bool = True,
+    public_graph: bool = True,
 ):
     if generated is None:
         generated = 3 if path is None else 0
@@ -102,7 +102,7 @@ def do_make(
                 if d.is_dir():
                     s = MultidealScenario.from_folder(
                         d,
-                        edges_know_details=edge_knows_details,
+                        public_graph=public_graph,
                         python_class_identifier=python_class_identifier,
                     )
                     if not s:

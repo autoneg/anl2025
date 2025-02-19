@@ -13,7 +13,7 @@ from anl2025.common import (
     TYPES_MAP,
     CENTER_FILE_NAME,
     EDGES_FOLDER_NAME,
-    SIDES_FILDER_NAME,
+    SIDES_FOLDER_NAME,
     TYPE_IDENTIFIER,
     sample_between,
     get_ufun_class,
@@ -22,6 +22,7 @@ from anl2025.common import (
 
 __all__ = ["MultidealScenario", "make_multideal_scenario"]
 
+EPSILON = 1e-6
 TRACE_COLS = (
     "time",
     "relative_time",
@@ -31,7 +32,6 @@ TRACE_COLS = (
     "responses",
     "state",
 )
-EPSILON = 1e-6
 
 
 def type_name_adapter(x: str, types_map=TYPES_MAP) -> str:
@@ -52,13 +52,23 @@ class MultidealScenario:
     edge_ufuns: tuple[UtilityFunction, ...]
     side_ufuns: tuple[UtilityFunction, ...] | None = None
     name: str = ""
+    public_graph: bool = True
+
+    def __attrs_post_init__(self):
+        if self.public_graph:
+            for e in self.edge_ufuns:
+                e.n_edges = self.center_ufun.n_edges  # type: ignore
+                e.oucome_spaces = [  # type: ignore
+                    copy.deepcopy(_) for _ in self.center_ufun.outcome_spaces
+                ]
 
     def save(
         self,
-        base: Path,
+        base: Path | str,
         as_folder: bool = True,
         python_class_identifier: str = TYPE_IDENTIFIER,
     ):
+        base = Path(base)
         name = self.name if self.name else "scenario"
         if as_folder:
             return self.to_folder(
@@ -73,9 +83,9 @@ class MultidealScenario:
     @classmethod
     def from_folder(
         cls,
-        folder: Path,
+        folder: Path | str,
         name: str | None = None,
-        edges_know_details: bool = True,
+        public_graph: bool = True,
         python_class_identifier: str = TYPE_IDENTIFIER,
         type_marker=f"{TYPE_IDENTIFIER}:",
     ) -> Optional["MultidealScenario"]:
@@ -91,6 +101,7 @@ class MultidealScenario:
             python_class_identifier: the key in the yaml to define a type.
             type_marker: A marker at the beginning of a string to define a type (for future proofing).
         """
+        folder = Path(folder)
         folder = folder.resolve()
         center_file = folder / CENTER_FILE_NAME
         if not center_file.is_file():
@@ -104,7 +115,8 @@ class MultidealScenario:
         center_ufun = deserialize(load(center_file), **dparams)  # type: ignore
         assert isinstance(center_ufun, CenterUFun)
 
-        def load_ufuns(f: Path) -> tuple[UtilityFunction, ...] | None:
+        def load_ufuns(f: Path | str) -> tuple[UtilityFunction, ...] | None:
+            f = Path(f)
             if not f.is_dir():
                 return None
             return tuple(
@@ -117,13 +129,13 @@ class MultidealScenario:
         for u, os in zip(edge_ufuns, center_ufun.outcome_spaces):
             if u.outcome_space is None:
                 u.outcome_space = os
-        if edges_know_details:
+        if public_graph:
             for u in edge_ufuns:
                 u.n_edges = center_ufun.n_edges  # type: ignore
                 u.outcome_spaces = tuple(  # type: ignore
                     copy.deepcopy(_) for _ in center_ufun.outcome_spaces
                 )
-        side_ufuns = load_ufuns(folder / SIDES_FILDER_NAME)
+        side_ufuns = load_ufuns(folder / SIDES_FOLDER_NAME)
 
         return cls(
             center_ufun=center_ufun,
@@ -134,10 +146,11 @@ class MultidealScenario:
 
     def to_folder(
         self,
-        folder: Path,
+        folder: Path | str,
         python_class_identifier: str = TYPE_IDENTIFIER,
         mkdir: bool = False,
     ):
+        folder = Path(folder)
         if mkdir:
             name = self.name if self.name else "scenario"
             folder = folder / name
@@ -162,7 +175,7 @@ class MultidealScenario:
                 )
 
         save(EDGES_FOLDER_NAME, self.edge_ufuns)
-        save(SIDES_FILDER_NAME, self.side_ufuns)
+        save(SIDES_FOLDER_NAME, self.side_ufuns)
 
     def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
         """Converts the scenario to a dictionary"""
@@ -185,12 +198,12 @@ class MultidealScenario:
     ) -> Optional["MultidealScenario"]:
         return deserialize(d, python_class_identifier=python_class_identifier)  # type: ignore
 
-    def to_file(self, path: Path, python_class_identifier=TYPE_IDENTIFIER):
+    def to_file(self, path: Path | str, python_class_identifier=TYPE_IDENTIFIER):
         dump(self.to_dict(python_class_identifier=python_class_identifier), path)
 
     @classmethod
     def from_file(
-        cls, path: Path, python_class_identifier=TYPE_IDENTIFIER
+        cls, path: Path | str, python_class_identifier=TYPE_IDENTIFIER
     ) -> Optional["MultidealScenario"]:
         return cls.to_dict(load(path), python_class_identifier=python_class_identifier)  # type: ignore
 

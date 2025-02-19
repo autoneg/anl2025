@@ -3,9 +3,11 @@ from pathlib import Path
 from anl2025.runner import MultidealScenario
 from .common import TYPE_IDENTIFIER
 
+__all__ = ["load_multideal_scenario"]
+
 
 def load_multideal_scenario(
-    folder: Path,
+    folder: Path | str,
     name: str | None = None,
     edges_know_details: bool = True,
     python_class_identifier: str = TYPE_IDENTIFIER,
@@ -23,10 +25,11 @@ def load_multideal_scenario(
         python_class_identifier: the key in the yaml to define a type.
         type_marker: A marker at the beginning of a string to define a type (for future proofing).
     """
+    folder = folder if isinstance(folder, Path) else Path(folder)
     return MultidealScenario.from_folder(
         folder,
         name=name,
-        edges_know_details=edges_know_details,
+        public_graph=edges_know_details,
         python_class_identifier=python_class_identifier,
         type_marker=type_marker,
     )

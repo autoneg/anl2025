@@ -80,11 +80,13 @@ class AssignedScenario:
     def run(
         self,
         name: str = "",
-        output: Path | None = None,
+        output: Path | str | None = None,
         verbose: bool = False,
         dry: bool = False,
     ) -> SessionResults:
         """Runs a multi-deal negotiation and gets the results"""
+        if output and isinstance(output, str):
+            output = Path(output)
 
         def type_name(x):
             if isinstance(x, Boulware2025):
@@ -277,7 +279,7 @@ def run_generated_session(
     share_ufuns: bool = False,
     atomic: bool = False,
     # output and logging
-    output: Path | None = Path.home() / "negmas" / "anl2025" / "session",
+    output: Path | str | None = Path.home() / "negmas" / "anl2025" / "session",
     name: str = "",
     dry: bool = False,
     method=DEFAULT_METHOD,
@@ -313,6 +315,8 @@ def run_generated_session(
     Returns:
         `SessionResults` giving the results of the multideal negotiation session.
     """
+    if output and isinstance(output, str):
+        output = Path(output)
     sample_edges = nedges > 0
     if not sample_edges:
         nedges = len(edge_types)
@@ -394,6 +398,8 @@ def run_session(
     Returns:
         `SessionResults` giving the results of the multideal negotiation session.
     """
+    if output and isinstance(output, str):
+        output = Path(output)
     run_params = RunParams(
         nsteps=nsteps,
         keep_order=keep_order,

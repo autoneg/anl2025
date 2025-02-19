@@ -2,11 +2,19 @@ from attrs import define
 from random import random
 from negmas.helpers.types import get_class
 
+__all__ = [
+    "RunParams",
+    "TYPE_IDENTIFIER",
+    "CENTER_FILE_NAME",
+    "EDGES_FOLDER_NAME",
+    "SIDES_FOLDER_NAME",
+]
+
 EPSILON = 1e-6
 TYPE_IDENTIFIER = "type"
 CENTER_FILE_NAME = "center.yml"
 EDGES_FOLDER_NAME = "edges"
-SIDES_FILDER_NAME = "sides"
+SIDES_FOLDER_NAME = "sides"
 TYPES_MAP = dict(
     DiscreteCartesianOutcomeSpace="negmas.outcomes.DiscreteCartesianOutcomeSpace"
 )

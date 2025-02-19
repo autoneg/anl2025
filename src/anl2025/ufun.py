@@ -195,7 +195,7 @@ class LambdaCenterUFun(CenterUFun):
         return self._eval(offer)
 
     @classmethod
-    def load(cls, folder: Path):
+    def load(cls, folder: Path | str):
         pass
 
 
