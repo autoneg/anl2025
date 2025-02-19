@@ -279,7 +279,7 @@ def run_generated_session(
     # output and logging
     output: Path | None = Path.home() / "negmas" / "anl2025" / "session",
     name: str = "",
-    dry: bool = True,
+    dry: bool = False,
     method=DEFAULT_METHOD,
     verbose: bool = False,
 ) -> SessionResults:
@@ -366,7 +366,7 @@ def run_session(
     # output and logging
     output: Path | None = Path.home() / "negmas" / "anl2025" / "session",
     name: str = "",
-    dry: bool = True,
+    dry: bool = False,
     method=DEFAULT_METHOD,
     verbose: bool = False,
 ) -> SessionResults:

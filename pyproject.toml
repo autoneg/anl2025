@@ -23,6 +23,7 @@ anl2025 = "anl2025.cli:app"
 
 [project.optional-dependencies]
 doc = [
+    "jupyter>=1.1.1",
     "mkdocs-include-markdown-plugin>=7.1.4",
     "mkdocs-material>=9.6.4",
     "mkdocs>=1.6.1",

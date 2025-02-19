@@ -93,6 +93,7 @@ dependencies = [
 
 [package.optional-dependencies]
 doc = [
+    { name = "jupyter" },
     { name = "mkdocs" },
     { name = "mkdocs-include-markdown-plugin" },
     { name = "mkdocs-material" },
@@ -104,6 +105,7 @@ doc = [
 requires-dist = [
     { name = "anl", editable = "../anl" },
     { name = "anl-agents", editable = "../anl-agents" },
+    { name = "jupyter", marker = "extra == 'doc'", specifier = ">=1.1.1" },
     { name = "mkdocs", marker = "extra == 'doc'", specifier = ">=1.6.1" },
     { name = "mkdocs-include-markdown-plugin", marker = "extra == 'doc'", specifier = ">=7.1.4" },
     { name = "mkdocs-material", marker = "extra == 'doc'", specifier = ">=9.6.4" },
