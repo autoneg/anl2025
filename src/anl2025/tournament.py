@@ -179,10 +179,10 @@ class Tournament:
         Returns:
             A `Tournament` ready to run
         """
-        if nedges > len(competitors):
-            raise ValueError(
-                f"We have {len(competitors)} competitors which is not enough for {nedges} edges"
-            )
+        # if nedges > len(competitors):
+        #     raise ValueError(
+        #         f"We have {len(competitors)} competitors which is not enough for {nedges} edges"
+        #     )
         return cls(
             competitors=tuple(competitors),
             competitor_params=competitor_params,
