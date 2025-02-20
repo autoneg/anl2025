@@ -359,8 +359,6 @@ def run_session(
     edge_types: list[str | type[ANL2025Negotiator]] = [
         Boulware2025,
         RandomNegotiator,
-        Shochan2025,
-        AgentRenting2025,
     ],
     # mechanism params
     nsteps: int = 100,

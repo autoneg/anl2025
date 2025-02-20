@@ -1,6 +1,8 @@
 __all__ = ["make_dinners_scenario"]
 
 import itertools
+import random
+from typing import Iterable
 import numpy as np
 from anl2025.scenario import MultidealScenario
 from anl2025.ufun import LambdaCenterUFun
@@ -15,12 +17,14 @@ class DinnersEvaluator:
     def __init__(
         self,
         n_days: int,
+        n_friends: int,
         reserved_value=0.0,
         values: dict[tuple[int, ...], float] | None = None,
     ):
         self.days = list(range(n_days))
         if values is None:
-            all_days = list(itertools.product(self.days))
+            days = [self.days for _ in range(n_friends)]
+            all_days = list(itertools.product(*days))
             v = np.random.rand(len(all_days))
             v -= np.min(v)
             v /= np.max(v)
@@ -46,38 +50,61 @@ class DinnersEvaluator:
 
 def make_dinners_scenario(
     n_friends: int = 3,
-    n_days: int | None = 3,
+    n_days: int | None = None,
     friend_names: tuple[str, ...] | None = None,
-    center_reserved_value: float = 0.0,
-    edge_reserved_value_range: tuple[float, float] = (0.0, 0.5),
+    center_reserved_value: tuple[float, float] | float = 0.0,
+    edge_reserved_values: tuple[float, float] = (0.0, 0.5),
     values: dict[tuple[int, ...], float] | None = None,
     public_graph: bool = True,
-):
+) -> MultidealScenario:
+    """Creates a variation of the Dinners multideal scenario
+
+    Args:
+        n_friends: Number of friends.
+        n_days: Number of days. If `None`, it will be the same as `n_friends`
+        friend_names: Optionally, list of friend names (otherwise we will use Friend{i})
+        center_reserved_value: The reserved value of the center. Either a number of a min-max range
+        edge_reserved_valus: The reserved value of the friends (edges). Always, a min-max range
+        values: A mapping from the number of dinners per day (a tuple of n_days integers) to utility value of the center
+        public_graph: Should edges know n_edges and outcome_spaces?
+
+    Returns:
+        An initialized `MultidealScenario`.
+    """
     if n_days is None:
         n_days = n_friends
     if not friend_names:
-        friend_names = tuple(f"friend{i+1}" for i in range(n_days))
+        friend_names = tuple(f"Friend{i+1}" for i in range(n_friends))
     assert (
-        len(friend_names) == n_days
+        len(friend_names) == n_friends
     ), f"You passed {len(friend_names)} friend names but {n_friends=}"
     outcome_spaces = [
         make_os([make_issue(n_days, name="Day")], name=f"{name}Day")
         for name in friend_names
     ]
+    if not isinstance(center_reserved_value, Iterable):
+        r = float(center_reserved_value)
+    else:
+        r = center_reserved_value[0] + random.random() * (
+            center_reserved_value[-1] - center_reserved_value[0]
+        )
     return MultidealScenario(
         name="dinners",
         edge_ufuns=tuple(
             LinearUtilityAggregationFunction.random(
-                os, reserved_value=edge_reserved_value_range
+                os, reserved_value=edge_reserved_values, normalized=True
             )
             for os in outcome_spaces
         ),
         center_ufun=LambdaCenterUFun(
-            evaluator=DinnersEvaluator(
-                reserved_value=center_reserved_value, n_days=n_days, values=values
-            ),
-            reserved_value=center_reserved_value,
             outcome_spaces=outcome_spaces,
+            evaluator=DinnersEvaluator(
+                reserved_value=r,
+                n_days=n_days,
+                n_friends=n_friends,
+                values=values,
+            ),
+            reserved_value=r,
         ),
         public_graph=public_graph,
     )

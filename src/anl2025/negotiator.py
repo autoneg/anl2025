@@ -2,7 +2,9 @@ from random import random
 from anl_agents.anl2024 import Shochan, AgentRenting2024
 from negmas.sao.controllers import SAOController, SAOState
 from negmas import (
+    ConcederTBNegotiator,
     DiscreteCartesianOutcomeSpace,
+    LinearTBNegotiator,
     ResponseType,
 )
 from negmas.outcomes import Outcome
@@ -12,6 +14,8 @@ __all__ = [
     "ANL2025Negotiator",
     "RandomNegotiator",
     "Boulware2025",
+    "Linear2025",
+    "Conceder2025",
     "Shochan2025",
     "AgentRenting2025",
 ]
@@ -49,6 +53,26 @@ class Boulware2025(ANL2025Negotiator):
 
     def __init__(self, **kwargs):
         kwargs["default_negotiator_type"] = AspirationNegotiator
+        super().__init__(**kwargs)
+
+
+class Linear2025(ANL2025Negotiator):
+    """
+    You can participate by an agent that runs any SAO negotiator independently for each thread.
+    """
+
+    def __init__(self, **kwargs):
+        kwargs["default_negotiator_type"] = LinearTBNegotiator
+        super().__init__(**kwargs)
+
+
+class Conceder2025(ANL2025Negotiator):
+    """
+    You can participate by an agent that runs any SAO negotiator independently for each thread.
+    """
+
+    def __init__(self, **kwargs):
+        kwargs["default_negotiator_type"] = ConcederTBNegotiator
         super().__init__(**kwargs)
 
 

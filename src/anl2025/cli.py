@@ -48,8 +48,8 @@ def do_make(
     competitor: list[str] = [
         "Boulware2025",
         "RandomNegotiator",
-        "Shochan2025",
-        "AgentRenting2025",
+        "Linear2025",
+        "Conceder2025",
     ],
     nissues: int = 3,
     nvalues: int = 7,
@@ -263,8 +263,8 @@ def run_random(
     ] = [
         "Boulware2025",
         "RandomNegotiator",
-        "Shochan2025",
-        "AgentRenting2025",
+        "Linear2025",
+        "Conceder2025",
     ],
     edge_reserved_value_min: Annotated[
         float,
@@ -397,8 +397,8 @@ def run_scenario(
     ] = [
         "Boulware2025",
         "RandomNegotiator",
-        "Shochan2025",
-        "AgentRenting2025",
+        "Conceder2025",
+        "Linear2025",
     ],
     nsteps: Annotated[
         int,
@@ -528,8 +528,8 @@ def make(
     ] = [
         "Boulware2025",
         "RandomNegotiator",
-        "Shochan2025",
-        "AgentRenting2025",
+        "Linear2025",
+        "Conceder2025",
     ],
     nissues: Annotated[
         int,
@@ -710,8 +710,8 @@ def run(
     ] = [
         "Boulware2025",
         "RandomNegotiator",
-        "Shochan2025",
-        "AgentRenting2025",
+        "Conceder2025",
+        "Linear2025",
     ],
     nissues: Annotated[
         int,
