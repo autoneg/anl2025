@@ -371,6 +371,7 @@ def run_session(
     dry: bool = False,
     method=DEFAULT_METHOD,
     verbose: bool = False,
+    sample_edges: bool = False,
 ) -> SessionResults:
     """Runs a multideal negotiation session and runs it.
 
@@ -392,6 +393,7 @@ def run_session(
         name: Name of the session
         dry: IF true, nothing will be run.
         verbose: Print progress
+        sample_edges: If true, the `edge_types` will be used as a pool to sample from
 
     Returns:
         `SessionResults` giving the results of the multideal negotiation session.
@@ -405,6 +407,11 @@ def run_session(
         atomic=atomic,
         method=method,
     )
+    if not sample_edges:
+        assert (
+                len(edge_types) == len(scenario.edge_ufuns)
+        ), f"You are trying to run a session without sampling, but the number of provided edge types ({len(edge_types)}) is not equal to the number of edge ufuns in the scenario ({len(scenario.edge_ufuns)})."
+
     assigned = assign_scenario(
         scenario=scenario,
         run_params=run_params,
