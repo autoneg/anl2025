@@ -371,7 +371,7 @@ def run_session(
     dry: bool = False,
     method=DEFAULT_METHOD,
     verbose: bool = False,
-    sample_edges: bool = False,
+    sample_edges: bool = True,
 ) -> SessionResults:
     """Runs a multideal negotiation session and runs it.
 
