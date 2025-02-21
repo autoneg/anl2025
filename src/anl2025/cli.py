@@ -110,6 +110,18 @@ def do_make(
                     scenarios.append(s)
             except Exception:
                 pass
+    leave = False
+    if not competitors:
+        print("[red]No competitors[/red]!!")
+        leave = True
+    if not scenarios and not generated:
+        print(
+            "[red]No scenarios!![/red] No path to existing scenarios given (--scenarios-path) nor are you requesting generating of new paths (--generate)!!"
+        )
+        leave = True
+    if leave:
+        return None, None
+
     t = Tournament.from_scenarios(
         competitors=(competitors),
         scenarios=tuple(scenarios),
@@ -137,6 +149,11 @@ def do_run(
     t: Tournament, nreps: int, output: Path, verbose: bool, dry: bool, njobs: int
 ):
     results = t.run(nreps, output, verbose, dry, n_jobs=njobs if njobs >= 0 else None)
+    if len(results.scores) < 1:
+        print(
+            "No results found!! Make sure that you pass scenarios either using --scenarios or --generate"
+        )
+        return
     data = pd.DataFrame.from_records(results.scores)
     data["role"] = data["index"].apply(lambda x: "center" if x == 0 else "edge")
     data.to_csv(output / "scores.csv", index=False)
@@ -517,7 +534,10 @@ def make(
     ] = None,  # type: ignore
     generate: Annotated[
         int,
-        typer.Option(help="Number of Scenarios", rich_help_panel="Tournament Control"),
+        typer.Option(
+            help="Number of random scenarios to generate",
+            rich_help_panel="Tournament Control",
+        ),
     ] = None,  # type: ignore
     competitor: Annotated[
         list[str],
@@ -663,7 +683,7 @@ def make(
             "[red]ERROR[/red] You did not specify a scenarios path using --scenarios-path "
             "nor a number of scenarios to generate using --generate. Please specify at least one of them"
         )
-    _, path = do_make(
+    tournament, path = do_make(
         path=scenarios_path,
         generated=generate,
         competitor=competitor,
@@ -685,7 +705,8 @@ def make(
         name=name,
         method=method,
     )
-    print(f"Tournament information is saved in {path}. Use `run` to run it")
+    if tournament:
+        print(f"Tournament information is saved in {path}. Use `run` to run it")
 
 
 @tournament.command(help="Makes and executes a tournament")
@@ -699,7 +720,10 @@ def run(
     ] = None,  # type: ignore
     generate: Annotated[
         int,
-        typer.Option(help="Number of Scenarios", rich_help_panel="Tournament Control"),
+        typer.Option(
+            help="Number of random scenarios to generate",
+            rich_help_panel="Tournament Control",
+        ),
     ] = None,  # type: ignore
     competitor: Annotated[
         list[str],
@@ -892,6 +916,8 @@ def run(
         name=name,
         method=method,
     )
+    if not t or path is None:
+        return
     print(f"Tournament information is saved in {path}. Use `run` to run it")
     do_run(t, nreps, path.parent, verbose, dry, njobs)
 
