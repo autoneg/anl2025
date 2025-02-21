@@ -25,6 +25,11 @@ for mdfile in docs/tutorials/*.md; do
 done
 echo "------------------------------------------------"
 mkdocs build
+# copy images if any to the notebook. This is needed so that we can use images in markdown
+for fils in ../notebooks/tutorials/*.ipynb ; do
+	orig=`basename ${fils%.*}`
+	cp ../notebooks/tutorials/*.jpeg site/tutorials/${orig}/
+done
 mkdocs gh-deploy
 #
 # for ext in png jpg gif pdf; do

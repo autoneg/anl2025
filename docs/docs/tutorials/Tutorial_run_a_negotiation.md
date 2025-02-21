@@ -58,14 +58,8 @@ session.add(Boulware(name="buyer"), ufun=buyer_utility)
 
 # run the negotiation and show the results
 print(session.run())
-
-# negotiation history
-for i, _ in enumerate(session.history):
-    print(f"{i:03}: {_.new_offers}")  # the first line gives the offer of the seller and the buyer  in the first round
-
 session.plot(ylimits=(0.0, 1.01), show_reserved=False, mark_max_welfare_points=False)
 plt.show()
-
 
 ```
 
@@ -75,7 +69,7 @@ plt.show()
     <span style="color: #808000; text-decoration-color: #808000">waiting</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
     <span style="color: #808000; text-decoration-color: #808000">started</span>=<span style="color: #00ff00; text-decoration-color: #00ff00; font-style: italic">True</span>,
     <span style="color: #808000; text-decoration-color: #808000">step</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">18</span>,
-    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.006180799915455282</span>,
+    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.00291220800136216</span>,
     <span style="color: #808000; text-decoration-color: #808000">relative_time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9047619047619048</span>,
     <span style="color: #808000; text-decoration-color: #808000">broken</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
     <span style="color: #808000; text-decoration-color: #808000">timedout</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
@@ -84,15 +78,19 @@ plt.show()
     <span style="color: #808000; text-decoration-color: #808000">n_negotiators</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,
     <span style="color: #808000; text-decoration-color: #808000">has_error</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
     <span style="color: #808000; text-decoration-color: #808000">error_details</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
+    <span style="color: #808000; text-decoration-color: #808000">erred_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
+    <span style="color: #808000; text-decoration-color: #808000">erred_agent</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
     <span style="color: #808000; text-decoration-color: #808000">threads</span>=<span style="font-weight: bold">{}</span>,
     <span style="color: #808000; text-decoration-color: #808000">last_thread</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_offer</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">)</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-69622b52-7474-4027-bdda-e2928ad686cf'</span>,
+    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-47804dc3-b24d-44b2-a6c8-e6d7f3144ef1'</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_proposer_agent</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
     <span style="color: #808000; text-decoration-color: #808000">n_acceptances</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-69622b52-7474-4027-bdda-e2928ad686cf'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
+    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-47804dc3-b24d-44b2-a6c8-e6d7f3144ef1'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
     <span style="color: #808000; text-decoration-color: #808000">new_offerer_agents</span>=<span style="font-weight: bold">[</span><span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span>,
-    <span style="color: #808000; text-decoration-color: #808000">last_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">'seller'</span>
+    <span style="color: #808000; text-decoration-color: #808000">last_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">'seller'</span>,
+    <span style="color: #808000; text-decoration-color: #808000">current_data</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+    <span style="color: #808000; text-decoration-color: #808000">new_data</span>=<span style="font-weight: bold">[]</span>
 <span style="font-weight: bold">)</span>
 </pre>
 
@@ -103,4 +101,147 @@ plt.show()
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_6_1.png)
     
 
+
+## Running a Multi-deal negotiation
+
+ANL 2025's challenge is to develop agents capable of negotiating sequentially a set of interrelated deals (Multi-deal negotiation). You can create and run a multi-deal negotiation using special tools provided by the anl2025 package.
+
+### A random multideal-session
+
+
+```python
+from anl2025 import make_multideal_scenario
+
+scenario = make_multideal_scenario(nedges=8)
+```
+
+**What just happened?**
+
+We created a random multi-deal session with one center agent and 8 edge agents. The center agent negotiates with all the edge agents. Each one of these negotiations is called a **negotiation thread** and the whole set is called a **multideal negotiation**.
+
+The following figure shows the structure of a typical such scenario (with 8 instead of 10 edge agents). Each one of the **edge agents** has its own utility function $e_i$ and is in the same kind of situation as the buyer and seller in the previous example.
+
+The **center agent** faces a different challenge. It has one utility function defined for each **negotiation thread** called a **side utility function** ($s_i$). The overall utility of the center agent is some function (called the **combination function**) of the side utilities it gets in all the negotiation threads. 
+
+```{note}
+In ANL 2025, the center agent negotiates with the side agents sequentially. It completes a negotiation with one edge agent before starting the next negotiation with the next edge agent. At no time does the center agent have multiple negotiation threads running at the same time. 
+```
+
+The following figure shows the situation:
+
+![Example](Slide2.jpeg)
+
+The function `make_multideal_scenario` creates such a scenario. The combination function used by default is `max` (i.e. the center get the maximum utlility it gets in all negotiations) but you can easily change it. See the full documentation of `make_multideal_scenario` in the Reference for more details of how to control all aspects of scenario  generation.
+
+
+```python
+from anl2025 import run_session
+results = run_session(scenario)
+
+```
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_0.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_1.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_2.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_3.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_4.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_5.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_6.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_7.png)
+    
+
+
+
+```python
+print(f"Center utility: {results.center_utility}")
+print(f"Edge Utilities: {results.edge_utilities}")
+```
+
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9276720459639805</span>
+</pre>
+
+
+
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.38956551178948556</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3872387680916396</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3018813218073944</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.39261200568969123</span>, 
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.35026385621529005</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3011223355208246</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3700950166842189</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5841873862773928</span><span style="font-weight: bold">]</span>
+</pre>
+
+
+
+### A dinners' scheduling session
+
+In the previous example, the center utility function was defined in terms of individual side utility functions (one per negotiation threads). A more general case is when the center utility function is defined directly in terms of the outcomes of negotiation threads without locally defined utility functions. The following figure shows an example of this kind of scenario:
+
+![Global Utility Function Example](Slide1.jpeg)
+
+The `anl2025` package allows you to create such scenarios using the `LambdaCenterUFun` class (See Reference). One class of these sceanrios is the **Dinners** scenarios in which one person (center agent) is negotiating with her friends (edge agents) about the day to go out for dinner. Each friend has her own utility function for different days. The cener agent has a utility for each combination of agreements (i.e. she may prefer to go out once every night except in Tuesdays,
+
+
+```python
+from anl2025 import make_dinners_scenario
+
+results = run_session(make_dinners_scenario())
+```
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_0.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_1.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_2.png)
+    
+
+
+
+```python
+
+```
 [Download Notebook](/anl2025/tutorials/notebooks/Tutorial_run_a_negotiation.ipynb)
