@@ -12,9 +12,9 @@ from anl2025.ufun import CenterUFun
 from anl2025.negotiator import (
     ANL2025Negotiator,
     Boulware2025,
-    Shochan2025,
-    AgentRenting2025,
-    RandomNegotiator,
+    Conceder2025,
+    Linear2025,
+    Random2025,
 )
 from anl2025.scenario import MultidealScenario, make_multideal_scenario
 from anl2025.common import get_agent_class, RunParams, DEFAULT_METHOD
@@ -198,9 +198,9 @@ def assign_scenario(
     center_params: dict[str, Any] | None = None,
     edge_types: list[str | type[ANL2025Negotiator]] = [
         Boulware2025,
-        RandomNegotiator,
-        Shochan2025,
-        AgentRenting2025,
+        Random2025,
+        Linear2025,
+        Conceder2025,
     ],
     edge_params: list[dict[str, Any]] | None = None,
     verbose: bool = False,
@@ -269,9 +269,9 @@ def run_generated_session(
     edge_reserved_value_max: float = 0.4,
     edge_types: list[str | type[ANL2025Negotiator]] = [
         Boulware2025,
-        RandomNegotiator,
-        Shochan2025,
-        AgentRenting2025,
+        Random2025,
+        Linear2025,
+        Conceder2025,
     ],
     # outcome space
     nissues: int = 3,
@@ -361,7 +361,8 @@ def run_session(
     # edges
     edge_types: list[str | type[ANL2025Negotiator]] = [
         Boulware2025,
-        RandomNegotiator,
+        Linear2025,
+        Conceder2025,
     ],
     # mechanism params
     nsteps: int = 100,

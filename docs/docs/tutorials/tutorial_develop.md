@@ -13,7 +13,7 @@ Here is a simple random negotiator:
 import random
 from negmas.sao import SAONegotiator, SAOResponse
 from negmas import Outcome, ResponseType
-class MyRandomNegotiator(SAONegotiator):
+class MyRandom2025(SAONegotiator):
     def __call__(self, state):
         offer = state.current_offer
         if offer is not None and self.ufun.is_not_worse(offer, None) and random.random() < 0.25 :
@@ -33,7 +33,7 @@ from anl.anl2024.negotiators import Boulware, Conceder, RVFitter
 ```python
 results = anl2024_tournament(
     n_scenarios=1, n_repetitions=3, nologs=True, njobs=-1,
-    competitors=[MyRandomNegotiator, Boulware]
+    competitors=[MyRandom2025, Boulware]
 )
 ```
 
@@ -61,12 +61,12 @@ results = anl2024_tournament(
 
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">             strategy     score
 <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>            Boulware  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.767437</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>  MyRandomNegotiator  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.262742</span>
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>  MyRandom2025  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.262742</span>
 </pre>
 
 
 
-The score that is printed is the average advantage, which is the received utility minus the reservation value. We can immediately notice that `MyRandomNegotiator` is getting a negative average advantage which means that it sometimes gets agreements that are worse than disagreement (i.e. with utility less than its reservation value). Can you guess why is this happening? How can we resolve that?
+The score that is printed is the average advantage, which is the received utility minus the reservation value. We can immediately notice that `MyRandom2025` is getting a negative average advantage which means that it sometimes gets agreements that are worse than disagreement (i.e. with utility less than its reservation value). Can you guess why is this happening? How can we resolve that?
 
 You can easily check the final scores using the `final_scores` member of the returned [SimpleTournamentResults](https://negmas.readthedocs.io/en/latest/api/negmas.tournaments.SimpleTournamentResults.html) object.
 
@@ -108,7 +108,7 @@ results.final_scores
     </tr>
     <tr>
       <th>1</th>
-      <td>MyRandomNegotiator</td>
+      <td>MyRandom2025</td>
       <td>0.262742</td>
     </tr>
   </tbody>
@@ -339,7 +339,7 @@ class SimpleRVFitter(SAONegotiator):
 ```python
 anl2024_tournament(
     n_scenarios=1, n_repetitions=3, nologs=True, njobs=-1,
-    competitors=[MyRandomNegotiator, SimpleRVFitter, Boulware, Conceder]
+    competitors=[MyRandom2025, SimpleRVFitter, Boulware, Conceder]
 ).final_scores
 ```
 
@@ -369,7 +369,7 @@ anl2024_tournament(
 <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>            Boulware  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.648516</span>
 <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>      SimpleRVFitter  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.562182</span>
 <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>            Conceder  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.314239</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>  MyRandomNegotiator  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.040486</span>
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>  MyRandom2025  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.040486</span>
 </pre>
 
 
@@ -417,7 +417,7 @@ anl2024_tournament(
     </tr>
     <tr>
       <th>3</th>
-      <td>MyRandomNegotiator</td>
+      <td>MyRandom2025</td>
       <td>0.040486</td>
     </tr>
   </tbody>

@@ -47,7 +47,7 @@ def do_make(
     generated: int | None = None,
     competitor: list[str] = [
         "Boulware2025",
-        "RandomNegotiator",
+        "Random2025",
         "Linear2025",
         "Conceder2025",
     ],
@@ -279,7 +279,7 @@ def run_random(
         ),
     ] = [
         "Boulware2025",
-        "RandomNegotiator",
+        "Random2025",
         "Linear2025",
         "Conceder2025",
     ],
@@ -413,7 +413,7 @@ def run_scenario(
         ),
     ] = [
         "Boulware2025",
-        "RandomNegotiator",
+        "Random2025",
         "Conceder2025",
         "Linear2025",
     ],
@@ -547,7 +547,7 @@ def make(
         ),
     ] = [
         "Boulware2025",
-        "RandomNegotiator",
+        "Random2025",
         "Linear2025",
         "Conceder2025",
     ],
@@ -733,7 +733,7 @@ def run(
         ),
     ] = [
         "Boulware2025",
-        "RandomNegotiator",
+        "Random2025",
         "Conceder2025",
         "Linear2025",
     ],

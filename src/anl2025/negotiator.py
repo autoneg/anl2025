@@ -13,7 +13,7 @@ from negmas.sao.negotiators import AspirationNegotiator
 
 __all__ = [
     "ANL2025Negotiator",
-    "RandomNegotiator",
+    "Random2025",
     "Boulware2025",
     "Linear2025",
     "Conceder2025",
@@ -26,7 +26,7 @@ class ANL2025Negotiator(SAOController):
     """
     Base class of all participant code.
 
-    See the next two examples of how to implement it (`Boulware2025`, `RandomNegotiator`).
+    See the next two examples of how to implement it (`Boulware2025`, `Random2025`).
     """
 
     def __init__(self, *args, n_edges: int = 0, **kwargs):
@@ -149,7 +149,7 @@ class Shochan2025(ANL2025Negotiator):
         super().__init__(**kwargs)
 
 
-class RandomNegotiator(ANL2025Negotiator):
+class Random2025(ANL2025Negotiator):
     """
     The most general way to implement an agent is to implement propose and respond.
     """
@@ -184,6 +184,9 @@ class RandomNegotiator(ANL2025Negotiator):
         if random() < self.p_end:
             return ResponseType.END_NEGOTIATION
 
-        if random() < self.p_reject:
+        if (
+            random() < self.p_reject
+            or float(self.ufun(state.current_offer)) < self.ufun.reserved_value  # type: ignore
+        ):
             return ResponseType.REJECT_OFFER
         return ResponseType.ACCEPT_OFFER

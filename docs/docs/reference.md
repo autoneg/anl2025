@@ -11,9 +11,13 @@ Other negotiators are just wrappers over negotiators provided by NegMAS.
 
 ::: anl2025.negotiator.ANL2025Negotiator
 
-::: anl2025.negotiator.RandomNegotiator
+::: anl2025.negotiator.Random2025
 
 ::: anl2025.negotiator.Boulware2025
+
+::: anl2025.negotiator.Linear2025
+
+::: anl2025.negotiator.Conceder2025
 
 ::: anl2025.negotiator.Shochan2025
 
