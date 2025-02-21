@@ -104,7 +104,10 @@ class AssignedScenario:
             print(f"Adding center of type {type_name(center)}")
 
         mechanisms = []
-        side_ufuns = center_ufun.side_ufuns(nedges)
+        try:
+            side_ufuns = center_ufun.side_ufuns(nedges)
+        except Exception:
+            side_ufuns = None
         if not side_ufuns:
             side_ufuns = [None] * len(edges)
         for i, (edge_ufun, side_ufun, edge) in enumerate(

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from collections import defaultdict
 from collections.abc import Sequence, Callable
+from enum import Enum
 from pathlib import Path
 from typing import TypeVar
 from negmas.preferences import BaseUtilityFunction
@@ -27,6 +28,7 @@ TRACE_COLS = (
 )
 
 __all__ = [
+    "CenterUFunCategory",
     "convert_to_center_ufun",
     "flatten_outcome_spaces",
     "unflatten_outcome_space",
@@ -44,6 +46,22 @@ __all__ = [
 TUFun = TypeVar("TUFun", bound=UtilityFunction)
 CenterEvaluator = Callable[[tuple[Outcome | None, ...] | None], float]
 EdgeEvaluator = Callable[[Outcome | None], float]
+
+
+class CenterUFunCategory(Enum):
+    """The type of the center utility function.
+
+    Remarks:
+        - `Global`  means that side ufuns are not defined. Note that
+          the `side_ufuns` function may still return `SideUfun` objects
+          but these will be the global ufun in case all other negotiation
+          threads end in disagreement.
+        - `Local` means that side ufuns are defined.
+
+    """
+
+    Global = 0
+    Local = 1
 
 
 def unflatten_outcome_space(
@@ -174,6 +192,15 @@ class CenterUFun(UtilityFunction, ABC):
             - A missing offer is represented by `None`
         """
 
+    @abstractmethod
+    def ufun_type(self) -> CenterUFunCategory:
+        """Returns the center ufun category.
+
+        Currently, we have two categories (Global and Local). See `CenterUFunCategory` for
+        their definitions.
+        """
+        ...
+
     def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction | None, ...]:
         """Should return an independent ufun for each side negotiator of the center."""
         return tuple(
@@ -197,6 +224,9 @@ class LambdaCenterUFun(CenterUFun):
     @classmethod
     def load(cls, folder: Path | str):
         pass
+
+    def ufun_type(self) -> CenterUFunCategory:
+        return CenterUFunCategory.Global
 
 
 class LambdaUtilityFunction(UtilityFunction):
@@ -246,6 +276,9 @@ class LambdaCenterUFunWithSides(CenterUFun):
         if self._side_ufuns is None:
             return super().side_ufuns(n_edges)
         return self._side_ufuns
+
+    def ufun_type(self) -> CenterUFunCategory:
+        return CenterUFunCategory.Local
 
 
 class FlatCenterUFun(UtilityFunction):
@@ -311,6 +344,9 @@ class UtilityCombiningCenterUFun(CenterUFun):
         ), f"Initialized with {len(self._ufuns)} ufuns but you are asking for ufuns for {n_edges} side negotiators."
         return self._ufuns
 
+    def ufun_type(self) -> CenterUFunCategory:
+        return CenterUFunCategory.Local
+
 
 class MaxCenterUFun(UtilityCombiningCenterUFun):
     """
@@ -355,6 +391,9 @@ class SingleAgreementSideUFunMixin:
             SideUFun(center_ufun=self, n_edges=n_edges, index=i)  # type: ignore
             for i in range(n_edges)
         )
+
+    def ufun_type(self) -> CenterUFunCategory:
+        return CenterUFunCategory.Local
 
 
 class MeanSMCenterUFun(SingleAgreementSideUFunMixin, CenterUFun):

@@ -4,6 +4,7 @@ from negmas.sao.controllers import SAOController, SAOState
 from negmas import (
     ConcederTBNegotiator,
     DiscreteCartesianOutcomeSpace,
+    ExtendedOutcome,
     LinearTBNegotiator,
     ResponseType,
 )
@@ -44,6 +45,58 @@ class ANL2025Negotiator(SAOController):
         # my_side_ufuns = [info.context["ufun"] for neg_id, info in self.negotiators.items()]
         # 2. Access the side negotiators connected to different negotiation threads
         # my_side_negotiators = [info.negotiator for neg_id, info in self.negotiators.items()]
+
+    def propose(
+        self, negotiator_id: str, state: SAOState, dest: str | None = None
+    ) -> Outcome | ExtendedOutcome | None:
+        """Called to propose an offer for one of the edge negotiators
+
+        Args:
+            negotiator_id: The ID of the connection to the edge negotiator.
+            state: The state of the negotiation with this edge negotiator.
+            dest: The ID of the edge negotiator
+
+        Returns:
+            An outcome to offer. In ANL2025, `None` and `ExtendedOutcome` are not allowed
+        """
+        return super().propose(negotiator_id, state, dest)
+
+    def respond(
+        self, negotiator_id: str, state: SAOState, source: str | None = None
+    ) -> ResponseType:
+        """Called to respond to an offer from an edge negotiator
+
+        Args:
+            negotiator_id: The ID of the connection to the edge negotiator.
+            state: The state of the negotiation with this edge negotiator.
+            dest: The ID of the edge negotiator
+
+        Returns:
+            A response (Accept, Reject, or End_Negotiation)
+
+        Remarks:
+            - The current offer on the negotiation thread with this edge
+              negotiator can be accessed as `state.current_offer`.
+        """
+        return super().respond(negotiator_id, state, source)
+
+    def on_negotiation_start(self, negotiator_id: str, state: SAOState) -> None:
+        """Called when a negotiation thread starts
+
+        Args:
+            negotiator_id: Connection ID to this negotiation thread
+            state: The state of the negotiation thread at the start of the negotiation.
+        """
+        return super().on_negotiation_start(negotiator_id, state)
+
+    def on_negotiation_end(self, negotiator_id: str, state: SAOState) -> None:
+        """Called when a negotiation thread ends
+
+        Args:
+            negotiator_id: Connection ID to this negotiation thread
+            state: The state of the negotiation thread at the end of the negotiation.
+        """
+        return super().on_negotiation_end(negotiator_id, state)
 
 
 class Boulware2025(ANL2025Negotiator):
