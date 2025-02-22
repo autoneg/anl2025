@@ -24,7 +24,7 @@ from anl2025.runner import (
     assign_scenario,
     make_multideal_scenario,
 )
-from anl2025.common import TYPE_IDENTIFIER
+from anl2025.common import DEFAULT_METHOD, TYPE_IDENTIFIER
 from attr import define
 
 __all__ = ["Tournament", "TournamentResults"]
@@ -119,6 +119,78 @@ def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, Sessio
         edge_type_names=[get_full_type_name(_) for _ in edges],
         edge_params=edge_params,  # type: ignore
         results=r,
+    )
+
+
+def anl2025_tournament(
+    scenarios: tuple[MultidealScenario, ...],
+    competitors: tuple[str | type[ANL2025Negotiator], ...],
+    n_repetitions: int,
+    n_steps: int = 100,
+    competitor_params: tuple[dict[str, Any] | None, ...] | None = None,
+    path: Path | str | None = None,
+    no_double_scores: bool = True,
+    non_comptitor_types: tuple[str | type[ANL2025Negotiator], ...] | None = None,
+    non_comptitor_params: tuple[dict[str, Any], ...] | None = None,
+    n_jobs: int | float | None = 0,
+    center_multiplier: float | None = None,
+    edge_multiplier: float = 1,
+    verbose: bool = False,
+    dry: bool = False,
+    keep_order: bool = True,
+    share_ufuns: bool = False,
+    atomic: bool = False,
+    method: str = DEFAULT_METHOD,
+) -> TournamentResults:
+    """Creates and runs a tournament.
+
+    Args:
+        scenarios: The scenarios to use for the tournament
+        competitors: The competitor negotiators
+        n_repetitions: Number of repetitions of each configuration of agents
+        n_steps: Number of steps of each negotiation
+        keep_order: [TODO:description]
+        share_ufuns: [TODO:description]
+        atomic: [TODO:description]
+        method: [TODO:description]
+        competitor_params: [TODO:description]
+        path: [TODO:description]
+        verbose: [TODO:description]
+        dry: [TODO:description]
+        no_double_scores: [TODO:description]
+        non_comptitor_types: [TODO:description]
+        non_comptitor_params: [TODO:description]
+        n_jobs: [TODO:description]
+        center_multiplier: [TODO:description]
+        edge_multiplier: [TODO:description]
+
+    Returns:
+        [TODO:return]
+    """
+    run_params = RunParams(
+        nsteps=n_steps,
+        keep_order=keep_order,
+        share_ufuns=share_ufuns,
+        atomic=atomic,
+        method=method,
+    )
+    tournament = Tournament(
+        competitors=competitors,
+        scenarios=scenarios,
+        run_params=run_params,
+        competitor_params=competitor_params,
+    )
+    return tournament.run(
+        path=path,
+        n_repetitions=n_repetitions,
+        verbose=verbose,
+        dry=dry,
+        no_double_scores=no_double_scores,
+        non_comptitor_types=non_comptitor_types,
+        non_comptitor_params=non_comptitor_params,
+        n_jobs=n_jobs,
+        center_multiplier=center_multiplier,
+        edge_multiplier=edge_multiplier,
     )
 
 

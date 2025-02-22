@@ -1,0 +1,41 @@
+name: with_employer02
+type: LinearAdditiveUtilityFunction
+reserved_value: 0.0
+values:
+- mapping:
+    0: 0.5786493703489
+    1: 1.0
+    2: 0.4767855635089059
+    3: 0.4767855635089059
+    4: 0.0
+    5: 0.5786493703489
+  type: TableFun
+- mapping:
+    100: 1.0
+    150: 0.21488052513232847
+    200: 0.3565451907600305
+    250: 1.0
+    300: 0.0
+  type: TableFun
+weights:
+- 0.6202601244450674
+- 0.3797398755549326
+outcome_space:
+  issues:
+  - name: days
+    type: ContiguousIssue
+    n_values: 6
+    values:
+    - 0
+    - 5
+  - name: JobHunt
+    type: DiscreteCartesianOutcomeSpace
+    n_values: 5
+    name: salary
+    type: DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300

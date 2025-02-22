@@ -29,8 +29,17 @@ mkdocs build
 for fils in ../notebooks/tutorials/*.ipynb ; do
 	orig=`basename ${fils%.*}`
 	cp ../notebooks/tutorials/*.jpeg site/tutorials/${orig}/
+	cp ../notebooks/tutorials/*.png site/tutorials/${orig}/
+	cp ../notebooks/tutorials/*.jpg site/tutorials/${orig}/
 done
-mkdocs gh-deploy
+mkdocs gh-deploy --dirty
+
+# for fils in ../notebooks/tutorials/*.ipynb ; do
+# 	orig=`basename ${fils%.*}`
+# 	cp ../notebooks/tutorials/*.jpeg site/tutorials/${orig}/
+# 	cp ../notebooks/tutorials/*.png site/tutorials/${orig}/
+# 	cp ../notebooks/tutorials/*.jpg site/tutorials/${orig}/
+# done
 #
 # for ext in png jpg gif pdf; do
 # 	echo ../notebooks/tutorials/*.$ext ./tutorials/

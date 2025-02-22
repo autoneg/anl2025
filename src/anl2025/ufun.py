@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
 from collections import defaultdict
+from typing import Any
+from negmas.inout import get_full_type_name
+from negmas.serialization import serialize, deserialize
 from collections.abc import Sequence, Callable
 from enum import Enum
-from pathlib import Path
 from typing import TypeVar
-from negmas.preferences import BaseUtilityFunction
-from negmas.preferences import UtilityFunction
+from negmas.preferences import UtilityFunction, BaseUtilityFunction
 from negmas.outcomes import (
     CartesianOutcomeSpace,
     EnumeratingOutcomeSpace,
@@ -16,6 +17,7 @@ from negmas.outcomes import (
 )
 from negmas.warnings import warn
 import numpy as np
+from anl2025.common import TYPE_IDENTIFIER
 
 TRACE_COLS = (
     "time",
@@ -208,6 +210,29 @@ class CenterUFun(UtilityFunction, ABC):
             for i in range(n_edges)
         )
 
+    def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
+        return {
+            python_class_identifier: get_full_type_name(type(self)),
+            "outcome_spaces": serialize(
+                self._outcome_spaces, python_class_identifier=python_class_identifier
+            ),
+            "name": self.name,
+            "reserved_value": self.reserved_value,
+        }
+
+    @classmethod
+    def from_dict(cls, d, python_class_identifier=TYPE_IDENTIFIER):
+        d.pop(python_class_identifier, None)
+        for f in ("outcome_spaces", "ufuns"):
+            if f in d:
+                d[f] = deserialize(
+                    d[f], python_class_identifier=python_class_identifier
+                )
+        return cls(**d)
+        # type_ = d.pop(python_class_identifier, cls)
+        # # cls = get_class(type_) if isinstance(type_, str) else type_
+        # return cls(**d)
+
 
 class LambdaCenterUFun(CenterUFun):
     """
@@ -216,17 +241,20 @@ class LambdaCenterUFun(CenterUFun):
 
     def __init__(self, *args, evaluator: CenterEvaluator, **kwargs):
         super().__init__(*args, **kwargs)
-        self._eval = evaluator
+        self._evaluator = evaluator
 
     def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
-        return self._eval(offer)
-
-    @classmethod
-    def load(cls, folder: Path | str):
-        pass
+        return self._evaluator(offer)
 
     def ufun_type(self) -> CenterUFunCategory:
         return CenterUFunCategory.Global
+
+    def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
+        return super().to_dict(python_class_identifier) | dict(
+            evaluator=serialize(
+                self._evaluator, python_class_identifier=python_class_identifier
+            )
+        )
 
 
 class LambdaUtilityFunction(UtilityFunction):
@@ -242,6 +270,13 @@ class LambdaUtilityFunction(UtilityFunction):
     def eval(self, offer: Outcome) -> float:
         return self._evaluator(offer)
 
+    def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
+        return super().to_dict(python_class_identifier) | dict(
+            evaluator=serialize(
+                self._evaluator, python_class_identifier=python_class_identifier
+            )
+        )
+
 
 class LambdaCenterUFunWithSides(CenterUFun):
     """
@@ -256,7 +291,7 @@ class LambdaCenterUFunWithSides(CenterUFun):
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        self._eval = evaluator
+        self._evaluator = evaluator
         if not side_evaluators:
             self._side_ufuns = None
             return
@@ -264,13 +299,21 @@ class LambdaCenterUFunWithSides(CenterUFun):
             evaluators = [side_evaluators] * len(self._outcome_spaces)
         else:
             evaluators = list(side_evaluators)
-        sides: list[UtilityFunction] = []
+        sides: list[LambdaUtilityFunction] = []
         for e, o in zip(evaluators, self._outcome_spaces):
             sides.append(LambdaUtilityFunction(outcome_space=o, evaluator=e))
-        self._side_ufuns = tuple(sides)
+        self._side_ufuns: tuple[LambdaUtilityFunction, ...] | None = tuple(sides)
+
+    def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
+        return super().to_dict(python_class_identifier) | dict(
+            side_evaluators=[_._evaluator for _ in self._side_ufuns]
+            if self._side_ufuns
+            else None,
+            evaluator=self._evaluator,
+        )
 
     def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
-        return self._eval(offer)
+        return self._evaluator(offer)
 
     def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction | None, ...]:
         if self._side_ufuns is None:
@@ -325,9 +368,9 @@ class UtilityCombiningCenterUFun(CenterUFun):
     The utility of the center is a function of the ufuns of the edges.
     """
 
-    def __init__(self, *args, ufuns: tuple[BaseUtilityFunction, ...], **kwargs):
+    def __init__(self, *args, side_ufuns: tuple[BaseUtilityFunction, ...], **kwargs):
         super().__init__(*args, **kwargs)
-        self._ufuns = ufuns
+        self.ufuns = side_ufuns
 
     @abstractmethod
     def combine(self, values: Sequence[float]) -> float:
@@ -336,16 +379,24 @@ class UtilityCombiningCenterUFun(CenterUFun):
     def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
         if not offer:
             return self.reserved_value
-        return self.combine(tuple(float(u(_)) for u, _ in zip(self._ufuns, offer)))
+        return self.combine(tuple(float(u(_)) for u, _ in zip(self.ufuns, offer)))
 
     def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction, ...]:
         assert (
-            n_edges == len(self._ufuns)
-        ), f"Initialized with {len(self._ufuns)} ufuns but you are asking for ufuns for {n_edges} side negotiators."
-        return self._ufuns
+            n_edges == len(self.ufuns)
+        ), f"Initialized with {len(self.ufuns)} ufuns but you are asking for ufuns for {n_edges} side negotiators."
+        return self.ufuns
 
     def ufun_type(self) -> CenterUFunCategory:
         return CenterUFunCategory.Local
+
+    def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
+        return super().to_dict(python_class_identifier) | {
+            "side_ufuns": serialize(
+                self.ufuns, python_class_identifier=python_class_identifier
+            ),
+            python_class_identifier: get_full_type_name(type(self)),
+        }
 
 
 class MaxCenterUFun(UtilityCombiningCenterUFun):

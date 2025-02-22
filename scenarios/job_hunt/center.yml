@@ -1,0 +1,241 @@
+name: Employee
+type: anl2025.ufun.MaxCenterUFun
+side_ufuns:
+- name: with_employer01
+  outcome_space:
+    issues:
+    - n_values: 6
+      name: days
+      type: negmas.outcomes.contiguous_issue.ContiguousIssue
+      values:
+      - 0
+      - 5
+    - n_values: 5
+      name: salary
+      type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+      values:
+      - 100
+      - 150
+      - 200
+      - 250
+      - 300
+    name: JobHunt
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: 0.0
+  type: LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      0: 1.0
+      1: 0.0
+      2: 0.36135813349583323
+      3: 0.19723001664013343
+      4: 1.0
+      5: 0.7651795291729102
+    type: TableFun
+  - mapping:
+      100: 1.0
+      150: 0.3722341951786819
+      200: 0.6666666666666666
+      250: 0.0
+      300: 0.0
+    type: TableFun
+  weights:
+  - 0.4883969039710593
+  - 0.5116030960289407
+- name: with_employer02
+  outcome_space:
+    issues:
+    - n_values: 6
+      name: days
+      type: negmas.outcomes.contiguous_issue.ContiguousIssue
+      values:
+      - 0
+      - 5
+    - n_values: 5
+      name: salary
+      type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+      values:
+      - 100
+      - 150
+      - 200
+      - 250
+      - 300
+    name: JobHunt
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: 0.0
+  type: LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      0: 0.5786493703489
+      1: 1.0
+      2: 0.4767855635089059
+      3: 0.4767855635089059
+      4: 0.0
+      5: 0.5786493703489
+    type: TableFun
+  - mapping:
+      100: 1.0
+      150: 0.21488052513232847
+      200: 0.3565451907600305
+      250: 1.0
+      300: 0.0
+    type: TableFun
+  weights:
+  - 0.6202601244450674
+  - 0.3797398755549326
+- name: with_employer03
+  outcome_space:
+    issues:
+    - n_values: 6
+      name: days
+      type: negmas.outcomes.contiguous_issue.ContiguousIssue
+      values:
+      - 0
+      - 5
+    - n_values: 5
+      name: salary
+      type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+      values:
+      - 100
+      - 150
+      - 200
+      - 250
+      - 300
+    name: JobHunt
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: 0.0
+  type: LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      0: 0.8138574518459702
+      1: 0.5144693368808113
+      2: 0.6102775867170604
+      3: 0.10300482835499714
+      4: 0.9188681101994534
+      5: 0.2849851420281858
+    type: TableFun
+  - mapping:
+      100: 0.8843582621567845
+      150: 0.3092219823414193
+      200: 0.8885926797303757
+      250: 0.9113303092914438
+      300: 0.1510853993168304
+    type: TableFun
+  weights:
+  - 0.3846126290665215
+  - 0.6153873709334786
+- name: with_employer04
+  type: LinearAdditiveUtilityFunction
+  reserved_value: 0.0
+  outcome_space:
+    issues:
+    - n_values: 6
+      name: days
+      type: negmas.outcomes.contiguous_issue.ContiguousIssue
+      values:
+      - 0
+      - 5
+    - n_values: 5
+      name: salary
+      type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+      values:
+      - 100
+      - 150
+      - 200
+      - 250
+      - 300
+    name: JobHunt
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  values:
+  - mapping:
+      0: 0.062353798336929445
+      1: 0.4030581958727274
+      2: 0.6443705028111806
+      3: 0.3220758439529948
+      4: 0.2529147025058379
+      5: 0.21566848461134014
+    type: TableFun
+  - mapping:
+      100: 0.5245673086959114
+      150: 0.08249817691145167
+      200: 0.8486782726803535
+      250: 0.7532411445616297
+      300: 0.1654861905146907
+    type: TableFun
+  weights:
+  - 0.4375786914352951
+  - 0.5624213085647048
+outcome_spaces:
+- issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0

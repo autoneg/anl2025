@@ -1,0 +1,44 @@
+__python_class__: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+id: employee2-81e392e0-217d-4950-beb0-4108c19f7232
+name: employee2
+outcome_space:
+  __python_class__: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  issues:
+  - __python_class__: negmas.outcomes.contiguous_issue.ContiguousIssue
+    n_values: 6
+    name: days
+    values:
+    - 0
+    - 5
+  - __python_class__: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    n_values: 5
+    name: salary
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: ''
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- bias: 0
+  f: !!binary |
+    X19MQU1CREFPQkpfXzqABZWEAAAAAAAAAIwJZnVuY3Rvb2xzlIwHcGFydGlhbJSTlIwfbmVnbWFz
+    LnByZWZlcmVuY2VzLmNyaXNwLmxpbmVhcpSMGF9yYW5kX21hcHBpbmdfbm9ybWFsaXplZJSTlIWU
+    UpQoaAUpfZQojAJteJRLBYwCbW6USwCMAXKURz/ilNqG5iFJdX2UdJRiLg==
+  max_value: null
+  min_value: null
+  type: negmas.preferences.value_fun.LambdaFun
+- bias: 0
+  f: !!binary |
+    X19MQU1CREFPQkpfXzqABZWFAAAAAAAAAIwJZnVuY3Rvb2xzlIwHcGFydGlhbJSTlIwfbmVnbWFz
+    LnByZWZlcmVuY2VzLmNyaXNwLmxpbmVhcpSMGF9yYW5kX21hcHBpbmdfbm9ybWFsaXplZJSTlIWU
+    UpQoaAUpfZQojAJteJRNLAGMAm1ulEtkjAFylEc/1ZQV2N8wvHV9lHSUYi4=
+  max_value: null
+  min_value: null
+  type: negmas.preferences.value_fun.LambdaFun
+weights:
+- 0.5603150919938483
+- 0.4396849080061517

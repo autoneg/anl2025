@@ -32,7 +32,10 @@ class RunParams:
         share_ufuns: If given, agents can access partner ufuns through `self.opponeng_ufun`
         atomic: Every step is a single offer (if not given, on the other hand, every step is a complete round)
         method: the method to use for running all the sessions.  Acceptable options are: sequential,
-                ordered, threads, processes. See `negmas.mechanisms.Mechanism.run_all()` for full details
+                ordered, threads, processes. See `negmas.mechanisms.Mechanism.run_all()` for full details.
+                ANL2025 uses the sequential option which means that a complete negotiation is finished before
+                the next starts.
+        time_limit: Number of seconds allowed per negotiation
     """
 
     # mechanism params
@@ -41,6 +44,7 @@ class RunParams:
     share_ufuns: bool = False
     atomic: bool = False
     method: str = DEFAULT_METHOD
+    time_limit: float | None = None
 
 
 def get_ufun_class(x: str | type) -> type:

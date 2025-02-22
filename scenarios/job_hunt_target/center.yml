@@ -1,0 +1,4 @@
+name: employer
+type: anl2025.ufun.MaxCenterUFun
+reserved_value: 0.0
+n_edges: 4

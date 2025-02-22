@@ -39,6 +39,8 @@ def type_name_adapter(x: str, types_map=TYPES_MAP) -> str:
         return TYPES_MAP[x]
     if x.endswith(("OutcomeSpace", "Issue")) and "." not in x:
         return f"negmas.outcomes.{x}"
+    if x.endswith(("CenterUFun",)) and "." not in x:
+        return f"anl2025.ufun.{x}"
     if x.endswith(("UtilityFunction", "Fun")) and "." not in x:
         return f"negmas.preferences.{x}"
     return x

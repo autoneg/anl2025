@@ -1,0 +1,23 @@
+name: employee1
+reserved_value: 0.0
+type: LinearAdditiveUtilityFunction
+values:
+- bias: 0
+  f: !!binary |
+    X19MQU1CREFPQkpfXzqABZWEAAAAAAAAAIwJZnVuY3Rvb2xzlIwHcGFydGlhbJSTlIwfbmVnbWFz
+    LnByZWZlcmVuY2VzLmNyaXNwLmxpbmVhcpSMGF9yYW5kX21hcHBpbmdfbm9ybWFsaXplZJSTlIWU
+    UpQoaAUpfZQojAJteJRLBYwCbW6USwCMAXKURz/rFPO4hcSadX2UdJRiLg==
+  max_value: null
+  min_value: null
+  type: negmas.preferences.value_fun.LambdaFun
+- bias: 0
+  f: !!binary |
+    X19MQU1CREFPQkpfXzqABZWFAAAAAAAAAIwJZnVuY3Rvb2xzlIwHcGFydGlhbJSTlIwfbmVnbWFz
+    LnByZWZlcmVuY2VzLmNyaXNwLmxpbmVhcpSMGF9yYW5kX21hcHBpbmdfbm9ybWFsaXplZJSTlIWU
+    UpQoaAUpfZQojAJteJRNLAGMAm1ulEtkjAFylEc/6zUU6p2BBHV9lHSUYi4=
+  max_value: null
+  min_value: null
+  type: negmas.preferences.value_fun.LambdaFun
+weights:
+- 0.7522560079901687
+- 0.24774399200983135

@@ -1,0 +1,41 @@
+name: with_employer04
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+reserved_value: 0.0
+values:
+- mapping:
+    0: 0.062353798336929445
+    1: 0.4030581958727274
+    2: 0.6443705028111806
+    3: 0.3220758439529948
+    4: 0.2529147025058379
+    5: 0.21566848461134014
+  type: negmas.preferences.value_fun.TableFun
+- mapping:
+    100: 0.5245673086959114
+    150: 0.08249817691145167
+    200: 0.8486782726803535
+    250: 0.7532411445616297
+    300: 0.1654861905146907
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 0.4375786914352951
+- 0.5624213085647048
+outcome_space:
+  issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
