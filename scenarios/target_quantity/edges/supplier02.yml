@@ -1,0 +1,24 @@
+id: supplier02-590b55bc-fe81-4dbf-b0d7-8749ee6d43a5
+name: supplier02
+outcome_space:
+  issues:
+  - n_values: 5
+    name: quantity
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 1
+    - 5
+  name: TargetQantity
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    1: 0.0
+    2: 0.2108377243281549
+    3: 0.6054188621640775
+    4: 1.0
+    5: 0.6787160498423918
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

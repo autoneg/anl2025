@@ -4,9 +4,10 @@ from pathlib import Path
 from anl2025.inout import load_multideal_scenario
 from anl2025.runner import MultidealScenario, run_session
 from anl2025.scenarios.dinners import make_dinners_scenario
-from anl2025.ufun import LambdaCenterUFun, MaxCenterUFun
+from anl2025.scenarios.job_hunt import make_job_hunt_scenario
+from anl2025.scenarios.target_quantity import make_target_quantity_scenario
+from anl2025.ufun import LambdaCenterUFun
 from negmas import DiscreteCartesianOutcomeSpace, UtilityFunction
-from negmas.preferences.generators import generate_ufuns_for
 import pytest
 
 from hypothesis import given, strategies as st, example, settings
@@ -90,39 +91,21 @@ def test_load_multideal_dinner_created(n_friends, n_days):
     run_session(scenario)
 
 
-def test_make_max():
-    from negmas.outcomes import make_os, make_issue
-
-    n_days = 6
-    salary = [100, 150, 200, 250, 300]
-    n_employees = 4
-    public_graph = True
-    os = make_os(
-        [make_issue(n_days, name="days"), make_issue(salary, name="salary")],
-        name="JobHunt",
-    )
-    assert isinstance(os, DiscreteCartesianOutcomeSpace)
-    ufun_pairs = [
-        generate_ufuns_for(
-            os, ufun_names=(f"with_employer{_+1:02}", f"Employer{_+1:02}")
-        )
-        for _ in range(n_employees)
-    ]
-    side_ufuns = tuple(_[0] for _ in ufun_pairs)
-    edge_ufuns = tuple(_[1] for _ in ufun_pairs)
-    center_ufun = MaxCenterUFun(
-        side_ufuns=side_ufuns,
-        n_edges=n_employees,
-        outcome_space=os,
-        reserved_value=0.0,
-        name="Employee",
-    )
-
-    scenario = MultidealScenario(
-        center_ufun, edge_ufuns, side_ufuns=side_ufuns, public_graph=public_graph
-    )
+def test_make_job_hunt():
+    scenario = make_job_hunt_scenario()
     path = Path(__file__).parent.parent / "scenarios" / "job_hunt"
     shutil.rmtree(path)
+    run_session(scenario)
+    scenario.to_folder(path)
+    s2 = MultidealScenario.from_folder(path)
+    assert s2 is not None
+    run_session(s2)
+
+
+def test_make_target_quantity():
+    scenario = make_target_quantity_scenario()
+    path = Path(__file__).parent.parent / "scenarios" / "target_quantity"
+    shutil.rmtree(path, ignore_errors=True)
     run_session(scenario)
     scenario.to_folder(path)
     s2 = MultidealScenario.from_folder(path)

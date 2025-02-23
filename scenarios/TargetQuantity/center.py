@@ -1,4 +1,3 @@
-import itertools
 import pandas as pd
 from pathlib import Path
 
@@ -11,8 +10,6 @@ class TargetEvaluator:
         values = pd.read_csv(Path(__file__).parent / "center.csv")
         # read the utility values from the csv vile
 
-        self.quantity = values["quantity"]
-        self.n_quantity = len(self.quantity)
         self.values = dict()
 
         for _, row in values.iterrows():
@@ -22,12 +19,10 @@ class TargetEvaluator:
         if not agreements:
             return self.reserved_value
 
-        #outings = dict(zip(self.days, itertools.repeat(0)))
+        # outings = dict(zip(self.days, itertools.repeat(0)))
         quantity_sum = 0
         for agreement in agreements:
             if agreement is None:
                 continue
             quantity_sum += int(agreement[0])
-        return self.values.get(
-            quantity_sum, self.reserved_value
-        )
+        return self.values.get(quantity_sum, self.reserved_value)

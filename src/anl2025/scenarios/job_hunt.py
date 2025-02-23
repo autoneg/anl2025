@@ -9,7 +9,7 @@ __all__ = ["make_job_hunt_scenario"]
 def make_job_hunt_scenario(
     n_employers: int = 4,
     work_days: tuple[int, int] | int = 6,
-    salary: tuple[int, ...] = (100, 150, 200, 250, 300),
+    salary: tuple[int, int] | list[int] = [100, 150, 200, 250, 300],
     public_graph: bool = True,
     employer_names: list[str] | None = None,
     employee_name: str = "Employee",
