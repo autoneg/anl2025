@@ -10,6 +10,7 @@ from negmas.outcomes import (
 )
 from anl2025.ufun import LambdaCenterUFun
 from anl2025.scenario import MultidealScenario
+from numpy import argmin
 
 
 __all__ = ["make_target_quantity_scenario"]
@@ -23,7 +24,7 @@ class TargetEvaluator:
 
     def __init__(self, values: dict[int, float], reserved_value=0.0):
         self.reserved_value = reserved_value
-        self.values = values.copy()
+        self.values = {int(k): float(v) for k, v in values.items()}
 
     def __call__(self, agreements):
         if not agreements:
@@ -35,7 +36,7 @@ class TargetEvaluator:
             if agreement is None:
                 continue
             quantity_sum += int(agreement[0])
-        return self.values.get(quantity_sum, self.reserved_value)
+        return float(self.values.get(quantity_sum, self.reserved_value))
 
 
 def float_in(x: FloatRange):
@@ -53,6 +54,11 @@ def int_in(x: IntRange):
 def make_values(
     qs: list[int], target: int, shortfall: FloatRange, excess: FloatRange
 ) -> dict[int, float]:
+    if target not in qs:
+        dists = [abs(_ - target) for _ in qs]
+        target = int(argmin(dists))
+    else:
+        target = qs.index(target)
     if target > max(qs):
         target = max(qs)
     if target < min(qs):

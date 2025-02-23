@@ -111,3 +111,29 @@ def test_make_target_quantity():
     s2 = MultidealScenario.from_folder(path)
     assert s2 is not None
     run_session(s2)
+
+
+def test_read_simplified_dinners():
+    path = Path(__file__).parent.parent / "scenarios" / "dinners"
+    scenario = MultidealScenario.from_folder(path)
+    assert scenario
+    run_session(scenario)
+    dst = Path(__file__).parent.parent / "scenarios" / "dinngers_saved"
+    shutil.rmtree(dst, ignore_errors=True)
+    scenario.to_folder(dst)
+    s2 = MultidealScenario.from_folder(dst)
+    assert s2 is not None
+    run_session(s2)
+
+
+def test_read_simplified_target_quantity():
+    path = Path(__file__).parent.parent / "scenarios" / "TargetQuantity"
+    scenario = MultidealScenario.from_folder(path)
+    assert scenario
+    run_session(scenario)
+    dst = Path(__file__).parent.parent / "scenarios" / "TargetQuantitySaved"
+    shutil.rmtree(dst, ignore_errors=True)
+    scenario.to_folder(dst)
+    s2 = MultidealScenario.from_folder(dst)
+    assert s2 is not None
+    run_session(s2)

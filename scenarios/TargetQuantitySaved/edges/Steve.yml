@@ -1,0 +1,30 @@
+id: Steve-e9b9a47f-441d-4ffd-bdbc-27c37094ff36
+name: Steve
+outcome_space:
+  issues:
+  - n_values: 6
+    name: Quantity
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+  name: EveTarget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.4
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '0': 0.0
+    '1': 0.5
+    '2': 1.0
+    '3': 0.5
+    '4': 0.0
+    '5': 0.0
+    '6': 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

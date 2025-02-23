@@ -1,0 +1,85 @@
+evaluator:
+  reserved_value: 0.0
+  type: center.TargetEvaluator
+  values:
+    0: 0.0
+    1: 0.0
+    2: 0.0
+    3: 0.0
+    4: 0.0
+    5: 0.0
+    6: 0.0
+    7: 0.3
+    8: 0.5
+    9: 0.6
+    10: 1.0
+    11: 0.8
+    12: 0.75
+    13: 0.5
+    14: 0.0
+    15: 0.0
+    16: 0.0
+    17: 0.0
+    18: 0.0
+    19: 0.0
+    20: 0.0
+    21: 0.0
+    22: 0.0
+    23: 0.0
+    24: 0.0
+name: Center
+outcome_spaces:
+- issues:
+  - n_values: 6
+    name: Quantity
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+  name: AmyTarget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: Quantity
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+  name: EveTarget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: Quantity
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+  name: SteveTarget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: Quantity
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+  name: BoTarget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: anl2025.ufun.LambdaCenterUFun

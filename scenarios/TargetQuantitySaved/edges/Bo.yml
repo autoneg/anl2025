@@ -1,0 +1,30 @@
+id: Bo-854b1f71-0fda-4832-b835-20bb9a025df4
+name: Bo
+outcome_space:
+  issues:
+  - n_values: 6
+    name: Quantity
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+  name: AmyTarget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.4
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '0': 0.0
+    '1': 0.0
+    '2': 0.5
+    '3': 1.0
+    '4': 0.5
+    '5': 0.0
+    '6': 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

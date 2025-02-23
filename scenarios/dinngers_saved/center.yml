@@ -1,0 +1,49 @@
+evaluator:
+  days:
+  - Fri
+  - Sat
+  - Sun
+  reserved_value: 0.0
+  type: center.DinnersEvaluator
+  values:
+    (0, 0, 1): 0.4
+    (0, 1, 0): 0.7
+    (0, 1, 1): 0.3
+    (1, 0, 0): 0.5
+    (1, 0, 1): 0.9
+    (1, 1, 0): 0.3
+    (1, 1, 1): 0.1
+name: Center
+outcome_spaces:
+- issues:
+  - n_values: 3
+    name: Day
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Fri
+    - Sat
+    - Sun
+  name: Day
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Day
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Fri
+    - Sat
+    - Sun
+  name: Day
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Day
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Fri
+    - Sat
+    - Sun
+  name: Day
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: anl2025.ufun.LambdaCenterUFun

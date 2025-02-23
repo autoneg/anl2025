@@ -115,7 +115,9 @@ class MultidealScenario:
         )
         sys.path.append(str(folder))
         center_ufun = deserialize(load(center_file), **dparams)  # type: ignore
-        assert isinstance(center_ufun, CenterUFun)
+        assert isinstance(
+            center_ufun, CenterUFun
+        ), f"{type(center_ufun)} but expected a CenterUFun \n{center_ufun}"
 
         def load_ufuns(f: Path | str) -> tuple[UtilityFunction, ...] | None:
             f = Path(f)
