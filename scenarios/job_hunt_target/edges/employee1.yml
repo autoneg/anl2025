@@ -1,23 +1,22 @@
-name: employee1
+name: employer01
 reserved_value: 0.0
-type: LinearAdditiveUtilityFunction
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:
-- bias: 0
-  f: !!binary |
-    X19MQU1CREFPQkpfXzqABZWEAAAAAAAAAIwJZnVuY3Rvb2xzlIwHcGFydGlhbJSTlIwfbmVnbWFz
-    LnByZWZlcmVuY2VzLmNyaXNwLmxpbmVhcpSMGF9yYW5kX21hcHBpbmdfbm9ybWFsaXplZJSTlIWU
-    UpQoaAUpfZQojAJteJRLBYwCbW6USwCMAXKURz/rFPO4hcSadX2UdJRiLg==
-  max_value: null
-  min_value: null
-  type: negmas.preferences.value_fun.LambdaFun
-- bias: 0
-  f: !!binary |
-    X19MQU1CREFPQkpfXzqABZWFAAAAAAAAAIwJZnVuY3Rvb2xzlIwHcGFydGlhbJSTlIwfbmVnbWFz
-    LnByZWZlcmVuY2VzLmNyaXNwLmxpbmVhcpSMGF9yYW5kX21hcHBpbmdfbm9ybWFsaXplZJSTlIWU
-    UpQoaAUpfZQojAJteJRNLAGMAm1ulEtkjAFylEc/6zUU6p2BBHV9lHSUYi4=
-  max_value: null
-  min_value: null
-  type: negmas.preferences.value_fun.LambdaFun
+- mapping:
+    0: 1.0
+    1: 0.4959861736609204
+    2: 0.0
+    3: 0.4959861736609204
+    4: 1.0
+    5: 0.24799308683046015
+  type: negmas.preferences.value_fun.TableFun
+- mapping:
+    100: 1.0
+    150: 0.0
+    200: 0.0
+    250: 1.0
+    300: 0.4006426532637504
+  type: negmas.preferences.value_fun.TableFun
 weights:
-- 0.7522560079901687
-- 0.24774399200983135
+- 0.27897755790714135
+- 0.7210224420928586

@@ -137,3 +137,16 @@ def test_read_simplified_target_quantity():
     s2 = MultidealScenario.from_folder(dst)
     assert s2 is not None
     run_session(s2)
+
+
+def test_read_simplified_job_hunt():
+    path = Path(__file__).parent.parent / "scenarios" / "job_hunt_target"
+    scenario = MultidealScenario.from_folder(path)
+    assert scenario
+    run_session(scenario)
+    dst = Path(__file__).parent.parent / "scenarios" / "job_hunt_saved"
+    shutil.rmtree(dst, ignore_errors=True)
+    scenario.to_folder(dst)
+    s2 = MultidealScenario.from_folder(dst)
+    assert s2 is not None
+    run_session(s2)
