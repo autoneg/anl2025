@@ -2,7 +2,7 @@ import sys
 import copy
 from typing import Any, Optional
 from negmas.preferences import UtilityFunction
-from attr import define
+from attr import define, field
 from pathlib import Path
 from negmas.serialization import serialize, deserialize
 from negmas.preferences.generators import generate_multi_issue_ufuns
@@ -55,6 +55,7 @@ class MultidealScenario:
     side_ufuns: tuple[UtilityFunction, ...] | None = None
     name: str = ""
     public_graph: bool = True
+    code_files: dict[str, str] = field(factory=dict)
 
     def __attrs_post_init__(self):
         if self.public_graph:
@@ -108,12 +109,18 @@ class MultidealScenario:
         center_file = folder / CENTER_FILE_NAME
         if not center_file.is_file():
             return None
+        code_files = dict()
+        for f in folder.glob("**/*.py"):
+            path = str(f.relative_to(folder))
+            with open(f, "r") as file:
+                code_files[path] = file.read()
+        if code_files:
+            sys.path.append(str(folder.resolve()))
         dparams = dict(
             python_class_identifier=python_class_identifier,
             type_marker=type_marker,
             type_name_adapter=type_name_adapter,
         )
-        sys.path.append(str(folder))
         center_ufun = deserialize(load(center_file), **dparams)  # type: ignore
         assert isinstance(
             center_ufun, CenterUFun
@@ -146,6 +153,7 @@ class MultidealScenario:
             edge_ufuns=tuple(edge_ufuns),
             side_ufuns=side_ufuns,
             name=folder.name if name is None else name,
+            code_files=code_files,
         )
 
     def to_folder(
@@ -158,8 +166,13 @@ class MultidealScenario:
         if mkdir:
             name = self.name if self.name else "scenario"
             folder = folder / name
-
         folder.mkdir(parents=True, exist_ok=True)
+        for path, code in self.code_files.items():
+            full_path = folder / path
+            full_path.parent.mkdir(exist_ok=True, parents=True)
+            with open(full_path, "w") as f:
+                f.write(code)
+
         dump(
             serialize(
                 self.center_ufun, python_class_identifier=python_class_identifier

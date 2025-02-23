@@ -1,5 +1,5 @@
-id: Amy-a15cdafe-25ae-450a-b0d6-e000c9be2edf
-name: Amy
+id: Eve-4fc7e48f-b7d0-4a85-8088-ddde7725b7f9
+name: Eve
 outcome_space:
   issues:
   - n_values: 3
@@ -11,13 +11,13 @@ outcome_space:
     - Sun
   name: Day
   type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
-reserved_value: 0.21
+reserved_value: 0.0
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:
 - mapping:
-    Fri: 0.0
-    Sat: 0.162
-    Sun: 1.0
+    Fri: 1.0
+    Sat: 0.367
+    Sun: 0.0
   type: negmas.preferences.value_fun.TableFun
 weights:
 - 1.0

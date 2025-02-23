@@ -74,7 +74,7 @@ outcome_spaces:
   type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
 reserved_value: 0.0
 side_ufuns:
-- id: with_employer01-d12412ba-2d27-4792-b614-89c39895362d
+- id: with_employer01-e161cf85-dbd2-4877-a158-d8a02b6de7ee
   name: with_employer01
   outcome_space:
     issues:
@@ -99,24 +99,24 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 1.0
-      1: 0.0
-      2: 0.0
-      3: 0.3769021008488178
-      4: 0.1884510504244089
-      5: 1.0
+      0: 0.0
+      1: 0.4681876201212683
+      2: 1.0
+      3: 0.4681876201212683
+      4: 0.0
+      5: 0.7340938100606342
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 1.0
-      150: 0.0
+      100: 0.0
+      150: 1.0
       200: 1.0
-      250: 0.1475523073286833
-      300: 0.48205431112305347
+      250: 0.0
+      300: 0.7869903743116966
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.43073354319199847
-  - 0.5692664568080015
-- id: with_employer02-a9907837-9daa-4f21-a1b6-6bbac181b985
+  - 0.27897755790714135
+  - 0.7210224420928586
+- id: with_employer02-15b43ad1-c8a3-4b81-bc38-5deff33f83b8
   name: with_employer02
   outcome_space:
     issues:
@@ -141,24 +141,24 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.75
-      1: 0.0
+      0: 0.1884985282695559
+      1: 0.44607512224616663
       2: 0.0
-      3: 1.0
-      4: 0.37804226625618026
-      5: 0.425721954827467
+      3: 0.75
+      4: 1.0
+      5: 0.0
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.0
+      100: 1.0
       150: 0.0
-      200: 0.5574526276006595
-      250: 0.5574526276006595
-      300: 1.0
+      200: 0.2631574378457454
+      250: 0.7169685409843197
+      300: 0.7169685409843197
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.4219433842307228
-  - 0.5780566157692771
-- id: with_employer03-f1f3b0ec-8483-419d-b805-5f7b49e6cc24
+  - 0.10626801964009254
+  - 0.8937319803599074
+- id: with_employer03-149822e6-6aad-417b-809e-6f77e2e83ce2
   name: with_employer03
   outcome_space:
     issues:
@@ -183,24 +183,24 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.34766438841445735
-      1: 0.050228823407494017
-      2: 0.01642254532221954
-      3: 0.6528448132963501
-      4: 0.7067723963605236
-      5: 0.9598789106380281
+      0: 1.0
+      1: 0.5781214807812419
+      2: 0.0
+      3: 0.0
+      4: 0.75
+      5: 0.18801670000814782
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.9034850504597531
-      150: 0.40610435019246416
-      200: 0.1868553376809049
-      250: 0.1894434622415072
-      300: 0.23269526891301018
+      100: 0.0
+      150: 0.6666666666666666
+      200: 1.0
+      250: 0.224358134658669
+      300: 0.0
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.7700298169248686
-  - 0.2299701830751313
-- id: with_employer04-7823beda-861c-4b50-9b67-8c5c1a6c6fa1
+  - 0.03788717816006232
+  - 0.9621128218399376
+- id: with_employer04-fb57a915-9026-4fe9-9eba-9b46b04820e2
   name: with_employer04
   outcome_space:
     issues:
@@ -225,21 +225,21 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.4553554417583964
-      1: 0.0738677186843043
-      2: 0.8301931214002263
-      3: 0.5406560930282543
-      4: 0.921305244230553
-      5: 0.0792187162525152
+      0: 0.0
+      1: 1.0
+      2: 0.4109777883201961
+      3: 0.0
+      4: 0.75
+      5: 0.25263526178798434
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.19317779013277836
-      150: 0.8856086968555654
-      200: 0.67876226824652
-      250: 0.5642025673505986
-      300: 0.6731374008434047
+      100: 1.0
+      150: 0.5473742140509247
+      200: 0.5473742140509247
+      250: 0.0
+      300: 0.2882881186804947
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.35175791876400603
-  - 0.6482420812359939
+  - 0.07563900978812187
+  - 0.9243609902118781
 type: anl2025.ufun.MaxCenterUFun

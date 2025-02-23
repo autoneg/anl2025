@@ -118,7 +118,7 @@ def test_read_simplified_dinners():
     scenario = MultidealScenario.from_folder(path)
     assert scenario
     run_session(scenario)
-    dst = Path(__file__).parent.parent / "scenarios" / "dinngers_saved"
+    dst = Path(__file__).parent.parent / "scenarios" / "dinners_saved"
     shutil.rmtree(dst, ignore_errors=True)
     scenario.to_folder(dst)
     s2 = MultidealScenario.from_folder(dst)
