@@ -887,7 +887,7 @@ def run(
             help="Parallelism. -1 for serial, 0 for maximum parallelism, int>0 for specific number of cores and float less than one for a fraction of cores available",
             rich_help_panel="Tournament Control",
         ),
-    ] = -1,
+    ] = 1,
 ):
     if scenarios_path is None and generate is None:
         print(
@@ -955,7 +955,7 @@ def execute(
             help="Parallelism. -1 for serial, 0 for maximum parallelism, int>0 for specific number of cores and float less than one for a fraction of cores available",
             rich_help_panel="Tournament Control",
         ),
-    ] = -1,
+    ] = 1,
     python_class_identifier: Annotated[
         str,
         typer.Option(
