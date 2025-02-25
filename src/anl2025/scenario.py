@@ -235,7 +235,7 @@ def make_multideal_scenario(
     center_ufun_params = center_ufun_params if center_ufun_params else dict()
     try:
         center_ufun = utype(
-            ufuns=side_ufuns,
+            side_ufuns=side_ufuns,
             reserved_value=center_r,
             outcome_spaces=tuple(u.outcome_space for u in side_ufuns),  # type: ignore
             **center_ufun_params,
