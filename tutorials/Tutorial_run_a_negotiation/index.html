@@ -549,6 +549,14 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_session</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">scenario</span><span class="p">)</span>
 </span></code></pre></div>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_0.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_1.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_2.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_3.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_4.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_5.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_6.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_7.png" /></p>
 <p>Like mentioned, a lot of things happen behind the scenes, with all default parameters. The default parameters are all in line with the criteria of ANL2025, so you can use this function to find your way in the competition. For example, look at the parameters that you can change yourself, such as the center agent, edge agents and maximum number of rounds (<code>nsteps</code>).:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">centeragent</span> <span class="o">=</span> <span class="s2">&quot;Random2025&quot;</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">edgeagents</span> <span class="o">=</span> <span class="p">[</span>
@@ -566,6 +574,13 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Center utility: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">center_utility</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Edge Utilities: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">edge_utilities</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span></code></pre></div>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.8597682225581035</span>
+</pre>
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6231814702215154</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5004659393834174</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.19763095600241815</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2420100529169169</span>, 
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6239709131183655</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.41525772055401966</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.61641875459796</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.26278285441816085</span><span style="font-weight: bold">]</span>
+</pre>
+
 <h3 id="a-dinners-scheduling-session">A dinners' scheduling session</h3>
 <p>In the previous example, the center utility function was defined in terms of individual side utility functions (one per negotiation threads). A more general case is when the center utility function is defined directly in terms of the outcomes of negotiation threads without locally defined utility functions. The following figure shows an example of this kind of scenario:</p>
 <p><img alt="Global Utility Function Example" src="Slide1.jpeg" /></p>
@@ -574,6 +589,9 @@
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">make_dinners_scenario</span><span class="p">())</span>
 </span></code></pre></div>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_0.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_1.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_2.png" /></p>
 <p><div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>
 </span></code></pre></div>
 <a href="/anl2025/tutorials/notebooks/Tutorial_run_a_negotiation.ipynb">Download Notebook</a></p>
