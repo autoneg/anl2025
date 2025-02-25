@@ -30,6 +30,7 @@ class ANL2025Negotiator(SAOController):
     """
 
     def __init__(self, *args, n_edges: int = 0, **kwargs):
+        keargs["auto_kill"] = False
         super().__init__(*args, **kwargs)
         self._n_edges = n_edges
 
