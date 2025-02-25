@@ -347,11 +347,11 @@
         <li class="md-nav__item">
   <a href="#developing-a-negotiator" class="md-nav__link">
     <span class="md-ellipsis">
-      Developing a negotiator
+      Developing a Negotiator
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Developing a negotiator">
+    <nav class="md-nav" aria-label="Developing a Negotiator">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -588,11 +588,11 @@
         <li class="md-nav__item">
   <a href="#developing-a-negotiator" class="md-nav__link">
     <span class="md-ellipsis">
-      Developing a negotiator
+      Developing a Negotiator
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Developing a negotiator">
+    <nav class="md-nav" aria-label="Developing a Negotiator">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -737,7 +737,7 @@
 
 
 <h1 id="anl-2025-tutorial">ANL 2025 Tutorial</h1>
-<h2 id="developing-a-negotiator">Developing a negotiator</h2>
+<h2 id="developing-a-negotiator">Developing a Negotiator</h2>
 <p>The agents for the ANL competition are simple extensions of <a href="https://yasserfarouk.github.io/negmas">NegMAS</a> negotiators. As such, they can be developed using any approach used to develop negotiators in NegMAS.</p>
 <p>To develop a negotiator, you need to inherit from the <a href="http://www.yasserm.com/anl2025tmp/reference/#anl2025.negotiator.ANL2025Negotiator">ANL2025Negotiator</a> class and implement the <a href="http://www.yasserm.com/anl2025tmp/reference/#anl2025.negotiator.ANL2025Negotiator.propose"><code>propose()</code></a> and <a href="http://www.yasserm.com/anl2025tmp/reference/#anl2025.negotiator.ANL2025Negotiator.respond"><code>respond()</code></a>.</p>
 <p>Here is a simple random negotiator:</p>
@@ -785,55 +785,156 @@
 </code></pre></div>
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
-</pre>
+<div class="language-text highlight"><pre><span></span><code>---------------------------------------------------------------------------
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">             strategy     score
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>            Boulware  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.767437</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>  MyRandom2025  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.262742</span>
-</pre>
+TypeError                                 Traceback (most recent call last)
 
+Cell In[5], line 1
+----&gt; 1 results = anl2024_tournament(
+      2     n_scenarios=1, n_repetitions=3, nologs=True, njobs=-1,
+      3     competitors=[MyRandom2025, Boulware]
+      4 )
+
+
+File c:\users\5856442\onedrive - universiteit utrecht\documents\github\anl2025tmp\venv\src\anl\src\anl\anl2024\runner.py:835, in anl2024_tournament(scenarios, n_scenarios, n_outcomes, competitors, rotate_ufuns, n_repetitions, n_steps, time_limit, hidden_time_limit, pend, pend_per_second, step_time_limit, negotiator_time_limit, self_play, randomize_runs, sort_runs, known_partner, final_score, scenario_generator, generator_params, competitor_params, name, nologs, njobs, plot_fraction, verbosity, save_every, save_stats, base_path, plot_params, raise_exceptions)
+    817 scenarios = list(scenarios) + list(
+    818     scenario_generator(n_scenarios, n_outcomes, **generator_params)
+    819 )
+    820 private_infos = [
+    821     tuple(
+    822         dict(
+   (...)
+    833     for s in scenarios
+    834 ]
+--&gt; 835 return cartesian_tournament(
+    836     competitors=tuple(competitors),
+    837     scenarios=scenarios,
+    838     competitor_params=competitor_params,
+    839     private_infos=private_infos,  # type: ignore
+    840     rotate_ufuns=rotate_ufuns,
+    841     n_repetitions=n_repetitions,
+    842     path=path,
+    843     njobs=njobs,
+    844     mechanism_type=SAOMechanism,
+    845     n_steps=n_steps,
+    846     time_limit=time_limit,
+    847     hidden_time_limit=hidden_time_limit,
+    848     pend=pend,
+    849     pend_per_second=pend_per_second,
+    850     step_time_limit=step_time_limit,
+    851     negotiator_time_limit=negotiator_time_limit,
+    852     mechanism_params=None,
+    853     plot_fraction=plot_fraction,
+    854     verbosity=verbosity,
+    855     self_play=self_play,
+    856     randomize_runs=randomize_runs,
+    857     sort_runs=sort_runs,
+    858     save_every=save_every,
+    859     save_stats=save_stats,
+    860     final_score=final_score,
+    861     id_reveals_type=known_partner,
+    862     name_reveals_type=True,
+    863     plot_params=params,
+    864     raise_exceptions=raise_exceptions,
+    865 )
+
+
+File ~\OneDrive - Universiteit Utrecht\Documents\GitHub\anl2025tmp\venv\src\negmas\src\negmas\tournaments\neg\simple\cartesian.py:1448, in cartesian_tournament(competitors, scenarios, private_infos, competitor_params, rotate_ufuns, rotate_private_infos, n_repetitions, path, njobs, mechanism_type, mechanism_params, n_steps, time_limit, pend, pend_per_second, step_time_limit, negotiator_time_limit, hidden_time_limit, external_timeout, plot_fraction, plot_params, verbosity, self_play, randomize_runs, sort_runs, save_every, save_stats, save_scenario_figs, final_score, id_reveals_type, name_reveals_type, shorten_names, raise_exceptions, mask_scenario_names, only_failures_on_self_play, python_class_identifier)
+   1444 if njobs &lt; 0:
+   1445     for i, info in enumerate(
+   1446         track(runs, total=len(runs), description=NEGOTIATIONS_DIR_NAME)
+   1447     ):
+-&gt; 1448         process_record(run_negotiation(**info, run_id=get_run_id(info)))
+   1450 else:
+   1451     timeout = external_timeout if external_timeout else float(&quot;inf&quot;)
+
+
+File ~\OneDrive - Universiteit Utrecht\Documents\GitHub\anl2025tmp\venv\src\negmas\src\negmas\tournaments\neg\simple\cartesian.py:936, in run_negotiation(s, partners, partner_names, partner_params, rep, path, mechanism_type, mechanism_params, full_names, verbosity, plot, plot_params, run_id, stats, annotation, private_infos, id_reveals_type, name_reveals_type, mask_scenario_name, ignore_exceptions)
+    886 def run_negotiation(
+    887     s: Scenario,
+    888     partners: tuple[type[Negotiator]],
+   (...)
+    906     ignore_exceptions: bool = False,
+    907 ) -&gt; dict[str, Any]:
+    908     &quot;&quot;&quot;
+    909     Run a single negotiation with fully specified parameters
+    910 
+   (...)
+    934         A dictionary of negotiation results that contains the final state of the negotiation alongside other information
+    935     &quot;&quot;&quot;
+--&gt; 936     m, failures, s, real_scenario_name = _make_mechanism(
+    937         s=s,
+    938         partners=partners,
+    939         partner_names=partner_names,
+    940         partner_params=partner_params,
+    941         rep=rep,
+    942         path=path,
+    943         mechanism_type=mechanism_type,
+    944         mechanism_params=mechanism_params,
+    945         full_names=full_names,
+    946         run_id=run_id,
+    947         annotation=annotation,
+    948         private_infos=private_infos,
+    949         id_reveals_type=id_reveals_type,
+    950         name_reveals_type=name_reveals_type,
+    951         mask_scenario_name=mask_scenario_name,
+    952         ignore_exceptions=ignore_exceptions,
+    953     )
+    954     reservations = tuple(u.reserved_value for u in s.ufuns)
+    955     if partner_params is None:
+
+
+File ~\OneDrive - Universiteit Utrecht\Documents\GitHub\anl2025tmp\venv\src\negmas\src\negmas\tournaments\neg\simple\cartesian.py:615, in _make_mechanism(s, partners, partner_names, partner_params, rep, path, mechanism_type, mechanism_params, full_names, verbosity, run_id, annotation, private_infos, id_reveals_type, name_reveals_type, mask_scenario_name, ignore_exceptions)
+    613             break
+    614         else:
+--&gt; 615             raise (e)
+    616 if failures:
+    617     return m, failures, s, real_scenario_name
+
+
+File ~\OneDrive - Universiteit Utrecht\Documents\GitHub\anl2025tmp\venv\src\negmas\src\negmas\tournaments\neg\simple\cartesian.py:600, in _make_mechanism(s, partners, partner_names, partner_params, rep, path, mechanism_type, mechanism_params, full_names, verbosity, run_id, annotation, private_infos, id_reveals_type, name_reveals_type, mask_scenario_name, ignore_exceptions)
+    598 for type_, p, pinfo in zip(partners, partner_params, private_infos):  # type: ignore
+    599     try:
+--&gt; 600         negotiator = type_(**p, private_info=copy.deepcopy(pinfo))
+    601         name = _name(negotiator)
+    602         complete_names.append(name)
+
+
+File ~\OneDrive - Universiteit Utrecht\Documents\GitHub\anl2025tmp\venv\src\anl2025\src\anl2025\negotiator.py:33, in ANL2025Negotiator.__init__(self, n_edges, *args, **kwargs)
+     32 def __init__(self, *args, n_edges: int = 0, **kwargs):
+---&gt; 33     super().__init__(*args, **kwargs)
+     34     self._n_edges = n_edges
+
+
+File ~\OneDrive - Universiteit Utrecht\Documents\GitHub\anl2025tmp\venv\src\negmas\src\negmas\sao\controllers.py:62, in SAOController.__init__(self, default_negotiator_type, preferences, ufun, **kwargs)
+     60 if ufun is not None:
+     61     preferences = ufun
+---&gt; 62 super().__init__(
+     63     default_negotiator_type=default_negotiator_type,  # type: ignore
+     64     preferences=preferences,
+     65     ufun=ufun,
+     66     **kwargs,
+     67 )
+
+
+File ~\OneDrive - Universiteit Utrecht\Documents\GitHub\anl2025tmp\venv\src\negmas\src\negmas\negotiators\controller.py:71, in Controller.__init__(self, default_negotiator_type, default_negotiator_params, parent, auto_kill, **kwargs)
+     63 def __init__(
+     64     self,
+     65     default_negotiator_type: str | TControlledNegotiator | None = None,
+   (...)
+     69     **kwargs,
+     70 ):
+---&gt; 71     super().__init__(**kwargs)
+     72     self._negotiators: dict[str, NegotiatorInfo] = {}
+     73     if default_negotiator_params is None:
+
+
+TypeError: Rational.__init__() got an unexpected keyword argument &#39;private_info&#39;
+</code></pre></div>
 <p>The score that is printed is the average advantage, which is the received utility minus the reservation value. We can immediately notice that <code>MyRandom2025</code> is getting a negative average advantage which means that it sometimes gets agreements that are worse than disagreement (i.e. with utility less than its reservation value). Can you guess why is this happening? How can we resolve that?</p>
 <p>You can easily check the final scores using the <code>final_scores</code> member of the returned <a href="https://negmas.readthedocs.io/en/latest/api/negmas.tournaments.SimpleTournamentResults.html">SimpleTournamentResults</a> object.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">results</span><span class="o">.</span><span class="n">final_scores</span>
 </span></code></pre></div>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>strategy</th>
-      <th>score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Boulware</td>
-      <td>0.767437</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>MyRandom2025</td>
-      <td>0.262742</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
 <p>The returned results are all pandas dataframes. We can use standard pandas functions to get deeper understanding of the results. Here is how to plot a KDE figure (kind of histogram) comparing different strategies in this tournament. The higher the line, the more often this value of the advantage is observed.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">scores</span>
@@ -842,13 +943,11 @@
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;advantage&quot;</span><span class="p">)</span>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </span></code></pre></div>
-<p><img alt="png" src="../tutorial_develop_files/tutorial_develop_8_0.png" /></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">&quot;advantage&quot;</span><span class="p">,</span> <span class="s2">&quot;welfare&quot;</span><span class="p">,</span> <span class="s2">&quot;nash_optimality&quot;</span><span class="p">]):</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">results</span><span class="o">.</span><span class="n">scores</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;strategy&quot;</span><span class="p">)[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
 </span></code></pre></div>
-<p><img alt="png" src="../tutorial_develop_files/tutorial_develop_9_0.png" /></p>
 <h2 id="available-helpers">Available helpers</h2>
 <p>Our negotiator was not so good but it exemplifies the simplest method for developing a negotiator in NegMAS. For more information refer to <a href="https://negmas.readthedocs.io">NegMAS Documentation</a>. You develop your agent, as explained above, by implementing the <code>__call__</code> method of your class.</p>
 <p>This method, receives an <a href="https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAOState.html">SAOState</a> which represents the current <code>state</code> of the negotiation. The most important members of this state object are <code>current_offer</code> which gives the current offer from the partner (or <code>None</code> if this is the beginning of the negotiation) and <code>relative_time</code> which gives the relative time of the negotiation ranging between <code>0</code> and <code>1</code>.</p>
@@ -1032,70 +1131,6 @@
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="n">competitors</span><span class="o">=</span><span class="p">[</span><span class="n">MyRandom2025</span><span class="p">,</span> <span class="n">SimpleRVFitter</span><span class="p">,</span> <span class="n">Boulware</span><span class="p">,</span> <span class="n">Conceder</span><span class="p">]</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">)</span><span class="o">.</span><span class="n">final_scores</span>
 </span></code></pre></div>
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Will run <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">48</span> negotiations on <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span> scenarios between <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span> competitors
-</pre>
-
-<div class="language-text highlight"><pre><span></span><code>Output()
-</code></pre></div>
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
-</pre>
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">             strategy     score
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>            Boulware  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.648516</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>      SimpleRVFitter  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.562182</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>            Conceder  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.314239</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>  MyRandom2025  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.040486</span>
-</pre>
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>strategy</th>
-      <th>score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Boulware</td>
-      <td>0.648516</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>SimpleRVFitter</td>
-      <td>0.562182</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Conceder</td>
-      <td>0.314239</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>MyRandom2025</td>
-      <td>0.040486</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
 <p>Much better :-)</p>
 <p>Let's see how each part of this negotiator works and how they fit together.</p>
 <h3 id="construction">Construction</h3>
@@ -1234,7 +1269,6 @@ We first need a scenario to define the outcome space and ufuns. We can then add 
 </span><span id="__span-26-23"><a id="__codelineno-26-23" name="__codelineno-26-23" href="#__codelineno-26-23"></a><span class="n">session</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </span><span id="__span-26-24"><a id="__codelineno-26-24" name="__codelineno-26-24" href="#__codelineno-26-24"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </span></code></pre></div>
-<p><img alt="png" src="../tutorial_develop_files/tutorial_develop_16_0.png" /></p>
 <p>Notice how in the second half of the negotiation, the SimpleRVFitter is only offering outcomes that are rational for both negotiators (can you see that in the left-side plot? can you see it in the top right-side plot?). This means that the curve fitting approach is working OK here. The opponent is a time-based strategy in this case though.</p>
 <p>What happens if it was not? Let's try it against the builtin RVFitter for example</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl.anl2024.negotiators</span><span class="w"> </span><span class="kn">import</span> <span class="n">RVFitter</span>
@@ -1257,7 +1291,6 @@ We first need a scenario to define the outcome space and ufuns. We can then add 
 </span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a><span class="n">session</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </span></code></pre></div>
-<p><img alt="png" src="../tutorial_develop_files/tutorial_develop_18_0.png" /></p>
 <p>This time, our simple RV fitter could not really learn the opponent reserved value effectively. We can see that from the fact that it kept offering outcomes that are irrational for the opponent almost until the end of the negotiation.</p>
 <p>The builtin <code>RVFitter</code> seems better in this case. It took longer but it seems to only offer rational outcomes for its opponent (our SimpleRVFitter) after around 60% of the available negotiation time.</p>
 <h2 id="other-examples">Other Examples</h2>
