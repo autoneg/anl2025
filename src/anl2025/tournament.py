@@ -27,7 +27,7 @@ from anl2025.runner import (
 from anl2025.common import DEFAULT_METHOD, TYPE_IDENTIFIER
 from attr import define
 
-__all__ = ["Tournament", "TournamentResults"]
+__all__ = ["Tournament", "TournamentResults", "anl2025_tournament"]
 
 
 class ScoreRecord(TypedDict):
@@ -125,7 +125,7 @@ def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, Sessio
 def anl2025_tournament(
     scenarios: tuple[MultidealScenario, ...],
     competitors: tuple[str | type[ANL2025Negotiator], ...],
-    n_repetitions: int,
+    n_repetitions: int = 3,
     n_steps: int = 100,
     competitor_params: tuple[dict[str, Any] | None, ...] | None = None,
     path: Path | str | None = None,
@@ -149,20 +149,25 @@ def anl2025_tournament(
         competitors: The competitor negotiators
         n_repetitions: Number of repetitions of each configuration of agents
         n_steps: Number of steps of each negotiation
-        keep_order: [TODO:description]
-        share_ufuns: [TODO:description]
-        atomic: [TODO:description]
-        method: [TODO:description]
-        competitor_params: [TODO:description]
-        path: [TODO:description]
-        verbose: [TODO:description]
-        dry: [TODO:description]
-        no_double_scores: [TODO:description]
-        non_comptitor_types: [TODO:description]
-        non_comptitor_params: [TODO:description]
-        n_jobs: [TODO:description]
-        center_multiplier: [TODO:description]
-        edge_multiplier: [TODO:description]
+        competitor_params: Optional parameters to use for constructing the competitors
+        path: Path to store logs and results of the tournament.
+        no_double_scores: Avoid having the same agent in multiple positions in the same negotiation
+        non_comptitor_types: Types to use to fill missing edge locations if not enough competitors are available
+        non_comptitor_params: Paramters of non-competitor-types
+        n_jobs: Number of parallel jobs to use.
+                None (and negative numbers) mean serially, 0 means use all cores, fractions mean fraction of available
+                cores, integers mean exact number of cores
+        center_multiplier: A number to multiply center utilities with before calculating the score. Can be used
+                           to give more or less value to being a center. If None, it will be equal to the number of edges.
+        edge_multiplier: A number to multiply edge utilities with before calculating the score. Can be used
+                           to give more or less value to being an edge
+        verbose: Print progress messages
+        dry: If given, the tournament will be created but will not be run.
+        keep_order: Keep the order of edges when running a session
+        share_ufuns: Allow negotiators to access partner utility function as `self.opponent_ufun`
+        atomic: If true, every step is on offer, otherwise, every step is a complete round (two offers)
+        method: The method for stepping negotiation threads. All methods supported by `negmas.Mechanism.runall()`
+                are supported including sequential which means completing one negotiation before starting the next.
 
     Returns:
         [TODO:return]

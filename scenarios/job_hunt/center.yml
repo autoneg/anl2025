@@ -74,7 +74,7 @@ outcome_spaces:
   type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
 reserved_value: 0.0
 side_ufuns:
-- id: with_employer01-e161cf85-dbd2-4877-a158-d8a02b6de7ee
+- id: with_employer01-285b3f66-2c81-41f0-a91a-ea4cfb80d0b7
   name: with_employer01
   outcome_space:
     issues:
@@ -99,24 +99,24 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.0
-      1: 0.4681876201212683
-      2: 1.0
-      3: 0.4681876201212683
+      0: 0.45832429160103483
+      1: 0.0
+      2: 0.45832429160103483
+      3: 0.22916214580051741
       4: 0.0
-      5: 0.7340938100606342
+      5: 1.0
     type: negmas.preferences.value_fun.TableFun
   - mapping:
       100: 0.0
-      150: 1.0
+      150: 0.0
       200: 1.0
-      250: 0.0
-      300: 0.7869903743116966
+      250: 0.36319794450856363
+      300: 0.6666666666666666
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.27897755790714135
-  - 0.7210224420928586
-- id: with_employer02-15b43ad1-c8a3-4b81-bc38-5deff33f83b8
+  - 0.20870339821371126
+  - 0.7912966017862887
+- id: with_employer02-0e6c0c36-2da7-4c2c-aade-0c066a284b73
   name: with_employer02
   outcome_space:
     issues:
@@ -141,24 +141,24 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.1884985282695559
-      1: 0.44607512224616663
+      0: 1.0
+      1: 0.22585273957995977
       2: 0.0
-      3: 0.75
-      4: 1.0
+      3: 1.0
+      4: 0.6218337080892183
       5: 0.0
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 1.0
-      150: 0.0
-      200: 0.2631574378457454
-      250: 0.7169685409843197
-      300: 0.7169685409843197
+      100: 0.0
+      150: 1.0
+      200: 0.6666666666666666
+      250: 0.0
+      300: 0.3824814567432956
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.10626801964009254
-  - 0.8937319803599074
-- id: with_employer03-149822e6-6aad-417b-809e-6f77e2e83ce2
+  - 0.371763988915012
+  - 0.6282360110849879
+- id: with_employer03-06f8ec18-ebb4-43bd-8aa0-2bb465c7e0b0
   name: with_employer03
   outcome_space:
     issues:
@@ -183,24 +183,24 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 1.0
-      1: 0.5781214807812419
+      0: 0.8054879103272405
+      1: 0.45764355613884533
       2: 0.0
-      3: 0.0
-      4: 0.75
-      5: 0.18801670000814782
+      3: 1.0
+      4: 1.0
+      5: 0.297761539872608
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.0
-      150: 0.6666666666666666
-      200: 1.0
-      250: 0.224358134658669
-      300: 0.0
+      100: 0.09071211594513484
+      150: 0.34297350842980256
+      200: 0.16011771173908607
+      250: 0.6976360341992216
+      300: 0.005738526013691292
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.03788717816006232
-  - 0.9621128218399376
-- id: with_employer04-fb57a915-9026-4fe9-9eba-9b46b04820e2
+  - 0.21244229114190594
+  - 0.787557708858094
+- id: with_employer04-e8946647-7b0a-4170-bc54-87d0df57fc70
   name: with_employer04
   outcome_space:
     issues:
@@ -225,21 +225,21 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.0
-      1: 1.0
-      2: 0.4109777883201961
-      3: 0.0
-      4: 0.75
-      5: 0.25263526178798434
+      0: 1.0
+      1: 0.5504807193157619
+      2: 0.0
+      3: 0.5504807193157619
+      4: 0.0
+      5: 0.5504807193157619
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 1.0
-      150: 0.5473742140509247
-      200: 0.5473742140509247
-      250: 0.0
-      300: 0.2882881186804947
+      100: 0.18507717666554846
+      150: 1.0
+      200: 0.0
+      250: 1.0
+      300: 0.0
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.07563900978812187
-  - 0.9243609902118781
+  - 0.8411954551391972
+  - 0.15880454486080273
 type: anl2025.ufun.MaxCenterUFun
