@@ -226,13 +226,13 @@ class MultidealScenario:
 
 
 def make_multideal_scenario(
-    nedges: int = 10,
+    nedges: int = 5,
     nissues: int = 3,
     nvalues: int = 7,
     # edge ufuns
     center_reserved_value_min: float = 0.0,
     center_reserved_value_max: float = 0.0,
-    center_ufun_type: str | type[CenterUFun] = "MaxCenterUFun",
+    center_ufun_type: str | type[CenterUFun] = "LinearCombinationCenterUFun",
     center_ufun_params: dict[str, Any] | None = None,
     # edge ufuns
     edge_reserved_value_min: float = 0.1,

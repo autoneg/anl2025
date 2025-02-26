@@ -155,8 +155,8 @@ class Random2025(ANL2025Negotiator):
     The most general way to implement an agent is to implement propose and respond.
     """
 
-    p_end = 0.03
-    p_reject = 0.999
+    p_end = 0.000003
+    p_reject = 0.99
 
     def propose(
         self, negotiator_id: str, state: SAOState, dest: str | None = None

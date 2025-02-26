@@ -1,69 +1,115 @@
-# ANL 2024 Tutorial
+# ANL 2025 Tutorial
 
 ## Developing a negotiator
 
-The agents for the ANL competition are standard [NegMAS](https://yasserfarouk.github.io/negmas) negotiators. As such, they can be developed using any approach used to develop negotiators in NegMAS.
+The agents for the ANL competition are simple extensions of [NegMAS](https://yasserfarouk.github.io/negmas) negotiators. As such, they can be developed using any approach used to develop negotiators in NegMAS.
 
-To develop a negotiator, you need to inherit from the [SAONegotiator](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAONegotiator.html) class and implement the [`__call__()`](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAONegotiator.html#negmas.sao.SAONegotiator.__call__) method.
+To develop a negotiator, you need to inherit from the [ANL2025Negotiator](http://www.yasserm.com/anl2025tmp/reference/#anl2025.negotiator.ANL2025Negotiator) class and implement the [`propose()`](http://www.yasserm.com/anl2025tmp/reference/#anl2025.negotiator.ANL2025Negotiator.propose) and [`respond()`](http://www.yasserm.com/anl2025tmp/reference/#anl2025.negotiator.ANL2025Negotiator.respond).
 
 Here is a simple random negotiator:
 
 
 ```python
-import random
-from negmas.sao import SAONegotiator, SAOResponse
-from negmas import Outcome, ResponseType
-class MyRandom2025(SAONegotiator):
-    def __call__(self, state):
-        offer = state.current_offer
-        if offer is not None and self.ufun.is_not_worse(offer, None) and random.random() < 0.25 :
-            return SAOResponse(ResponseType.ACCEPT_OFFER, offer)
-        return SAOResponse(ResponseType.REJECT_OFFER, self.nmi.random_outcomes(1)[0])
+from random import random
+from negmas import Outcome, ResponseType, SAOState
+from anl2025 import ANL2025Negotiator
+
+
+class MyRandom2025(ANL2025Negotiator):
+    p_end = 0.0003
+    p_reject = 0.999
+
+    def propose(
+        self, negotiator_id: str, state: SAOState, dest: str | None = None
+    ) -> Outcome | None:
+        nmi = self.negotiators[negotiator_id].negotiator.nmi        
+        return list(nmi.outcome_space.sample(1))[0]
+
+    def respond(
+        self, negotiator_id: str, state: SAOState, source: str | None = None
+    ) -> ResponseType:        
+        if random() < self.p_end:
+            return ResponseType.END_NEGOTIATION
+
+        if (
+            random() < self.p_reject
+            or float(self.ufun(state.current_offer)) < self.ufun.reserved_value  # type: ignore
+        ):
+            return ResponseType.REJECT_OFFER
+        return ResponseType.ACCEPT_OFFER
+
 ```
 
-### Testing the agent
+### Testing the agent in a single session
+
+The `anl2025` package provide two functions for running single multi-deal negotiation sessions:
+1. `run_generated_session`  which runs a randomly generated session with some control over the types of negotiators for the center and edges as well as the utility functions used.
+2. `run_session` which runs a session with some predefined `MultidealScenario`.
+
+Both functions return a `SessionResults` object which allows you to access the following values after the session is completed:
+
+1. `mechanisms` pointing to one [Mechanism](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAOMechanism.html#saomechanism)
 
 
 ```python
-from anl.anl2024 import anl2024_tournament
-from anl.anl2024.negotiators import Boulware, Conceder, RVFitter
+from anl2025 import run_generated_session
+results = run_generated_session(center_type=MyRandom2025, nedges=3)
+print(f"Center Utility: {results.center_utility}\nEdge Utilities: {results.edge_utilities}")
+```
+
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6879670245903828</span>
+Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.8239836532367947</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2199970863178983</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.20403851233135215</span><span style="font-weight: bold">]</span>
+</pre>
+
+
+
+
+    
+![png](tutorial_develop_files/tutorial_develop_3_1.png)
+    
+
+
+
+    
+![png](tutorial_develop_files/tutorial_develop_3_2.png)
+    
+
+
+
+    
+![png](tutorial_develop_files/tutorial_develop_3_3.png)
+    
+
+
+### Testing the agent in a tournament
+
+
+```python
+from anl2025.tournament import anl2025_tournament
 ```
 
 
 ```python
-results = anl2024_tournament(
-    n_scenarios=1, n_repetitions=3, nologs=True, njobs=-1,
+results = anl2025_tournament(
+    n_scenarios=1, njobs=-1,
     competitors=[MyRandom2025, Boulware]
 )
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Will run <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">12</span> negotiations on <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span> scenarios between <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span> competitors
-</pre>
+    ---------------------------------------------------------------------------
+
+    NameError                                 Traceback (most recent call last)
+
+    Cell In[6], line 3
+          1 results = anl2025_tournament(
+          2     n_scenarios=1, njobs=-1,
+    ----> 3     competitors=[MyRandom2025, Boulware]
+          4 )
 
 
-
-
-    Output()
-
-
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
-
-
-
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
-</pre>
-
-
-
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">             strategy     score
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>            Boulware  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.767437</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>  MyRandom2025  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.262742</span>
-</pre>
-
+    NameError: name 'Boulware' is not defined
 
 
 The score that is printed is the average advantage, which is the received utility minus the reservation value. We can immediately notice that `MyRandom2025` is getting a negative average advantage which means that it sometimes gets agreements that are worse than disagreement (i.e. with utility less than its reservation value). Can you guess why is this happening? How can we resolve that?
@@ -132,7 +178,7 @@ plt.legend();
 
 
     
-![png](tutorial_develop_files/tutorial_develop_8_0.png)
+![png](tutorial_develop_files/tutorial_develop_10_0.png)
     
 
 
@@ -146,7 +192,7 @@ for i, col in enumerate(["advantage", "welfare", "nash_optimality"]):
 
 
     
-![png](tutorial_develop_files/tutorial_develop_9_0.png)
+![png](tutorial_develop_files/tutorial_develop_11_0.png)
     
 
 
@@ -591,7 +637,7 @@ plt.show()
 
 
     
-![png](tutorial_develop_files/tutorial_develop_16_0.png)
+![png](tutorial_develop_files/tutorial_develop_18_0.png)
     
 
 
@@ -624,7 +670,7 @@ plt.show()
 
 
     
-![png](tutorial_develop_files/tutorial_develop_18_0.png)
+![png](tutorial_develop_files/tutorial_develop_20_0.png)
     
 
 

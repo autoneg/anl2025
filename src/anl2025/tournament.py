@@ -41,7 +41,7 @@ class ScoreRecord(TypedDict):
         repetition: The repetition number of this run.
         rotation: The rotation number of this run.
         scenario_index: Index of the scenario.
-        index: Overall index of the run.
+        index: Index of the agent. center = 0 and edges start at 1
     """
 
     agent: str

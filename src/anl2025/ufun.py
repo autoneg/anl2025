@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from collections import defaultdict
-from typing import Any
+from typing import Any, Iterable
 from negmas.inout import get_full_type_name
 from negmas.serialization import serialize, deserialize
 from collections.abc import Sequence, Callable
@@ -39,6 +39,7 @@ __all__ = [
     "LambdaCenterUFun",
     "LambdaUtilityFunction",
     "MaxCenterUFun",
+    "LinearCombinationCenterUFun",
     "MeanSMCenterUFun",
     "SideUFun",
     "SingleAgreementSideUFunMixin",
@@ -408,6 +409,29 @@ class MaxCenterUFun(UtilityCombiningCenterUFun):
 
     def combine(self, values: Sequence[float]) -> float:
         return max(values)
+
+
+class LinearCombinationCenterUFun(UtilityCombiningCenterUFun):
+    """
+    Linear combination of the side utility values
+
+    The utility of the center is the maximum of the utilities it got in each negotiation (called side utilities)
+    """
+
+    def __init__(self, *args, weights: tuple[float, ...] | None = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if isinstance(weights, Iterable):
+            s = sum(weights)
+            if s:
+                weights = tuple(_ / s for _ in weights)
+        self._weights = weights
+
+    def combine(self, values: Sequence[float]) -> float:
+        if self._weights is None:
+            self._weights = np.random.rand(len(values))
+            s = self._weights.sum()
+            self._weights = tuple((self._weights / s).tolist())
+        return sum(a * b for a, b in zip(values, self._weights, strict=True))
 
 
 class SideUFun(BaseUtilityFunction):
