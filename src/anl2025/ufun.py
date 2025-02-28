@@ -349,6 +349,11 @@ class CenterUFun(UtilityFunction, ABC):
     def outcome_spaces(self) -> tuple[OutcomeSpace, ...]:
         return self._outcome_spaces
 
+    def __call__(self, offer: Outcome | None) -> float:
+        if offer and is_separated(offer) and all(_ is None for _ in offer):
+            offer = None
+        return super().__call__(offer)
+
     def flatten(
         self,
         add_index_to_issue_names: bool = True,
