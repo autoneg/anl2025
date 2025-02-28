@@ -6,7 +6,7 @@ from anl2025.runner import MultidealScenario, run_session
 from anl2025.scenarios.dinners import make_dinners_scenario
 from anl2025.scenarios.job_hunt import make_job_hunt_scenario
 from anl2025.scenarios.target_quantity import make_target_quantity_scenario
-from anl2025.ufun import LambdaCenterUFun
+from anl2025.ufun import FlatteningCombiner, HierarchicalCombiner, LambdaCenterUFun
 from negmas import DiscreteCartesianOutcomeSpace, UtilityFunction
 import pytest
 
@@ -52,12 +52,12 @@ def test_load_multideal_dinner(name):
 
 @settings(deadline=5000)
 @given(n_friends=st.integers(1, 4), n_days=st.integers(1, 7))
-@example(n_friends=1, n_days=2)
+@example(n_friends=1, n_days=1)
 def test_load_multideal_dinner_created(n_friends, n_days):
     scenario = make_dinners_scenario(n_friends=n_friends, n_days=n_days)
     assert len(scenario.center_ufun.outcome_spaces) == n_friends
     assert scenario.center_ufun.outcome_space
-    assert scenario.center_ufun.outcome_space.cardinality == pow(n_days, n_friends)
+    assert scenario.center_ufun.outcome_space.cardinality == pow(n_days + 1, n_friends)
     assert isinstance(scenario, MultidealScenario)
     assert isinstance(scenario.center_ufun, LambdaCenterUFun)
     assert all(isinstance(_, UtilityFunction) for _ in scenario.edge_ufuns)
@@ -75,15 +75,19 @@ def test_load_multideal_dinner_created(n_friends, n_days):
         for _ in scenario.center_ufun.outcome_spaces
     )
     assert len(scenario.center_ufun.outcome_space.issues) == n_friends
-    assert (scenario.center_ufun.outcome_space.issues[0].cardinality) == n_days
+    if isinstance(scenario.center_ufun._combiner, FlatteningCombiner):
+        assert (scenario.center_ufun.outcome_space.issues[0].cardinality) == n_days
+    elif isinstance(scenario.center_ufun._combiner, HierarchicalCombiner):
+        assert (scenario.center_ufun.outcome_space.issues[0].cardinality) == n_days + 1
     os = scenario.center_ufun.outcome_spaces[0]
     assert isinstance(os, DiscreteCartesianOutcomeSpace)
-    all_outcomes = list(
+    full_outcomes = list(
         product(
             *(os.enumerate() for os in scenario.center_ufun.outcome_spaces)  # type: ignore
         )
     )
-    assert len(all_outcomes) == pow(n_days, n_friends)
+    assert len(full_outcomes) == pow(n_days, n_friends)
+    all_outcomes = scenario.center_ufun.outcome_space.enumerate()  # type: ignore
     for agreements in all_outcomes:
         assert 0 <= scenario.center_ufun(agreements) <= 1
         for edge_ufun, outcome in zip(scenario.edge_ufuns, agreements):

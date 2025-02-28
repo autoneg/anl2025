@@ -23,11 +23,17 @@ class DinnersEvaluator:
     ):
         self.days = list(range(n_days))
         if values is None:
-            days = [self.days for _ in range(n_friends)]
+            # days = [self.days for _ in range(n_friends)]
+            days = [[0, 1]] * n_days
             all_days = list(itertools.product(*days))
             v = np.random.rand(len(all_days))
-            v -= np.min(v)
-            v /= np.max(v)
+            mn, mx = np.min(v), np.max(v)
+            if np.all(np.abs(mx - mn)) > 1e-6:
+                v -= mn
+                v /= mx - mn
+            else:
+                v[:] = 1.0
+            v[np.isnan(v)] = reserved_value
             values = dict(zip(all_days, v.tolist()))
 
         self.reserved_value = reserved_value
@@ -43,9 +49,8 @@ class DinnersEvaluator:
                 continue
             # day is a tuple of one value which is the day selected
             outings[agreement[0]] += 1
-        return self.values.get(
-            tuple(outings[day] for day in self.days), self.reserved_value
-        )
+        x = tuple(outings[day] for day in self.days)
+        return self.values.get(x, self.reserved_value)
 
 
 def make_dinners_scenario(

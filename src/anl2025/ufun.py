@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
+from copy import deepcopy
+from attrs import define, field
 from collections import defaultdict
-from typing import Any, Iterable
+from typing import Any, Iterable, Protocol
 from negmas.inout import get_full_type_name
+from negmas.outcomes.optional_issue import OptionalIssue
 from negmas.serialization import serialize, deserialize
 from collections.abc import Sequence, Callable
 from enum import Enum
@@ -31,9 +34,6 @@ TRACE_COLS = (
 
 __all__ = [
     "CenterUFunCategory",
-    "convert_to_center_ufun",
-    "flatten_outcome_spaces",
-    "unflatten_outcome_space",
     "CenterUFun",
     "FlatCenterUFun",
     "LambdaCenterUFun",
@@ -44,6 +44,11 @@ __all__ = [
     "SideUFun",
     "SingleAgreementSideUFunMixin",
     "UtilityCombiningCenterUFun",
+    "FlatteningCombiner",
+    "HierarchicalCombiner",
+    "DefaultCombiner",
+    "OSCombiner",
+    "convert_to_center_ufun",
 ]
 
 TUFun = TypeVar("TUFun", bound=UtilityFunction)
@@ -67,6 +72,39 @@ class CenterUFunCategory(Enum):
     Local = 1
 
 
+# def flatten_outcome_spaces(
+#     outcome_spaces: tuple[OutcomeSpace, ...],
+#     add_index_to_issue_names: bool = False,
+#     add_os_to_issue_name: bool = False,
+# ) -> CartesianOutcomeSpace:
+#     """Generates a single outcome-space which is the Cartesian product of input outcome_spaces."""
+#
+#     def _name(i: int, os_name: str | None, issue_name: str | None) -> str:
+#         x = issue_name if issue_name else ""
+#         if add_os_to_issue_name and os_name:
+#             x = f"{os_name}:{x}"
+#         if add_index_to_issue_names:
+#             x = f"{x}:{i+1}"
+#         return x
+#
+#     values, names, nissues = [], [], []
+#     for i, os in enumerate(outcome_spaces):
+#         if isinstance(os, EnumeratingOutcomeSpace):
+#             values.append(list(os.enumerate()))
+#             names.append(_name(i, "", os.name))
+#             nissues.append(1)
+#         elif isinstance(os, CartesianOutcomeSpace):
+#             for issue in os.issues:
+#                 values.append(issue.values)
+#                 names.append(_name(i, os.name, issue.name))
+#             nissues.append(len(os.issues))
+#         else:
+#             raise TypeError(
+#                 f"Outcome space of type {type(os)} cannot be combined with other outcome-spaces"
+#             )
+#     return make_os([make_issue(v, n) for v, n in zip(values, names)])
+
+
 def unflatten_outcome_space(
     outcome_space: CartesianOutcomeSpace, nissues: tuple[int, ...] | list[int]
 ) -> tuple[CartesianOutcomeSpace, ...]:
@@ -80,9 +118,177 @@ def unflatten_outcome_space(
     )
 
 
+class OSCombiner(Protocol):
+    def __init__(self, outcome_spaces: tuple[OutcomeSpace, ...]) -> None: ...
+    def combined_space(self) -> CartesianOutcomeSpace: ...
+
+    def separated_spaces(self) -> tuple[OutcomeSpace, ...]: ...
+
+    def combined_outcome(
+        self, outcomes: tuple[Outcome | None, ...] | Outcome | None
+    ) -> Outcome | None: ...
+
+    def separated_outcomes(
+        self, outcome: Outcome | None
+    ) -> tuple[Outcome | None, ...] | Outcome | None: ...
+
+
+def _calc_n_issues(outcome_spaces: tuple[OutcomeSpace, ...]):
+    return tuple(
+        1 if isinstance(_, EnumeratingOutcomeSpace) else len(_.issues)  # type: ignore
+        for _ in outcome_spaces
+    )
+
+
+def is_separated(x: Outcome | tuple[Outcome | None, ...]) -> bool:
+    if x is None:
+        return True
+    if all(_ is None for _ in x):
+        return True
+    types = set(type(_) for _ in x if _ is not None)
+    if all(issubclass(_, tuple) for _ in types):
+        return True
+    return False
+
+
+def is_combined(x: Outcome | tuple[Outcome | None, ...]) -> bool:
+    if x is None:
+        return True
+    if any(_ is None for _ in x):
+        return False
+    types = set(type(_) for _ in x if _ is not None)
+    if all(issubclass(_, tuple) for _ in types):
+        return False
+    return True
+
+
+@define
+class FlatteningCombiner(OSCombiner):
+    outcome_spaces: tuple[OutcomeSpace, ...]
+    issue_name_format: str = "%osname%:%issuename%"
+    combined_name: str = "combined"
+    outcome_space: CartesianOutcomeSpace = field(init=False, default=None)
+
+    def __attrs_post_init__(self):
+        def _name(i: int, os_name: str | None, issue_name: str | None) -> str:
+            x = (
+                self.issue_name_format.replace(
+                    "%issuename%", issue_name if issue_name is not None else "issue"
+                )
+                .replace("%osname%", os_name if os_name is not None else "os")
+                .replace("%index%", str(i + 1))
+            )
+            if not x:
+                x = "issue"
+            return x
+
+        values, names = [], []
+        for i, os in enumerate(self.outcome_spaces):
+            if isinstance(os, EnumeratingOutcomeSpace):
+                values.append(list(os.enumerate()))
+                names.append(_name(i, "", os.name))
+            elif isinstance(os, CartesianOutcomeSpace):
+                for issue in os.issues:
+                    values.append(issue.values)
+                    names.append(_name(i, os.name, issue.name))
+            else:
+                raise TypeError(
+                    f"Outcome space of type {type(os)} cannot be combined with other outcome-spaces"
+                )
+        self.outcome_space = make_os(
+            [make_issue(v, n) for v, n in zip(values, names)], name=self.combined_name
+        )
+
+    def separated_spaces(self) -> tuple[OutcomeSpace, ...]:
+        return self.outcome_spaces
+
+    def combined_space(self) -> CartesianOutcomeSpace:
+        return self.outcome_space
+
+    def combined_outcome(
+        self, outcomes: tuple[Outcome | None, ...] | Outcome | None
+    ) -> Outcome | None:
+        if not outcomes:
+            return outcomes
+        if is_combined(outcomes):
+            return outcomes
+        values = []
+        for x, os in zip(outcomes, self.outcome_spaces, strict=True):
+            if x is None:
+                values += [None] * len(os.issues)  # type: ignore
+                continue
+            values += list(x)
+        return tuple(values)
+
+    def separated_outcomes(
+        self, outcome: Outcome | None
+    ) -> tuple[Outcome | None, ...] | Outcome | None:
+        if not outcome:
+            return outcome
+        if is_separated(outcome):
+            return outcome
+        nxt = 0
+        vals = []
+        for os in self.outcome_spaces:
+            n = len(os.issues)  # type: ignore
+            x = outcome[nxt : nxt + n]
+            if all(_ is None for _ in x):
+                vals.append(None)
+            else:
+                vals.append(x)
+            nxt += n
+        return tuple(vals)
+
+
+@define
+class HierarchicalCombiner(OSCombiner):
+    outcome_spaces: tuple[OutcomeSpace, ...]
+    issue_name_format: str = "agreement%index%"
+    combined_name: str = "combined"
+    outcome_space: CartesianOutcomeSpace = field(init=False, default=None)
+
+    def __attrs_post_init__(self):
+        def _name(i: int, os_name: str | None) -> str:
+            x = self.issue_name_format.replace(
+                "%osname%", os_name if os_name is not None else "os"
+            ).replace("%index%", str(i + 1))
+            if not x:
+                x = "agreement"
+            return x
+
+        values, names = [], []
+        for i, os in enumerate(self.outcome_spaces):
+            values.append(list(os.enumerate()))  # type: ignore
+            names.append(_name(i, os.name))  # type: ignore
+        self.outcome_space = make_os(  # type: ignore
+            [OptionalIssue(make_issue(v, n), n) for v, n in zip(values, names)],
+            name=self.combined_name,
+        )
+
+    def separated_spaces(self) -> tuple[OutcomeSpace, ...]:
+        return self.outcome_spaces
+
+    def combined_space(self) -> CartesianOutcomeSpace:
+        return self.outcome_space
+
+    def combined_outcome(
+        self, outcomes: tuple[Outcome | None, ...] | Outcome | None
+    ) -> Outcome | None:
+        return outcomes
+
+    def separated_outcomes(
+        self, outcome: Outcome | None
+    ) -> tuple[Outcome | None, ...] | None:
+        return outcome
+
+
+DefaultCombiner = HierarchicalCombiner
+
+
 def convert_to_center_ufun(
     ufun: UtilityFunction,
     nissues: tuple[int],
+    combiner_type: type[OSCombiner] = DefaultCombiner,
     side_evaluators: list[EdgeEvaluator] | None = None,
 ) -> "CenterUFun":
     """Creates a center ufun from any standard ufun with ufuns side ufuns"""
@@ -93,44 +299,13 @@ def convert_to_center_ufun(
             outcome_spaces=unflatten_outcome_space(ufun.outcome_space, nissues),
             evaluator=evaluator,
             side_evaluators=tuple(side_evaluators),
+            combiner_type=combiner_type,
         )
     return LambdaCenterUFun(
         outcome_spaces=unflatten_outcome_space(ufun.outcome_space, nissues),
         evaluator=evaluator,
+        combiner_type=combiner_type,
     )
-
-
-def flatten_outcome_spaces(
-    outcome_spaces: tuple[OutcomeSpace, ...],
-    add_index_to_issue_names: bool = False,
-    add_os_to_issue_name: bool = False,
-) -> tuple[CartesianOutcomeSpace, tuple[int, ...]]:
-    """Generates a single outcome-space which is the Cartesian product of input outcome_spaces."""
-
-    def _name(i: int, os_name: str | None, issue_name: str | None) -> str:
-        x = issue_name if issue_name else ""
-        if add_os_to_issue_name and os_name:
-            x = f"{os_name}:{x}"
-        if add_index_to_issue_names:
-            x = f"{x}:{i}"
-        return x
-
-    values, names, nissues = [], [], []
-    for i, os in enumerate(outcome_spaces):
-        if isinstance(os, EnumeratingOutcomeSpace):
-            values.append(list(os.enumerate()))
-            names.append(_name(i, "", os.name))
-            nissues.append(1)
-        elif isinstance(os, CartesianOutcomeSpace):
-            for issue in os.issues:
-                values.append(issue.values)
-                names.append(_name(i, os.name, issue.name))
-            nissues.append(len(os.issues))
-        else:
-            raise TypeError(
-                f"Outcome space of type {type(os)} cannot be combined with other outcome-spaces"
-            )
-    return make_os([make_issue(v, n) for v, n in zip(values, names)]), tuple(nissues)
 
 
 class CenterUFun(UtilityFunction, ABC):
@@ -145,14 +320,16 @@ class CenterUFun(UtilityFunction, ABC):
     def __init__(
         self,
         *args,
-        outcome_spaces: tuple[OutcomeSpace, ...] = (),
+        outcome_spaces: tuple[CartesianOutcomeSpace, ...] = (),
         n_edges: int = 0,
+        combiner_type: type[OSCombiner] = DefaultCombiner,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
         if not outcome_spaces and self.outcome_space:
             outcome_spaces = tuple([self.outcome_space] * n_edges)
-        self._outcome_spaces = outcome_spaces
+        self._combiner = combiner_type(outcome_spaces)
+        self._outcome_spaces = self._combiner.separated_spaces()
         self.n_edges = len(outcome_spaces)
         self.__kwargs = dict(
             reserved_value=self.reserved_value,
@@ -161,10 +338,9 @@ class CenterUFun(UtilityFunction, ABC):
             name=self.name,
             id=self.id,
         )
+        self.__nissues = _calc_n_issues(self._outcome_spaces)
         try:
-            self.outcome_space, self.__nissues = flatten_outcome_spaces(
-                outcome_spaces, add_index_to_issue_names=True, add_os_to_issue_name=True
-            )
+            self.outcome_space = self._combiner.combined_space()
         except Exception:
             warn("Failed to find the Cartesian product of input outcome spaces")
             self.outcome_space, self.__nissues = None, tuple()
@@ -175,18 +351,16 @@ class CenterUFun(UtilityFunction, ABC):
 
     def flatten(
         self,
-        add_index_to_issue_names: bool = False,
+        add_index_to_issue_names: bool = True,
         add_os_to_issue_name: bool = False,
     ) -> "FlatCenterUFun":
-        os = flatten_outcome_spaces(
-            self._outcome_spaces, add_index_to_issue_names, add_os_to_issue_name
-        )
+        os = self._combiner.combined_space()
         return FlatCenterUFun(
             base_ufun=self, nissues=self.__nissues, outcome_space=os, **self.__kwargs
         )
 
     @abstractmethod
-    def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
+    def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
         """
         Evaluates the utility of a given set of offers.
 
@@ -244,8 +418,8 @@ class LambdaCenterUFun(CenterUFun):
         super().__init__(*args, **kwargs)
         self._evaluator = evaluator
 
-    def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
-        return self._evaluator(offer)
+    def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
+        return self._evaluator(self._combiner.separated_outcomes(offer))
 
     def ufun_type(self) -> CenterUFunCategory:
         return CenterUFunCategory.Global
@@ -313,8 +487,8 @@ class LambdaCenterUFunWithSides(CenterUFun):
             evaluator=self._evaluator,
         )
 
-    def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
-        return self._evaluator(offer)
+    def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
+        return self._evaluator(self._combiner.separated_outcomes(offer))
 
     def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction | None, ...]:
         if self._side_ufuns is None:
@@ -350,15 +524,27 @@ class FlatCenterUFun(UtilityFunction):
         self.__base = base_ufun
         self.__nissues = list(nissues)
 
-    def _unflatten(self, outcome: Outcome) -> tuple[Outcome, ...]:
+    def _unflatten(
+        self, outcome: Outcome | tuple[Outcome | None, ...] | None
+    ) -> tuple[Outcome | None, ...] | None:
+        if outcome is None:
+            return None
+
+        if isinstance(outcome, tuple) and isinstance(outcome[0], Outcome):
+            return outcome
+
         beg = [0] + self.__nissues[:-1]
         end = self.__nissues
         outcomes = []
         for i, j in zip(beg, end, strict=True):
-            outcomes.append(tuple(outcome[i:j]))
+            x = outcome[i:j]
+            if all(_ is None for _ in x):
+                outcomes.append(None)
+            else:
+                outcomes.append(tuple(x))
         return tuple(outcomes)
 
-    def eval(self, offer: Outcome) -> float:
+    def eval(self, offer: Outcome | tuple[Outcome | None] | None) -> float:
         return self.__base.eval(self._unflatten(offer))
 
 
@@ -371,13 +557,14 @@ class UtilityCombiningCenterUFun(CenterUFun):
 
     def __init__(self, *args, side_ufuns: tuple[BaseUtilityFunction, ...], **kwargs):
         super().__init__(*args, **kwargs)
-        self.ufuns = side_ufuns
+        self.ufuns = tuple(deepcopy(_) for _ in side_ufuns)
 
     @abstractmethod
     def combine(self, values: Sequence[float]) -> float:
         """Combines the utilities of all negotiation  threads into a single value"""
 
-    def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
+    def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
+        offer = self._combiner.separated_outcomes(offer)
         if not offer:
             return self.reserved_value
         return self.combine(tuple(float(u(_)) for u, _ in zip(self.ufuns, offer)))
@@ -474,7 +661,8 @@ class SingleAgreementSideUFunMixin:
 class MeanSMCenterUFun(SingleAgreementSideUFunMixin, CenterUFun):
     """A ufun that just  returns the average mean+std dev. in each issue of the agreements as the utility value"""
 
-    def eval(self, offer: tuple[Outcome | None, ...] | None) -> float:
+    def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
+        offer = self._combiner.separated_outcomes(offer)
         if not offer:
             return 0.0
         n_edges = len(offer)
