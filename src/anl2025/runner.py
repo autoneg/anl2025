@@ -105,7 +105,7 @@ class AssignedScenario:
 
         mechanisms = []
         try:
-            side_ufuns = center_ufun.side_ufuns(nedges)
+            side_ufuns = center_ufun.side_ufuns()
         except Exception:
             side_ufuns = None
         if not side_ufuns:
@@ -124,7 +124,7 @@ class AssignedScenario:
                 print(f"Adding edge {i} of type {type_name(edge)} (thread: {m.name})")
             m.add(
                 center.create_negotiator(
-                    cntxt=dict(center=True, ufun=side_ufun),
+                    cntxt=dict(center=True, ufun=side_ufun, index=i),
                     ufun=side_ufun,
                     id=f"s{i}",
                     private_info=dict(opponent_ufun=edge_ufun)
@@ -135,7 +135,7 @@ class AssignedScenario:
             m.negotiators[-1].id = m.negotiators[-1].name = f"s{i}"
             m.add(
                 edge.create_negotiator(
-                    cntxt=dict(center=False, ufun=edge_ufun),
+                    cntxt=dict(center=False, ufun=edge_ufun, index=i),
                     ufun=edge_ufun,
                     id=f"e{i}",
                     private_info=dict(opponent_ufun=side_ufun)
@@ -170,9 +170,7 @@ class AssignedScenario:
             base = output / name
             (base / "log").mkdir(parents=True, exist_ok=True)
             (base / "plots").mkdir(parents=True, exist_ok=True)
-            for i, (m, _) in enumerate(
-                zip(mechanisms, center_ufun.side_ufuns(len(edges)))
-            ):
+            for i, (m, _) in enumerate(zip(mechanisms, center_ufun.side_ufuns())):
                 df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
                 df.to_csv(base / "log" / f"{m.id}.csv", index_label="index")
                 m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
@@ -356,7 +354,7 @@ def run_generated_session(
 def run_session(
     scenario: MultidealScenario,
     # center
-    center_type: str = "Boulware2025",
+    center_type: str | type[ANL2025Negotiator] = "Boulware2025",
     center_params: dict[str, Any] | None = None,
     # edges
     edge_types: list[str | type[ANL2025Negotiator]] = [
@@ -375,7 +373,7 @@ def run_session(
     dry: bool = False,
     method=DEFAULT_METHOD,
     verbose: bool = False,
-    sample_edges: bool = True,
+    sample_edges: bool = False,
 ) -> SessionResults:
     """Runs a multideal negotiation session and runs it.
 
@@ -397,7 +395,8 @@ def run_session(
         name: Name of the session
         dry: IF true, nothing will be run.
         verbose: Print progress
-        sample_edges: If true, the `edge_types` will be used as a pool to sample from
+        sample_edges: If true, the `edge_types` will be used as a pool to sample from otherwise edges will
+                      be of the types defined by edge_types in order
 
     Returns:
         `SessionResults` giving the results of the multideal negotiation session.
@@ -411,10 +410,10 @@ def run_session(
         atomic=atomic,
         method=method,
     )
-    if not sample_edges:
-        assert (
-                len(edge_types) == len(scenario.edge_ufuns)
-        ), f"You are trying to run a session without sampling, but the number of provided edge types ({len(edge_types)}) is not equal to the number of edge ufuns in the scenario ({len(scenario.edge_ufuns)})."
+    # if not sample_edges:
+    #     assert (
+    #         len(edge_types) == len(scenario.edge_ufuns)
+    #     ), f"You are trying to run a session without sampling, but the number of provided edge types ({len(edge_types)}) is not equal to the number of edge ufuns in the scenario ({len(scenario.edge_ufuns)})."
 
     assigned = assign_scenario(
         scenario=scenario,
@@ -423,6 +422,6 @@ def run_session(
         center_params=center_params,
         edge_types=edge_types,
         verbose=verbose,
-        sample_edges=True,
+        sample_edges=sample_edges,
     )
     return assigned.run(output=output, name=name, dry=dry, verbose=verbose)

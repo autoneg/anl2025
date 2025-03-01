@@ -48,7 +48,13 @@ The `anl2025` package provide two functions for running single multi-deal negoti
 
 Both functions return a `SessionResults` object which allows you to access the following values after the session is completed:
 
-1. `mechanisms` pointing to one [Mechanism](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAOMechanism.html#saomechanism)
+1. `mechanisms` pointing to one [SAOMechanism](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAOMechanism.html#saomechanism) for each negotiation thread.
+2. `center_negotiator` pointing to a [ANL2025Negotiator](reference/#anl2025.negotiator.ANL2025Negotiator) for the center negotiator.
+3. `edge_negotiators` pointing to a list of [SAONegotiators](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAONegotiator.html#saonegotiator) for the edge negotiators.
+4. `center_utility` giving the utility value received by the center negotiator
+5. `edge_utility` giving the utility value received by each edge negotiator.
+
+Here is an example of running a session with our random negotiator against 3 edges on a randomly generated session.
 
 
 ```python
@@ -82,112 +88,123 @@ Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008
     
 
 
-### Testing the agent in a tournament
+We can achieve the same result by first creating a scenario and then running the session:
 
 
 ```python
-from anl2025.tournament import anl2025_tournament
+from anl2025 import make_multideal_scenario, run_session
+
+scenario = make_multideal_scenario(nedges=3)
+results = run_session(scenario, center_type=MyRandom2025)
+print(f"Center Utility: {results.center_utility}\nEdge Utilities: {results.edge_utilities}")
+```
+
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4118799345340276</span>
+Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9549455705991858</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.7660047417856862</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.791918266076788</span><span style="font-weight: bold">]</span>
+</pre>
+
+
+
+
+    
+![png](tutorial_develop_files/tutorial_develop_5_1.png)
+    
+
+
+
+    
+![png](tutorial_develop_files/tutorial_develop_5_2.png)
+    
+
+
+
+    
+![png](tutorial_develop_files/tutorial_develop_5_3.png)
+    
+
+
+### Testing the agent in a tournament
+
+You can also run a complete tournament evaluating our agent against some other agents using `anl2025_tournament`:
+
+
+
+```python
+from anl2025 import anl2025_tournament, Boulware2025, Linear2025
 ```
 
 
 ```python
 results = anl2025_tournament(
-    n_scenarios=1, njobs=-1,
-    competitors=[MyRandom2025, Boulware]
+    scenarios=[make_multideal_scenario(nedges=3) for _ in range(2)],
+    n_jobs=-1,
+    competitors=(MyRandom2025, Boulware2025, Linear2025)
 )
 ```
 
 
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    Cell In[6], line 3
-          1 results = anl2025_tournament(
-          2     n_scenarios=1, njobs=-1,
-    ----> 3     competitors=[MyRandom2025, Boulware]
-          4 )
+    Output()
 
 
-    NameError: name 'Boulware' is not defined
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
 
 
-The score that is printed is the average advantage, which is the received utility minus the reservation value. We can immediately notice that `MyRandom2025` is getting a negative average advantage which means that it sometimes gets agreements that are worse than disagreement (i.e. with utility less than its reservation value). Can you guess why is this happening? How can we resolve that?
 
-You can easily check the final scores using the `final_scores` member of the returned [SimpleTournamentResults](https://negmas.readthedocs.io/en/latest/api/negmas.tournaments.SimpleTournamentResults.html) object.
+
+    Output()
+
+
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
+
+
+
+```note
+Note that within a Jupyter notebook, you must pass n_jobs=-1 to run the whole tournament in the same process as the jupyter notebook itself. If this is not done, your class `MyRandom2025` will not  be found.
+```
+
+As expected, our random negotiator is worse than both builtin options.
+
+We can get more information by analyzing the `scores` member which keeps track of individual scores of each negotiator in each sceanrio:
 
 
 ```python
-results.final_scores
+print(results.final_scores)
 ```
 
 
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">15.270375153939417</span>, <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3.0136613454497363</span>, <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11.127208811206113</span><span style="font-weight: bold">}</span>
+</pre>
 
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>strategy</th>
-      <th>score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Boulware</td>
-      <td>0.767437</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>MyRandom2025</td>
-      <td>0.262742</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-The returned results are all pandas dataframes. We can use standard pandas functions to get deeper understanding of the results. Here is how to plot a KDE figure (kind of histogram) comparing different strategies in this tournament. The higher the line, the more often this value of the advantage is observed.
 
 
 
 ```python
-fig, ax = plt.subplots(figsize=(8,6))
-df = results.scores
-for label, data in df.groupby('strategy'):
-    data.advantage.plot(kind="kde", ax=ax, label=label)
-plt.ylabel("advantage")
-plt.legend();
-```
+import pandas as pd
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,5))
+df = pd.DataFrame.from_records(results.scores)
+# Filter data for the two cases (center and edge)
+center_data = df[df['index'] == 0].groupby('agent')['utility'].apply(list).to_dict()
+edge_data = df[df['index'] != 0].groupby('agent')['utility'].apply(list).to_dict()
+ax1.boxplot(center_data.values())
+ax1.set_xticklabels(center_data.keys())
+ax1.set_xlabel('Negotiator Type')
+ax1.set_ylabel('Utility')
+ax1.set_title('Center')
 
-
-    
-![png](tutorial_develop_files/tutorial_develop_10_0.png)
-    
-
-
-
-```python
-fig, axs = plt.subplots(1, 3, figsize=(16,4))
-for i, col in enumerate(["advantage", "welfare", "nash_optimality"]):
-    results.scores.groupby("strategy")[col].mean().sort_index().plot(kind="bar", ax=axs[i])
-    axs[i].set_ylabel(col)
+# Box plot for index != 0
+ax2.boxplot(edge_data.values())
+ax2.set_xticklabels(edge_data.keys())
+ax2.set_xlabel('Negotiator Type')
+ax2.set_ylabel('Utility')
+ax2.set_title('Edge')
+# Rotate x-axis labels for both subplots
+plt.setp(ax1.get_xticklabels(), rotation=45, ha='right')
+plt.setp(ax2.get_xticklabels(), rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
 ```
 
 
@@ -196,10 +213,64 @@ for i, col in enumerate(["advantage", "welfare", "nash_optimality"]):
     
 
 
+For this run, it is clear that the boulware negotiator is much better than the linear and our random negotiators when running in the center but (maybe) surprisingly, the linear agent is slightly better than the boulware agent when running as an edge.
+
+```note
+By default, scores as center are assigned `n. edges` times the weight of scores as edges because the agent runs almost this number of times as an edge for each time it runs as a center. This weight can be controlled using the `center_multiplier` and the `edge_multiplier`. The organization committee of ANL 2025 keeps the right to change these weights in the finals.
+```
+
+
+
+
+```python
+import pandas as pd
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10,5))
+df = pd.DataFrame.from_records(results.scores)
+# Filter data for the two cases (center and edge)
+center_data = df[df['index'] == 0]['agent'].value_counts().to_dict()
+edge_data = df[df['index'] != 0]['agent'].value_counts().to_dict()
+ax1.bar(center_data.keys(), center_data.values())
+ax1.set_xlabel('Negotiator Type')
+ax1.set_ylabel('Utility')
+ax1.set_title('Center')
+
+# Box plot for index != 0
+ax2.bar(edge_data.keys(), edge_data.values())
+ax2.set_xlabel('Negotiator Type')
+ax2.set_ylabel('Utility')
+ax2.set_title('Edge')
+# Rotate x-axis labels for both subplots
+plt.setp(ax1.get_xticklabels(), rotation=45, ha='right')
+plt.setp(ax2.get_xticklabels(), rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
+```
+
+
+    
+![png](tutorial_develop_files/tutorial_develop_13_0.png)
+    
+
+
+## Types of multideal scenarios in ANL 2025
+
+
+
+
 ## Available helpers
 
-Our negotiator was not so good but it exemplifies the simplest method for developing a negotiator in NegMAS. For more information refer to [NegMAS Documentation](https://negmas.readthedocs.io). You develop your agent, as explained above, by implementing the `__call__` method of your class.
+Our negotiator was not so good but it exemplifies the simplest method for developing a negotiator for ANL 2025. For more information refer to [NegMAS Documentation](https://negmas.readthedocs.io). You develop your agent, as explained above, by implementing the `propose()` and `respond()` methods of your class.
 
+Under the hood, every `ANL2025Negotiator` is an [SAOController](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAOController.html) which is the class ressponsible for handling multiple negotiations at once in NegMAS for the Stacked Alternating Offers Protocol. An `SAOController` is a subclass of  [Controller](https://negmas.readthedocs.io/en/latest/api/negmas.negotiators.Controller.html) which is responsible of handing multiple negotiations for any protocol in [NegMAS](https://negmas.readthedocs.io).
+
+You can use any of the properties and methods provided by these classes in your development. The following sections describe some of the most important
+
+### Parameters of propose and respond
+Whenever your negotiator is called by the protocol, it receives the `negotiator_id` which is a unique ID for each negotiation thread and the `state` of this negotiation (an [SAOState](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAOState.html#saostate)).
+
+### The acceptancd  strategy (response)
+
+### The bidding (offering) strategy (propose)
 This method, receives an [SAOState](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAOState.html) which represents the current `state` of the negotiation. The most important members of this state object are `current_offer` which gives the current offer from the partner (or `None` if this is the beginning of the negotiation) and `relative_time` which gives the relative time of the negotiation ranging between `0` and `1`.
 
 It should return an [SAOResponse](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAOResponse.html) represeting the agent's `response` which consists of two parts:
@@ -210,6 +281,12 @@ It should return an [SAOResponse](https://negmas.readthedocs.io/en/latest/api/ne
     - `ResponseType.END_NEGOTIATION`, ends the negotiation immediately (pass `None` as the second member of the response).
 2. A counter offer (in case of rejection), the received offer (in case of acceptance) or `None` if ending the negotiation.
 
+
+### Properties available from the undelying Controller
+
+
+### Properties and methods available through the NMI
+
 The negotiator can use the following objects to help it implement its strategy:
 
 - `self.nmi` A [SAONMI](https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAONMI.html) that gives you access to all the settings of this negotiation and provide some simple helpers:
@@ -218,6 +295,9 @@ The negotiator can use the following objects to help it implement its strategy:
     - `outcome_space` The [OutcomeSpace](https://negmas.readthedocs.io/en/latest/api/negmas.outcomes.OutcomeSpace.html) of the negotiation which represent all possible agreements. In ANL 2024, this will always be of type [DiscreteCartesianOutcomeSpace](https://negmas.readthedocs.io/en/latest/api/negmas.outcomes.DiscreteCartesianOutcomeSpace.html) with a single issue.
     - `discrete_outcomes()` A generator of all outcomes in the outcome space.
     - `log_info()` Logs structured information for this negotiator that can be checked in the logs later (Similarily there are `log_error`, `log_warning`, `log_debug`).
+
+### Tools available through the utility function
+
 - `self.ufun` A [LinearAdditiveUtilityFunction](https://negmas.readthedocs.io/en/latest/api/negmas.preferences.LinearAdditiveUtilityFunction.html#negmas.preferences.LinearAdditiveUtilityFunction) representing the agent's own utility function. This object provides some helpful functionality including:
    - `self.ufun.is_better(a, b)` Tests if outcome `a` is better than `b` (use `None` for disagreement). Similarily we have, `is_worse`, `is_not_worse` and `is_not_better`.
    - `self.ufun.reserved_value` Your negotiator's reserved/reservation value (between 0 and 1). You can access this also as `self.ufun(None)`.
@@ -234,12 +314,16 @@ The negotiator can use the following objects to help it implement its strategy:
 Other than these objects, your negotiator can access any of the analytic facilities available in NegMAS. For example, you can calculate the [pareto_frontier](https://negmas.readthedocs.io/en/latest/api/negmas.preferences.pareto_frontier.html), [Nash Bargaining Soluion](https://negmas.readthedocs.io/en/latest/api/negmas.preferences.nash_points.html), [Kalai Bargaining Solution](https://negmas.readthedocs.io/en/latest/api/negmas.preferences.kalai_points.html), [points with maximum wellfare](https://negmas.readthedocs.io/en/latest/api/negmas.preferences.max_welfare_points.html), etc. You can check the implementation of the [NashSeeker](https://github.com/yasserfarouk/anl/blob/main/src/anl/anl2024/negotiators/builtins/nash_seeker.py) agent for examples of using these facilities.
 
 
-Other than implementing the `__call__`, method you can optionally implement one or more of the following callbacks to initialize your agent:
+## Other Callbacks
 
+Other than implementing the `propose()` and `respond()` methods, you can optionally implement one or more of the following callbacks to initialize your agent:
+
+- `init()` This is called after all the negotiation threads are initialized but before any of them are started. You can use it to initialize your agent while having access to all the tools described above
+  
 - `on_negotiation_start(state: SAOState)` This [callback](https://negmas.readthedocs.io/en/latest/api/negmas.negotiators.EvaluatorNegotiator.html#negmas.negotiators.EvaluatorNegotiator.on_negotiation_start) is called once per negotiation after the ufuns are set but before any offers are exchanged.
 - `on_preferences_changed(changes)` This [callback](https://negmas.readthedocs.io/en/latest/api/negmas.negotiators.EvaluatorNegotiator.html#negmas.negotiators.EvaluatorNegotiator.on_preferences_changed) is called **whenever** your negotiator's ufun is changed. This will happen at the beginning of each negotiation but it can also happen again if the ufun is changed **while the negotiation is running**. In ANL 2024, ufuns never change during the negotiation so this callback is equivalent to `on_negotiation_start()` but for future proofness, you should use this callback for any initialization instead to guarantee that this initialization will be re-run in cases of changing utility function.
 
-## Understanding our negotiator
+## Understanding our random negotiator
 
 Now we can analyze the simple random negotiator we developed earlier.
 
@@ -272,114 +356,6 @@ How can we use knowledge of our own and our opponent's utility functions (up to 
 - **Opponent Modeling** We estimate the opponent reserved value under the assumption that they are using a monotonically decreasing curve to select a utility value and offer an outcome around it. This is implemented in `update_reserved_value()` below.
 
 - **Bidding Strategy** Once we have an estimate of their reserved value, we can then find out all outcomes that are rational for both we and them. We can then check the relative time of the negotiation and offer outcomes by conceding over this list of rational outcomes. This is implemented in the `generate_offer()` method below.
-
-
-```python
-from scipy.optimize import curve_fit
-
-def aspiration_function(t, mx, rv, e):
-    """A monotonically decreasing curve starting at mx (t=0) and ending at rv (t=1)"""
-    return (mx - rv) * (1.0 - np.power(t, e)) + rv
-
-
-class SimpleRVFitter(SAONegotiator):
-    """A simple curve fitting modeling agent"""
-    def __init__(self, *args, e: float = 5.0, **kwargs):
-        """Initialization"""
-        super().__init__(*args, **kwargs)
-        self.e = e
-        # keeps track of times at which the opponent offers
-        self.opponent_times: list[float] = []
-        # keeps track of opponent utilities of its offers
-        self.opponent_utilities: list[float] = []
-        # keeps track of our last estimate of the opponent reserved value
-        self._past_oppnent_rv = 0.0
-        # keeps track of the rational outcome set given our estimate of the
-        # opponent reserved value and our knowledge of ours
-        self._rational: list[tuple[float, float, Outcome]] = []
-
-    def __call__(self, state):
-        # update the opponent reserved value in self.opponent_ufun
-        self.update_reserved_value(state.current_offer, state.relative_time)
-        # run the acceptance strategy and if the offer received is acceptable, accept it
-        if self.is_acceptable(state.current_offer, state.relative_time):
-            return SAOResponse(ResponseType.ACCEPT_OFFER, state.current_offer)
-        # call the offering strategy
-        return SAOResponse(ResponseType.REJECT_OFFER, self.generate_offer(state.relative_time))
-
-    def generate_offer(self, relative_time) -> Outcome:
-        # The offering strategy
-        # We only update our estimate of the rational list of outcomes if it is not set or
-        # there is a change in estimated reserved value
-        if (
-            not self._rational
-            or abs(self.opponent_ufun.reserved_value - self._past_oppnent_rv) > 1e-3
-        ):
-            # The rational set of outcomes sorted dependingly according to our utility function
-            # and the opponent utility function (in that order).
-            self._rational = sorted(
-                [
-                    (my_util, opp_util, _)
-                    for _ in self.nmi.outcome_space.enumerate_or_sample(
-                        levels=10, max_cardinality=100_000
-                    )
-                    if (my_util := float(self.ufun(_))) > self.ufun.reserved_value
-                    and (opp_util := float(self.opponent_ufun(_)))
-                    > self.opponent_ufun.reserved_value
-                ],
-            )
-        # If there are no rational outcomes (e.g. our estimate of the opponent rv is very wrong),
-        # then just revert to offering our top offer
-        if not self._rational:
-            return self.ufun.best()
-        # find our aspiration level (value between 0 and 1) the higher the higher utility we require
-        asp = aspiration_function(relative_time, 1.0, 0.0, self.e)
-        # find the index of the rational outcome at the aspiration level (in the rational set of outcomes)
-        max_rational = len(self._rational) - 1
-        indx = max(0, min(max_rational, int(asp * max_rational)))
-        outcome = self._rational[indx][-1]
-        return outcome
-
-    def is_acceptable(self, offer, relative_time) -> bool:
-        """The acceptance strategy"""
-        # If there is no offer, there is nothing to accept
-        if offer is None:
-            return False
-        # Find the current aspiration level
-        asp = aspiration_function(
-            relative_time, 1.0, self.ufun.reserved_value, self.e
-        )
-        # accept if the utility of the received offer is higher than
-        # the current aspiration
-        return float(self.ufun(offer)) >= asp
-
-    def update_reserved_value(self, offer, relative_time):
-        """Learns the reserved value of the partner"""
-        if offer is None:
-            return
-        # save to the list of utilities received from the opponent and their times
-        self.opponent_utilities.append(float(self.opponent_ufun(offer)))
-        self.opponent_times.append(relative_time)
-        # Use curve fitting to estimate the opponent reserved value
-        # We assume the following:
-        # - The opponent is using a concession strategy with an exponent between 0.2, 5.0
-        # - The opponent never offers outcomes lower than their reserved value which means
-        #   that their rv must be no higher than the worst outcome they offered for themselves.
-        bounds = ((0.2, 0.0), (5.0, min(self.opponent_utilities)))
-        try:
-            optimal_vals, _ = curve_fit(
-                lambda x, e, rv: aspiration_function(
-                    x, self.opponent_utilities[0], rv, e
-                ),
-                self.opponent_times,
-                self.opponent_utilities,
-                bounds=bounds,
-            )
-            self._past_oppnent_rv = self.opponent_ufun.reserved_value
-            self.opponent_ufun.reserved_value = optimal_vals[1]
-        except Exception as e:
-            pass
-```
 
 
 ```python
@@ -637,7 +613,7 @@ plt.show()
 
 
     
-![png](tutorial_develop_files/tutorial_develop_18_0.png)
+![png](tutorial_develop_files/tutorial_develop_19_0.png)
     
 
 
@@ -670,7 +646,7 @@ plt.show()
 
 
     
-![png](tutorial_develop_files/tutorial_develop_20_0.png)
+![png](tutorial_develop_files/tutorial_develop_21_0.png)
     
 
 

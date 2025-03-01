@@ -47,8 +47,6 @@ Other negotiators are just wrappers over negotiators provided by NegMAS.
 ### Utility Function Helpers
 ::: anl2025.ufun.convert_to_center_ufun
 
-::: anl2025.ufun.flatten_outcome_spaces
-
 ::: anl2025.ufun.unflatten_outcome_space
 
 ## Scenarios

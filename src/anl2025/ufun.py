@@ -130,7 +130,7 @@ class OSCombiner(Protocol):
 
     def separated_outcomes(
         self, outcome: Outcome | None
-    ) -> tuple[Outcome | None, ...] | Outcome | None: ...
+    ) -> tuple[Outcome | None, ...] | None: ...
 
 
 def _calc_n_issues(outcome_spaces: tuple[OutcomeSpace, ...]):
@@ -222,7 +222,7 @@ class FlatteningCombiner(OSCombiner):
 
     def separated_outcomes(
         self, outcome: Outcome | None
-    ) -> tuple[Outcome | None, ...] | Outcome | None:
+    ) -> tuple[Outcome | None, ...] | None:
         if not outcome:
             return outcome
         if is_separated(outcome):
@@ -323,6 +323,9 @@ class CenterUFun(UtilityFunction, ABC):
         outcome_spaces: tuple[CartesianOutcomeSpace, ...] = (),
         n_edges: int = 0,
         combiner_type: type[OSCombiner] = DefaultCombiner,
+        expected_outcomes: tuple[Outcome | None, ...]
+        | list[Outcome | None]
+        | None = None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -344,25 +347,38 @@ class CenterUFun(UtilityFunction, ABC):
         except Exception:
             warn("Failed to find the Cartesian product of input outcome spaces")
             self.outcome_space, self.__nissues = None, tuple()
+        self._expected: list[Outcome | None] = (
+            list(expected_outcomes) if expected_outcomes else ([None] * self.n_edges)
+        )
+
+    def set_expected_outcome(self, index: int, outcome: Outcome | None) -> None:
+        self._expected[index] = outcome
 
     @property
     def outcome_spaces(self) -> tuple[OutcomeSpace, ...]:
         return self._outcome_spaces
 
-    def __call__(self, offer: Outcome | None) -> float:
-        if offer and is_separated(offer) and all(_ is None for _ in offer):
-            offer = None
-        return super().__call__(offer)
+    def eval_with_expected(self, offer: Outcome | None, use_expected=True) -> float:
+        """Calculates the utility of a set of offers with control over whether or not to use stored expected outcomes."""
+        outcomes = self._combiner.separated_outcomes(offer)
+        if outcomes:
+            if use_expected:
+                outcomes = tuple(
+                    outcome if outcome else expected
+                    for outcome, expected in zip(outcomes, self._expected, strict=True)
+                )
+            if all(_ is None for _ in outcomes):
+                outcomes = None
+        if outcomes is None:
+            return self.reserved_value
+        return self.eval(outcomes)
 
-    def flatten(
-        self,
-        add_index_to_issue_names: bool = True,
-        add_os_to_issue_name: bool = False,
-    ) -> "FlatCenterUFun":
-        os = self._combiner.combined_space()
-        return FlatCenterUFun(
-            base_ufun=self, nissues=self.__nissues, outcome_space=os, **self.__kwargs
-        )
+    def __call__(self, offer: Outcome | None) -> float:
+        """Entry point to calculate the utility of a set of offers (called by the mechanism).
+
+        Override to avoid using expected outcomes."""
+
+        return self.eval_with_expected(offer, use_expected=True)
 
     @abstractmethod
     def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
@@ -383,11 +399,11 @@ class CenterUFun(UtilityFunction, ABC):
         """
         ...
 
-    def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction | None, ...]:
+    def side_ufuns(self) -> tuple[BaseUtilityFunction | None, ...]:
         """Should return an independent ufun for each side negotiator of the center."""
         return tuple(
             SideUFun(center_ufun=self, n_edges=self.n_edges, index=i)
-            for i in range(n_edges)
+            for i in range(self.n_edges)
         )
 
     def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
@@ -495,9 +511,9 @@ class LambdaCenterUFunWithSides(CenterUFun):
     def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
         return self._evaluator(self._combiner.separated_outcomes(offer))
 
-    def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction | None, ...]:
+    def side_ufuns(self) -> tuple[BaseUtilityFunction | None, ...]:
         if self._side_ufuns is None:
-            return super().side_ufuns(n_edges)
+            return super().side_ufuns()
         return self._side_ufuns
 
     def ufun_type(self) -> CenterUFunCategory:
@@ -574,10 +590,7 @@ class UtilityCombiningCenterUFun(CenterUFun):
             return self.reserved_value
         return self.combine(tuple(float(u(_)) for u, _ in zip(self.ufuns, offer)))
 
-    def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction, ...]:
-        assert (
-            n_edges == len(self.ufuns)
-        ), f"Initialized with {len(self.ufuns)} ufuns but you are asking for ufuns for {n_edges} side negotiators."
+    def side_ufuns(self) -> tuple[BaseUtilityFunction, ...]:
         return self.ufuns
 
     def ufun_type(self) -> CenterUFunCategory:
@@ -632,15 +645,23 @@ class SideUFun(BaseUtilityFunction):
     """
 
     def __init__(
-        self, *args, center_ufun: CenterUFun, index: int, n_edges: int, **kwargs
+        self,
+        *args,
+        center_ufun: CenterUFun,
+        index: int,
+        n_edges: int,
+        **kwargs,
     ):
         super().__init__(*args, **kwargs)
         self.__center_ufun = center_ufun
         self.__index = index
         self.__n_edges = n_edges
 
+    def set_expected_outcome(self, outcome: Outcome | None) -> None:
+        self.__center_ufun.set_expected_outcome(self.__index, outcome)
+
     def eval(self, offer: Outcome | None) -> float:
-        offers: list[Outcome | None] = [None] * self.__n_edges
+        offers = [_ for _ in self.__center_ufun._expected]
         offers[self.__index] = offer
         return self.__center_ufun(tuple(offers))
 
@@ -652,11 +673,11 @@ class SingleAgreementSideUFunMixin:
         `MeanSMCenterUFun`
     """
 
-    def side_ufuns(self, n_edges: int) -> tuple[BaseUtilityFunction, ...]:
+    def side_ufuns(self) -> tuple[BaseUtilityFunction, ...]:
         """Should return an independent ufun for each side negotiator of the center"""
         return tuple(
-            SideUFun(center_ufun=self, n_edges=n_edges, index=i)  # type: ignore
-            for i in range(n_edges)
+            SideUFun(center_ufun=self, n_edges=self.n_edges, index=i)  # type: ignore
+            for i in range(self.n_edges)  # type: ignore
         )
 
     def ufun_type(self) -> CenterUFunCategory:

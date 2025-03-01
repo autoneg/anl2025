@@ -380,7 +380,7 @@ def run_random(
 
     cfun = results.center.ufun
     assert isinstance(cfun, CenterUFun)
-    side_ufuns = cfun.side_ufuns(len(results.edges))
+    side_ufuns = cfun.side_ufuns()
     for i, (e, m, u) in enumerate(
         zip(results.edges, results.mechanisms, side_ufuns, strict=True)  # type: ignore
     ):
@@ -501,7 +501,7 @@ def run_scenario(
 
     cfun = results.center.ufun
     assert isinstance(cfun, CenterUFun)
-    side_ufuns = cfun.side_ufuns(len(results.edges))
+    side_ufuns = cfun.side_ufuns()
     for i, (e, m, u) in enumerate(
         zip(results.edges, results.mechanisms, side_ufuns, strict=True)  # type: ignore
     ):

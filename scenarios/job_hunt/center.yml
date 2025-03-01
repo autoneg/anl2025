@@ -74,7 +74,7 @@ outcome_spaces:
   type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
 reserved_value: 0.0
 side_ufuns:
-- id: with_employer01-4931aecf-6f8d-4cdb-a4d5-421d2c222a51
+- id: with_employer01-a34780ab-6165-4589-93d6-4aefe69764a8
   name: with_employer01
   outcome_space:
     issues:
@@ -99,24 +99,24 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.5469980958843741
-      1: 0.0
-      2: 0.773499047942187
-      3: 0.0
-      4: 0.5469980958843741
-      5: 1.0
+      0: 0.07495245310836107
+      1: 0.4450597371442747
+      2: 0.028787125784940915
+      3: 0.1813014219231246
+      4: 0.9592254769457436
+      5: 0.8966884634068546
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.942857880965083
-      150: 0.6860581586885921
-      200: 0.42692450261714554
-      250: 0.756800717556465
-      300: 0.7271866741314849
+      100: 0.19477417525600083
+      150: 1.0
+      200: 0.0
+      250: 0.6324661919513895
+      300: 1.0
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.8850988740018598
-  - 0.11490112599814029
-- id: with_employer02-2e02697b-869e-44ec-869d-3cf11b9aa3f0
+  - 0.8380553180917891
+  - 0.1619446819082108
+- id: with_employer02-81df2fca-a744-4c20-8255-53aca8437460
   name: with_employer02
   outcome_space:
     issues:
@@ -141,24 +141,24 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.5789036039695634
-      1: 0.5010984612683075
-      2: 0.0
-      3: 1.0
-      4: 1.0
-      5: 0.5789036039695634
+      0: 0.6424365212799841
+      1: 0.5725253579904301
+      2: 0.2932696961719845
+      3: 0.5946482763856944
+      4: 0.7948005492265221
+      5: 0.242973732509547
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.6980834157410577
-      150: 0.8098649395430111
-      200: 0.2943662488115565
-      250: 0.6823644448105622
-      300: 0.7174103221141734
+      100: 1.0
+      150: 0.6666666666666666
+      200: 0.4030501927096356
+      250: 0.0
+      300: 0.0
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.4112440409609572
-  - 0.5887559590390429
-- id: with_employer03-7305f07a-129d-4a2d-a3bc-c0d7648c01f9
+  - 0.8819573257741108
+  - 0.11804267422588931
+- id: with_employer03-37855dbc-253a-49e7-98b0-9bfc4a5af7d2
   name: with_employer03
   outcome_space:
     issues:
@@ -183,24 +183,24 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.5006653789980382
-      1: 0.358220285537983
-      2: 0.042346249083314524
-      3: 0.6032257652258994
-      4: 0.003918647966457134
-      5: 0.5739769327636718
+      0: 0.9402924597304014
+      1: 0.22153961638473574
+      2: 0.5113796507234757
+      3: 0.04215302591333059
+      4: 0.06916142652185076
+      5: 0.595962584946978
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.18698148417506488
-      150: 1.0
-      200: 0.18698148417506488
-      250: 1.0
+      100: 0.6666666666666666
+      150: 0.44882585450544066
+      200: 1.0
+      250: 0.0
       300: 0.0
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.8866224137659992
-  - 0.11337758623400082
-- id: with_employer04-68168114-7d8b-4a37-8e3b-c70474f50a30
+  - 0.9154298063628056
+  - 0.08457019363719445
+- id: with_employer04-fac91af1-1993-4f42-8d7d-6c324f071d2e
   name: with_employer04
   outcome_space:
     issues:
@@ -225,21 +225,21 @@ side_ufuns:
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.04731021355407161
-      1: 0.4354000525382522
-      2: 0.646067953557458
-      3: 0.6858039625387493
-      4: 0.3521615018102774
-      5: 0.864042941092915
+      0: 1.0
+      1: 0.3029264688108662
+      2: 1.0
+      3: 0.22149349559617396
+      4: 0.6140722189207625
+      5: 0.0
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.0
-      150: 0.6666666666666666
-      200: 0.34648639612536725
-      250: 0.0
-      300: 1.0
+      100: 0.1562751523010153
+      150: 0.8691106399937674
+      200: 0.08943041209704372
+      250: 0.5062595613777423
+      300: 0.24635455997605804
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.9585343556890485
-  - 0.04146564431095139
+  - 0.8086834455365774
+  - 0.19131655446342255
 type: anl2025.ufun.MaxCenterUFun

@@ -2,6 +2,7 @@ import shutil
 from itertools import product
 from pathlib import Path
 from anl2025.inout import load_multideal_scenario
+from anl2025.negotiator import Random2025
 from anl2025.runner import MultidealScenario, run_session
 from anl2025.scenarios.dinners import make_dinners_scenario
 from anl2025.scenarios.job_hunt import make_job_hunt_scenario
@@ -93,6 +94,12 @@ def test_load_multideal_dinner_created(n_friends, n_days):
         for edge_ufun, outcome in zip(scenario.edge_ufuns, agreements):
             assert 0 <= edge_ufun(outcome) <= 1
     run_session(scenario)
+
+
+def test_make_job_hunt_all_rand():
+    scenario = make_job_hunt_scenario()
+    path = Path(__file__).parent.parent / "scenarios" / "job_hunt"
+    run_session(scenario, edge_types=[Random2025], center_type=Random2025)
 
 
 def test_make_job_hunt():
