@@ -1,4 +1,5 @@
 from typing import Any
+from copy import deepcopy
 from random import choice
 import pandas as pd
 from attr import define
@@ -8,7 +9,7 @@ from negmas.outcomes import Outcome
 from negmas.sao import SAOMechanism
 from negmas.helpers import unique_name
 
-from anl2025.ufun import CenterUFun
+from anl2025.ufun import CenterUFun, make_side_ufun
 from anl2025.negotiator import (
     ANL2025Negotiator,
     Boulware2025,
@@ -97,8 +98,8 @@ class AssignedScenario:
 
         center = self.center
         edges = self.edges
-        edge_ufuns = self.scenario.edge_ufuns
-        center_ufun = self.scenario.center_ufun
+        edge_ufuns = [deepcopy(_) for _ in self.scenario.edge_ufuns]
+        center_ufun = deepcopy(self.scenario.center_ufun)
         nedges = len(edge_ufuns)
         if verbose:
             print(f"Adding center of type {type_name(center)}")
@@ -110,6 +111,9 @@ class AssignedScenario:
             side_ufuns = None
         if not side_ufuns:
             side_ufuns = [None] * len(edges)
+        side_ufuns = [
+            make_side_ufun(center_ufun, i, side) for i, side in enumerate(side_ufuns)
+        ]
         for i, (edge_ufun, side_ufun, edge) in enumerate(
             zip(edge_ufuns, side_ufuns, edges, strict=True)
         ):
@@ -180,10 +184,10 @@ class AssignedScenario:
             mechanisms=mechanisms,
             center=center,
             agreements=agreements,
-            center_utility=float(center.ufun(tuple(agreements))),
+            center_utility=float(self.scenario.center_ufun(tuple(agreements))),
             edge_utilities=[
-                float(edge.ufun(_)) if edge.ufun else float("nan")
-                for edge, _ in zip(edges, agreements)
+                float(edge_ufun(_)) if edge_ufun else float("nan")
+                for edge_ufun, _ in zip(self.scenario.edge_ufuns, agreements)
             ],
             edges=edges,
         )

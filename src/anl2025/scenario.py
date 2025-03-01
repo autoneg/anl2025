@@ -8,7 +8,7 @@ from negmas.serialization import serialize, deserialize
 from negmas.preferences.generators import generate_multi_issue_ufuns
 
 from negmas.helpers.inout import load, dump
-from anl2025.ufun import CenterUFun
+from anl2025.ufun import CenterUFun, SideUFunAdapter
 from anl2025.common import (
     TYPES_MAP,
     CENTER_FILE_NAME,
@@ -140,6 +140,8 @@ class MultidealScenario:
         for u, os in zip(edge_ufuns, center_ufun.outcome_spaces):
             if u.outcome_space is None:
                 u.outcome_space = os
+                if isinstance(u, SideUFunAdapter):
+                    u._base_ufun.outcome_space = os
         if public_graph:
             for u in edge_ufuns:
                 u.n_edges = center_ufun.n_edges  # type: ignore

@@ -30,7 +30,6 @@ class ANL2025Negotiator(SAOController):
     See the next two examples of how to implement it (`Boulware2025`, `Random2025`).
 
     Args:
-
         n_edges: Number of edges for this negotiator. You can access it using self._n_edges
         update_side_ufuns_on_end: Updates the expected outcome for each thread at the end of
                                   each negotiation threads. These expected values are used
@@ -42,7 +41,6 @@ class ANL2025Negotiator(SAOController):
         auto_kill: Removes negotiators from the self.negotiators list whenever the negotiation ends.
 
     Remarks:
-
         - This class provides some useful members that can be used when developing the negotiation strategy:
             - `self.ufun` : The `CenterUFun` for the center negotiator (for edge negotiators, it will be a normal negmas ufun).
             - `self.negotiators`: Returns a dict mapping negotiator-IDs (for side negotiators) to the corresponding negotiator
@@ -75,19 +73,22 @@ class ANL2025Negotiator(SAOController):
         )
 
     def init(self):
-        """Called after all mechanisms are created to initialize"""
-        # self.negotiators can be used to access the threads.
-        # Each has a negotiator object and a cntxt object.
-        # We can pass anything in the cntxt. Currently, we pass the side ufun
-        # Examples:
-        # 1. Access the CenterUFun associated with the agent. For edge agents, this will be the single ufun it uses.
-        # my_ufun = self.ufun
-        # 2. Access the side ufun associated with each thread. For edge agents this will be the single ufun it uses.
-        # my_side_ufuns = [info.context["ufun"] for neg_id, info in self.negotiators.items()]
-        # my_side_indices = [info.context["index"] for neg_id, info in self.negotiators.items()]
-        # my_side_is_center = [info.context["center"] for neg_id, info in self.negotiators.items()]
-        # 2. Access the side negotiators connected to different negotiation threads
-        # my_side_negotiators = [info.negotiator for neg_id, info in self.negotiators.items()]
+        """Called after all mechanisms are created to initialize
+
+        Remarks:
+            - self.negotiators can be used to access the threads.
+            - Each has a negotiator object and a cntxt object.
+            - We can pass anything in the cntxt. Currently, we pass the side ufun
+            - Examples:
+                1. Access the CenterUFun associated with the agent. For edge agents, this will be the single ufun it uses.
+                    my_ufun = self.ufun
+                2. Access the side ufun associated with each thread. For edge agents this will be the single ufun it uses.
+                    my_side_ufuns = [info.context["ufun"] for neg_id, info in self.negotiators.items()]
+                    my_side_indices = [info.context["index"] for neg_id, info in self.negotiators.items()]
+                    my_side_is_center = [info.context["center"] for neg_id, info in self.negotiators.items()]
+                2. Access the side negotiators connected to different negotiation threads
+                    my_side_negotiators = [info.negotiator for neg_id, info in self.negotiators.items()]
+        """
 
     def propose(
         self, negotiator_id: str, state: SAOState, dest: str | None = None
@@ -119,7 +120,6 @@ class ANL2025Negotiator(SAOController):
             A response (Accept, Reject, or End_Negotiation)
 
         Remarks:
-
             - The current offer on the negotiation thread with this edge
               negotiator can be accessed as `state.current_offer`.
         """
@@ -143,7 +143,6 @@ class ANL2025Negotiator(SAOController):
             state: The state of the negotiation thread at the start of the negotiation.
 
         Remarks:
-
             You MUST call the super class version using super().on_negotiation_end(negotiation_id, state).
         """
         return super().on_negotiation_start(negotiator_id, state)
@@ -156,7 +155,6 @@ class ANL2025Negotiator(SAOController):
             state: The state of the negotiation thread at the end of the negotiation.
 
         Remarks:
-
             You MUST call the super class version using super().on_negotiation_end(negotiation_id, state).
         """
         if self._update_side_ufuns_on_end:
@@ -228,7 +226,6 @@ class Random2025(ANL2025Negotiator):
         """Proposes to the given partner (dest) using the side negotiator (negotiator_id).
 
         Remarks:
-            - the mapping from negotiator_id to source is stable within a negotiation.
         """
         nmi = self.negotiators[negotiator_id].negotiator.nmi
         os: DiscreteCartesianOutcomeSpace = nmi.outcome_space
@@ -240,7 +237,6 @@ class Random2025(ANL2025Negotiator):
         """Responds to the given partner (source) using the side negotiator (negotiator_id).
 
         Remarks:
-            - negotiator_id is the ID of the side negotiator representing this agent.
             - source: is the ID of the partner.
             - the mapping from negotiator_id to source is stable within a negotiation.
 

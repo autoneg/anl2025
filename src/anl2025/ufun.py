@@ -49,6 +49,7 @@ __all__ = [
     "DefaultCombiner",
     "OSCombiner",
     "convert_to_center_ufun",
+    "make_side_ufun",
 ]
 
 TUFun = TypeVar("TUFun", bound=UtilityFunction)
@@ -295,7 +296,7 @@ def convert_to_center_ufun(
     assert ufun.outcome_space and isinstance(ufun.outcome_space, CartesianOutcomeSpace)
     evaluator = ufun
     if side_evaluators is not None:
-        return LambdaCenterUFunWithSides(
+        return LocalEvaluationCenterUFun(
             outcome_spaces=unflatten_outcome_space(ufun.outcome_space, nissues),
             evaluator=evaluator,
             side_evaluators=tuple(side_evaluators),
@@ -350,6 +351,9 @@ class CenterUFun(UtilityFunction, ABC):
         self._expected: list[Outcome | None] = (
             list(expected_outcomes) if expected_outcomes else ([None] * self.n_edges)
         )
+        self._effective_side_ufuns = tuple(
+            make_side_ufun(self, i, None) for i in range(self.n_edges)
+        )
 
     def set_expected_outcome(self, index: int, outcome: Outcome | None) -> None:
         self._expected[index] = outcome
@@ -401,10 +405,7 @@ class CenterUFun(UtilityFunction, ABC):
 
     def side_ufuns(self) -> tuple[BaseUtilityFunction | None, ...]:
         """Should return an independent ufun for each side negotiator of the center."""
-        return tuple(
-            SideUFun(center_ufun=self, n_edges=self.n_edges, index=i)
-            for i in range(self.n_edges)
-        )
+        return self._effective_side_ufuns
 
     def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
         return {
@@ -474,9 +475,60 @@ class LambdaUtilityFunction(UtilityFunction):
         )
 
 
-class LambdaCenterUFunWithSides(CenterUFun):
+class SideUFun(BaseUtilityFunction):
     """
-    A center utility function that implements an arbitrary evaluator
+    Side ufun corresponding to the i's component of a center ufun.
+    """
+
+    def __init__(
+        self,
+        *args,
+        center_ufun: CenterUFun,
+        index: int,
+        n_edges: int,
+        **kwargs,
+    ):
+        super().__init__(*args, **kwargs)
+        self.__center_ufun = center_ufun
+        self.__index = index
+        self.__n_edges = n_edges
+
+    def set_expected_outcome(self, outcome: Outcome | None) -> None:
+        self.__center_ufun.set_expected_outcome(self.__index, outcome)
+
+    def eval(self, offer: Outcome | None) -> float:
+        offers = [_ for _ in self.__center_ufun._expected]
+        offers[self.__index] = offer
+        return self.__center_ufun(tuple(offers))
+
+
+def make_side_ufun(
+    center: CenterUFun, index: int, side: BaseUtilityFunction | None
+) -> SideUFun:
+    """Creates a side-ufun for the center at the given index."""
+    if side is None:
+        return SideUFun(center_ufun=center, n_edges=center.n_edges, index=index)
+    if isinstance(side, SideUFun):
+        return side
+    return SideUFunAdapter(
+        center_ufun=center,
+        n_edges=center.n_edges,
+        index=index,
+        base_ufun=side,
+        name=side.name,
+        id=side.id,
+        outcome_space=side.outcome_space,
+        reserved_value=side.reserved_value,
+        invalid_value=side._invalid_value,
+        owner=side.owner,
+        type_name=side.type_name,
+        reserved_outcome=side.reserved_outcome,
+    )
+
+
+class LocalEvaluationCenterUFun(CenterUFun):
+    """
+    A center utility function that implements an arbitrary evaluator applied to side evaluators
     """
 
     def __init__(
@@ -510,11 +562,6 @@ class LambdaCenterUFunWithSides(CenterUFun):
 
     def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
         return self._evaluator(self._combiner.separated_outcomes(offer))
-
-    def side_ufuns(self) -> tuple[BaseUtilityFunction | None, ...]:
-        if self._side_ufuns is None:
-            return super().side_ufuns()
-        return self._side_ufuns
 
     def ufun_type(self) -> CenterUFunCategory:
         return CenterUFunCategory.Local
@@ -579,6 +626,9 @@ class UtilityCombiningCenterUFun(CenterUFun):
     def __init__(self, *args, side_ufuns: tuple[BaseUtilityFunction, ...], **kwargs):
         super().__init__(*args, **kwargs)
         self.ufuns = tuple(deepcopy(_) for _ in side_ufuns)
+        self._side_ufuns = tuple(
+            make_side_ufun(self, i, side) for i, side in enumerate(self.ufuns)
+        )
 
     @abstractmethod
     def combine(self, values: Sequence[float]) -> float:
@@ -589,9 +639,6 @@ class UtilityCombiningCenterUFun(CenterUFun):
         if not offer:
             return self.reserved_value
         return self.combine(tuple(float(u(_)) for u, _ in zip(self.ufuns, offer)))
-
-    def side_ufuns(self) -> tuple[BaseUtilityFunction, ...]:
-        return self.ufuns
 
     def ufun_type(self) -> CenterUFunCategory:
         return CenterUFunCategory.Local
@@ -611,6 +658,24 @@ class MaxCenterUFun(UtilityCombiningCenterUFun):
 
     The utility of the center is the maximum of the utilities it got in each negotiation (called side utilities)
     """
+
+    def set_expected_outcome(self, index: int, outcome: Outcome | None) -> None:
+        # sets the reserved value of all sides
+        super().set_expected_outcome(index, outcome)
+        r = None
+        set_ufun = self._side_ufuns[index]
+        if isinstance(set_ufun, SideUFunAdapter):
+            r = float(set_ufun._base_ufun(outcome))
+        elif isinstance(set_ufun, SideUFun):
+            return
+        if r is None:
+            return
+        for i, side in enumerate(self._side_ufuns):
+            if side is None or i == index:
+                continue
+            side.reserved_value = max(side.reserved_value, r)
+            if isinstance(side, SideUFunAdapter):
+                side._base_ufun.reserved_value = max(side._base_ufun.reserved_value, r)
 
     def combine(self, values: Sequence[float]) -> float:
         return max(values)
@@ -639,31 +704,158 @@ class LinearCombinationCenterUFun(UtilityCombiningCenterUFun):
         return sum(a * b for a, b in zip(values, self._weights, strict=True))
 
 
-class SideUFun(BaseUtilityFunction):
-    """
-    Side ufun corresponding to the i's component of a center ufun.
-    """
+class SideUFunAdapter(SideUFun):
+    """Adapts any ufun to be usable as a side-ufun"""
 
     def __init__(
         self,
         *args,
-        center_ufun: CenterUFun,
-        index: int,
-        n_edges: int,
+        base_ufun: BaseUtilityFunction,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        self.__center_ufun = center_ufun
-        self.__index = index
-        self.__n_edges = n_edges
+        self._base_ufun = base_ufun
 
-    def set_expected_outcome(self, outcome: Outcome | None) -> None:
-        self.__center_ufun.set_expected_outcome(self.__index, outcome)
+    def to_stationary(self, *args, **kwargs):
+        return self._base_ufun.to_stationary(*args, **kwargs)
 
-    def eval(self, offer: Outcome | None) -> float:
-        offers = [_ for _ in self.__center_ufun._expected]
-        offers[self.__index] = offer
-        return self.__center_ufun(tuple(offers))
+    def extreme_outcomes(self, *args, **kwargs):
+        return self._base_ufun.extreme_outcomes(*args, **kwargs)
+
+    def minmax(self, *args, **kwargs):
+        return self._base_ufun.minmax(*args, **kwargs)
+
+    def eval_normalized(self, *args, **kwargs):
+        return self._base_ufun.eval_normalized(*args, **kwargs)
+
+    def invert(self, *args, **kwargs):
+        return self._base_ufun.invert(*args, **kwargs)
+
+    def scale_by(self, *args, **kwargs):
+        return self._base_ufun.scale_by(*args, **kwargs)
+
+    def scale_min_for(self, *args, **kwargs):
+        return self._base_ufun.scale_min_for(*args, **kwargs)
+
+    def scale_min(self, *args, **kwargs):
+        return self._base_ufun.scale_min(*args, **kwargs)
+
+    def scale_max(self, *args, **kwargs):
+        return self._base_ufun.scale_max(*args, **kwargs)
+
+    def normalize_for(self, *args, **kwargs):
+        return self._base_ufun.normalize_for(*args, **kwargs)
+
+    def normalize(self, *args, **kwargs):
+        return self._base_ufun.normalize(*args, **kwargs)
+
+    def shift_by(self, *args, **kwargs):
+        return self._base_ufun.shift_by(*args, **kwargs)
+
+    def shift_min_for(self, *args, **kwargs):
+        return self._base_ufun.shift_min_for(*args, **kwargs)
+
+    def shift_max_for(self, *args, **kwargs):
+        return self._base_ufun.shift_max_for(*args, **kwargs)
+
+    def argrank_with_weights(self, *args, **kwargs):
+        return self._base_ufun.argrank_with_weights(*args, **kwargs)
+
+    def argrank(self, *args, **kwargs):
+        return self._base_ufun.argrank(*args, **kwargs)
+
+    def rank_with_weights(self, *args, **kwargs):
+        return self._base_ufun.rank_with_weights(*args, **kwargs)
+
+    def rank(self, *args, **kwargs):
+        return self._base_ufun.rank(*args, **kwargs)
+
+    def eu(self, *args, **kwargs):
+        return self._base_ufun.eu(*args, **kwargs)
+
+    def to_dict(self, *args, **kwargs):
+        return self._base_ufun.to_dict(*args, **kwargs)
+
+    def sample_outcome_with_utility(self, *args, **kwargs):
+        return self._base_ufun.sample_outcome_with_utility(*args, **kwargs)
+
+    def to_xml_str(self, *args, **kwargs):
+        return self._base_ufun.to_xml_str(*args, **kwargs)
+
+    def to_genius(self, *args, **kwargs):
+        return self._base_ufun.to_genius(*args, **kwargs)
+
+    def difference_prob(self, *args, **kwargs):
+        return self._base_ufun.difference_prob(*args, **kwargs)
+
+    def is_not_worse(self, *args, **kwargs):
+        return self._base_ufun.is_not_worse(*args, **kwargs)
+
+    def difference(self, *args, **kwargs):
+        return self._base_ufun.difference(*args, **kwargs)
+
+    def max(self):
+        return self._base_ufun.max()
+
+    def min(self):
+        return self._base_ufun.min()
+
+    def best(self):
+        return self._base_ufun.best()
+
+    def worst(self):
+        return self._base_ufun.worst()
+
+    def is_volatile(self):
+        return self._base_ufun.is_volatile()
+
+    def is_session_dependent(self):
+        return self._base_ufun.is_session_dependent()
+
+    def is_state_dependent(self):
+        return self._base_ufun.is_state_dependent()
+
+    def scale_max_for(self, *args, **kwargs):
+        return self._base_ufun.scale_max_for(*args, **kwargs)
+
+    def to_crisp(self):
+        return self._base_ufun.to_crisp()
+
+    def to_prob(self):
+        return self._base_ufun.to_prob()
+
+    @property
+    def reserved_distribution(self):
+        return self._base_ufun.reserved_distribution
+
+    def is_stationary(self):
+        return self._base_ufun.is_stationary()
+
+    def changes(self):
+        return self._base_ufun.changes()
+
+    def reset_changes(self) -> None:
+        return self._base_ufun.reset_changes()
+
+    @property
+    def base_type(self) -> str:
+        return self._base_ufun.base_type
+
+    def is_better(self, first: Outcome | None, second: Outcome | None) -> bool:
+        return self._base_ufun.is_better(first, second)
+
+    def is_equivalent(self, first: Outcome | None, second: Outcome | None) -> bool:
+        return self._base_ufun.is_equivalent(first, second)
+
+    def is_not_better(self, first: Outcome | None, second: Outcome | None) -> bool:
+        return self._base_ufun.is_not_better(first, second)
+
+    def is_worse(self, first: Outcome | None, second: Outcome | None) -> bool:
+        return self._base_ufun.is_worse(first, second)
+
+    @property
+    def type(self) -> str:
+        return self._base_ufun.type
 
 
 class SingleAgreementSideUFunMixin:
@@ -673,12 +865,12 @@ class SingleAgreementSideUFunMixin:
         `MeanSMCenterUFun`
     """
 
-    def side_ufuns(self) -> tuple[BaseUtilityFunction, ...]:
-        """Should return an independent ufun for each side negotiator of the center"""
-        return tuple(
-            SideUFun(center_ufun=self, n_edges=self.n_edges, index=i)  # type: ignore
-            for i in range(self.n_edges)  # type: ignore
-        )
+    # def side_ufuns(self) -> tuple[BaseUtilityFunction, ...]:
+    #     """Should return an independent ufun for each side negotiator of the center"""
+    #     return tuple(
+    #         SideUFun(center_ufun=self, n_edges=self.n_edges, index=i)  # type: ignore
+    #         for i in range(self.n_edges)  # type: ignore
+    #     )
 
     def ufun_type(self) -> CenterUFunCategory:
         return CenterUFunCategory.Local
