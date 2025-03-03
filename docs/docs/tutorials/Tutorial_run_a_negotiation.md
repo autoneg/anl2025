@@ -1,110 +1,6 @@
-# Running a negotiation
-
-NegMAS has several built-in negotiation `Mechanisms`, negotiation agents (`Negotiators`), and `UtilityFunctions`. You can use these to run negotiations as follows.
-
-Imagine a buyer and a seller negotiating over the price of a single object. First, we make an issue "price" with 50 discrete values. Note here, it is possible to create multiple issues, but we will not include that here. If you are interested, see the [NegMAS documentation](https://negmas.readthedocs.io/en/latest/tutorials/01.running_simple_negotiation.html) for a tutorial.
-
-
-```python
-from negmas import (
-    make_issue,
-    SAOMechanism,
-   TimeBasedConcedingNegotiator,
-)
-from anl.anl2024.negotiators import Boulware, Conceder, RVFitter
-from negmas.preferences import LinearAdditiveUtilityFunction as UFun
-from negmas.preferences.value_fun import IdentityFun, AffineFun
-import matplotlib.pyplot as plt
-
-
-# create negotiation agenda (issues)
-issues = [
-    make_issue(name="price", values=50),
-]
-
-# create the mechanism
-session = SAOMechanism(issues=issues, n_steps=20)
-```
-
-The negotiation protocol in NegMAS is handled by a `Mechanism` object. Here we instantiate a`SAOMechanism` which implements the [Stacked Alternating Offers Protocol](https://ii.tudelft.nl/~catholijn/publications/sites/default/files/Aydogan2017_Chapter_AlternatingOffersProtocolsForM.pdf). In this protocol, negotiators exchange offers until an offer is accepted by all negotiators (in this case 2), a negotiators leaves the table ending the negotiation or a time-out condition is met. In the example above, we use a limit on the number of rounds of `20` (a step of a mechanism is an executed round).
-
-Next, we define the utilities of the seller and the buyer. The utility function of the seller is defined by the ```
-IdentityFun```  which means that the higher the price, the higher the utility function. The buyer's utility function is reversed. The last two lines make sure that utility is scaled between 0 and 1.
-
-
-```python
-seller_utility = UFun(
-    values=[IdentityFun()],
-    outcome_space=session.outcome_space,
-)
-
-buyer_utility = UFun(
-    values=[AffineFun(slope=-1)],
-    outcome_space=session.outcome_space,
-)
-
-seller_utility = seller_utility.normalize()
-buyer_utility = buyer_utility.normalize()
-
-```
-
-Then we add two agents with a boulware strategy. The negotiation ends with status overview. For example, you can see if the negotiation timed-out, what agreement was found, and how long the negotiation took. Moreover, we output the full negotiation history. For a more visual representation, we can plot the session. This shows the bidding curve, but also the proximity to e.g. the Nash point.
-
-
-```python
-# create and add agent A and B
-session.add(Boulware(name="seller"), ufun=seller_utility)
-session.add(Boulware(name="buyer"), ufun=buyer_utility)
-
-# run the negotiation and show the results
-print(session.run())
-session.plot(ylimits=(0.0, 1.01), show_reserved=False, mark_max_welfare_points=False)
-plt.show()
-
-```
-
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">SAOState</span><span style="font-weight: bold">(</span>
-    <span style="color: #808000; text-decoration-color: #808000">running</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">waiting</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">started</span>=<span style="color: #00ff00; text-decoration-color: #00ff00; font-style: italic">True</span>,
-    <span style="color: #808000; text-decoration-color: #808000">step</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">18</span>,
-    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.00291220800136216</span>,
-    <span style="color: #808000; text-decoration-color: #808000">relative_time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9047619047619048</span>,
-    <span style="color: #808000; text-decoration-color: #808000">broken</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">timedout</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">agreement</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">)</span>,
-    <span style="color: #808000; text-decoration-color: #808000">results</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
-    <span style="color: #808000; text-decoration-color: #808000">n_negotiators</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,
-    <span style="color: #808000; text-decoration-color: #808000">has_error</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">error_details</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
-    <span style="color: #808000; text-decoration-color: #808000">erred_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
-    <span style="color: #808000; text-decoration-color: #808000">erred_agent</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
-    <span style="color: #808000; text-decoration-color: #808000">threads</span>=<span style="font-weight: bold">{}</span>,
-    <span style="color: #808000; text-decoration-color: #808000">last_thread</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_offer</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">)</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-47804dc3-b24d-44b2-a6c8-e6d7f3144ef1'</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_proposer_agent</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
-    <span style="color: #808000; text-decoration-color: #808000">n_acceptances</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-47804dc3-b24d-44b2-a6c8-e6d7f3144ef1'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_offerer_agents</span>=<span style="font-weight: bold">[</span><span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span>,
-    <span style="color: #808000; text-decoration-color: #808000">last_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">'seller'</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_data</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_data</span>=<span style="font-weight: bold">[]</span>
-<span style="font-weight: bold">)</span>
-</pre>
-
-
-
-
-    
-![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_6_1.png)
-    
-
-
 ## Running a Multi-deal negotiation
 
-ANL 2025's challenge is to develop agents capable of negotiating sequentially a set of interrelated deals (Multi-deal negotiation). You can create and run a multi-deal negotiation using special tools provided by the anl2025 package.
+ANL 2025's challenge is to develop agents capable of negotiating sequentially a set of interrelated deals (Multi-deal negotiation). You can create and run a multi-deal negotiation using special tools provided by the anl2025 package. (2)
 
 ### A random multideal-session
 
@@ -117,14 +13,14 @@ scenario = make_multideal_scenario(nedges=8)
 
 **What just happened?**
 
-We created a random multi-deal session with one center agent and 8 edge agents. The center agent negotiates with all the edge agents. Each one of these negotiations is called a **negotiation thread** and the whole set is called a **multideal negotiation**.
+We created a random multi-deal session with one center agent and 8 edge agents. The center agent negotiates with all the edge agents. Each one of these negotiations is called a **negotiation thread** and the whole set is called a **multi-deal negotiation**.
 
-The following figure shows the structure of a typical such scenario (with 8 instead of 10 edge agents). Each one of the **edge agents** has its own utility function $e_i$ and is in the same kind of situation as the buyer and seller in the previous example.
+The following figure shows the structure of a typical such scenario (with 8 edge agents). Each one of the **edge agents** has its own utility function $e_i$.
 
-The **center agent** faces a different challenge. It has one utility function defined for each **negotiation thread** called a **side utility function** ($s_i$). The overall utility of the center agent is some function (called the **combination function**) of the side utilities it gets in all the negotiation threads. 
+The **center agent** faces a different challenge. It has one utility function defined for each **negotiation thread** called a **side utility function** ($s_i$). The overall utility of the center agent is some function (called the **combination function**) of the side utilities it gets in all the negotiation threads.
 
 ```{note}
-In ANL 2025, the center agent negotiates with the side agents sequentially. It completes a negotiation with one edge agent before starting the next negotiation with the next edge agent. At no time does the center agent have multiple negotiation threads running at the same time. 
+In ANL 2025, the center agent negotiates with the side agents sequentially. It completes a negotiation with one edge agent before starting the next negotiation with the next edge agent. At no time does the center agent have multiple negotiation threads running at the same time.
 ```
 
 The following figure shows the situation:
@@ -134,10 +30,124 @@ The following figure shows the situation:
 The function `make_multideal_scenario` creates such a scenario. The combination function used by default is `max` (i.e. the center get the maximum utlility it gets in all negotiations) but you can easily change it. See the full documentation of `make_multideal_scenario` in the Reference for more details of how to control all aspects of scenario  generation.
 
 
+The function `run_session` runs one multi-deal negotiation. Behind the scenes, a lot of things happen in this small function. The function `run_session` automatically outputs logs of each thread, specifying what bid happened at what round. Moreover, it outputs a graph of the utilities of the center agent and the edge agents. By default, you can find this folder here **...\negmas\anl2025\session**.
+
+Below, we show the outputted graphs. On the left, one can see the bids that were posed, with the utility of the center agent on the y-axis and the utility of the edge agent on the x-axis. The right figures show the bids over time, one for both agents.
+
+
+
+
 ```python
 from anl2025 import run_session
 results = run_session(scenario)
 
+```
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_0.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_1.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_2.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_3.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_4.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_5.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_6.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_7.png)
+    
+
+
+Like mentioned, a lot of things happen behind the scenes, with all default parameters. The default parameters are all in line with the criteria of ANL2025, so you can use this function to find your way in the competition. For example, look at the parameters that you can change yourself, such as the center agent, edge agents and maximum number of rounds (`nsteps`):
+
+
+```python
+
+
+centeragent = "Random2025"
+edgeagents = [
+        "Random2025",
+         "Linear2025",
+        "Conceder2025"]
+if False: #this function will not run, remove this line if you want it to run.
+        results = run_session(
+                scenario=scenario,
+                center_type=centeragent,
+                edge_types=edgeagents,
+                nsteps=10)
+```
+
+You can also ask for specific types of output, by looking into `results`, e.g.:
+
+
+```python
+
+print(f"Center utility: {results.center_utility}")
+print(f"Edge Utilities: {results.edge_utilities}")
+```
+
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.8597682225581035</span>
+</pre>
+
+
+
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6231814702215154</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5004659393834174</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.19763095600241815</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2420100529169169</span>, 
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6239709131183655</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.41525772055401966</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.61641875459796</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.26278285441816085</span><span style="font-weight: bold">]</span>
+</pre>
+
+
+
+
+
+
+### A dinners' scheduling session
+
+In the previous example, the center utility function was defined in terms of individual side utility functions (one per negotiation threads). A more general case is when the center utility function is defined directly in terms of the outcomes of negotiation threads without locally defined utility functions. The following figure shows an example of this kind of scenario:
+
+![Global Utility Function Example](Slide1.jpeg)
+
+The `anl2025` package allows you to create such scenarios using the `LambdaCenterUFun` class (See Reference). One class of these scenarios is the **Dinners** scenarios in which one person (center agent) is negotiating with her friends (edge agents) about the day to go out for dinner. Each friend has her own utility function for different days. The center agent has a utility for each combination of agreements (i.e. she may prefer to go out once every night except in Tuesdays,
+
+
+```python
+from anl2025 import make_dinners_scenario
+
+results = run_session(make_dinners_scenario())
 ```
 
 
@@ -155,88 +165,6 @@ results = run_session(scenario)
 
     
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_2.png)
-    
-
-
-
-    
-![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_3.png)
-    
-
-
-
-    
-![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_4.png)
-    
-
-
-
-    
-![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_5.png)
-    
-
-
-
-    
-![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_6.png)
-    
-
-
-
-    
-![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_7.png)
-    
-
-
-
-```python
-print(f"Center utility: {results.center_utility}")
-print(f"Edge Utilities: {results.edge_utilities}")
-```
-
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9276720459639805</span>
-</pre>
-
-
-
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.38956551178948556</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3872387680916396</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3018813218073944</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.39261200568969123</span>, 
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.35026385621529005</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3011223355208246</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3700950166842189</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5841873862773928</span><span style="font-weight: bold">]</span>
-</pre>
-
-
-
-### A dinners' scheduling session
-
-In the previous example, the center utility function was defined in terms of individual side utility functions (one per negotiation threads). A more general case is when the center utility function is defined directly in terms of the outcomes of negotiation threads without locally defined utility functions. The following figure shows an example of this kind of scenario:
-
-![Global Utility Function Example](Slide1.jpeg)
-
-The `anl2025` package allows you to create such scenarios using the `LambdaCenterUFun` class (See Reference). One class of these sceanrios is the **Dinners** scenarios in which one person (center agent) is negotiating with her friends (edge agents) about the day to go out for dinner. Each friend has her own utility function for different days. The cener agent has a utility for each combination of agreements (i.e. she may prefer to go out once every night except in Tuesdays,
-
-
-```python
-from anl2025 import make_dinners_scenario
-
-results = run_session(make_dinners_scenario())
-```
-
-
-    
-![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_0.png)
-    
-
-
-
-    
-![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_1.png)
-    
-
-
-
-    
-![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_2.png)
     
 
 
