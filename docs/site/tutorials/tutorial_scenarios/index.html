@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
     
     
       
@@ -429,8 +429,8 @@
 
 <h1 id="visualizing-preference-profiles">Visualizing preference profiles</h1>
 <p>In ANL 2024, different types of scenarios are used, see <a href="http://tinyurl.com/ANAC2024docs">the detailed description</a> of ANL 2024 for more information. In this notebook, we will provide some code to visualize the different types.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">negmas</span> <span class="kn">import</span> <span class="n">SAOMechanism</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">anl.anl2024</span> <span class="kn">import</span> <span class="n">zerosum_pie_scenarios</span><span class="p">,</span> <span class="n">monotonic_pie_scenarios</span><span class="p">,</span> <span class="n">arbitrary_pie_scenarios</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">negmas</span><span class="w"> </span><span class="kn">import</span> <span class="n">SAOMechanism</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl.anl2024</span><span class="w"> </span><span class="kn">import</span> <span class="n">zerosum_pie_scenarios</span><span class="p">,</span> <span class="n">monotonic_pie_scenarios</span><span class="p">,</span> <span class="n">arbitrary_pie_scenarios</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">scenario</span> <span class="o">=</span> <span class="n">monotonic_pie_scenarios</span><span class="p">(</span><span class="n">n_scenarios</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_outcomes</span><span class="o">=</span><span class="mi">20</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#zerosum_pie_scenarios, arbitrary_pie_scenarios</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">session</span> <span class="o">=</span> <span class="n">SAOMechanism</span><span class="p">(</span><span class="n">issues</span><span class="o">=</span><span class="n">scenario</span><span class="o">.</span><span class="n">issues</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
@@ -440,9 +440,9 @@
 </span></code></pre></div>
 <p>In the first line, we generate a <code>monotonic_pie_scenario</code> (or actually 2), which is one of three types of scenarios. The other two are  <code>zerosum_pie_scenarios</code> and <code>arbitrary_pie_scenarios</code>. After extracting the corresponding utility functions, we can visualize the session in the same way we did in the previous notebook (running a negotiation).</p>
 <p>For completeness, we provide the code for the <code>visualize</code> function below. By removing the <code>session.run</code> statement, it is possible to see the scenario plotted, without a negotiation taking place. This is useful to see the shape of the scenario, and to understand the preferences of the agents.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">anl.anl2024.negotiators</span> <span class="kn">import</span> <span class="n">Conceder</span><span class="p">,</span> <span class="n">Boulware</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl.anl2024.negotiators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Conceder</span><span class="p">,</span> <span class="n">Boulware</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">def</span> <span class="nf">visualize</span><span class="p">(</span><span class="n">negotiation_setup</span><span class="p">):</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">visualize</span><span class="p">(</span><span class="n">negotiation_setup</span><span class="p">):</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">A_utility</span><span class="p">,</span> <span class="n">B_utility</span><span class="p">)</span> <span class="o">=</span> <span class="n">negotiation_setup</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="c1"># create and add selller and buyer to the session</span>
