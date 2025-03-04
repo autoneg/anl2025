@@ -1,4 +1,4 @@
-# Running a negotiation
+# Running a single-thread negotiation
 
 NegMAS has several built-in negotiation `Mechanisms`, negotiation agents (`Negotiators`), and `UtilityFunctions`. You can use these to run negotiations as follows.
 
@@ -69,7 +69,7 @@ plt.show()
     <span style="color: #808000; text-decoration-color: #808000">waiting</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
     <span style="color: #808000; text-decoration-color: #808000">started</span>=<span style="color: #00ff00; text-decoration-color: #00ff00; font-style: italic">True</span>,
     <span style="color: #808000; text-decoration-color: #808000">step</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">18</span>,
-    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.00291220800136216</span>,
+    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.003329916999064153</span>,
     <span style="color: #808000; text-decoration-color: #808000">relative_time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9047619047619048</span>,
     <span style="color: #808000; text-decoration-color: #808000">broken</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
     <span style="color: #808000; text-decoration-color: #808000">timedout</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
@@ -83,10 +83,10 @@ plt.show()
     <span style="color: #808000; text-decoration-color: #808000">threads</span>=<span style="font-weight: bold">{}</span>,
     <span style="color: #808000; text-decoration-color: #808000">last_thread</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_offer</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">)</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-47804dc3-b24d-44b2-a6c8-e6d7f3144ef1'</span>,
+    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-7745557b-acef-49d6-9a75-42afd8bdf4fb'</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_proposer_agent</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
     <span style="color: #808000; text-decoration-color: #808000">n_acceptances</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-47804dc3-b24d-44b2-a6c8-e6d7f3144ef1'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
+    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-7745557b-acef-49d6-9a75-42afd8bdf4fb'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
     <span style="color: #808000; text-decoration-color: #808000">new_offerer_agents</span>=<span style="font-weight: bold">[</span><span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span>,
     <span style="color: #808000; text-decoration-color: #808000">last_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">'seller'</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_data</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
@@ -102,11 +102,11 @@ plt.show()
     
 
 
-## Running a Multi-deal negotiation
+# Running a Multi-deal negotiation
 
 ANL 2025's challenge is to develop agents capable of negotiating sequentially a set of interrelated deals (Multi-deal negotiation). You can create and run a multi-deal negotiation using special tools provided by the anl2025 package.
 
-### A random multideal-session
+## A random multideal-session
 
 
 ```python
@@ -195,14 +195,14 @@ print(f"Edge Utilities: {results.edge_utilities}")
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9276720459639805</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6195544580820566</span>
 </pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.38956551178948556</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3872387680916396</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3018813218073944</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.39261200568969123</span>, 
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.35026385621529005</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3011223355208246</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3700950166842189</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5841873862773928</span><span style="font-weight: bold">]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5826666310495854</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4009587316768355</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.718963583448751</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5627071793170195</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4361245066527879</span>,
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3046636562699559</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.56354946655363</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4699920908826146</span><span style="font-weight: bold">]</span>
 </pre>
 
 
@@ -219,7 +219,7 @@ The `anl2025` package allows you to create such scenarios using the `LambdaCente
 ```python
 from anl2025 import make_dinners_scenario
 
-results = run_session(make_dinners_scenario())
+results = run_session(make_dinners_scenario(n_friends=10))
 ```
 
 
@@ -239,6 +239,53 @@ results = run_session(make_dinners_scenario())
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_2.png)
     
 
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_3.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_4.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_5.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_6.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_7.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_8.png)
+    
+
+
+
+    
+![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_9.png)
+    
+
+
+
+```python
+
+```
 
 
 ```python

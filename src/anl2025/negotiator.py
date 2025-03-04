@@ -135,19 +135,15 @@ class ANL2025Negotiator(SAOController):
         index = cntxt["index"]
         self.ufun.set_expected_outcome(index, outcome)
 
-    def on_negotiation_start(self, negotiator_id: str, state: SAOState) -> None:
+    def thread_init(self, negotiator_id: str, state: SAOState) -> None:
         """Called when a negotiation thread starts
 
         Args:
             negotiator_id: Connection ID to this negotiation thread
             state: The state of the negotiation thread at the start of the negotiation.
-
-        Remarks:
-            You MUST call the super class version using super().on_negotiation_end(negotiation_id, state).
         """
-        return super().on_negotiation_start(negotiator_id, state)
 
-    def on_negotiation_end(self, negotiator_id: str, state: SAOState) -> None:
+    def thread_finalize(self, negotiator_id: str, state: SAOState) -> None:
         """Called when a negotiation thread ends
 
         Args:
@@ -157,9 +153,16 @@ class ANL2025Negotiator(SAOController):
         Remarks:
             You MUST call the super class version using super().on_negotiation_end(negotiation_id, state).
         """
+
+    def on_negotiation_start(self, negotiator_id: str, state: SAOState) -> None:
+        super().on_negotiation_start(negotiator_id, state)
+        self.thread_init(negotiator_id, state)
+
+    def on_negotiation_end(self, negotiator_id: str, state: SAOState) -> None:
         if self._update_side_ufuns_on_end:
             self.set_expected_outcome(negotiator_id, state.agreement)
-        return super().on_negotiation_end(negotiator_id, state)
+        super().on_negotiation_end(negotiator_id, state)
+        self.thread_finalize(negotiator_id, state)
 
 
 class Boulware2025(ANL2025Negotiator):

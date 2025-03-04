@@ -64,8 +64,8 @@ print(f"Center Utility: {results.center_utility}\nEdge Utilities: {results.edge_
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6879670245903828</span>
-Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.8239836532367947</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2199970863178983</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.20403851233135215</span><span style="font-weight: bold">]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3870387152920761</span>
+Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6177914447353527</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9891125180017052</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.7858556439249424</span><span style="font-weight: bold">]</span>
 </pre>
 
 
@@ -100,8 +100,8 @@ print(f"Center Utility: {results.center_utility}\nEdge Utilities: {results.edge_
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4118799345340276</span>
-Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9549455705991858</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.7660047417856862</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.791918266076788</span><span style="font-weight: bold">]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4421613897641405</span>
+Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.8037297701310387</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.672045382805366</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.849260661774922</span><span style="font-weight: bold">]</span>
 </pre>
 
 
@@ -175,7 +175,7 @@ print(results.final_scores)
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">15.270375153939417</span>, <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3.0136613454497363</span>, <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11.127208811206113</span><span style="font-weight: bold">}</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">14.404889350168615</span>, <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5.703482082422124</span>, <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9.841451716763187</span><span style="font-weight: bold">}</span>
 </pre>
 
 
@@ -366,86 +366,18 @@ anl2024_tournament(
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Will run <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">48</span> negotiations on <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span> scenarios between <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span> competitors
-</pre>
+    ---------------------------------------------------------------------------
+
+    NameError                                 Traceback (most recent call last)
+
+    Cell In[10], line 1
+    ----> 1 anl2024_tournament(
+          2     n_scenarios=1, n_repetitions=3, nologs=True, njobs=-1,
+          3     competitors=[MyRandom2025, SimpleRVFitter, Boulware, Conceder]
+          4 ).final_scores
 
 
-
-
-    Output()
-
-
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
-
-
-
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
-</pre>
-
-
-
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">             strategy     score
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>            Boulware  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.648516</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>      SimpleRVFitter  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.562182</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>            Conceder  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.314239</span>
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>  MyRandom2025  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.040486</span>
-</pre>
-
-
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>strategy</th>
-      <th>score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Boulware</td>
-      <td>0.648516</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>SimpleRVFitter</td>
-      <td>0.562182</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Conceder</td>
-      <td>0.314239</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>MyRandom2025</td>
-      <td>0.040486</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
+    NameError: name 'anl2024_tournament' is not defined
 
 
 Much better :-)
@@ -611,12 +543,6 @@ session.plot()
 plt.show()
 ```
 
-
-    
-![png](tutorial_develop_files/tutorial_develop_19_0.png)
-    
-
-
 Notice how in the second half of the negotiation, the SimpleRVFitter is only offering outcomes that are rational for both negotiators (can you see that in the left-side plot? can you see it in the top right-side plot?). This means that the curve fitting approach is working OK here. The opponent is a time-based strategy in this case though.
 
 What happens if it was not? Let's try it against the builtin RVFitter for example
@@ -643,12 +569,6 @@ session.run()
 session.plot()
 plt.show()
 ```
-
-
-    
-![png](tutorial_develop_files/tutorial_develop_21_0.png)
-    
-
 
 This time, our simple RV fitter could not really learn the opponent reserved value effectively. We can see that from the fact that it kept offering outcomes that are irrational for the opponent almost until the end of the negotiation.
 
