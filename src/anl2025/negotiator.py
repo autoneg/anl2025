@@ -1,6 +1,8 @@
+from typing import Literal
 from random import random
-from anl2025.ufun import CenterUFun
-from anl_agents.anl2024 import Shochan, AgentRenting2024
+from anl2025.ufun import CenterUFun, SideUFun
+from negmas import InverseUFun, PolyAspiration
+
 from negmas.sao.controllers import SAOController, SAOState
 from negmas import (
     ConcederTBNegotiator,
@@ -12,15 +14,30 @@ from negmas import (
 from negmas.outcomes import Outcome
 from negmas.sao.negotiators import AspirationNegotiator
 
+ANL2024_AVAILABLE = False
+try:
+    from anl_agents.anl2024 import Shochan, AgentRenting2024
+
+    ANL2024_AVAILABLE = True
+except:
+    pass
+
 __all__ = [
     "ANL2025Negotiator",
+    "TimeBased2025",
     "Random2025",
     "Boulware2025",
     "Linear2025",
     "Conceder2025",
-    "Shochan2025",
-    "AgentRenting2025",
+    "IndependentBoulware2025",
+    "IndependentLinear2025",
+    "IndependentConceder2025",
 ]
+if ANL2024_AVAILABLE:
+    __all__ += [
+        "Shochan2025",
+        "AgentRenting2025",
+    ]
 
 
 class ANL2025Negotiator(SAOController):
@@ -165,7 +182,7 @@ class ANL2025Negotiator(SAOController):
         self.thread_finalize(negotiator_id, state)
 
 
-class Boulware2025(ANL2025Negotiator):
+class IndependentBoulware2025(ANL2025Negotiator):
     """
     You can participate by an agent that runs any SAO negotiator independently for each thread.
     """
@@ -175,7 +192,7 @@ class Boulware2025(ANL2025Negotiator):
         super().__init__(**kwargs)
 
 
-class Linear2025(ANL2025Negotiator):
+class IndependentLinear2025(ANL2025Negotiator):
     """
     You can participate by an agent that runs any SAO negotiator independently for each thread.
     """
@@ -185,7 +202,7 @@ class Linear2025(ANL2025Negotiator):
         super().__init__(**kwargs)
 
 
-class Conceder2025(ANL2025Negotiator):
+class IndependentConceder2025(ANL2025Negotiator):
     """
     You can participate by an agent that runs any SAO negotiator independently for each thread.
     """
@@ -195,24 +212,25 @@ class Conceder2025(ANL2025Negotiator):
         super().__init__(**kwargs)
 
 
-class AgentRenting2025(ANL2025Negotiator):
-    """
-    You can participate by an agent that runs any SAO negotiator independently for each thread.
-    """
+if ANL2024_AVAILABLE:
 
-    def __init__(self, **kwargs):
-        kwargs["default_negotiator_type"] = AgentRenting2024
-        super().__init__(**kwargs)
+    class AgentRenting2025(ANL2025Negotiator):
+        """
+        You can participate by an agent that runs any SAO negotiator independently for each thread.
+        """
 
+        def __init__(self, **kwargs):
+            kwargs["default_negotiator_type"] = AgentRenting2024  # type: ignore
+            super().__init__(**kwargs)
 
-class Shochan2025(ANL2025Negotiator):
-    """
-    You can participate by an agent that runs any SAO negotiator independently for each thread.
-    """
+    class Shochan2025(ANL2025Negotiator):
+        """
+        You can participate by an agent that runs any SAO negotiator independently for each thread.
+        """
 
-    def __init__(self, **kwargs):
-        kwargs["default_negotiator_type"] = Shochan
-        super().__init__(**kwargs)
+        def __init__(self, **kwargs):
+            kwargs["default_negotiator_type"] = Shochan  # type: ignore
+            super().__init__(**kwargs)
 
 
 class Random2025(ANL2025Negotiator):
@@ -254,3 +272,101 @@ class Random2025(ANL2025Negotiator):
         ):
             return ResponseType.REJECT_OFFER
         return ResponseType.ACCEPT_OFFER
+
+
+class TimeBased2025(ANL2025Negotiator):
+    """
+    A time-based conceding agent
+    """
+
+    def __init__(
+        self,
+        *args,
+        aspiration_type: Literal["boulware"]
+        | Literal["conceder"]
+        | Literal["linear"]
+        | Literal["hardheaded"]
+        | float = "boulware",
+        deltas: tuple[float, ...] = (1e-3, 1e-1, 2e-1, 4e-1, 8e-1, 1.0),
+        **kwargs,
+    ):
+        super().__init__(*args, **kwargs)
+        self._curve = PolyAspiration(1.0, aspiration_type)
+        self._inverter: dict[str, InverseUFun] = dict()
+        self._deltas = deltas
+
+    def propose(
+        self, negotiator_id: str, state: SAOState, dest: str | None = None
+    ) -> Outcome | None:
+        """Proposes to the given partner (dest) using the side negotiator (negotiator_id).
+
+        Remarks:
+        """
+        assert self.ufun
+        if not self._inverter.get(negotiator_id, None):
+            _, cntxt = self.negotiators[negotiator_id]
+            self._inverter[negotiator_id] = cntxt["ufun"].invert()
+        inverter = self._inverter[negotiator_id]
+        level = self._curve.utility_at(state.relative_time)
+        outcome = None
+        for d in self._deltas:
+            mx = min(1.0, level + d)
+            outcome = inverter.one_in((level, mx), normalized=True)
+            # print(f"{self.id} found {outcome} at level {(level, mx)}")
+            if outcome:
+                break
+        if not outcome:
+            return inverter.best()
+        return outcome
+
+    def respond(
+        self, negotiator_id: str, state: SAOState, source: str | None = None
+    ) -> ResponseType:
+        """Responds to the given partner (source) using the side negotiator (negotiator_id).
+
+        Remarks:
+            - source: is the ID of the partner.
+            - the mapping from negotiator_id to source is stable within a negotiation.
+
+        """
+        assert self.ufun
+        _, cntxt = self.negotiators[negotiator_id]
+        ufun: SideUFun = cntxt["ufun"]
+        if not self._inverter.get(negotiator_id, None):
+            self._inverter[negotiator_id] = ufun.invert()
+        inverter = self._inverter[negotiator_id]
+        level = self._curve.utility_at(state.relative_time)
+
+        # print(f"{self.id} got {ufun(state.current_offer)} at level {level}")
+        if level > ufun(state.current_offer):
+            return ResponseType.REJECT_OFFER
+        return ResponseType.ACCEPT_OFFER
+
+    def thread_finalize(self, negotiator_id: str, state: SAOState) -> None:
+        for side in self.negotiators.keys():
+            if side == negotiator_id:
+                continue
+            if side in self._inverter:
+                del self._inverter[side]
+            self.negotiators[side]["ufun"].forget_inverter()
+
+
+class Boulware2025(TimeBased2025):
+    def __init__(
+        self, *args, deltas: tuple[float, ...] = (0.1, 0.2, 0.4, 0.8, 1), **kwargs
+    ):
+        super().__init__(*args, aspiration_type="boulware", deltas=deltas, **kwargs)
+
+
+class Linear2025(TimeBased2025):
+    def __init__(
+        self, *args, deltas: tuple[float, ...] = (0.1, 0.2, 0.4, 0.8, 1), **kwargs
+    ):
+        super().__init__(*args, aspiration_type="linear", deltas=deltas, **kwargs)
+
+
+class Conceder2025(TimeBased2025):
+    def __init__(
+        self, *args, deltas: tuple[float, ...] = (0.1, 0.2, 0.4, 0.8, 1), **kwargs
+    ):
+        super().__init__(*args, aspiration_type="conceder", deltas=deltas, **kwargs)

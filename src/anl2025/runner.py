@@ -100,6 +100,10 @@ class AssignedScenario:
         edges = self.edges
         edge_ufuns = [deepcopy(_) for _ in self.scenario.edge_ufuns]
         center_ufun = deepcopy(self.scenario.center_ufun)
+        # We MUST reconnect side ufuns for expected outcomes to work
+        center_ufun._effective_side_ufuns = tuple(
+            make_side_ufun(center_ufun, i, None) for i in range(center_ufun.n_edges)
+        )
         nedges = len(edge_ufuns)
         if verbose:
             print(f"Adding center of type {type_name(center)}")

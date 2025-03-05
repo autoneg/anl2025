@@ -354,6 +354,8 @@ class CenterUFun(UtilityFunction, ABC):
         self._effective_side_ufuns = tuple(
             make_side_ufun(self, i, None) for i in range(self.n_edges)
         )
+        for u in self._effective_side_ufuns:
+            assert id(u._center_ufun) == id(self)
 
     def set_expected_outcome(self, index: int, outcome: Outcome | None) -> None:
         self._expected[index] = outcome
@@ -405,7 +407,15 @@ class CenterUFun(UtilityFunction, ABC):
 
     def side_ufuns(self) -> tuple[BaseUtilityFunction | None, ...]:
         """Should return an independent ufun for each side negotiator of the center."""
-        return self._effective_side_ufuns
+        ufuns = self._effective_side_ufuns
+        # Make sure that these side ufuns are connected to self
+        for i, u in enumerate(ufuns):
+            if id(u._center_ufun) == id(self):
+                continue
+            u._center_ufun = self
+            u._index = i
+            u._n_edges = self.n_edges
+        return ufuns
 
     def to_dict(self, python_class_identifier=TYPE_IDENTIFIER) -> dict[str, Any]:
         return {
@@ -489,17 +499,17 @@ class SideUFun(BaseUtilityFunction):
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        self.__center_ufun = center_ufun
-        self.__index = index
-        self.__n_edges = n_edges
+        self._center_ufun = center_ufun
+        self._index = index
+        self._n_edges = n_edges
 
     def set_expected_outcome(self, outcome: Outcome | None) -> None:
-        self.__center_ufun.set_expected_outcome(self.__index, outcome)
+        self._center_ufun.set_expected_outcome(self._index, outcome)
 
     def eval(self, offer: Outcome | None) -> float:
-        offers = [_ for _ in self.__center_ufun._expected]
-        offers[self.__index] = offer
-        return self.__center_ufun(tuple(offers))
+        offers = [_ for _ in self._center_ufun._expected]
+        offers[self._index] = offer
+        return self._center_ufun(tuple(offers))
 
 
 def make_side_ufun(
@@ -626,7 +636,7 @@ class UtilityCombiningCenterUFun(CenterUFun):
     def __init__(self, *args, side_ufuns: tuple[BaseUtilityFunction, ...], **kwargs):
         super().__init__(*args, **kwargs)
         self.ufuns = tuple(deepcopy(_) for _ in side_ufuns)
-        self._side_ufuns = tuple(
+        self._effective_side_ufuns = tuple(
             make_side_ufun(self, i, side) for i, side in enumerate(self.ufuns)
         )
 
@@ -663,14 +673,14 @@ class MaxCenterUFun(UtilityCombiningCenterUFun):
         # sets the reserved value of all sides
         super().set_expected_outcome(index, outcome)
         r = None
-        set_ufun = self._side_ufuns[index]
+        set_ufun = self._effective_side_ufuns[index]
         if isinstance(set_ufun, SideUFunAdapter):
             r = float(set_ufun._base_ufun(outcome))
         elif isinstance(set_ufun, SideUFun):
             return
         if r is None:
             return
-        for i, side in enumerate(self._side_ufuns):
+        for i, side in enumerate(self._effective_side_ufuns):
             if side is None or i == index:
                 continue
             side.reserved_value = max(side.reserved_value, r)
