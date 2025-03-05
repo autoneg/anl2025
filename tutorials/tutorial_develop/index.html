@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://autoneg.github.io/anl2025tmp/tutorials/tutorial_develop/">
+        <link rel="canonical" href="https://autoneg.github.io/anl2025/tutorials/tutorial_develop/">
       
       
         <link rel="prev" href="../Tutorial_run_a_negotiation/">
@@ -913,7 +913,7 @@
 <h1 id="anl-2025-tutorial">ANL 2025 Tutorial</h1>
 <h2 id="developing-a-negotiator">Developing a negotiator</h2>
 <p>The agents for the ANL competition are simple extensions of <a href="https://autoneg.github.io/negmas">NegMAS</a> negotiators. As such, they can be developed using any approach used to develop negotiators in NegMAS.</p>
-<p>To develop a negotiator, you need to inherit from the <a href="http://www.yasserm.com/anl2025tmp/reference/#anl2025.negotiator.ANL2025Negotiator">ANL2025Negotiator</a> class and implement the <a href="http://www.yasserm.com/anl2025tmp/reference/#anl2025.negotiator.ANL2025Negotiator.propose"><code>propose()</code></a> and <a href="http://www.yasserm.com/anl2025tmp/reference/#anl2025.negotiator.ANL2025Negotiator.respond"><code>respond()</code></a>.</p>
+<p>To develop a negotiator, you need to inherit from the <a href="http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator">ANL2025Negotiator</a> class and implement the <a href="http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator.propose"><code>propose()</code></a> and <a href="http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator.respond"><code>respond()</code></a>.</p>
 <p>Here is a simple random negotiator:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">negmas</span> <span class="kn">import</span> <span class="n">Outcome</span><span class="p">,</span> <span class="n">ResponseType</span><span class="p">,</span> <span class="n">SAOState</span>
