@@ -40,7 +40,7 @@ class RunParams:
 
     # mechanism params
     nsteps: int = 100
-    keep_order: bool = False
+    keep_order: bool = True
     share_ufuns: bool = False
     atomic: bool = False
     method: str = DEFAULT_METHOD

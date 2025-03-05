@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 
 site_name: ANL 2025 Documentation
-site_url: https://yasserfarouk.github.io/anl2025tmp/
+site_url: https://autoneg.github.io/anl2025/
 nav:
     - Introduction: index.md
     - Installation: install.md

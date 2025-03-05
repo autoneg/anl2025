@@ -29,7 +29,7 @@ All of these options are straightforwardly supported in negmas now.
 
 Some important types of center utility functions
 
-1. Global Center Utility Function: (This is what we have now in `anl2025tmp`).
+1. Global Center Utility Function: (This is what we have now in `anl2025`).
    - The center ufun is only defined for the set of agreements received with no utility attached to each individual agreement (except by assigning some result like disagreement for the rest).
    - $u_c(\omega^1, \dots,\omega^N): \Omega^+_1 \times \dots \times \Omega^+_N \rightarrow \Re$ Any general mapping of outcomes to utility
    - The function $u_c$ may be symmetric in permutations of agreements if the outcome-space is shared. We call the resulting center utility function homogeneous

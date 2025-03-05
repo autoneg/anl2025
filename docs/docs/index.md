@@ -22,7 +22,7 @@ pip install anl2025
 You can also install the in-development version with::
 
 ```bash
-pip install git+https://github.com/yasserfarouk/anl2025tmp.git
+pip install git+https://github.com/autoneg/anl2025.git
 ```
 
 ## CLI

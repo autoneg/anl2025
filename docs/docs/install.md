@@ -1,6 +1,6 @@
 # Preparing Development Environment
 
-To participate in [ANL2025 2025](https://scml.cs.brown.edu/anl), you need to prepare a local development environment in your machine, download the [skeleton](https://yasserfarouk.github.io/files/anl2025/anl2025.zip), and start hacking. This section of the documentation describes **two** ways to do that.
+To participate in [ANL2025 2025](https://scml.cs.brown.edu/anl), you need to prepare a local development environment in your machine, download the [skeleton](https://autoneg.github.io/files/anl2025/anl2025.zip), and start hacking. This section of the documentation describes **two** ways to do that.
 
 
 This is the recommended method. It requires you to use an installation of python $3.11$ or later on your machine.
@@ -42,12 +42,12 @@ python -m pip install anl2025
 
 ## 3. Development
 
-The next step is to download the template from [here](https://yasserfarouk.github.io/files/anl2025/anl2025.zip). Please familiarize yourself with the competition rules available at the [competition website](https://scml.cs.brown.edu/anl).
+The next step is to download the template from [here](https://autoneg.github.io/files/anl2025/anl2025.zip). Please familiarize yourself with the competition rules available at the [competition website](https://scml.cs.brown.edu/anl).
 After downloading and uncompressing the template, you should do the following steps:
 
 1. Modify the name of the single class in `myagent.py` (currently called `MyNegotiator`) to a representative name for your agent. We will use `AwsomeNegotiator` here. You should then implement your agent logic by modifying this class.
     - Remember to change the name of the agent in the last line of the file to match your new class name (`AwsomeNegotiator`).
-2. Start developing your agent as will be explained later in the [tutorial](https://yasserfarouk.github.io/anl2025/tutorials/tutorial/).
+2. Start developing your agent as will be explained later in the [tutorial](https://autoneg.github.io/anl2025/tutorials/tutorial/).
 3. You can use the following ways to test your agent:
     - Run the following command to test your agent from the root folder of the extracted skeleton:
       ```bash

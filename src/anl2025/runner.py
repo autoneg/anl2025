@@ -280,8 +280,8 @@ def run_generated_session(
     nvalues: int = 7,
     # mechanism params
     nsteps: int = 100,
-    keep_order: bool = False,
-    share_ufuns: bool = False,
+    keep_order: bool = True,
+    share_ufuns: bool = True,
     atomic: bool = False,
     # output and logging
     output: Path | str | None = Path.home() / "negmas" / "anl2025" / "session",
@@ -368,8 +368,8 @@ def run_session(
     ],
     # mechanism params
     nsteps: int = 100,
-    keep_order: bool = False,
-    share_ufuns: bool = False,
+    keep_order: bool = True,
+    share_ufuns: bool = True,
     atomic: bool = False,
     # output and logging
     output: Path | None = Path.home() / "negmas" / "anl2025" / "session",
