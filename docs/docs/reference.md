@@ -13,15 +13,19 @@ Other negotiators are just wrappers over negotiators provided by NegMAS.
 
 ::: anl2025.negotiator.Random2025
 
+::: anl2025.negotiator.TimeBased2025
+
 ::: anl2025.negotiator.Boulware2025
 
 ::: anl2025.negotiator.Linear2025
 
 ::: anl2025.negotiator.Conceder2025
 
-::: anl2025.negotiator.Shochan2025
+::: anl2025.negotiator.IndependentBoulware2025
 
-::: anl2025.negotiator.AgentRenting2025
+::: anl2025.negotiator.IndependentLinear2025
+
+::: anl2025.negotiator.IndependentConceder2025
 
 ## Utility Functions
 

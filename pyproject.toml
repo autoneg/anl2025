@@ -30,7 +30,7 @@ doc = [
 anl2024 = [
     "anl>=0.1.10",
     "anl-agents>=0.1.0",
-    "tensorflow>=2.18.0",
+    # "tensorflow>=2.18.0",
 ]
 
 [build-system]
