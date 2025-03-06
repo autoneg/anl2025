@@ -1,7 +1,7 @@
 from typing import Literal
 from random import random, choice
 from anl2025.ufun import CenterUFun, SideUFun
-from negmas import InverseUFun, PolyAspiration, PresortingInverseUtilityFunction
+from negmas import SAONMI, InverseUFun, PolyAspiration, PresortingInverseUtilityFunction
 
 from negmas.sao.controllers import SAOController, SAOState
 from negmas import (
@@ -288,6 +288,7 @@ class TimeBased2025(ANL2025Negotiator):
         | Literal["hardheaded"]
         | float = "boulware",
         deltas: tuple[float, ...] = (1e-3, 1e-1, 2e-1, 4e-1, 8e-1, 1.0),
+        reject_exactly_as_reserved: bool = False,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -298,6 +299,7 @@ class TimeBased2025(ANL2025Negotiator):
         self._mn: float = 0.0
         self._deltas = deltas
         self._best_margin = 1e-8
+        self.reject_exactly_as_reserved = reject_exactly_as_reserved
 
     def ensure_inverter(self, negotiator_id) -> InverseUFun:
         """Ensures that utility inverter is available"""
@@ -308,6 +310,7 @@ class TimeBased2025(ANL2025Negotiator):
             inverter.init()
             # breakpoint()
             self._mx, self._mn = inverter.max(), inverter.min()
+            self._mn = max(self._mn, ufun.reserved_value)
             self._best = inverter.some(
                 (
                     max(
@@ -323,6 +326,21 @@ class TimeBased2025(ANL2025Negotiator):
 
         return self._inverter[negotiator_id]
 
+    def calc_level(self, nmi: SAONMI, state: SAOState, normalized: bool):
+        if state.step == 0:
+            level = 1.0
+        elif (
+            # not self.reject_exactly_as_reserved
+            # and
+            nmi.n_steps is not None and state.step >= nmi.n_steps - 1
+        ):
+            level = 0.0
+        else:
+            level = self._curve.utility_at(state.relative_time)
+        if not normalized:
+            level = level * (self._mx - self._mn) + self._mn
+        return level
+
     def propose(
         self, negotiator_id: str, state: SAOState, dest: str | None = None
     ) -> Outcome | None:
@@ -333,12 +351,7 @@ class TimeBased2025(ANL2025Negotiator):
         assert self.ufun
         inverter = self.ensure_inverter(negotiator_id)
         nmi = self.negotiators[negotiator_id][0].nmi
-        if state.step == 0:
-            return choice(self._best)
-        elif nmi.n_steps is not None and state.step >= nmi.n_steps - 1:
-            level = 0.0
-        else:
-            level = self._curve.utility_at(state.relative_time)
+        level = self.calc_level(nmi, state, normalized=True)
         outcome = None
         for d in self._deltas:
             mx = min(1.0, level + d)
@@ -362,18 +375,17 @@ class TimeBased2025(ANL2025Negotiator):
         """
         assert self.ufun
         _, cntxt = self.negotiators[negotiator_id]
+
+        nmi = self.negotiators[negotiator_id][0].nmi
         ufun: SideUFun = cntxt["ufun"]
         inverter = self.ensure_inverter(negotiator_id)
         # end the negotiation if there are no rational outcomes
-        if self._mx < ufun.reserved_value:
-            return ResponseType.END_NEGOTIATION
-        level = (
-            self._curve.utility_at(state.relative_time) * (self._mx - self._mn)
-            + self._mn
-        )
+        level = self.calc_level(nmi, state, normalized=False)
 
         # print(f"{self.id} got {ufun(state.current_offer)} at level {level}")
-        if level > ufun(state.current_offer):
+        if (self.reject_exactly_as_reserved and level >= ufun(state.current_offer)) or (
+            not self.reject_exactly_as_reserved and level > ufun(state.current_offer)
+        ):
             return ResponseType.REJECT_OFFER
         return ResponseType.ACCEPT_OFFER
 

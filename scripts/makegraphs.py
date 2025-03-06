@@ -20,14 +20,15 @@ class MyNegotiator(Linear2025):
         #     breakpoint()
         outcome = super().propose(negotiator_id, state, dest)
         ufun = self.negotiators[negotiator_id][1]["ufun"]
+        nmi = self.negotiators[negotiator_id][0].nmi
 
         if self.negotiators[negotiator_id][1]["center"]:
             print(
-                f"{self.id} Offering {outcome} with side utility {ufun(outcome)} ({self.ufun._expected=}) at aspiration {self._curve.utility_at(state.relative_time)}"  # type: ignore
+                f"{state.step:03}-{self.id} Offering {outcome} with side utility {ufun(outcome)} ({self.ufun._expected=}) at aspiration {self.calc_level(nmi, state, True)}"  # type: ignore
             )
         else:
             print(
-                f"{self.id} Offering {outcome} with utility {ufun(outcome)} at aspiration {self._curve.utility_at(state.relative_time)} "
+                f"{state.step:03}-{self.id} Offering {outcome} with utility {ufun(outcome)} at aspiration {self.calc_level(nmi, state, True)} "
             )
 
         return outcome
@@ -61,7 +62,7 @@ def run_negotiation():
         center_type=centeragent,
         edge_types=edgeagents,  # type: ignore
         # sample_edges=True,
-        nsteps=10,
+        nsteps=50,
     )
     # print some results
     print(f"Center Utility: {results.center_utility}")
