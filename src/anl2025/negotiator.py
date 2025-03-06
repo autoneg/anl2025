@@ -332,9 +332,13 @@ class TimeBased2025(ANL2025Negotiator):
         """
         assert self.ufun
         inverter = self.ensure_inverter(negotiator_id)
+        nmi = self.negotiators[negotiator_id][0].nmi
         if state.step == 0:
             return choice(self._best)
-        level = self._curve.utility_at(state.relative_time)
+        elif nmi.n_steps is not None and state.step >= nmi.n_steps - 1:
+            level = 0.0
+        else:
+            level = self._curve.utility_at(state.relative_time)
         outcome = None
         for d in self._deltas:
             mx = min(1.0, level + d)
