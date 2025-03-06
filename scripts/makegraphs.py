@@ -11,6 +11,8 @@ from anl2025.negotiator import Linear2025
 from anl2025.scenario import MultidealScenario
 from anl2025 import run_session
 
+from rich import print
+
 
 class MyNegotiator(Linear2025):
     def propose(self, negotiator_id: str, state, dest: str | None = None):
@@ -21,10 +23,12 @@ class MyNegotiator(Linear2025):
 
         if self.negotiators[negotiator_id][1]["center"]:
             print(
-                f"{self.id} Offering {outcome} with side utility {ufun(outcome)} ({self.ufun._expected=})"
+                f"{self.id} Offering {outcome} with side utility {ufun(outcome)} ({self.ufun._expected=}) at aspiration {self._curve.utility_at(state.relative_time)}"  # type: ignore
             )
         else:
-            print(f"{self.id} Offering {outcome} with side utility {ufun(outcome)}")
+            print(
+                f"{self.id} Offering {outcome} with utility {ufun(outcome)} at aspiration {self._curve.utility_at(state.relative_time)} "
+            )
 
         return outcome
 
