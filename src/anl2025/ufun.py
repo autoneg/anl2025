@@ -533,6 +533,9 @@ def make_side_ufun(
         side_ufun.reserved_value = side_ufun.eval(None)  # type: ignore
     elif isinstance(side, SideUFun):
         side_ufun = side
+        side_ufun._center_ufun = center
+        side_ufun._index = index
+        side_ufun._n_edges = center.n_edges
         side_ufun.reserved_value = side_ufun.eval(None)  # type: ignore
     else:
         side_ufun = SideUFunAdapter(
