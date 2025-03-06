@@ -327,6 +327,8 @@ class CenterUFun(UtilityFunction, ABC):
         expected_outcomes: tuple[Outcome | None, ...]
         | list[Outcome | None]
         | None = None,
+        stationary: bool = True,
+        stationary_sides: bool | None = None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -335,6 +337,10 @@ class CenterUFun(UtilityFunction, ABC):
         self._combiner = combiner_type(outcome_spaces)
         self._outcome_spaces = self._combiner.separated_spaces()
         self.n_edges = len(outcome_spaces)
+        self.stationary = stationary
+        self.stationary_sides = (
+            stationary_sides if stationary_sides is not None else stationary
+        )
         self.__kwargs = dict(
             reserved_value=self.reserved_value,
             owner=self.owner,
@@ -356,6 +362,9 @@ class CenterUFun(UtilityFunction, ABC):
         )
         for u in self._effective_side_ufuns:
             assert id(u._center_ufun) == id(self)
+
+    def is_stationary(self) -> bool:
+        return self.stationary
 
     def set_expected_outcome(self, index: int, outcome: Outcome | None) -> None:
         self._expected[index] = outcome
@@ -502,6 +511,9 @@ class SideUFun(BaseUtilityFunction):
         self._center_ufun = center_ufun
         self._index = index
         self._n_edges = n_edges
+
+    def is_stationary(self) -> bool:
+        return self._center_ufun.stationary_sides
 
     def set_expected_outcome(self, outcome: Outcome | None) -> None:
         self._center_ufun.set_expected_outcome(self._index, outcome)

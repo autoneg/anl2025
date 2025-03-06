@@ -1,7 +1,7 @@
 from typing import Literal
-from random import random
+from random import random, choice
 from anl2025.ufun import CenterUFun, SideUFun
-from negmas import InverseUFun, PolyAspiration
+from negmas import InverseUFun, PolyAspiration, PresortingInverseUtilityFunction
 
 from negmas.sao.controllers import SAOController, SAOState
 from negmas import (
@@ -293,7 +293,35 @@ class TimeBased2025(ANL2025Negotiator):
         super().__init__(*args, **kwargs)
         self._curve = PolyAspiration(1.0, aspiration_type)
         self._inverter: dict[str, InverseUFun] = dict()
+        self._best: list[Outcome] = None  # type: ignore
+        self._mx: float = 1.0
+        self._mn: float = 0.0
         self._deltas = deltas
+        self._best_margin = 1e-8
+
+    def ensure_inverter(self, negotiator_id) -> InverseUFun:
+        """Ensures that utility inverter is available"""
+        if self._inverter.get(negotiator_id, None) is None:
+            _, cntxt = self.negotiators[negotiator_id]
+            ufun = cntxt["ufun"]
+            inverter = PresortingInverseUtilityFunction(ufun, rational_only=True)
+            inverter.init()
+            # breakpoint()
+            self._mx, self._mn = inverter.max(), inverter.min()
+            self._best = inverter.some(
+                (
+                    max(
+                        0.0, self._mn, ufun.reserved_value, self._mx - self._best_margin
+                    ),
+                    self._mx,
+                ),
+                normalized=True,
+            )
+            if not self._best:
+                self._best = [inverter.best()]  # type: ignore
+            self._inverter[negotiator_id] = inverter
+
+        return self._inverter[negotiator_id]
 
     def propose(
         self, negotiator_id: str, state: SAOState, dest: str | None = None
@@ -303,10 +331,9 @@ class TimeBased2025(ANL2025Negotiator):
         Remarks:
         """
         assert self.ufun
-        if not self._inverter.get(negotiator_id, None):
-            _, cntxt = self.negotiators[negotiator_id]
-            self._inverter[negotiator_id] = cntxt["ufun"].invert()
-        inverter = self._inverter[negotiator_id]
+        inverter = self.ensure_inverter(negotiator_id)
+        if state.step == 0:
+            return choice(self._best)
         level = self._curve.utility_at(state.relative_time)
         outcome = None
         for d in self._deltas:
@@ -316,7 +343,7 @@ class TimeBased2025(ANL2025Negotiator):
             if outcome:
                 break
         if not outcome:
-            return inverter.best()
+            return choice(self._best)
         return outcome
 
     def respond(
@@ -332,10 +359,11 @@ class TimeBased2025(ANL2025Negotiator):
         assert self.ufun
         _, cntxt = self.negotiators[negotiator_id]
         ufun: SideUFun = cntxt["ufun"]
-        if not self._inverter.get(negotiator_id, None):
-            self._inverter[negotiator_id] = ufun.invert()
-        inverter = self._inverter[negotiator_id]
-        level = self._curve.utility_at(state.relative_time)
+        inverter = self.ensure_inverter(negotiator_id)
+        level = (
+            self._curve.utility_at(state.relative_time) * (self._mx - self._mn)
+            + self._mn
+        )
 
         # print(f"{self.id} got {ufun(state.current_offer)} at level {level}")
         if level > ufun(state.current_offer):
@@ -348,7 +376,6 @@ class TimeBased2025(ANL2025Negotiator):
                 continue
             if side in self._inverter:
                 del self._inverter[side]
-            self.negotiators[side]["ufun"].forget_inverter()
 
 
 class Boulware2025(TimeBased2025):

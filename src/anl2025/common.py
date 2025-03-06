@@ -19,7 +19,8 @@ TYPES_MAP = dict(
     DiscreteCartesianOutcomeSpace="negmas.outcomes.DiscreteCartesianOutcomeSpace"
 )
 
-DEFAULT_METHOD = "sequential"
+SEQUENTIAL_METHOD = "sequential"
+DEFAULT_METHOD = SEQUENTIAL_METHOD
 
 
 @define

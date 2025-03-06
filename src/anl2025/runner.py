@@ -1,8 +1,8 @@
-from typing import Any
 from copy import deepcopy
+from typing import Any
 from random import choice
 import pandas as pd
-from attr import define
+from attr import define, field
 from pathlib import Path
 from negmas import ControlledNegotiator
 from negmas.outcomes import Outcome
@@ -18,7 +18,7 @@ from anl2025.negotiator import (
     Random2025,
 )
 from anl2025.scenario import MultidealScenario, make_multideal_scenario
-from anl2025.common import get_agent_class, RunParams, DEFAULT_METHOD
+from anl2025.common import SEQUENTIAL_METHOD, get_agent_class, RunParams, DEFAULT_METHOD
 
 
 __all__ = [
@@ -77,6 +77,10 @@ class AssignedScenario:
     run_params: RunParams
     center: ANL2025Negotiator
     edges: list[ANL2025Negotiator]
+    _saved_scenario: MultidealScenario = field(init=False)
+
+    def __attrs_post_init__(self):
+        self._saved_scenario = deepcopy(self.scenario)
 
     def run(
         self,
@@ -98,11 +102,18 @@ class AssignedScenario:
 
         center = self.center
         edges = self.edges
-        edge_ufuns = [deepcopy(_) for _ in self.scenario.edge_ufuns]
-        center_ufun = deepcopy(self.scenario.center_ufun)
+        # edge_ufuns = [deepcopy(_) for _ in self.scenario.edge_ufuns]
+        edge_ufuns = self.scenario.edge_ufuns
+        center_ufun = self.scenario.center_ufun
+        # center_ufun = deepcopy(self.scenario.center_ufun)
         # We MUST reconnect side ufuns for expected outcomes to work
-        center_ufun._effective_side_ufuns = tuple(
-            make_side_ufun(center_ufun, i, None) for i in range(center_ufun.n_edges)
+        # center_ufun._effective_side_ufuns = tuple(
+        #     make_side_ufun(center_ufun, i, None) for i in range(center_ufun.n_edges)
+        # )
+        # assume stationarity
+        center_ufun.stationary = True
+        center_ufun.stationary_sides = (
+            center_ufun.stationary_sides or self.run_params.method == SEQUENTIAL_METHOD
         )
         nedges = len(edge_ufuns)
         if verbose:
@@ -188,10 +199,10 @@ class AssignedScenario:
             mechanisms=mechanisms,
             center=center,
             agreements=agreements,
-            center_utility=float(self.scenario.center_ufun(tuple(agreements))),
+            center_utility=float(self._saved_scenario.center_ufun(tuple(agreements))),
             edge_utilities=[
                 float(edge_ufun(_)) if edge_ufun else float("nan")
-                for edge_ufun, _ in zip(self.scenario.edge_ufuns, agreements)
+                for edge_ufun, _ in zip(self._saved_scenario.edge_ufuns, agreements)
             ],
             edges=edges,
         )
