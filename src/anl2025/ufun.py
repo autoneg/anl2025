@@ -529,23 +529,27 @@ def make_side_ufun(
 ) -> SideUFun:
     """Creates a side-ufun for the center at the given index."""
     if side is None:
-        return SideUFun(center_ufun=center, n_edges=center.n_edges, index=index)
-    if isinstance(side, SideUFun):
-        return side
-    return SideUFunAdapter(
-        center_ufun=center,
-        n_edges=center.n_edges,
-        index=index,
-        base_ufun=side,
-        name=side.name,
-        id=side.id,
-        outcome_space=side.outcome_space,
-        reserved_value=side.reserved_value,
-        invalid_value=side._invalid_value,
-        owner=side.owner,
-        type_name=side.type_name,
-        reserved_outcome=side.reserved_outcome,
-    )
+        side_ufun = SideUFun(center_ufun=center, n_edges=center.n_edges, index=index)
+        side_ufun.reserved_value = side_ufun.eval(None)  # type: ignore
+    elif isinstance(side, SideUFun):
+        side_ufun = side
+        side_ufun.reserved_value = side_ufun.eval(None)  # type: ignore
+    else:
+        side_ufun = SideUFunAdapter(
+            center_ufun=center,
+            n_edges=center.n_edges,
+            index=index,
+            base_ufun=side,
+            name=side.name,
+            id=side.id,
+            outcome_space=side.outcome_space,
+            reserved_value=side.reserved_value,
+            invalid_value=side._invalid_value,
+            owner=side.owner,
+            type_name=side.type_name,
+            reserved_outcome=side.reserved_outcome,
+        )
+    return side_ufun
 
 
 class LocalEvaluationCenterUFun(CenterUFun):
