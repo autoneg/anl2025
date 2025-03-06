@@ -364,6 +364,9 @@ class TimeBased2025(ANL2025Negotiator):
         _, cntxt = self.negotiators[negotiator_id]
         ufun: SideUFun = cntxt["ufun"]
         inverter = self.ensure_inverter(negotiator_id)
+        # end the negotiation if there are no rational outcomes
+        if self._mx < ufun.reserved_value:
+            return ResponseType.END_NEGOTIATION
         level = (
             self._curve.utility_at(state.relative_time) * (self._mx - self._mn)
             + self._mn
