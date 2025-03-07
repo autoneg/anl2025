@@ -268,7 +268,7 @@ class Random2025(ANL2025Negotiator):
 
         if (
             random() < self.p_reject
-            or float(self.ufun(state.current_offer)) < self.ufun.reserved_value  # type: ignore
+            or float(self.ufun(state.current_offer)) < self.ufun(None)  # type: ignore
         ):
             return ResponseType.REJECT_OFFER
         return ResponseType.ACCEPT_OFFER
@@ -310,12 +310,10 @@ class TimeBased2025(ANL2025Negotiator):
             inverter.init()
             # breakpoint()
             self._mx, self._mn = inverter.max(), inverter.min()
-            self._mn = max(self._mn, ufun.reserved_value)
+            self._mn = max(self._mn, ufun(None))
             self._best = inverter.some(
                 (
-                    max(
-                        0.0, self._mn, ufun.reserved_value, self._mx - self._best_margin
-                    ),
+                    max(0.0, self._mn, ufun(None), self._mx - self._best_margin),
                     self._mx,
                 ),
                 normalized=True,
@@ -349,10 +347,14 @@ class TimeBased2025(ANL2025Negotiator):
         Remarks:
         """
         assert self.ufun
+        negotiator, cntxt = self.negotiators[negotiator_id]
         inverter = self.ensure_inverter(negotiator_id)
-        nmi = self.negotiators[negotiator_id][0].nmi
+        nmi = negotiator.nmi
         level = self.calc_level(nmi, state, normalized=True)
+        ufun: SideUFun = cntxt["ufun"]
         outcome = None
+        if self._mx < float(ufun(None)):
+            return None
         for d in self._deltas:
             mx = min(1.0, level + d)
             outcome = inverter.one_in((level, mx), normalized=True)
@@ -375,12 +377,14 @@ class TimeBased2025(ANL2025Negotiator):
         """
         assert self.ufun
         _, cntxt = self.negotiators[negotiator_id]
-
-        nmi = self.negotiators[negotiator_id][0].nmi
         ufun: SideUFun = cntxt["ufun"]
+        nmi = self.negotiators[negotiator_id][0].nmi
         inverter = self.ensure_inverter(negotiator_id)
         # end the negotiation if there are no rational outcomes
         level = self.calc_level(nmi, state, normalized=False)
+
+        if self._mx < float(ufun(None)):
+            return ResponseType.END_NEGOTIATION
 
         # print(f"{self.id} got {ufun(state.current_offer)} at level {level}")
         if (self.reject_exactly_as_reserved and level >= ufun(state.current_offer)) or (

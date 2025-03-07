@@ -137,6 +137,7 @@ class AssignedScenario:
                 one_offer_per_step=self.run_params.atomic,
                 name=f"n{i}",
                 n_steps=self.run_params.nsteps,
+                end_on_no_response=True,
             )
             m.id = m.name = f"n{i}"
             if verbose:

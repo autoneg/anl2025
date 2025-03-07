@@ -1,5 +1,6 @@
 import random
 from itertools import product
+from numpy import argmin
 from typing import Iterable
 from negmas import LinearAdditiveUtilityFunction, TableFun
 from negmas.outcomes import (
@@ -10,13 +11,24 @@ from negmas.outcomes import (
 )
 from anl2025.ufun import LambdaCenterUFun
 from anl2025.scenario import MultidealScenario
-from numpy import argmin
 
 
 __all__ = ["make_target_quantity_scenario"]
 
 FloatRange = tuple[float, float] | float
 IntRange = tuple[int, int] | list[int] | int
+
+
+def float_in(x: FloatRange):
+    if isinstance(x, Iterable):
+        return x[0] + (x[1] - x[0]) * random.random()
+    return x
+
+
+def int_in(x: IntRange):
+    if isinstance(x, Iterable):
+        return random.randint(min(x), max(x))
+    return x
 
 
 class TargetEvaluator:
@@ -37,18 +49,6 @@ class TargetEvaluator:
                 continue
             quantity_sum += int(agreement[0])
         return float(self.values.get(quantity_sum, self.reserved_value))
-
-
-def float_in(x: FloatRange):
-    if isinstance(x, Iterable):
-        return x[0] + (x[1] - x[0]) * random.random()
-    return x
-
-
-def int_in(x: IntRange):
-    if isinstance(x, Iterable):
-        return random.randint(min(x), max(x))
-    return x
 
 
 def make_values(

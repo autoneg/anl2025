@@ -103,11 +103,16 @@ doc = [
     { name = "mkdocstrings" },
     { name = "mkdocstrings-python" },
 ]
+testing = [
+    { name = "hypothesis" },
+    { name = "pytest" },
+]
 
 [package.metadata]
 requires-dist = [
     { name = "anl", marker = "extra == 'anl2024'", editable = "../anl" },
     { name = "anl-agents", marker = "extra == 'anl2024'", editable = "../anl-agents" },
+    { name = "hypothesis", marker = "extra == 'testing'", specifier = ">=6.118.8" },
     { name = "jupyter", marker = "extra == 'doc'", specifier = ">=1.1.1" },
     { name = "mkdocs", marker = "extra == 'doc'", specifier = ">=1.6.1" },
     { name = "mkdocs-include-markdown-plugin", marker = "extra == 'doc'", specifier = ">=7.1.4" },
@@ -116,6 +121,7 @@ requires-dist = [
     { name = "mkdocstrings-python", marker = "extra == 'doc'", specifier = ">=1.16.0" },
     { name = "multiprocess", specifier = ">=0.70.17" },
     { name = "negmas", editable = "../negmas" },
+    { name = "pytest", marker = "extra == 'testing'", specifier = ">=8.3.3" },
     { name = "typer", specifier = ">=0.12.5" },
 ]
 

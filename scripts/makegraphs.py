@@ -62,7 +62,7 @@ def run_negotiation():
         center_type=centeragent,
         edge_types=edgeagents,  # type: ignore
         # sample_edges=True,
-        nsteps=50,
+        nsteps=10,
     )
     # print some results
     print(f"Center Utility: {results.center_utility}")

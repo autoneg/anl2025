@@ -389,7 +389,8 @@ class CenterUFun(UtilityFunction, ABC):
         return self.eval(outcomes)
 
     def __call__(self, offer: Outcome | None) -> float:
-        """Entry point to calculate the utility of a set of offers (called by the mechanism).
+        """
+        Entry point to calculate the utility of a set of offers (called by the mechanism).
 
         Override to avoid using expected outcomes."""
 
@@ -517,6 +518,9 @@ class SideUFun(BaseUtilityFunction):
 
     def set_expected_outcome(self, outcome: Outcome | None) -> None:
         self._center_ufun.set_expected_outcome(self._index, outcome)
+
+    def __call__(self, offer: Outcome | None) -> float:
+        return self.eval(offer)
 
     def eval(self, offer: Outcome | None) -> float:
         offers = [_ for _ in self._center_ufun._expected]
