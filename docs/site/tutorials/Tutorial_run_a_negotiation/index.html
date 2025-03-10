@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
@@ -429,16 +429,16 @@
 
 <h1 id="running-a-single-thread-negotiation">Running a single-thread negotiation</h1>
 <p>NegMAS has several built-in negotiation <code>Mechanisms</code>, negotiation agents (<code>Negotiators</code>), and <code>UtilityFunctions</code>. You can use these to run negotiations as follows.</p>
-<p>Imagine a buyer and a seller negotiating over the price of a single object. First, we make an issue "price" with 50 discrete values. Note here, it is possible to create multiple issues, but we will not include that here. If you are interested, see the <a href="https://negmas.readthedocs.io/en/latest/tutorials/01.running_simple_negotiation.html">NegMAS documentation</a> for a tutorial.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">negmas</span> <span class="kn">import</span> <span class="p">(</span>
+<p>Imagine a buyer and a seller negotiating over the price of a single object. First, we make an issue "price" with 50 discrete values. Note here, it is possible to create multiple issues, but we will not include that here. If you are interested, see the <a href="https://negmas.readthedocs.io/en/latest/tutorials/01.running_simple_negotiation.html">NegMAS documentation</a> for a tutorial. (1)</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">negmas</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">make_issue</span><span class="p">,</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">SAOMechanism</span><span class="p">,</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   <span class="n">TimeBasedConcedingNegotiator</span><span class="p">,</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span> <span class="nn">anl.anl2024.negotiators</span> <span class="kn">import</span> <span class="n">Boulware</span><span class="p">,</span> <span class="n">Conceder</span><span class="p">,</span> <span class="n">RVFitter</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">from</span> <span class="nn">negmas.preferences</span> <span class="kn">import</span> <span class="n">LinearAdditiveUtilityFunction</span> <span class="k">as</span> <span class="n">UFun</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span> <span class="nn">negmas.preferences.value_fun</span> <span class="kn">import</span> <span class="n">IdentityFun</span><span class="p">,</span> <span class="n">AffineFun</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl.anl2024.negotiators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boulware</span><span class="p">,</span> <span class="n">Conceder</span><span class="p">,</span> <span class="n">RVFitter</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">negmas.preferences</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearAdditiveUtilityFunction</span> <span class="k">as</span> <span class="n">UFun</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">negmas.preferences.value_fun</span><span class="w"> </span><span class="kn">import</span> <span class="n">IdentityFun</span><span class="p">,</span> <span class="n">AffineFun</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># create negotiation agenda (issues)</span>
@@ -479,7 +479,7 @@
     <span style="color: #808000; text-decoration-color: #808000">waiting</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
     <span style="color: #808000; text-decoration-color: #808000">started</span>=<span style="color: #00ff00; text-decoration-color: #00ff00; font-style: italic">True</span>,
     <span style="color: #808000; text-decoration-color: #808000">step</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">18</span>,
-    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.003329916999064153</span>,
+    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.004048299975693226</span>,
     <span style="color: #808000; text-decoration-color: #808000">relative_time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9047619047619048</span>,
     <span style="color: #808000; text-decoration-color: #808000">broken</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
     <span style="color: #808000; text-decoration-color: #808000">timedout</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
@@ -493,14 +493,14 @@
     <span style="color: #808000; text-decoration-color: #808000">threads</span>=<span style="font-weight: bold">{}</span>,
     <span style="color: #808000; text-decoration-color: #808000">last_thread</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_offer</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">)</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-7745557b-acef-49d6-9a75-42afd8bdf4fb'</span>,
+    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-2515eb40-48b6-4a82-9178-804c70cfd3af'</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_proposer_agent</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
     <span style="color: #808000; text-decoration-color: #808000">n_acceptances</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-7745557b-acef-49d6-9a75-42afd8bdf4fb'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
+    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-2515eb40-48b6-4a82-9178-804c70cfd3af'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
     <span style="color: #808000; text-decoration-color: #808000">new_offerer_agents</span>=<span style="font-weight: bold">[</span><span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span>,
     <span style="color: #808000; text-decoration-color: #808000">last_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">'seller'</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_data</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_data</span>=<span style="font-weight: bold">[]</span>
+    <span style="color: #808000; text-decoration-color: #808000">new_data</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-2515eb40-48b6-4a82-9178-804c70cfd3af'</span>, <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">)]</span>
 <span style="font-weight: bold">)</span>
 </pre>
 
@@ -508,7 +508,7 @@
 <h1 id="running-a-multi-deal-negotiation">Running a Multi-deal negotiation</h1>
 <p>ANL 2025's challenge is to develop agents capable of negotiating sequentially a set of interrelated deals (Multi-deal negotiation). You can create and run a multi-deal negotiation using special tools provided by the anl2025 package.</p>
 <h2 id="a-random-multideal-session">A random multideal-session</h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">anl2025</span> <span class="kn">import</span> <span class="n">make_multideal_scenario</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_multideal_scenario</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">scenario</span> <span class="o">=</span> <span class="n">make_multideal_scenario</span><span class="p">(</span><span class="n">nedges</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 </span></code></pre></div>
@@ -521,7 +521,7 @@
 <p>The following figure shows the situation:</p>
 <p><img alt="Example" src="Slide2.jpeg" /></p>
 <p>The function <code>make_multideal_scenario</code> creates such a scenario. The combination function used by default is <code>max</code> (i.e. the center get the maximum utlility it gets in all negotiations) but you can easily change it. See the full documentation of <code>make_multideal_scenario</code> in the Reference for more details of how to control all aspects of scenario  generation.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">anl2025</span> <span class="kn">import</span> <span class="n">run_session</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_session</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">scenario</span><span class="p">)</span>
 </span></code></pre></div>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_0.png" /></p>
@@ -535,18 +535,18 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Center utility: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">center_utility</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Edge Utilities: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">edge_utilities</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6195544580820566</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6950491191272049</span>
 </pre>
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5826666310495854</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4009587316768355</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.718963583448751</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5627071793170195</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4361245066527879</span>,
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3046636562699559</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.56354946655363</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4699920908826146</span><span style="font-weight: bold">]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5006916644920066</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2947158934301477</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3723437914967285</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.536544338413959</span>, 
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.31903386564075864</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2488242204543755</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4726159991815505</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3048364027928087</span><span style="font-weight: bold">]</span>
 </pre>
 
 <h3 id="a-dinners-scheduling-session">A dinners' scheduling session</h3>
 <p>In the previous example, the center utility function was defined in terms of individual side utility functions (one per negotiation threads). A more general case is when the center utility function is defined directly in terms of the outcomes of negotiation threads without locally defined utility functions. The following figure shows an example of this kind of scenario:</p>
 <p><img alt="Global Utility Function Example" src="Slide1.jpeg" /></p>
 <p>The <code>anl2025</code> package allows you to create such scenarios using the <code>LambdaCenterUFun</code> class (See Reference). One class of these sceanrios is the <strong>Dinners</strong> scenarios in which one person (center agent) is negotiating with her friends (edge agents) about the day to go out for dinner. Each friend has her own utility function for different days. The cener agent has a utility for each combination of agreements (i.e. she may prefer to go out once every night except in Tuesdays,</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">anl2025</span> <span class="kn">import</span> <span class="n">make_dinners_scenario</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_dinners_scenario</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">make_dinners_scenario</span><span class="p">(</span><span class="n">n_friends</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
 </span></code></pre></div>
@@ -616,7 +616,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
     
   </body>

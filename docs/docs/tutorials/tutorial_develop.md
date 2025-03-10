@@ -2,7 +2,7 @@
 
 ## Developing a negotiator
 
-The agents for the ANL competition are simple extensions of [NegMAS](https://autoneg.github.io/negmas) negotiators. As such, they can be developed using any approach used to develop negotiators in NegMAS.
+The agents for the ANL competition are simple extensions of [NegMAS](https://autoneg.github.io/negmas) negotiators. As such, they can be developed using any approach used to develop negotiators in NegMAS. (1)
 
 To develop a negotiator, you need to inherit from the [ANL2025Negotiator](http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator) class and implement the [`propose()`](http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator.propose) and [`respond()`](http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator.respond).
 
@@ -64,8 +64,8 @@ print(f"Center Utility: {results.center_utility}\nEdge Utilities: {results.edge_
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3870387152920761</span>
-Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6177914447353527</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9891125180017052</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.7858556439249424</span><span style="font-weight: bold">]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.588460462075955</span>
+Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6886619174150261</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.7794044252863676</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.41153953792404474</span><span style="font-weight: bold">]</span>
 </pre>
 
 
@@ -100,8 +100,8 @@ print(f"Center Utility: {results.center_utility}\nEdge Utilities: {results.edge_
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4421613897641405</span>
-Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.8037297701310387</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.672045382805366</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.849260661774922</span><span style="font-weight: bold">]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center Utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.21222802245715938</span>
+Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.914955117205345</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.8300047478605288</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.7685659401279012</span><span style="font-weight: bold">]</span>
 </pre>
 
 
@@ -175,7 +175,7 @@ print(results.final_scores)
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">14.404889350168615</span>, <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5.703482082422124</span>, <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9.841451716763187</span><span style="font-weight: bold">}</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11.356429832597946</span>, <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3.613287467316729</span>, <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11.140994602919358</span><span style="font-weight: bold">}</span>
 </pre>
 
 
@@ -370,12 +370,12 @@ anl2024_tournament(
 
     NameError                                 Traceback (most recent call last)
 
-    Cell In[10], line 1
+    Cell In[11], line 1
     ----> 1 anl2024_tournament(
           2     n_scenarios=1, n_repetitions=3, nologs=True, njobs=-1,
           3     competitors=[MyRandom2025, SimpleRVFitter, Boulware, Conceder]
           4 ).final_scores
-
+    
 
     NameError: name 'anl2024_tournament' is not defined
 

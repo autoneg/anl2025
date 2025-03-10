@@ -2,7 +2,7 @@
 
 NegMAS has several built-in negotiation `Mechanisms`, negotiation agents (`Negotiators`), and `UtilityFunctions`. You can use these to run negotiations as follows.
 
-Imagine a buyer and a seller negotiating over the price of a single object. First, we make an issue "price" with 50 discrete values. Note here, it is possible to create multiple issues, but we will not include that here. If you are interested, see the [NegMAS documentation](https://negmas.readthedocs.io/en/latest/tutorials/01.running_simple_negotiation.html) for a tutorial.
+Imagine a buyer and a seller negotiating over the price of a single object. First, we make an issue "price" with 50 discrete values. Note here, it is possible to create multiple issues, but we will not include that here. If you are interested, see the [NegMAS documentation](https://negmas.readthedocs.io/en/latest/tutorials/01.running_simple_negotiation.html) for a tutorial. (1)
 
 
 ```python
@@ -69,7 +69,7 @@ plt.show()
     <span style="color: #808000; text-decoration-color: #808000">waiting</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
     <span style="color: #808000; text-decoration-color: #808000">started</span>=<span style="color: #00ff00; text-decoration-color: #00ff00; font-style: italic">True</span>,
     <span style="color: #808000; text-decoration-color: #808000">step</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">18</span>,
-    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.003329916999064153</span>,
+    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.004048299975693226</span>,
     <span style="color: #808000; text-decoration-color: #808000">relative_time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9047619047619048</span>,
     <span style="color: #808000; text-decoration-color: #808000">broken</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
     <span style="color: #808000; text-decoration-color: #808000">timedout</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
@@ -83,14 +83,14 @@ plt.show()
     <span style="color: #808000; text-decoration-color: #808000">threads</span>=<span style="font-weight: bold">{}</span>,
     <span style="color: #808000; text-decoration-color: #808000">last_thread</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_offer</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">)</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-7745557b-acef-49d6-9a75-42afd8bdf4fb'</span>,
+    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-2515eb40-48b6-4a82-9178-804c70cfd3af'</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_proposer_agent</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
     <span style="color: #808000; text-decoration-color: #808000">n_acceptances</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-7745557b-acef-49d6-9a75-42afd8bdf4fb'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
+    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-2515eb40-48b6-4a82-9178-804c70cfd3af'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
     <span style="color: #808000; text-decoration-color: #808000">new_offerer_agents</span>=<span style="font-weight: bold">[</span><span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span>,
     <span style="color: #808000; text-decoration-color: #808000">last_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">'seller'</span>,
     <span style="color: #808000; text-decoration-color: #808000">current_data</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_data</span>=<span style="font-weight: bold">[]</span>
+    <span style="color: #808000; text-decoration-color: #808000">new_data</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-2515eb40-48b6-4a82-9178-804c70cfd3af'</span>, <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">)]</span>
 <span style="font-weight: bold">)</span>
 </pre>
 
@@ -195,14 +195,14 @@ print(f"Edge Utilities: {results.edge_utilities}")
 ```
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6195544580820566</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6950491191272049</span>
 </pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5826666310495854</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4009587316768355</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.718963583448751</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5627071793170195</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4361245066527879</span>,
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3046636562699559</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.56354946655363</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4699920908826146</span><span style="font-weight: bold">]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5006916644920066</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2947158934301477</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3723437914967285</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.536544338413959</span>, 
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.31903386564075864</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2488242204543755</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4726159991815505</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3048364027928087</span><span style="font-weight: bold">]</span>
 </pre>
 
 
