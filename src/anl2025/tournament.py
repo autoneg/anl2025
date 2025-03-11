@@ -16,6 +16,16 @@ from negmas.serialization import serialize, deserialize
 from negmas.helpers.inout import load
 from typing import Any
 from anl2025.negotiator import ANL2025Negotiator
+from anl2025.negotiator import (
+    TimeBased2025,
+    Random2025,
+    Boulware2025,
+    Linear2025,
+    Conceder2025,
+    IndependentBoulware2025,
+    IndependentLinear2025,
+    IndependentConceder2025,
+)
 from anl2025.runner import (
     AssignedScenario,
     MultidealScenario,
@@ -27,8 +37,21 @@ from anl2025.runner import (
 from anl2025.common import DEFAULT_METHOD, TYPE_IDENTIFIER
 from attr import define
 
-__all__ = ["Tournament", "TournamentResults", "anl2025_tournament"]
+__all__ = ["Tournament", "TournamentResults", "anl2025_tournament", "DEFAULT_TOURNAMENT_PATH", "DEFAULT_ANL2025_COMPETITORS"]
 
+DEFAULT_TOURNAMENT_PATH = Path.home() / "negmas" / "anl2025" / "tournaments"
+"""Default location to store tournament logs"""
+
+DEFAULT_ANL2025_COMPETITORS = (
+    TimeBased2025,
+    Random2025,
+    Boulware2025,
+    Linear2025,
+    Conceder2025,
+   # IndependentBoulware2025,
+   # IndependentLinear2025,
+   # IndependentConceder2025,
+)
 
 class ScoreRecord(TypedDict):
     """Score of a single run for a single agent
@@ -550,6 +573,7 @@ class Tournament:
             if verbose:
                 print(f"Center Utility: {r.center_utility}")
                 print(f"Edge Utilities: {r.edge_utilities}")
+                print(f"Agreement: {r.agreements}")
 
         if n_jobs is None:
             for job in track(jobs, "Running Negotiations"):
