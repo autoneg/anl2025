@@ -329,9 +329,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-random-multideal-session" class="md-nav__link">
+  <a href="#an-example-multi-deal-session-target-quantity" class="md-nav__link">
     <span class="md-ellipsis">
-      A random multideal-session
+      An example multi-deal session: Target Quantity
     </span>
   </a>
   
@@ -488,9 +488,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-random-multideal-session" class="md-nav__link">
+  <a href="#an-example-multi-deal-session-target-quantity" class="md-nav__link">
     <span class="md-ellipsis">
-      A random multideal-session
+      An example multi-deal session: Target Quantity
     </span>
   </a>
   
@@ -529,72 +529,74 @@
   <h1>Running a negotiation</h1>
 
 <h2 id="running-a-multi-deal-negotiation">Running a Multi-deal negotiation</h2>
-<p>ANL 2025's challenge is to develop agents capable of negotiating sequentially a set of interrelated deals (Multi-deal negotiation). You can create and run a multi-deal negotiation using special tools provided by the anl2025 package. (2)</p>
-<h3 id="a-random-multideal-session">A random multideal-session</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_multideal_scenario</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">scenario</span> <span class="o">=</span> <span class="n">make_multideal_scenario</span><span class="p">(</span><span class="n">nedges</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<p>ANL 2025's challenge is to develop agents capable of negotiating sequentially a set of interrelated deals (multi-deal negotiation). You can create and run a multi-deal negotiation using special tools provided by the anl2025 package. If you haven't read the call for participation yet, do it first <a href="https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link">here</a>. We introduce a target quantity scenario, where a buyer wants to acquire a total of 10 chips from 4 different sellers.</p>
+<h3 id="an-example-multi-deal-session-target-quantity">An example multi-deal session: Target Quantity</h3>
+<p>We provide a set of test scenarios that you can download from the <a href="https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link">ANL 2025 Google Drive</a>. The following code shows how to load a scenario from a folder.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025.scenario</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultidealScenario</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../../scenarios/TargetQuantity_example&quot;</span><span class="p">)</span> <span class="c1">#You can also use a absolute path to the scenario here.</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">scenario</span> <span class="o">=</span> <span class="p">(</span><span class="n">MultidealScenario</span><span class="o">.</span><span class="n">from_folder</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 </span></code></pre></div>
-<p><strong>What just happened?</strong></p>
-<p>We created a random multi-deal session with one center agent and 8 edge agents. The center agent negotiates with all the edge agents. Each one of these negotiations is called a <strong>negotiation thread</strong> and the whole set is called a <strong>multi-deal negotiation</strong>.</p>
-<p>The following figure shows the structure of a typical such scenario (with 8 edge agents). Each one of the <strong>edge agents</strong> has its own utility function $e_i$.</p>
-<p>The <strong>center agent</strong> faces a different challenge. It has one utility function defined for each <strong>negotiation thread</strong> called a <strong>side utility function</strong> ($s_i$). The overall utility of the center agent is some function (called the <strong>combination function</strong>) of the side utilities it gets in all the negotiation threads.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>In ANL 2025, the center agent negotiates with the side agents sequentially. It completes a negotiation with one edge agent before starting the next negotiation with the next edge agent. At no time does the center agent have multiple negotiation threads running at the same time.
+<p>For running a negotiation, we don't just need a scenario: we also need negotiators! Therefore, we add some standard negotiators such as a <code>Random</code> .agent, a <code>Boulware</code> and a <code>Linear</code> conceder. We add a <em>center</em>  agent that negotiates with multiple opponents, the so-called <em>edge agents</em>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025.negotiator</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">Boulware2025</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">Random2025</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">Linear2025</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">centeragent</span> <span class="o">=</span> <span class="n">Boulware2025</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">edgeagents</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">Random2025</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>         <span class="n">Random2025</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">Linear2025</span><span class="p">,</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="n">Boulware2025</span><span class="p">,</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="p">]</span>
 </span></code></pre></div>
-<p>The following figure shows the situation:</p>
-<p><img alt="Example" src="Slide2.jpeg" /></p>
-<p>The function <code>make_multideal_scenario</code> creates such a scenario. The combination function used by default is <code>max</code> (i.e. the center get the maximum utlility it gets in all negotiations) but you can easily change it. See the full documentation of <code>make_multideal_scenario</code> in the Reference for more details of how to control all aspects of scenario  generation.</p>
-<p>The function <code>run_session</code> runs one multi-deal negotiation. Behind the scenes, a lot of things happen in this small function. The function <code>run_session</code> automatically outputs logs of each thread, specifying what bid happened at what round. Moreover, it outputs a graph of the utilities of the center agent and the edge agents. By default, you can find this folder here <strong>...\negmas\anl2025\session</strong>.</p>
+<p>Now the only thing we need to do to run a negotiation, is add this all together. There are many parameters that you can change yourself, such as the center agent, edge agents and maximum number of rounds (<code>nsteps</code>).</p>
+<p>The function <code>run_session</code> runs one sequential multi-deal negotiation. In ANL 2025, the center agent negotiates with the side agents sequentially. It completes a negotiation with one edge agent before starting the next negotiation with the next edge agent. At no time does the center agent have multiple negotiation threads running at the same time.</p>
+<p>Behind the scenes, a lot of things happen in this small function. The function <code>run_session</code> automatically outputs logs of each thread, specifying what bid happened at what round. Moreover, it outputs a graph of the utilities of the center agent and the edge agents. By default, you can find this folder here <strong>...\negmas\anl2025\session</strong>.</p>
 <p>Below, we show the outputted graphs. On the left, one can see the bids that were posed, with the utility of the center agent on the y-axis and the utility of the edge agent on the x-axis. The right figures show the bids over time, one for both agents.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_session</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">scenario</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                <span class="n">scenario</span><span class="o">=</span><span class="n">scenario</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                <span class="n">center_type</span><span class="o">=</span><span class="n">centeragent</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>                <span class="n">edge_types</span><span class="o">=</span><span class="n">edgeagents</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>                <span class="n">nsteps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </span></code></pre></div>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_0.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_1.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_2.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_3.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_4.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_5.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_6.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_3_7.png" /></p>
-<p>Like mentioned, a lot of things happen behind the scenes, with all default parameters. The default parameters are all in line with the criteria of ANL2025, so you can use this function to find your way in the competition. For example, look at the parameters that you can change yourself, such as the center agent, edge agents and maximum number of rounds (<code>nsteps</code>):</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">centeragent</span> <span class="o">=</span> <span class="s2">&quot;Random2025&quot;</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">edgeagents</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        <span class="s2">&quot;Random2025&quot;</span><span class="p">,</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>         <span class="s2">&quot;Linear2025&quot;</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="s2">&quot;Conceder2025&quot;</span><span class="p">]</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">if</span> <span class="kc">False</span><span class="p">:</span> <span class="c1">#this function will not run, remove this line if you want it to run.</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>                <span class="n">scenario</span><span class="o">=</span><span class="n">scenario</span><span class="p">,</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>                <span class="n">center_type</span><span class="o">=</span><span class="n">centeragent</span><span class="p">,</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>                <span class="n">edge_types</span><span class="o">=</span><span class="n">edgeagents</span><span class="p">,</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>                <span class="n">nsteps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-</span></code></pre></div>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_0.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_1.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_2.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_3.png" /></p>
 <p>You can also ask for specific types of output, by looking into <code>results</code>, e.g.:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Center utility: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">center_utility</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Edge Utilities: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">edge_utilities</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Center utility: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">center_utility</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Edge Utilities: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">edge_utilities</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agreement: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">agreements</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6791208014370637</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.75</span>
 </pre>
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5060485396882428</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.35450509230221416</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.12267779385397526</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5064350674273554</span>, 
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.24553354182761672</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3970562756419826</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5104462765059676</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2949765313028028</span><span style="font-weight: bold">]</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.25</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.75</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4</span><span style="font-weight: bold">]</span>
+</pre>
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Agreement: <span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'4'</span>,<span style="font-weight: bold">)</span>, <span style="font-weight: bold">(</span><span style="color: #008000; text-decoration-color: #008000">'5'</span>,<span style="font-weight: bold">)</span>, <span style="font-weight: bold">(</span><span style="color: #008000; text-decoration-color: #008000">'3'</span>,<span style="font-weight: bold">)</span>, <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span>
 </pre>
 
 <h3 id="a-dinners-scheduling-session">A dinners' scheduling session</h3>
 <p>In the previous example, the center utility function was defined in terms of individual side utility functions (one per negotiation threads). A more general case is when the center utility function is defined directly in terms of the outcomes of negotiation threads without locally defined utility functions. The following figure shows an example of this kind of scenario:</p>
 <p><img alt="Global Utility Function Example" src="Slide1.jpeg" /></p>
 <p>The <code>anl2025</code> package allows you to create such scenarios using the <code>LambdaCenterUFun</code> class (See Reference). One class of these scenarios is the <strong>Dinners</strong> scenarios in which one person (center agent) is negotiating with her friends (edge agents) about the day to go out for dinner. Each friend has her own utility function for different days. The center agent has a utility for each combination of agreements (i.e. she may prefer to go out once every night except in Tuesdays,</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_dinners_scenario</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">make_dinners_scenario</span><span class="p">(</span><span class="n">n_friends</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_dinners_scenario</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">make_dinners_scenario</span><span class="p">(</span><span class="n">n_friends</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
 </span></code></pre></div>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_0.png" /></p>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_1.png" /></p>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_2.png" /></p>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_3.png" /></p>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_4.png" /></p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>
 </span></code></pre></div>
 <a href="/anl2025/tutorials/notebooks/Tutorial_run_a_negotiation.ipynb">Download Notebook</a></p>
 
