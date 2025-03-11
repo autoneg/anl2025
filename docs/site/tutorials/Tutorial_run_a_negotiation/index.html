@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#running-a-single-thread-negotiation" class="md-skip">
+        <a href="#running-a-multi-deal-negotiation" class="md-skip">
           Skip to content
         </a>
       
@@ -281,8 +281,18 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Running a negotiation
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -294,6 +304,56 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-a-multi-deal-negotiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running a Multi-deal negotiation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running a Multi-deal negotiation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#an-example-multi-deal-session-target-quantity" class="md-nav__link">
+    <span class="md-ellipsis">
+      An example multi-deal session: Target Quantity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-dinners-scheduling-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      A dinners' scheduling session
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -410,8 +470,47 @@
   
   
   
-    
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-a-multi-deal-negotiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running a Multi-deal negotiation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running a Multi-deal negotiation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#an-example-multi-deal-session-target-quantity" class="md-nav__link">
+    <span class="md-ellipsis">
+      An example multi-deal session: Target Quantity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-dinners-scheduling-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      A dinners' scheduling session
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -427,142 +526,77 @@
 
 
 
-<h1 id="running-a-single-thread-negotiation">Running a single-thread negotiation</h1>
-<p>NegMAS has several built-in negotiation <code>Mechanisms</code>, negotiation agents (<code>Negotiators</code>), and <code>UtilityFunctions</code>. You can use these to run negotiations as follows.</p>
-<p>Imagine a buyer and a seller negotiating over the price of a single object. First, we make an issue "price" with 50 discrete values. Note here, it is possible to create multiple issues, but we will not include that here. If you are interested, see the <a href="https://negmas.readthedocs.io/en/latest/tutorials/01.running_simple_negotiation.html">NegMAS documentation</a> for a tutorial. (1)</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">negmas</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">make_issue</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">SAOMechanism</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   <span class="n">TimeBasedConcedingNegotiator</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl.anl2024.negotiators</span><span class="w"> </span><span class="kn">import</span> <span class="n">Boulware</span><span class="p">,</span> <span class="n">Conceder</span><span class="p">,</span> <span class="n">RVFitter</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">negmas.preferences</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearAdditiveUtilityFunction</span> <span class="k">as</span> <span class="n">UFun</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">negmas.preferences.value_fun</span><span class="w"> </span><span class="kn">import</span> <span class="n">IdentityFun</span><span class="p">,</span> <span class="n">AffineFun</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># create negotiation agenda (issues)</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">issues</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">make_issue</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="mi">50</span><span class="p">),</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">]</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="c1"># create the mechanism</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">session</span> <span class="o">=</span> <span class="n">SAOMechanism</span><span class="p">(</span><span class="n">issues</span><span class="o">=</span><span class="n">issues</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+  <h1>Running a negotiation</h1>
+
+<h2 id="running-a-multi-deal-negotiation">Running a Multi-deal negotiation</h2>
+<p>ANL 2025's challenge is to develop agents capable of negotiating sequentially a set of interrelated deals (multi-deal negotiation). You can create and run a multi-deal negotiation using special tools provided by the anl2025 package. If you haven't read the call for participation yet, do it first <a href="https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link">here</a>. We introduce a target quantity scenario, where a buyer wants to acquire a total of 10 chips from 4 different sellers.</p>
+<h3 id="an-example-multi-deal-session-target-quantity">An example multi-deal session: Target Quantity</h3>
+<p>We provide a set of test scenarios that you can download from the <a href="https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link">ANL 2025 Google Drive</a>. The following code shows how to load a scenario from a folder.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025.scenario</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultidealScenario</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../../scenarios/TargetQuantity_example&quot;</span><span class="p">)</span> <span class="c1">#You can also use a absolute path to the scenario here.</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">scenario</span> <span class="o">=</span> <span class="p">(</span><span class="n">MultidealScenario</span><span class="o">.</span><span class="n">from_folder</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 </span></code></pre></div>
-<p>The negotiation protocol in NegMAS is handled by a <code>Mechanism</code> object. Here we instantiate a<code>SAOMechanism</code> which implements the <a href="https://ii.tudelft.nl/~catholijn/publications/sites/default/files/Aydogan2017_Chapter_AlternatingOffersProtocolsForM.pdf">Stacked Alternating Offers Protocol</a>. In this protocol, negotiators exchange offers until an offer is accepted by all negotiators (in this case 2), a negotiators leaves the table ending the negotiation or a time-out condition is met. In the example above, we use a limit on the number of rounds of <code>20</code> (a step of a mechanism is an executed round).</p>
-<p>Next, we define the utilities of the seller and the buyer. The utility function of the seller is defined by the <code>IdentityFun</code>  which means that the higher the price, the higher the utility function. The buyer's utility function is reversed. The last two lines make sure that utility is scaled between 0 and 1.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">seller_utility</span> <span class="o">=</span> <span class="n">UFun</span><span class="p">(</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="n">IdentityFun</span><span class="p">()],</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">outcome_space</span><span class="o">=</span><span class="n">session</span><span class="o">.</span><span class="n">outcome_space</span><span class="p">,</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">buyer_utility</span> <span class="o">=</span> <span class="n">UFun</span><span class="p">(</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="n">AffineFun</span><span class="p">(</span><span class="n">slope</span><span class="o">=-</span><span class="mi">1</span><span class="p">)],</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">outcome_space</span><span class="o">=</span><span class="n">session</span><span class="o">.</span><span class="n">outcome_space</span><span class="p">,</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">)</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">seller_utility</span> <span class="o">=</span> <span class="n">seller_utility</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">buyer_utility</span> <span class="o">=</span> <span class="n">buyer_utility</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+<p>For running a negotiation, we don't just need a scenario: we also need negotiators! Therefore, we add some standard negotiators such as a <code>Random</code> .agent, a <code>Boulware</code> and a <code>Linear</code> conceder. We add a <em>center</em>  agent that negotiates with multiple opponents, the so-called <em>edge agents</em>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025.negotiator</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">Boulware2025</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">Random2025</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">Linear2025</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">centeragent</span> <span class="o">=</span> <span class="n">Boulware2025</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">edgeagents</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">Random2025</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>         <span class="n">Random2025</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">Linear2025</span><span class="p">,</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="n">Boulware2025</span><span class="p">,</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="p">]</span>
 </span></code></pre></div>
-<p>Then we add two agents with a boulware strategy. The negotiation ends with status overview. For example, you can see if the negotiation timed-out, what agreement was found, and how long the negotiation took. Moreover, we output the full negotiation history. For a more visual representation, we can plot the session. This shows the bidding curve, but also the proximity to e.g. the Nash point.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># create and add agent A and B</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Boulware</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;seller&quot;</span><span class="p">),</span> <span class="n">ufun</span><span class="o">=</span><span class="n">seller_utility</span><span class="p">)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Boulware</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;buyer&quot;</span><span class="p">),</span> <span class="n">ufun</span><span class="o">=</span><span class="n">buyer_utility</span><span class="p">)</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># run the negotiation and show the results</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">())</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">session</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ylimits</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">),</span> <span class="n">show_reserved</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mark_max_welfare_points</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<p>Now the only thing we need to do to run a negotiation, is add this all together. There are many parameters that you can change yourself, such as the center agent, edge agents and maximum number of rounds (<code>nsteps</code>).</p>
+<p>The function <code>run_session</code> runs one sequential multi-deal negotiation. In ANL 2025, the center agent negotiates with the side agents sequentially. It completes a negotiation with one edge agent before starting the next negotiation with the next edge agent. At no time does the center agent have multiple negotiation threads running at the same time.</p>
+<p>Behind the scenes, a lot of things happen in this small function. The function <code>run_session</code> automatically outputs logs of each thread, specifying what bid happened at what round. Moreover, it outputs a graph of the utilities of the center agent and the edge agents. By default, you can find this folder here <strong>...\negmas\anl2025\session</strong>.</p>
+<p>Below, we show the outputted graphs. On the left, one can see the bids that were posed, with the utility of the center agent on the y-axis and the utility of the edge agent on the x-axis. The right figures show the bids over time, one for both agents.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_session</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                <span class="n">scenario</span><span class="o">=</span><span class="n">scenario</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                <span class="n">center_type</span><span class="o">=</span><span class="n">centeragent</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>                <span class="n">edge_types</span><span class="o">=</span><span class="n">edgeagents</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>                <span class="n">nsteps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </span></code></pre></div>
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">SAOState</span><span style="font-weight: bold">(</span>
-    <span style="color: #808000; text-decoration-color: #808000">running</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">waiting</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">started</span>=<span style="color: #00ff00; text-decoration-color: #00ff00; font-style: italic">True</span>,
-    <span style="color: #808000; text-decoration-color: #808000">step</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">18</span>,
-    <span style="color: #808000; text-decoration-color: #808000">time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.004048299975693226</span>,
-    <span style="color: #808000; text-decoration-color: #808000">relative_time</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.9047619047619048</span>,
-    <span style="color: #808000; text-decoration-color: #808000">broken</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">timedout</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">agreement</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">)</span>,
-    <span style="color: #808000; text-decoration-color: #808000">results</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
-    <span style="color: #808000; text-decoration-color: #808000">n_negotiators</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,
-    <span style="color: #808000; text-decoration-color: #808000">has_error</span>=<span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
-    <span style="color: #808000; text-decoration-color: #808000">error_details</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
-    <span style="color: #808000; text-decoration-color: #808000">erred_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
-    <span style="color: #808000; text-decoration-color: #808000">erred_agent</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
-    <span style="color: #808000; text-decoration-color: #808000">threads</span>=<span style="font-weight: bold">{}</span>,
-    <span style="color: #808000; text-decoration-color: #808000">last_thread</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_offer</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">)</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_proposer</span>=<span style="color: #008000; text-decoration-color: #008000">'seller-2515eb40-48b6-4a82-9178-804c70cfd3af'</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_proposer_agent</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
-    <span style="color: #808000; text-decoration-color: #808000">n_acceptances</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_offers</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-2515eb40-48b6-4a82-9178-804c70cfd3af'</span>, <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>,<span style="font-weight: bold">))]</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_offerer_agents</span>=<span style="font-weight: bold">[</span><span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span>,
-    <span style="color: #808000; text-decoration-color: #808000">last_negotiator</span>=<span style="color: #008000; text-decoration-color: #008000">'seller'</span>,
-    <span style="color: #808000; text-decoration-color: #808000">current_data</span>=<span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
-    <span style="color: #808000; text-decoration-color: #808000">new_data</span>=<span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'seller-2515eb40-48b6-4a82-9178-804c70cfd3af'</span>, <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">)]</span>
-<span style="font-weight: bold">)</span>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_0.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_1.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_2.png" /></p>
+<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_3.png" /></p>
+<p>You can also ask for specific types of output, by looking into <code>results</code>, e.g.:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Center utility: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">center_utility</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Edge Utilities: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">edge_utilities</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agreement: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">agreements</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.75</span>
 </pre>
 
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_6_1.png" /></p>
-<h1 id="running-a-multi-deal-negotiation">Running a Multi-deal negotiation</h1>
-<p>ANL 2025's challenge is to develop agents capable of negotiating sequentially a set of interrelated deals (Multi-deal negotiation). You can create and run a multi-deal negotiation using special tools provided by the anl2025 package.</p>
-<h2 id="a-random-multideal-session">A random multideal-session</h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_multideal_scenario</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">scenario</span> <span class="o">=</span> <span class="n">make_multideal_scenario</span><span class="p">(</span><span class="n">nedges</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-</span></code></pre></div>
-<p><strong>What just happened?</strong></p>
-<p>We created a random multi-deal session with one center agent and 8 edge agents. The center agent negotiates with all the edge agents. Each one of these negotiations is called a <strong>negotiation thread</strong> and the whole set is called a <strong>multideal negotiation</strong>.</p>
-<p>The following figure shows the structure of a typical such scenario (with 8 instead of 10 edge agents). Each one of the <strong>edge agents</strong> has its own utility function $e_i$ and is in the same kind of situation as the buyer and seller in the previous example.</p>
-<p>The <strong>center agent</strong> faces a different challenge. It has one utility function defined for each <strong>negotiation thread</strong> called a <strong>side utility function</strong> ($s_i$). The overall utility of the center agent is some function (called the <strong>combination function</strong>) of the side utilities it gets in all the negotiation threads. </p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>In ANL 2025, the center agent negotiates with the side agents sequentially. It completes a negotiation with one edge agent before starting the next negotiation with the next edge agent. At no time does the center agent have multiple negotiation threads running at the same time. 
-</span></code></pre></div>
-<p>The following figure shows the situation:</p>
-<p><img alt="Example" src="Slide2.jpeg" /></p>
-<p>The function <code>make_multideal_scenario</code> creates such a scenario. The combination function used by default is <code>max</code> (i.e. the center get the maximum utlility it gets in all negotiations) but you can easily change it. See the full documentation of <code>make_multideal_scenario</code> in the Reference for more details of how to control all aspects of scenario  generation.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_session</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">scenario</span><span class="p">)</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.25</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.75</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4</span><span style="font-weight: bold">]</span>
+</pre>
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Agreement: <span style="font-weight: bold">[(</span><span style="color: #008000; text-decoration-color: #008000">'4'</span>,<span style="font-weight: bold">)</span>, <span style="font-weight: bold">(</span><span style="color: #008000; text-decoration-color: #008000">'5'</span>,<span style="font-weight: bold">)</span>, <span style="font-weight: bold">(</span><span style="color: #008000; text-decoration-color: #008000">'3'</span>,<span style="font-weight: bold">)</span>, <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">]</span>
+</pre>
+
+<h3 id="a-dinners-scheduling-session">A dinners' scheduling session</h3>
+<p>In the previous example, the center utility function was defined in terms of individual side utility functions (one per negotiation threads). A more general case is when the center utility function is defined directly in terms of the outcomes of negotiation threads without locally defined utility functions. The following figure shows an example of this kind of scenario:</p>
+<p><img alt="Global Utility Function Example" src="Slide1.jpeg" /></p>
+<p>The <code>anl2025</code> package allows you to create such scenarios using the <code>LambdaCenterUFun</code> class (See Reference). One class of these scenarios is the <strong>Dinners</strong> scenarios in which one person (center agent) is negotiating with her friends (edge agents) about the day to go out for dinner. Each friend has her own utility function for different days. The center agent has a utility for each combination of agreements (i.e. she may prefer to go out once every night except in Tuesdays,</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_dinners_scenario</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">make_dinners_scenario</span><span class="p">(</span><span class="n">n_friends</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
 </span></code></pre></div>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_0.png" /></p>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_1.png" /></p>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_2.png" /></p>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_3.png" /></p>
 <p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_4.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_5.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_6.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_10_7.png" /></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Center utility: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">center_utility</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Edge Utilities: </span><span class="si">{</span><span class="n">results</span><span class="o">.</span><span class="n">edge_utilities</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Center utility: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6950491191272049</span>
-</pre>
-
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Edge Utilities: <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5006916644920066</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2947158934301477</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3723437914967285</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.536544338413959</span>, 
-<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.31903386564075864</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2488242204543755</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4726159991815505</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3048364027928087</span><span style="font-weight: bold">]</span>
-</pre>
-
-<h3 id="a-dinners-scheduling-session">A dinners' scheduling session</h3>
-<p>In the previous example, the center utility function was defined in terms of individual side utility functions (one per negotiation threads). A more general case is when the center utility function is defined directly in terms of the outcomes of negotiation threads without locally defined utility functions. The following figure shows an example of this kind of scenario:</p>
-<p><img alt="Global Utility Function Example" src="Slide1.jpeg" /></p>
-<p>The <code>anl2025</code> package allows you to create such scenarios using the <code>LambdaCenterUFun</code> class (See Reference). One class of these sceanrios is the <strong>Dinners</strong> scenarios in which one person (center agent) is negotiating with her friends (edge agents) about the day to go out for dinner. Each friend has her own utility function for different days. The cener agent has a utility for each combination of agreements (i.e. she may prefer to go out once every night except in Tuesdays,</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_dinners_scenario</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">results</span> <span class="o">=</span> <span class="n">run_session</span><span class="p">(</span><span class="n">make_dinners_scenario</span><span class="p">(</span><span class="n">n_friends</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
-</span></code></pre></div>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_0.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_1.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_2.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_3.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_4.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_5.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_6.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_7.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_8.png" /></p>
-<p><img alt="png" src="../Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_13_9.png" /></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>
-</span></code></pre></div>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>
 </span></code></pre></div>
 <a href="/anl2025/tutorials/notebooks/Tutorial_run_a_negotiation.ipynb">Download Notebook</a></p>
 

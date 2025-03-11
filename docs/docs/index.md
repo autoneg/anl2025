@@ -13,7 +13,7 @@ This package is a thin-wrapper around the [NegMAS](https://negmas.readthedocs.io
 
 The official website for the ANL competition is: [https://scml.cs.brown.edu/anl](https://scml.cs.brown.edu/anl)
 
-# Challenge ANL 2025
+## Challenge ANL 2025
 The Automated Negotiating Agent Competition (ANAC) is an international tournament that has been running since 2010 to bring together researchers from the negotiation community. In the Automated Negotiation League (ANL), participants explore the strategies and difficulties in creating efficient agents whose primary purpose is to negotiate with other agent's strategies. Every year, the league presents a different challenge for the participating agents. This year's challenge is:
 
 **Design and build a negotiation agent for sequential multi-deal negotiation. The agent encounters multiple opponents in sequence and is rewarded for the specific combination of the deals made in each negotiation.**
@@ -21,6 +21,7 @@ The Automated Negotiating Agent Competition (ANAC) is an international tournamen
 If you would like to read more on the challenge, check out the call for participation [here](https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link). 
 
 ## Quick start
+*For a more detailed installation guide, please refer to the [Installation](https://autoneg.github.io/anl2025/install) page.*
 
 ```bash
 pip install anl2025
