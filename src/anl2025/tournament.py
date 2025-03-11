@@ -113,8 +113,14 @@ class TournamentResults:
     """Results of a tournament"""
 
     final_scores: dict[str, float]
+    final_scoresE: dict[str, float]
+    final_scoresC: dict[str, float]
+    center_count: dict[str, float]
+    edge_count: dict[str, float]
+    weighted_average: dict[str, float]
     scores: list[ScoreRecord]
     session_results: list[SessionInfo]
+
 
 
 def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, SessionInfo]:
@@ -436,6 +442,11 @@ class Tournament:
         results = []
         assert isinstance(self.competitor_params, tuple)
         final_scores = defaultdict(float)
+        final_scoresC = defaultdict(float)
+        final_scoresE = defaultdict(float)
+        count_edge = defaultdict(float)
+        count_center = defaultdict(float)
+
         scores = []
         center_multiplier_val = center_multiplier
 
@@ -555,6 +566,8 @@ class Tournament:
                 )
             )
             final_scores[cname] += r.center_utility
+            final_scoresC[cname] += r.center_utility
+            count_center[cname] += 1
             for e, (c, p) in enumerate(job.edge_info[: job.nedges_counted]):
                 cname = type_name(c) if not p else f"{type_name(c)}_{hash(str(p))}"
                 scores.append(
@@ -570,6 +583,9 @@ class Tournament:
                     )
                 )
                 final_scores[cname] += r.edge_utilities[e]
+                final_scoresE[cname] += r.edge_utilities[e]
+                count_edge[cname] += 1
+
             if verbose:
                 print(f"Center Utility: {r.center_utility}")
                 print(f"Edge Utilities: {r.edge_utilities}")
@@ -595,8 +611,19 @@ class Tournament:
                     except Exception as e:
                         print(f"Job failed with exception: {e}")
 
+        weighted_average = {}
+        for agent in final_scores.keys():
+            average_score_E = final_scoresE[agent] / count_edge[agent]
+            average_score_C = final_scoresC[agent] / count_center[agent]
+            weighted_average[agent] = 0.5 * (average_score_C + average_score_E)
+
         return TournamentResults(
-            final_scores={k: v for k, v in final_scores.items()},
+            final_scores={k : v for k, v in final_scores.items()},
+            edge_count={k: v for k, v in count_edge.items()},
+            center_count={k: v for k, v in count_center.items()},
+            final_scoresC={k : v for k, v in final_scoresC.items()},
+            final_scoresE={k : v for k, v in final_scoresE.items()},
+            weighted_average={k : v for k, v in weighted_average.items()},
             scores=scores,
             session_results=results,
         )
