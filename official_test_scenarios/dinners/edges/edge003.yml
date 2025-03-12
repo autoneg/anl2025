@@ -1,0 +1,11 @@
+name: Steve
+reserved_value: 0.1
+type: LinearAdditiveUtilityFunction
+values:
+- type: TableFun
+  mapping:
+    'Mon': 0.09
+    'Tue': 1.0
+    'Wed': 0.0
+weights:
+- 1.0
