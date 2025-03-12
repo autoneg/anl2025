@@ -613,8 +613,8 @@ class Tournament:
 
         weighted_average = {}
         for agent in final_scores.keys():
-            average_score_E = final_scoresE[agent] / count_edge[agent]
-            average_score_C = final_scoresC[agent] / count_center[agent]
+            average_score_E = final_scoresE[agent] / count_edge[agent] if count_edge[agent] > 0 else 0
+            average_score_C = final_scoresC[agent] / count_center[agent] if count_center[agent] > 0 else 0
             weighted_average[agent] = 0.5 * (average_score_C + average_score_E)
 
         return TournamentResults(
