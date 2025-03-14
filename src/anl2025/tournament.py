@@ -127,6 +127,8 @@ class TournamentResults:
 
 
 def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, SessionInfo]:
+    if verbose:
+        print(f"Scenario {job.assigned.scenario.name}")
     assigned = job.assigned
     output = job.output
     sname = job.sname
