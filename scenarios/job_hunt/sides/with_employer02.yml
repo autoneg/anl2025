@@ -1,4 +1,4 @@
-id: with_employer02-fefe2ddb-7415-430a-99ea-24174784a1fc
+id: with_employer02-c82a95c4-044d-4c77-aa1b-ca3eafa2dd4c
 name: with_employer02
 outcome_space:
   issues:
@@ -23,20 +23,20 @@ reserved_value: 0.0
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:
 - mapping:
-    0: 0.19111087780204958
-    1: 0.6010410896922586
-    2: 1.0
-    3: 0.0
-    4: 0.75
-    5: 0.0
+    0: 0.7005231100382506
+    1: 0.6140038564656777
+    2: 0.13386485751577892
+    3: 0.6992127987418442
+    4: 0.7488590724033962
+    5: 0.09947877609204403
   type: negmas.preferences.value_fun.TableFun
 - mapping:
-    100: 0.7319370776590453
-    150: 0.7319370776590453
-    200: 0.7319370776590453
-    250: 1.0
-    300: 0.0
+    100: 0.5776582960433991
+    150: 0.5776582960433991
+    200: 0.5776582960433991
+    250: 0.0
+    300: 1.0
   type: negmas.preferences.value_fun.TableFun
 weights:
-- 0.22908053603839287
-- 0.7709194639616072
+- 0.8210833653640851
+- 0.1789166346359149

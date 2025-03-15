@@ -1,4 +1,4 @@
-id: employer01-15b14701-2d6f-4b00-861a-a113056fbba4
+id: employer01-1c6c87dc-845c-49fd-82cd-4e4c1c213550
 name: employer01
 outcome_space:
   issues:
@@ -23,20 +23,20 @@ reserved_value: 0.0
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:
 - mapping:
-    0: 1.0
-    1: 1.0
-    2: 0.25
-    3: 0.0
-    4: 0.6102125470965314
-    5: 0.4768099719394491
+    0: 0.6141182481095493
+    1: 0.0
+    2: 1.0
+    3: 1.0
+    4: 0.6141182481095493
+    5: 0.0
   type: negmas.preferences.value_fun.TableFun
 - mapping:
     100: 0.0
-    150: 0.5320511400102885
-    200: 0.5320511400102885
-    250: 1.0
-    300: 1.0
+    150: 1.0
+    200: 1.0
+    250: 0.6635204716725405
+    300: 0.33333333333333337
   type: negmas.preferences.value_fun.TableFun
 weights:
-- 0.45995176711729624
-- 0.5400482328827039
+- 0.6753358875725803
+- 0.32466411242741966

@@ -1,4 +1,4 @@
-id: supplier02-8edfbbed-7803-4054-b9c7-df27c0c96854
+id: supplier02-1bda8259-52a0-4280-b765-1ac2ba2f5db8
 name: supplier02
 outcome_space:
   issues:
@@ -16,9 +16,9 @@ values:
 - mapping:
     1: 0.0
     2: 0.0
-    3: 0.49001306886038076
-    4: 1.0
-    5: 0.45641815724728907
+    3: 0.29012825794402636
+    4: 0.6450641289720132
+    5: 1.0
   type: negmas.preferences.value_fun.TableFun
 weights:
 - 1.0
