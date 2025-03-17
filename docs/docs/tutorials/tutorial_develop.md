@@ -1,6 +1,6 @@
-# ANL 2025 Tutorial
+# Developing a negotiator
 *The corresponding code for the tutorials can be found in the [ANL2025 Drive](https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link) or at the ANL2025 Github repository.*
-## Developing a negotiator
+
 
 The agents for the ANL competition are simple extensions of [NegMAS](https://autoneg.github.io/negmas) negotiators. As such, they can be developed using any approach used to develop negotiators in NegMAS.
 
