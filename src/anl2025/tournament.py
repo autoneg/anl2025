@@ -22,9 +22,6 @@ from anl2025.negotiator import (
     Boulware2025,
     Linear2025,
     Conceder2025,
-    IndependentBoulware2025,
-    IndependentLinear2025,
-    IndependentConceder2025,
 )
 from anl2025.runner import (
     AssignedScenario,
@@ -37,7 +34,13 @@ from anl2025.runner import (
 from anl2025.common import DEFAULT_METHOD, TYPE_IDENTIFIER
 from attr import define
 
-__all__ = ["Tournament", "TournamentResults", "anl2025_tournament", "DEFAULT_TOURNAMENT_PATH", "DEFAULT_ANL2025_COMPETITORS"]
+__all__ = [
+    "Tournament",
+    "TournamentResults",
+    "anl2025_tournament",
+    "DEFAULT_TOURNAMENT_PATH",
+    "DEFAULT_ANL2025_COMPETITORS",
+]
 
 DEFAULT_TOURNAMENT_PATH = Path.home() / "negmas" / "anl2025" / "tournaments"
 """Default location to store tournament logs"""
@@ -48,10 +51,11 @@ DEFAULT_ANL2025_COMPETITORS = (
     Boulware2025,
     Linear2025,
     Conceder2025,
-   # IndependentBoulware2025,
-   # IndependentLinear2025,
-   # IndependentConceder2025,
+    # IndependentBoulware2025,
+    # IndependentLinear2025,
+    # IndependentConceder2025,
 )
+
 
 class ScoreRecord(TypedDict):
     """Score of a single run for a single agent
@@ -122,8 +126,9 @@ class TournamentResults:
     session_results: list[SessionInfo]
 
 
-
 def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, SessionInfo]:
+    if verbose:
+        print(f"Scenario {job.assigned.scenario.name}")
     assigned = job.assigned
     output = job.output
     sname = job.sname
@@ -565,8 +570,8 @@ class Tournament:
                     index=0,
                 )
             )
-            final_scores[cname] += r.center_utility
-            final_scoresC[cname] += r.center_utility
+            final_scores[cname] += r.center_utility * center_multiplier
+            final_scoresC[cname] += r.center_utility * center_multiplier
             count_center[cname] += 1
             for e, (c, p) in enumerate(job.edge_info[: job.nedges_counted]):
                 cname = type_name(c) if not p else f"{type_name(c)}_{hash(str(p))}"
@@ -582,8 +587,8 @@ class Tournament:
                         index=e + 1,
                     )
                 )
-                final_scores[cname] += r.edge_utilities[e]
-                final_scoresE[cname] += r.edge_utilities[e]
+                final_scores[cname] += r.edge_utilities[e] * edge_multiplier
+                final_scoresE[cname] += r.edge_utilities[e] * edge_multiplier
                 count_edge[cname] += 1
 
             if verbose:
@@ -613,17 +618,23 @@ class Tournament:
 
         weighted_average = {}
         for agent in final_scores.keys():
-            average_score_E = final_scoresE[agent] / count_edge[agent] if count_edge[agent] > 0 else 0
-            average_score_C = final_scoresC[agent] / count_center[agent] if count_center[agent] > 0 else 0
+            average_score_E = (
+                final_scoresE[agent] / count_edge[agent] if count_edge[agent] > 0 else 0
+            )
+            average_score_C = (
+                final_scoresC[agent] / count_center[agent]
+                if count_center[agent] > 0
+                else 0
+            )
             weighted_average[agent] = 0.5 * (average_score_C + average_score_E)
 
         return TournamentResults(
-            final_scores={k : v for k, v in final_scores.items()},
+            final_scores={k: v for k, v in final_scores.items()},
             edge_count={k: v for k, v in count_edge.items()},
             center_count={k: v for k, v in count_center.items()},
-            final_scoresC={k : v for k, v in final_scoresC.items()},
-            final_scoresE={k : v for k, v in final_scoresE.items()},
-            weighted_average={k : v for k, v in weighted_average.items()},
+            final_scoresC={k: v for k, v in final_scoresC.items()},
+            final_scoresE={k: v for k, v in final_scoresE.items()},
+            weighted_average={k: v for k, v in weighted_average.items()},
             scores=scores,
             session_results=results,
         )
