@@ -49,13 +49,13 @@ anl2025 version
 You should get at least these versions:
 
 ```bash
-anl: 0.1.5 (NegMAS: 0.10.9)
+anl: 0.1.0 (NegMAS: 0.11.2)
 ```
 
 For a test tournament, you can use the command line interface (CLI):
 
 ```bash
-anl tournament run --generate=5
+anl2025 tournament run --generate=5
 ```
 
 If no errors are shown, you have successfully installed ANL! You can now start developing your agent.
@@ -76,13 +76,6 @@ After downloading and unpacking the template, you should do the following steps:
       python -m myagent.myagent
       ```
     - You can also use your favorite IDE, and run the `myagent.py` file directly.
-    - Use the `anl2025` command line utility from the root folder of the extracted skeleton:
-      ```bash
-      anl2025 tournament run --generate=5
-      ```
-      This method is more flexible as you can control all aspects of the tournament to run.
-      Use `anl2025 tournament run --help`  to see all available options.
-
     - You can directly call `anl2025_tournament()` passing your agent as one of the competitors. This is the most flexible method and will be used in the tutorial.
 Check out the tutorials for more details!
 

@@ -549,10 +549,10 @@ You should always activate your virtual environment using:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>anl2025<span class="w"> </span>version
 </span></code></pre></div>
 <p>You should get at least these versions:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>anl:<span class="w"> </span><span class="m">0</span>.1.5<span class="w"> </span><span class="o">(</span>NegMAS:<span class="w"> </span><span class="m">0</span>.10.9<span class="o">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>anl:<span class="w"> </span><span class="m">0</span>.1.0<span class="w"> </span><span class="o">(</span>NegMAS:<span class="w"> </span><span class="m">0</span>.11.2<span class="o">)</span>
 </span></code></pre></div>
 <p>For a test tournament, you can use the command line interface (CLI):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>anl<span class="w"> </span>tournament<span class="w"> </span>run<span class="w"> </span>--generate<span class="o">=</span><span class="m">5</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>anl2025<span class="w"> </span>tournament<span class="w"> </span>run<span class="w"> </span>--generate<span class="o">=</span><span class="m">5</span>
 </span></code></pre></div>
 <p>If no errors are shown, you have successfully installed ANL! You can now start developing your agent.</p>
 <h2 id="3-development">3. Development</h2>
@@ -571,17 +571,8 @@ After downloading and unpacking the template, you should do the following steps:
   <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>-m<span class="w"> </span>myagent.myagent
 </span></code></pre></div></li>
 <li>You can also use your favorite IDE, and run the <code>myagent.py</code> file directly.</li>
-<li>
-<p>Use the <code>anl2025</code> command line utility from the root folder of the extracted skeleton:
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>anl2025<span class="w"> </span>tournament<span class="w"> </span>run<span class="w"> </span>--generate<span class="o">=</span><span class="m">5</span>
-</span></code></pre></div>
-  This method is more flexible as you can control all aspects of the tournament to run.
-  Use <code>anl2025 tournament run --help</code>  to see all available options.</p>
-</li>
-<li>
-<p>You can directly call <code>anl2025_tournament()</code> passing your agent as one of the competitors. This is the most flexible method and will be used in the tutorial.
-Check out the tutorials for more details!</p>
-</li>
+<li>You can directly call <code>anl2025_tournament()</code> passing your agent as one of the competitors. This is the most flexible method and will be used in the tutorial.
+Check out the tutorials for more details!</li>
 </ul>
 </li>
 <li>
