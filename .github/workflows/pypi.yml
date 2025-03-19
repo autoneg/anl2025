@@ -1,0 +1,29 @@
+name: PyPI
+on: push
+jobs:
+  build-n-publish:
+    name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 60
+    steps:
+      - uses: "actions/checkout@v4"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      - name: Setup Python
+        run: uv python install
+      - name: Install the project
+        run: |
+          uv sync --all-extras --dev
+          uv pip install -e "."
+      - name: Run tests
+        run: "uv run pytest src/anl2025 tests || uv run pytest --last-failed src/anl2025 tests"
+      - name: "Build package"
+        run: uv build
+      - name: "Check long_description"
+        run: "uv run twine check dist/*"
+      - name: Publish distribution 📦 to PyPI
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.pypiapitoken }}
