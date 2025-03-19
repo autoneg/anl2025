@@ -1,15 +1,12 @@
 # ANL 2025 Documentation
 
-This repository is the official platform for running ANAC Automated Negotiation Leagues (starting 2025). It will contain a module
-called `anlXXXX` for the competition run in year XXXX. For example anl2025 will contain all files related to the
-2025's version of the competition.
-
+This repository is the official platform for running ANAC Automated Negotiation Leagues for year 2025. 
 This package is a thin-wrapper around the [NegMAS](https://negmas.readthedocs.io) library for automated negotiation. Its main goal is to provide the following functionalities:
 
-1. A method for generating scenarios to run tournaments in the same settings as in the ANL competition. These functions are always called `anl20XX_tournament` for year `20XX`.
+1. A method for generating scenarios to run tournaments in the same settings as in the ANL competition. These functions are always called `anl2025_tournament` for year `2025`.
 1. A command line interface (CLI) for running tournaments called `anl`.
 <!-- 1. A visualizer for inspecting tournament results and negotiations in details called `anlv`. -->
-1. A place to hold the official implementation of every strategy submitted to the ANL competition after each year. These can be found in the module `anl.anl20XX.negotiators` for year `20XX`.
+1. A place to hold the official implementation of every strategy submitted to the ANL competition after each year. These can be found in the module `anl.anl2025.negotiator` for year `2025`.
 
 The official website for the ANL competition is: [https://anac.cs.brown.edu/anl](https://anac.cs.brown.edu/anl)
 
