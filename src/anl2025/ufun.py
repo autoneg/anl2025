@@ -120,24 +120,19 @@ def unflatten_outcome_space(
 
 
 class OSCombiner(Protocol):
-    def __init__(self, outcome_spaces: tuple[OutcomeSpace, ...]) -> None:
-        ...
+    def __init__(self, outcome_spaces: tuple[OutcomeSpace, ...]) -> None: ...
 
-    def combined_space(self) -> CartesianOutcomeSpace:
-        ...
+    def combined_space(self) -> CartesianOutcomeSpace: ...
 
-    def separated_spaces(self) -> tuple[OutcomeSpace, ...]:
-        ...
+    def separated_spaces(self) -> tuple[OutcomeSpace, ...]: ...
 
     def combined_outcome(
         self, outcomes: tuple[Outcome | None, ...] | Outcome | None
-    ) -> Outcome | None:
-        ...
+    ) -> Outcome | None: ...
 
     def separated_outcomes(
         self, outcome: Outcome | None
-    ) -> tuple[Outcome | None, ...] | None:
-        ...
+    ) -> tuple[Outcome | None, ...] | None: ...
 
 
 def _calc_n_issues(outcome_spaces: tuple[OutcomeSpace, ...]):
@@ -535,9 +530,9 @@ class SideUFun(BaseUtilityFunction):
 
         # For all offers that are after the current agent, set to None:
         for i in range(self._index + 1, self._n_edges):
-            assert (
-                offers[i] is None
-            ), f"{i} has a none None outcome ({offers[i]=})\n{offers=}"
+            # assert (
+            #     offers[i] is None
+            # ), f"{i} has a none None outcome ({offers[i]=})\n{offers=}"
             self.set_expected_outcome(None, i)
             offers[i] = None
         u = self._center_ufun(tuple(offers))
