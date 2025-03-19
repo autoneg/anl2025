@@ -10,10 +10,10 @@ dependencies = [
     "multiprocess>=0.70.17",
 ]
 
-[tool.uv.sources]
-negmas = { path = "../negmas" , editable = true }
-anl = { path = "../anl" , editable = true }
-anl-agents = { path = "../anl-agents" , editable = true }
+# [tool.uv.sources]
+# negmas = { path = "../negmas" , editable = true }
+# anl = { path = "../anl" , editable = true }
+# anl-agents = { path = "../anl-agents" , editable = true }
 
 [project.scripts]
 anl2025 = "anl2025.cli:app"
