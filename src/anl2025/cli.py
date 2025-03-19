@@ -387,7 +387,7 @@ def run_random(
         print(
             f"{i:02}: Mechanism {m.name} between ({m.negotiator_ids}) ended in {m.current_step} ({m.relative_time:4.3}) with {m.agreement}: "
             f"Edge Utility = {e.ufun(m.agreement) if e.ufun else 'unknown'}, "
-            f"Side Utility = {u(m.agreement) if u else 'unknown'}"
+            # f"Side Utility = {u(m.agreement) if u else 'unknown'}"
         )
     print(f"Center Utility: {results.center_utility}")
 
@@ -508,7 +508,7 @@ def run_scenario(
         print(
             f"{i:02}: Mechanism {m.name} between ({m.negotiator_ids}) ended in {m.current_step} ({m.relative_time:4.3}) with {m.agreement}: "
             f"Edge Utility = {e.ufun(m.agreement) if e.ufun else 'unknown'}, "
-            f"Side Utility = {u(m.agreement) if u else 'unknown'}"
+            # f"Side Utility = {u(m.agreement) if u else 'unknown'}"
         )
     print(f"Center Utility: {results.center_utility}")
 

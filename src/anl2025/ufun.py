@@ -356,7 +356,9 @@ class CenterUFun(UtilityFunction, ABC):
             warn("Failed to find the Cartesian product of input outcome spaces")
             self.outcome_space, self.__nissues = None, tuple()
         self._expected: list[Outcome | None] = (
-            list(expected_outcomes) if expected_outcomes else ([None] * self.n_edges)
+            list(expected_outcomes)
+            if expected_outcomes
+            else ([None for _ in range(self.n_edges)])
         )
         self._effective_side_ufuns = tuple(
             make_side_ufun(self, i, None) for i in range(self.n_edges)
@@ -368,7 +370,9 @@ class CenterUFun(UtilityFunction, ABC):
         return self.stationary
 
     def set_expected_outcome(self, index: int, outcome: Outcome | None) -> None:
+        # print(f"Setting expected outcome for {index} to {outcome}")
         self._expected[index] = outcome
+        # print(f"{self._expected}")
 
     @property
     def outcome_spaces(self) -> tuple[OutcomeSpace, ...]:
@@ -530,9 +534,13 @@ class SideUFun(BaseUtilityFunction):
 
         # For all offers that are after the current agent, set to None:
         for i in range(self._index + 1, self._n_edges):
-            # assert (
-            #     offers[i] is None
-            # ), f"{i} has a none None outcome ({offers[i]=})\n{offers=}"
+            if offers[i] is not None:
+                # print(
+                #     f"{self._index=}: {i} has a none None outcome ({offers[i]=})\n{offers=}"
+                # )
+                raise AssertionError(
+                    f"{self._index=}: {i} has a none None outcome ({offers[i]=})\n{offers=}"
+                )
             self.set_expected_outcome(None, i)
             offers[i] = None
         u = self._center_ufun(tuple(offers))

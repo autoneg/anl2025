@@ -1,4 +1,5 @@
 from copy import deepcopy
+from rich import print
 from typing import Any
 from random import choice
 import pandas as pd
@@ -179,21 +180,26 @@ class AssignedScenario:
                 agreements=[None] * len(edges),
             )
 
-        SAOMechanism.runall(
-            mechanisms,
-            method=self.run_params.method,
-            keep_order=self.run_params.keep_order,
-        )  # type: ignore
-        if not name:
-            name = unique_name("session", sep=".")
+        base = None
         if output:
             base = output / name
             (base / "log").mkdir(parents=True, exist_ok=True)
             (base / "plots").mkdir(parents=True, exist_ok=True)
-            for i, (m, _) in enumerate(zip(mechanisms, center_ufun.side_ufuns())):
-                df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
-                df.to_csv(base / "log" / f"{m.id}.csv", index_label="index")
-                m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
+
+        def plot_result(i, m, base=base):
+            assert base is not None
+            df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
+            df.to_csv(base / "log" / f"{m.id}.csv", index_label="index")
+            m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
+
+        SAOMechanism.runall(
+            mechanisms,
+            method=self.run_params.method,
+            keep_order=self.run_params.keep_order,
+            completion_callback=plot_result if output else None,
+        )  # type: ignore
+        if not name:
+            name = unique_name("session", sep=".")
         agreements = [_.agreement for _ in mechanisms]
 
         return SessionResults(
