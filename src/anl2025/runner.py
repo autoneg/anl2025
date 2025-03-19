@@ -5,6 +5,7 @@ from random import choice
 import pandas as pd
 from attr import define, field
 from pathlib import Path
+import matplotlib.pyplot as plt
 from negmas import ControlledNegotiator
 from negmas.outcomes import Outcome
 from negmas.sao import SAOMechanism
@@ -191,6 +192,7 @@ class AssignedScenario:
             df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
             df.to_csv(base / "log" / f"{m.id}.csv", index_label="index")
             m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
+            plt.close()
 
         SAOMechanism.runall(
             mechanisms,
