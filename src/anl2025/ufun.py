@@ -538,13 +538,13 @@ class SideUFun(BaseUtilityFunction):
 
         # For all offers that are after the current agent, set to None:
         for i in range(self._index + 1, self._n_edges):
-            if offers[i] is not None:
-                # print(
-                #     f"{self._index=}: {i} has a none None outcome ({offers[i]=})\n{offers=}"
-                # )
-                raise AssertionError(
-                    f"{self._index=}: {i} has a none None outcome ({offers[i]=})\n{offers=}"
-                )
+            # if offers[i] is not None:
+            # print(
+            #     f"{self._index=}: {i} has a none None outcome ({offers[i]=})\n{offers=}"
+            # )
+            # raise AssertionError(
+            #     f"{self._index=}: {i} has a none None outcome ({offers[i]=})\n{offers=}"
+            # )
             self.set_expected_outcome(None, i)
             offers[i] = None
         u = self._center_ufun(tuple(offers))

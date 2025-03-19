@@ -95,16 +95,16 @@ print(results.weighted_average)
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3.3379090024210045</span>, <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">6.367122481180888</span>, <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.2732016207516554</span><span style="font-weight: bold">}</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">7.12151076118834</span>, <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9.952164758275384</span>, <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.9656240952661561</span><span style="font-weight: bold">}</span>
 </pre>
 
 
 
 
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span>
-    <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4960636619436116</span>,
-    <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6799703016440113</span>,
-    <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.12290548203451745</span>
+    <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.1266639550715007</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.2774773478264272</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.23830922778693425</span>
 <span style="font-weight: bold">}</span>
 </pre>
 
@@ -117,6 +117,7 @@ To give an example about the intuitions you can follow in designing your agent t
 
 As a suggestion, you can make the following folder structure on your own computer:
 
+```
 ANL 2025submission/
 ├── Code_for_tutorials2025/
 │   ├── Tutorial_running_a_negotiation.py
@@ -131,6 +132,7 @@ ANL 2025submission/
 └── venv/
     └── lib/
         ├── ...
+```
 
 To test the agent, you can either choose to run a session like above, or run myagent.py directly from your favorite IDE.
 
@@ -150,10 +152,5 @@ The ANL package comes with some more example negotiators. These are not designed
 #### Note about running tournaments
 
 - When running a tournament using `anl2025_tournament` inside a Jupyter Notebook, you **must** pass `njobs=-1` to force serial execution of negotiations. This is required because the multiprocessing library used by NegMAS does not play nicely with Jupyter Notebooks. If you run the tournament using the same method from a `.py` python script file, you can omit this argument to run a tournament using all available cores.
-- When you pass `nologs=True`, no logs are stored for this tournament. If you omit this argument, a log will be created under `~/negmas/anl2025/tournaments` which can be visualized using the ANL visualizer by running:
-
-```bash
-anlv show
-```
 
 [Download Notebook](/anl2025/tutorials/notebooks/tutorial_develop.ipynb)
