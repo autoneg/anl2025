@@ -74,7 +74,7 @@ outcome_spaces:
   type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
 reserved_value: 0.0
 side_ufuns:
-- id: with_employer01-e64abe50-7bbe-476b-86b1-1121ee33a016
+- id: with_employer01-bfc5c494-5993-4b00-b033-22ecf799d00f
   name: with_employer01
   outcome_space:
     issues:
@@ -95,28 +95,28 @@ side_ufuns:
       - 300
     name: JobHunt
     type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
-  reserved_value: 0.9781922260806752
+  reserved_value: 0.0
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.0
+      0: 0.2630985511725007
       1: 0.0
-      2: 0.467749959769899
-      3: 0.18317773954704603
+      2: 1.0
+      3: 0.0
       4: 0.75
-      5: 1.0
+      5: 0.52899824361569
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 1.0
-      150: 0.6862293451197199
+      100: 0.8853615869179357
+      150: 1.0
       200: 0.0
-      250: 0.6478586701140256
-      300: 0.32152894555812644
+      250: 0.6183173723565747
+      300: 0.5335510500770566
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.22563614758331005
-  - 0.7743638524166899
-- id: with_employer02-4ced67c1-f397-4afa-95e9-e7ab4df2f28e
+  - 0.14377618893661956
+  - 0.8562238110633804
+- id: with_employer02-e7910a15-306c-443c-bda5-d130b1965c34
   name: with_employer02
   outcome_space:
     issues:
@@ -137,28 +137,28 @@ side_ufuns:
       - 300
     name: JobHunt
     type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
-  reserved_value: 0.9781922260806752
+  reserved_value: 0.0
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.0
-      1: 0.0
-      2: 0.1724628440662761
-      3: 1.0
-      4: 1.0
-      5: 0.3449256881325522
+      0: 0.40091258700250243
+      1: 0.47206209717231107
+      2: 0.153618255813726
+      3: 0.06336635112554379
+      4: 0.6515126455697804
+      5: 0.8771447388631082
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 1.0
-      150: 0.18891373170111986
-      200: 0.6666666666666666
-      250: 0.0
-      300: 0.0
+      100: 0.49525555174517644
+      150: 0.07354277313399937
+      200: 0.24810992511368735
+      250: 0.1359092189076454
+      300: 0.6221744322989152
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.8132399038820644
-  - 0.1867600961179356
-- id: with_employer03-1bb31cb9-7e3d-492a-b2bd-5fa2e02d508d
+  - 0.9434871119535225
+  - 0.056512888046477514
+- id: with_employer03-ac64803d-9b13-45bc-b00c-75629a67dc10
   name: with_employer03
   outcome_space:
     issues:
@@ -179,28 +179,28 @@ side_ufuns:
       - 300
     name: JobHunt
     type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
-  reserved_value: 0.9781922260806752
+  reserved_value: 0.0
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.5320872544306247
-      1: 0.8590888584523989
-      2: 0.8590888584523989
+      0: 0.0
+      1: 0.35241797601284697
+      2: 0.0
       3: 1.0
-      4: 0.0
-      5: 0.8590888584523989
+      4: 0.6762089880064235
+      5: 0.35241797601284697
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.6666666666666666
-      150: 0.19981159922941802
-      200: 0.0
-      250: 1.0
-      300: 0.0
+      100: 0.8640462488413928
+      150: 0.6681130159323168
+      200: 0.8901959373119372
+      250: 0.7017562900933063
+      300: 0.7798968590912922
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.03454268833855966
-  - 0.9654573116614404
-- id: with_employer04-ddbe45e6-fb5f-498a-ada1-3976cf546734
+  - 0.5189030935534239
+  - 0.48109690644657604
+- id: with_employer04-5208a67c-d081-4445-99fc-3e6486d2763a
   name: with_employer04
   outcome_space:
     issues:
@@ -221,25 +221,25 @@ side_ufuns:
       - 300
     name: JobHunt
     type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
-  reserved_value: 0.9654573116614404
+  reserved_value: 0.0
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
   - mapping:
-      0: 0.4898805747847309
-      1: 0.9939339332755548
-      2: 0.46625651590217276
-      3: 0.6053412444383519
-      4: 0.8394029520240011
-      5: 0.32916271151305
+      0: 0.139623133926994
+      1: 0.8265965544702727
+      2: 0.28709526539828045
+      3: 0.10416905918105224
+      4: 0.02476758228618836
+      5: 0.8933141830093139
     type: negmas.preferences.value_fun.TableFun
   - mapping:
-      100: 0.0
-      150: 0.6666666666666666
-      200: 1.0
-      250: 0.0
-      300: 0.18655071443275054
+      100: 0.7200072663214722
+      150: 0.22926252856457052
+      200: 0.8416622892345849
+      250: 0.3776344503577994
+      300: 0.8843501513195569
     type: negmas.preferences.value_fun.TableFun
   weights:
-  - 0.9518995365531251
-  - 0.04810046344687477
+  - 0.5102430144569617
+  - 0.4897569855430383
 type: anl2025.ufun.MaxCenterUFun

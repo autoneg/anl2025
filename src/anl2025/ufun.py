@@ -330,6 +330,7 @@ class CenterUFun(UtilityFunction, ABC):
         | None = None,
         stationary: bool = True,
         stationary_sides: bool | None = None,
+        side_ufuns: tuple[BaseUtilityFunction | None, ...] | None = None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -360,11 +361,14 @@ class CenterUFun(UtilityFunction, ABC):
             if expected_outcomes
             else ([None for _ in range(self.n_edges)])
         )
+
+        if side_ufuns is None:
+            ufuns = tuple(None for _ in range(self.n_edges))
+        else:
+            ufuns = tuple(deepcopy(_) for _ in side_ufuns)
         self._effective_side_ufuns = tuple(
-            make_side_ufun(self, i, None) for i in range(self.n_edges)
+            make_side_ufun(self, i, side) for i, side in enumerate(ufuns)
         )
-        for u in self._effective_side_ufuns:
-            assert id(u._center_ufun) == id(self)
 
     def is_stationary(self) -> bool:
         return self.stationary
@@ -683,9 +687,10 @@ class UtilityCombiningCenterUFun(CenterUFun):
     def __init__(self, *args, side_ufuns: tuple[BaseUtilityFunction, ...], **kwargs):
         super().__init__(*args, **kwargs)
         self.ufuns = tuple(deepcopy(_) for _ in side_ufuns)
-        self._effective_side_ufuns = tuple(
-            make_side_ufun(self, i, side) for i, side in enumerate(self.ufuns)
-        )
+        # This is already done in CenterUFun now
+        # self._effective_side_ufuns = tuple(
+        #     make_side_ufun(self, i, side) for i, side in enumerate(self.ufuns)
+        # )
 
     @abstractmethod
     def combine(self, values: Sequence[float]) -> float:
@@ -720,7 +725,11 @@ class MaxCenterUFun(UtilityCombiningCenterUFun):
         # sets the reserved value of all sides
         super().set_expected_outcome(index, outcome)
         r = None
-        set_ufun = self._effective_side_ufuns[index]
+        try:
+            set_ufun = self._effective_side_ufuns[index]
+        except Exception:
+            return
+
         if isinstance(set_ufun, SideUFunAdapter):
             r = float(set_ufun._base_ufun(outcome))
         elif isinstance(set_ufun, SideUFun):
