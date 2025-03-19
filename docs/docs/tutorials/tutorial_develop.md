@@ -35,7 +35,7 @@ class MyRandom2025(ANL2025Negotiator):
 
     def respond(
         self, negotiator_id: str, state: SAOState, source: str | None = None
-    ) -> ResponseType:        
+    ) -> ResponseType:
         if random() < self.p_end:
             return ResponseType.END_NEGOTIATION
 
@@ -57,13 +57,21 @@ To test the agent, we use the functions as introduced in the tutorial *Run a neg
 
 
 ```python
-from anl2025 import make_multideal_scenario, run_session, anl2025_tournament, Boulware2025, Linear2025
+from anl2025 import (
+    make_multideal_scenario,
+    run_session,
+    anl2025_tournament,
+    Boulware2025,
+    Linear2025,
+)
 
 scenario = make_multideal_scenario(nedges=3)
 competitors = [MyRandom2025, Boulware2025, Linear2025]
-#results = run_session(center_type = MyRandom2025, edge_types = competitors, scenario = scenario)
-#print(f"Center Utility: {results.center_utility}\nEdge Utilities: {results.edge_utilities}")
-results = anl2025_tournament([scenario], n_jobs=-1, competitors=(MyRandom2025, Boulware2025, Linear2025))
+# results = run_session(center_type = MyRandom2025, edge_types = competitors, scenario = scenario)
+# print(f"Center Utility: {results.center_utility}\nEdge Utilities: {results.edge_utilities}")
+results = anl2025_tournament(
+    [scenario], n_jobs=-1, competitors=(MyRandom2025, Boulware2025, Linear2025)
+)
 print(results.final_scores)
 print(results.weighted_average)
 ```

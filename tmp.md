@@ -17,5 +17,3 @@ DiscreteCartesianOutcomeSpace(
 filtered_outcome_space =  deepcopy(self.outcome_space)
 filtered_outcome_space.issues[1] = CategoricalIssue([(0,1)])
 filtered_outcome_space.extreme_outcomes()
-
-

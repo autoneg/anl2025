@@ -72,8 +72,3 @@ Other negotiators are just wrappers over negotiators provided by NegMAS.
 ## Tournaments
 
 ::: anl2025.tournament.Tournament
-
-
-
-
-

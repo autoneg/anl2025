@@ -115,7 +115,7 @@ class AssignedScenario:
         center_ufun.stationary_sides = (
             center_ufun.stationary_sides or self.run_params.method == SEQUENTIAL_METHOD
         )
-        nedges = len(edge_ufuns)
+        len(edge_ufuns)
         if verbose:
             print(f"Adding center of type {type_name(center)}")
 

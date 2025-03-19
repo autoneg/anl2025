@@ -82,4 +82,3 @@ Check out the tutorials for more details!
 5. Submit your agent to the [official submission website](https://scml.cs.brown.edu/anl):
     - Remember to update the `Class Name` (`NewNegotiator` in our case) and `Agent Module` (`myagent.myagent` in our case) in the submission form on the  [competition website](https://scml.cs.brown.edu/anl) to your own name.
     - If you need any libraries that are not already provided by `anl2025`, please include them in the `Dependencies` in a semi-colon separated list when submitting your agent.
-

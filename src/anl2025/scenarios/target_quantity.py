@@ -132,7 +132,7 @@ def make_target_quantity_scenario(
         name=collector_name,
         reserved_value=float_in(collector_reserved_value),
     )
-    vals = edge_ufuns = tuple(
+    edge_ufuns = tuple(
         LinearAdditiveUtilityFunction(
             outcome_space=os,
             reserved_value=float_in(supplier_reserved_values),

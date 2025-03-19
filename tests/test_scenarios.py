@@ -98,7 +98,7 @@ def test_load_multideal_dinner_created(n_friends, n_days):
 
 def test_make_job_hunt_all_rand():
     scenario = make_job_hunt_scenario()
-    path = Path(__file__).parent.parent / "scenarios" / "job_hunt"
+    Path(__file__).parent.parent / "scenarios" / "job_hunt"
     run_session(scenario, edge_types=[Random2025], center_type=Random2025)
 
 

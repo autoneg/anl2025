@@ -107,7 +107,7 @@ class CenterUFunCategory(Enum):
 
 
 def unflatten_outcome_space(
-        outcome_space: CartesianOutcomeSpace, nissues: tuple[int, ...] | list[int]
+    outcome_space: CartesianOutcomeSpace, nissues: tuple[int, ...] | list[int]
 ) -> tuple[CartesianOutcomeSpace, ...]:
     """Distributes the issues of an outcome-space into a tuple of outcome-spaces."""
     nissues = list(nissues)
@@ -120,19 +120,24 @@ def unflatten_outcome_space(
 
 
 class OSCombiner(Protocol):
-    def __init__(self, outcome_spaces: tuple[OutcomeSpace, ...]) -> None: ...
+    def __init__(self, outcome_spaces: tuple[OutcomeSpace, ...]) -> None:
+        ...
 
-    def combined_space(self) -> CartesianOutcomeSpace: ...
+    def combined_space(self) -> CartesianOutcomeSpace:
+        ...
 
-    def separated_spaces(self) -> tuple[OutcomeSpace, ...]: ...
+    def separated_spaces(self) -> tuple[OutcomeSpace, ...]:
+        ...
 
     def combined_outcome(
-            self, outcomes: tuple[Outcome | None, ...] | Outcome | None
-    ) -> Outcome | None: ...
+        self, outcomes: tuple[Outcome | None, ...] | Outcome | None
+    ) -> Outcome | None:
+        ...
 
     def separated_outcomes(
-            self, outcome: Outcome | None
-    ) -> tuple[Outcome | None, ...] | None: ...
+        self, outcome: Outcome | None
+    ) -> tuple[Outcome | None, ...] | None:
+        ...
 
 
 def _calc_n_issues(outcome_spaces: tuple[OutcomeSpace, ...]):
@@ -208,7 +213,7 @@ class FlatteningCombiner(OSCombiner):
         return self.outcome_space
 
     def combined_outcome(
-            self, outcomes: tuple[Outcome | None, ...] | Outcome | None
+        self, outcomes: tuple[Outcome | None, ...] | Outcome | None
     ) -> Outcome | None:
         if not outcomes:
             return outcomes
@@ -223,7 +228,7 @@ class FlatteningCombiner(OSCombiner):
         return tuple(values)
 
     def separated_outcomes(
-            self, outcome: Outcome | None
+        self, outcome: Outcome | None
     ) -> tuple[Outcome | None, ...] | None:
         if not outcome:
             return outcome
@@ -233,7 +238,7 @@ class FlatteningCombiner(OSCombiner):
         vals = []
         for os in self.outcome_spaces:
             n = len(os.issues)  # type: ignore
-            x = outcome[nxt: nxt + n]
+            x = outcome[nxt : nxt + n]
             if all(_ is None for _ in x):
                 vals.append(None)
             else:
@@ -274,12 +279,12 @@ class HierarchicalCombiner(OSCombiner):
         return self.outcome_space
 
     def combined_outcome(
-            self, outcomes: tuple[Outcome | None, ...] | Outcome | None
+        self, outcomes: tuple[Outcome | None, ...] | Outcome | None
     ) -> Outcome | None:
         return outcomes
 
     def separated_outcomes(
-            self, outcome: Outcome | None
+        self, outcome: Outcome | None
     ) -> tuple[Outcome | None, ...] | None:
         return outcome
 
@@ -288,10 +293,10 @@ DefaultCombiner = HierarchicalCombiner
 
 
 def convert_to_center_ufun(
-        ufun: UtilityFunction,
-        nissues: tuple[int],
-        combiner_type: type[OSCombiner] = DefaultCombiner,
-        side_evaluators: list[EdgeEvaluator] | None = None,
+    ufun: UtilityFunction,
+    nissues: tuple[int],
+    combiner_type: type[OSCombiner] = DefaultCombiner,
+    side_evaluators: list[EdgeEvaluator] | None = None,
 ) -> "CenterUFun":
     """Creates a center ufun from any standard ufun with ufuns side ufuns"""
     assert ufun.outcome_space and isinstance(ufun.outcome_space, CartesianOutcomeSpace)
@@ -320,17 +325,17 @@ class CenterUFun(UtilityFunction, ABC):
     """
 
     def __init__(
-            self,
-            *args,
-            outcome_spaces: tuple[CartesianOutcomeSpace, ...] = (),
-            n_edges: int = 0,
-            combiner_type: type[OSCombiner] = DefaultCombiner,
-            expected_outcomes: tuple[Outcome | None, ...]
-                               | list[Outcome | None]
-                               | None = None,
-            stationary: bool = True,
-            stationary_sides: bool | None = None,
-            **kwargs,
+        self,
+        *args,
+        outcome_spaces: tuple[CartesianOutcomeSpace, ...] = (),
+        n_edges: int = 0,
+        combiner_type: type[OSCombiner] = DefaultCombiner,
+        expected_outcomes: tuple[Outcome | None, ...]
+        | list[Outcome | None]
+        | None = None,
+        stationary: bool = True,
+        stationary_sides: bool | None = None,
+        **kwargs,
     ):
         super().__init__(*args, **kwargs)
         if not outcome_spaces and self.outcome_space:
@@ -501,12 +506,12 @@ class SideUFun(BaseUtilityFunction):
     """
 
     def __init__(
-            self,
-            *args,
-            center_ufun: CenterUFun,
-            index: int,
-            n_edges: int,
-            **kwargs,
+        self,
+        *args,
+        center_ufun: CenterUFun,
+        index: int,
+        n_edges: int,
+        **kwargs,
     ):
         super().__init__(*args, **kwargs)
         self._center_ufun = center_ufun
@@ -516,10 +521,11 @@ class SideUFun(BaseUtilityFunction):
     def is_stationary(self) -> bool:
         return self._center_ufun.stationary_sides
 
-    def set_expected_outcome(self, outcome: Outcome | None) -> None:
-        self._center_ufun.set_expected_outcome(self._index, outcome)
-
-    def set_expected_outcome(self, outcome: Outcome | None, index: int) -> None:
+    def set_expected_outcome(
+        self, outcome: Outcome | None, index: int | None = None
+    ) -> None:
+        if index is None:
+            index = self._index
         self._center_ufun.set_expected_outcome(index, outcome)
 
     def eval(self, offer: Outcome | None) -> float:
@@ -529,6 +535,9 @@ class SideUFun(BaseUtilityFunction):
 
         # For all offers that are after the current agent, set to None:
         for i in range(self._index + 1, self._n_edges):
+            assert (
+                offers[i] is None
+            ), f"{i} has a none None outcome ({offers[i]=})\n{offers=}"
             self.set_expected_outcome(None, i)
             offers[i] = None
         u = self._center_ufun(tuple(offers))
@@ -541,7 +550,7 @@ class SideUFun(BaseUtilityFunction):
 
 
 def make_side_ufun(
-        center: CenterUFun, index: int, side: BaseUtilityFunction | None
+    center: CenterUFun, index: int, side: BaseUtilityFunction | None
 ) -> SideUFun:
     """Creates a side-ufun for the center at the given index."""
     if side is None:
@@ -577,11 +586,11 @@ class LocalEvaluationCenterUFun(CenterUFun):
     """
 
     def __init__(
-            self,
-            *args,
-            evaluator: CenterEvaluator,
-            side_evaluators: EdgeEvaluator | Sequence[EdgeEvaluator] | None = None,
-            **kwargs,
+        self,
+        *args,
+        evaluator: CenterEvaluator,
+        side_evaluators: EdgeEvaluator | Sequence[EdgeEvaluator] | None = None,
+        **kwargs,
     ):
         super().__init__(*args, **kwargs)
         self._evaluator = evaluator
@@ -626,19 +635,19 @@ class FlatCenterUFun(UtilityFunction):
         x = CenterUFun(...)
         y = x.flatten()
 
-        x(((1, 0.5), (3, true), (7,))) == y((1, 0.5, 3 , true, 7))
+        x(((1, 0.5), (3, true), (7,))) == y((1, 0.5, 3, true, 7))
         ```
     """
 
     def __init__(
-            self, *args, base_ufun: CenterUFun, nissues: tuple[int, ...], **kwargs
+        self, *args, base_ufun: CenterUFun, nissues: tuple[int, ...], **kwargs
     ):
         super().__init__(*args, **kwargs)
         self.__base = base_ufun
         self.__nissues = list(nissues)
 
     def _unflatten(
-            self, outcome: Outcome | tuple[Outcome | None, ...] | None
+        self, outcome: Outcome | tuple[Outcome | None, ...] | None
     ) -> tuple[Outcome | None, ...] | None:
         if outcome is None:
             return None
@@ -753,10 +762,10 @@ class SideUFunAdapter(SideUFun):
     """Adapts any ufun to be usable as a side-ufun"""
 
     def __init__(
-            self,
-            *args,
-            base_ufun: BaseUtilityFunction,
-            **kwargs,
+        self,
+        *args,
+        base_ufun: BaseUtilityFunction,
+        **kwargs,
     ):
         super().__init__(*args, **kwargs)
         self._base_ufun = base_ufun

@@ -16,10 +16,10 @@ from negmas.sao.negotiators import AspirationNegotiator
 
 ANL2024_AVAILABLE = False
 try:
-    from anl_agents.anl2024 import Shochan, AgentRenting2024
+    from anl_agents.anl2024 import Shochan, AgentRenting2024  # type: ignore
 
     ANL2024_AVAILABLE = True
-except:
+except Exception:
     pass
 
 __all__ = [
@@ -379,7 +379,7 @@ class TimeBased2025(ANL2025Negotiator):
         _, cntxt = self.negotiators[negotiator_id]
         ufun: SideUFun = cntxt["ufun"]
         nmi = self.negotiators[negotiator_id][0].nmi
-        inverter = self.ensure_inverter(negotiator_id)
+        self.ensure_inverter(negotiator_id)
         # end the negotiation if there are no rational outcomes
         level = self.calc_level(nmi, state, normalized=False)
 

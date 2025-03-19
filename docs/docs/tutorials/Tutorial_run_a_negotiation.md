@@ -15,9 +15,10 @@ The following code shows how to load a scenario from a folder.  The scenario is 
 from anl2025.scenario import MultidealScenario
 import pathlib
 
-path = pathlib.Path("../../official_test_scenarios/TargetQuantity_example") #You can also use a absolute path to the scenario here.
-scenario = (MultidealScenario.from_folder(path))
-
+path = pathlib.Path(
+    "../../official_test_scenarios/TargetQuantity_example"
+)  # You can also use a absolute path to the scenario here.
+scenario = MultidealScenario.from_folder(path)
 ```
 
 For running a negotiation, we don't just need a scenario: we also need negotiators! Therefore, we add some standard negotiators such as a `Random` .agent, a `Boulware` and a `Linear` conceder. We add a *center*  agent that negotiates with multiple opponents, and add the *edge agents*, the center agent's opponents.
@@ -26,19 +27,15 @@ For running a negotiation, we don't just need a scenario: we also need negotiato
 
 
 ```python
-from anl2025.negotiator import (
-    Boulware2025,
-    Random2025,
-    Linear2025
-)
+from anl2025.negotiator import Boulware2025, Random2025, Linear2025
 
 centeragent = Boulware2025
 edgeagents = [
-        Random2025,
-         Random2025,
-        Linear2025,
-        Boulware2025,
-    ]
+    Random2025,
+    Random2025,
+    Linear2025,
+    Boulware2025,
+]
 ```
 
 Now the only thing we need to do to run a negotiation, is add this all together. The function `run_session` runs one sequential multi-deal negotiation. In ANL 2025, the center agent negotiates with the side agents sequentially. It completes a negotiation with one edge agent before starting the next negotiation with the next edge agent. At no time does the center agent have multiple negotiation threads running at the same time.
@@ -52,34 +49,32 @@ Below, we show the outputted graphs. On the left, one can see the bids that were
 from anl2025 import run_session
 
 results = run_session(
-                scenario=scenario,
-                center_type=centeragent,
-                edge_types=edgeagents,
-                nsteps=10)
+    scenario=scenario, center_type=centeragent, edge_types=edgeagents, nsteps=10
+)
 ```
 
 
-    
+
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_0.png)
-    
 
 
 
-    
+
+
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_1.png)
-    
 
 
 
-    
+
+
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_2.png)
-    
 
 
 
-    
+
+
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_5_3.png)
-    
+
 
 
 ### Test the agent in a single session
@@ -93,7 +88,6 @@ The function `run_session` returns a `SessionResults` object, which allows you t
 
 
 ```python
-
 print(f"Center utility: {results.center_utility}")
 print(f"Edge Utilities: {results.edge_utilities}")
 print(f"Agreement: {results.agreements}")
@@ -132,18 +126,17 @@ We use a test scenario that we loaded before and a generated scenario. We log th
 from anl2025 import anl2025_tournament, make_multideal_scenario
 
 generated_scenario = make_multideal_scenario(nedges=3)
-scenario = (MultidealScenario.from_folder(path))
+scenario = MultidealScenario.from_folder(path)
 results = anl2025_tournament(
-        scenarios=[scenario, generated_scenario],
-        n_jobs=-1,
-        competitors=(Random2025, Boulware2025, Linear2025),
-        verbose = False,
-      #  no_double_scores=False,
-    )
+    scenarios=[scenario, generated_scenario],
+    n_jobs=-1,
+    competitors=(Random2025, Boulware2025, Linear2025),
+    verbose=False,
+    #  no_double_scores=False,
+)
 
 print(results.final_scores)
 print(results.weighted_average)
-
 ```
 
 
@@ -190,37 +183,36 @@ results = run_session(make_dinners_scenario(n_friends=5))
 ```
 
 
-    
+
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_12_0.png)
-    
 
 
 
-    
+
+
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_12_1.png)
-    
 
 
 
-    
+
+
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_12_2.png)
-    
 
 
 
-    
+
+
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_12_3.png)
-    
 
 
 
-    
+
+
 ![png](Tutorial_run_a_negotiation_files/Tutorial_run_a_negotiation_12_4.png)
-    
+
 
 
 
 ```python
-
 ```
 [Download Notebook](/anl2025/tutorials/notebooks/Tutorial_run_a_negotiation.ipynb)

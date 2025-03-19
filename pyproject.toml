@@ -36,6 +36,9 @@ testing = [
     "hypothesis>=6.118.8",
     "pytest>=8.3.3",
 ]
+dev = [
+    "pre-commit>=4.2.0",
+]
 
 [build-system]
 requires = ["setuptools >= 40.6.0", "wheel"]
