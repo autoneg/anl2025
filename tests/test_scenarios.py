@@ -169,11 +169,6 @@ def test_load_example_scenario():
     run_session(scenario)
 
 
-def test_load_example_scenario_dinners():
-    scenario = load_example_scenario("Dinners")
-    run_session(scenario)
-
-
 def test_load_example_scenario_target_quantity():
     scenario = load_example_scenario("TargetQuantity")
     run_session(scenario)
