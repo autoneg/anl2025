@@ -1,6 +1,6 @@
 evaluator:
   reserved_value: 0.0
-  type: center.TargetEvaluator
+  type: tq_center.TargetEvaluator
   values:
     0: 0.0
     1: 0.0

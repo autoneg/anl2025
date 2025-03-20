@@ -114,8 +114,17 @@ class MultidealScenario:
             path = str(f.relative_to(folder))
             with open(f, "r") as file:
                 code_files[path] = file.read()
+        added_paths = []
         if code_files:
-            sys.path.append(str(folder.resolve()))
+            for code_file in code_files.keys():
+                module = str(Path(code_file).parent)
+                try:
+                    del module
+                except Exception:
+                    pass
+            _added_path = str(folder.resolve())
+            added_paths.append(_added_path)
+            sys.path.insert(0, _added_path)
         dparams = dict(
             python_class_identifier=python_class_identifier,
             type_marker=type_marker,
@@ -149,6 +158,8 @@ class MultidealScenario:
                     copy.deepcopy(_) for _ in center_ufun.outcome_spaces
                 )
         side_ufuns = load_ufuns(folder / SIDES_FOLDER_NAME)
+        for p in added_paths:
+            sys.path.remove(p)
 
         return cls(
             center_ufun=center_ufun,

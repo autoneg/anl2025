@@ -10,9 +10,9 @@ def notebooks():
     return list(_ for _ in base.glob("**/*.ipynb") if "checkpoints" not in str(_))
 
 
-@pytest.skip(
-    "The tutorials use hard-coded paths!! cannot test them", allow_module_level=True
-)
+# @pytest.skip(
+#     "The tutorials use hard-coded paths!! cannot test them", allow_module_level=True
+# )
 @pytest.mark.parametrize("notebook", notebooks())
 def test_notebook(notebook):
     base = Path(__file__).parent.parent / "notebooks"

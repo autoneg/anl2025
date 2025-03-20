@@ -31,5 +31,5 @@ outcome_spaces:
       - 'Sat'
       - 'Sun'
 evaluator:
-  type: center.DinnersEvaluator
+  type: dinners_center.DinnersEvaluator
   reserved_value: 0.0

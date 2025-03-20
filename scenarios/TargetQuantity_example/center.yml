@@ -48,5 +48,5 @@ outcome_spaces:
       - '4'
       - '5'
 evaluator:
-  type: center.TargetEvaluator
+  type: tq_center.TargetEvaluator
   reserved_value: 0.0

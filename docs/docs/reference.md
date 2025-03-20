@@ -59,6 +59,16 @@ Other negotiators are just wrappers over negotiators provided by NegMAS.
 
 ::: anl2025.scenario.make_multideal_scenario
 
+::: anl2025.scenario.make_dinners_scenario
+
+::: anl2025.scenario.make_target_quantity_scenario
+
+::: anl2025.scenario.make_job_hunt_scenario
+
+::: anl2025.scenario.get_example_scenario_names
+
+::: anl2025.scenario.load_example_scenario
+
 ## Sessions
 
 ::: anl2025.runner.run_session
