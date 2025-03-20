@@ -169,6 +169,7 @@ anl2024 = [
 ]
 dev = [
     { name = "hypothesis" },
+    { name = "jupyter" },
     { name = "pre-commit" },
     { name = "pytest" },
 ]
@@ -192,6 +193,7 @@ requires-dist = [
     { name = "anl", marker = "extra == 'anl2024'", specifier = ">=0.1.13" },
     { name = "anl-agents", marker = "extra == 'anl2024'", specifier = ">=0.1.1" },
     { name = "hypothesis", marker = "extra == 'dev'", specifier = ">=6.118.8" },
+    { name = "jupyter", marker = "extra == 'dev'", specifier = ">=1.1.1" },
     { name = "jupyter", marker = "extra == 'doc'", specifier = ">=1.1.1" },
     { name = "mkdocs", marker = "extra == 'doc'", specifier = ">=1.6.1" },
     { name = "mkdocs-include-markdown-plugin", marker = "extra == 'doc'", specifier = ">=7.1.4" },

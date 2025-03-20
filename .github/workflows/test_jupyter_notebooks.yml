@@ -26,12 +26,11 @@ jobs:
           uv pip install -e "."
       - name: "Activate the project"
         run: source .venv/bin/activate
-      - name: "Install Jupyter Kernel"
-        run: uv run -m ipykernel install --user --name=anl2025
       - name: Preparing Environment
         run: |
           uv pip install jupyter
           export JUPYTER_PLATFORM_DIRS=1
-          jupyter --paths
+      - name: "Install Jupyter Kernel"
+        run: uv run -m ipykernel install --user --name=anl2025
       - name: "Run pytest for ${{ matrix.python-version }}"
         run: "uv run pytest tests/test_jupyter.py || uv run pytest --last-failed tests/test_jupyter.py"
