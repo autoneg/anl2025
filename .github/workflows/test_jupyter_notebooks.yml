@@ -30,6 +30,7 @@ jobs:
         run: uv run -m ipykernel install --user --name=anl2025
       - name: Preparing Environment
         run: |
+          uv pip install jupyter
           export JUPYTER_PLATFORM_DIRS=1
           jupyter --paths
       - name: "Run pytest for ${{ matrix.python-version }}"
