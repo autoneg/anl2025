@@ -9,16 +9,24 @@ We provide a set of test scenarios that you can download from the [ANL 2025 Goog
 
 The following code shows how to load a scenario from a folder.  The scenario is called target quantity scenario, where a buyer wants to acquire a total of 10 from 4 different sellers.
 
-
-
 ```python
 from anl2025.scenario import MultidealScenario
 import pathlib
 
 path = pathlib.Path(
-    "../../official_test_scenarios/TargetQuantity_example"
+    "../../official_test_scenarios/TargetQuantity_example"  # replace with the actual path.
 )  # You can also use a absolute path to the scenario here.
 scenario = MultidealScenario.from_folder(path)
+```
+
+Some builtin scenarios are distributed with ANL2025. You can get a list of their names usine `get_example_scenario_names()`. You can load these using the following code snippet
+
+
+
+```python
+from anl2025 import load_example_scenario
+
+scenario = load_example_scenario("TargetQuantity")
 ```
 
 For running a negotiation, we don't just need a scenario: we also need negotiators! Therefore, we add some standard negotiators such as a `Random` .agent, a `Boulware` and a `Linear` conceder. We add a *center*  agent that negotiates with multiple opponents, and add the *edge agents*, the center agent's opponents.
@@ -102,7 +110,7 @@ We use a test scenario that we loaded before and a generated scenario. We log th
 from anl2025 import anl2025_tournament, make_multideal_scenario
 
 generated_scenario = make_multideal_scenario(nedges=3)
-scenario = MultidealScenario.from_folder(path)
+scenario = load_example_scenario("Dinners")
 results = anl2025_tournament(
     scenarios=[scenario, generated_scenario],
     n_jobs=-1,
@@ -134,13 +142,13 @@ print(results.weighted_average)
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Random2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10.562795696509816</span>, <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">33.21645074402277</span>, <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">17.546941745742405</span><span style="font-weight: bold">}</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">13.418470633502105</span>, <span style="color: #008000; text-decoration-color: #008000">'Random2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9.6111552791708</span>, <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">16.971885649951343</span><span style="font-weight: bold">}</span>
 </pre>
 
 
 
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Random2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.8329821253525671</span>, <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.9412114046140256</span>, <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.2644341302120505</span><span style="font-weight: bold">}</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.6855899343714223</span>, <span style="color: #008000; text-decoration-color: #008000">'Random2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5164347909558907</span>, <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.0861602907401176</span><span style="font-weight: bold">}</span>
 </pre>
 
 
@@ -156,10 +164,22 @@ The `anl2025` package allows you to create such scenarios using the `LambdaCente
 from anl2025 import make_dinners_scenario
 
 results = run_session(make_dinners_scenario(n_friends=5))
+dict(center=results.center_utility, edges=results.edge_utilities)
 ```
 
 
-```python
 
+
+    {'center': 0.0,
+     'edges': [0.5539177369974574,
+      0.46565694525214724,
+      0.2853091911355803,
+      0.24968181622168845,
+      0.48262211553620915]}
+
+
+
+
+```python
 ```
 [Download Notebook](/anl2025/tutorials/notebooks/Tutorial_run_a_negotiation.ipynb)

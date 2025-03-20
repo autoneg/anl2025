@@ -49,7 +49,7 @@ anl2025 version
 You should get at least these versions:
 
 ```bash
-anl: 0.1.0 (NegMAS: 0.11.2)
+anl: 0.1.2 (NegMAS: 0.11.3)
 ```
 
 For a test tournament, you can use the command line interface (CLI):
