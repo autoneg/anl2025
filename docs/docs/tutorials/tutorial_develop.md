@@ -4,7 +4,7 @@
 
 The agents for the ANL competition are simple extensions of [NegMAS](https://autoneg.github.io/negmas) negotiators. As such, they can be developed using any approach used to develop negotiators in NegMAS.
 
-To develop a negotiator, you need to inherit from the [ANL2025Negotiator](http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator) class and implement the [`propose()`](http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator.propose) and [`respond()`](http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator.respond).
+To develop a negotiator, you need to inherit from the [ANL2025Negotiator](https://autoneg.github.io/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator) class and implement the [`propose()`](http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator.propose) and [`respond()`](http://www.yasserm.com/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator.respond).
 
 
 *If you want to start developing your negotiator right away, you can download a template agent from [here](https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link) and tweak the code yourself. If you want more instructions, keep reading.*
