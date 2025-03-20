@@ -74,7 +74,7 @@ outcome_spaces:
   type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
 reserved_value: 0.0
 side_ufuns:
-- id: employee1-33cc17ce-f3e1-42d3-a8ff-f00a1e661a29
+- id: employee1-0f41283f-d8b0-4167-8448-5e6241d4f8ae
   name: employee1
   outcome_space: null
   reserved_value: 0.0
@@ -98,7 +98,7 @@ side_ufuns:
   weights:
   - 0.4
   - 0.6
-- id: employee1-56d2b12d-61fc-44e0-b0d5-a7a0a7209c48
+- id: employee1-64d0526e-5031-42c0-a16f-a7c050c1af8a
   name: employee1
   outcome_space: null
   reserved_value: 0.0
@@ -122,7 +122,7 @@ side_ufuns:
   weights:
   - 0.4
   - 0.6
-- id: employee1-dd6b18dd-c3b6-4849-929e-47d1c969cf3a
+- id: employee1-bf8dacdd-9ecc-4ef0-83e1-d7a45c6ec4f6
   name: employee1
   outcome_space: null
   reserved_value: 0.0
@@ -146,7 +146,7 @@ side_ufuns:
   weights:
   - 0.4
   - 0.6
-- id: employee1-1eab5a99-35da-404f-bed8-f3f3875ed78b
+- id: employee1-34cd458e-ba5d-4df6-961a-7e2eb954999f
   name: employee1
   outcome_space: null
   reserved_value: 0.0
