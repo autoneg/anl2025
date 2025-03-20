@@ -32,12 +32,10 @@ anl2024 = [
     "anl-agents>=0.1.1",
     # "tensorflow>=2.18.0",
 ]
-testing = [
-    "hypothesis>=6.118.8",
-    "pytest>=8.3.3",
-]
 dev = [
     "pre-commit>=4.2.0",
+    "hypothesis>=6.118.8",
+    "pytest>=8.3.3",
 ]
 
 [build-system]

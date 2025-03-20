@@ -17,7 +17,7 @@ jobs:
         run: uv python install
       - name: Install the project
         run: |
-          uv sync --all-extras --dev
+          uv sync --extra doc --extra dev
           uv pip install -e "."
       - name: "Activate the project"
         run: source .venv/bin/activate

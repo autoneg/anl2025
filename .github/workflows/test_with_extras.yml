@@ -1,4 +1,4 @@
-name: Test without ANL2024
+name: Test with ANL2024
 on:
   push:
     branches: ["*"]
@@ -11,7 +11,7 @@ jobs:
     timeout-minutes: 180
     strategy:
       matrix:
-        python-version: ["3.13", "3.12", "3.11"]
+        python-version: ["3.11", "3.12"]
     steps:
       - uses: "actions/checkout@v4"
       - name: Install uv
@@ -22,7 +22,7 @@ jobs:
         run: uv python install ${{ matrix.python-version }}
       - name: Install the project
         run: |
-          uv sync --extra doc --extra dev
+          uv sync --dev --all-extras
           uv pip install -e "."
       - name: "Activate the project"
         run: source .venv/bin/activate

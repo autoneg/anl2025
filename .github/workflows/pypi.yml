@@ -13,7 +13,7 @@ jobs:
         run: uv python install
       - name: Install the project
         run: |
-          uv sync --all-extras --dev
+          uv sync --extra doc --extra dev
           uv pip install -e "."
       - name: Run tests
         run: "uv run pytest src/anl2025 tests || uv run pytest --last-failed src/anl2025 tests"
