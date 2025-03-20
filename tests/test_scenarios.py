@@ -177,8 +177,6 @@ def test_load_example_scenario_target_quantity():
 def test_get_example_scenarios():
     names = get_example_scenario_names()
     assert names
-    import sys
 
     for name in names:
         load_example_scenario(name)
-        print(sys.path)
