@@ -584,7 +584,7 @@
 <p>The function <code>run_session</code> returns a <code>SessionResults</code> object, which allows you to access the following values after the session is completed:</p>
 <ol>
 <li><code>mechanisms</code> pointing to one <a href="https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAOMechanism.html#saomechanism">SAOMechanism</a> for each negotiation thread.</li>
-<li><code>center_negotiator</code> pointing to a <a href="reference/#anl2025.negotiator.ANL2025Negotiator">ANL2025Negotiator</a> for the center negotiator.</li>
+<li><code>center_negotiator</code> pointing to a <a href="https://autoneg.github.io/anl2025/reference/#anl2025.negotiator.ANL2025Negotiator">ANL2025Negotiator</a> for the center negotiator.</li>
 <li><code>edge_negotiators</code> pointing to a list of <a href="https://negmas.readthedocs.io/en/latest/api/negmas.sao.SAONegotiator.html#saonegotiator">SAONegotiators</a> for the edge negotiators.</li>
 <li><code>center_utility</code> giving the utility value received by the center negotiator</li>
 <li><code>edge_utility</code> giving the utility value received by each edge negotiator.You can also ask for specific types of output, by looking into <code>results</code>, e.g.:</li>
