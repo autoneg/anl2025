@@ -104,7 +104,7 @@ print(results.weighted_average)
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span>
     <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.1266639550715007</span>,
     <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.2774773478264272</span>,
-    <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.23830922778693425</span>
+    <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.23830922778693428</span>
 <span style="font-weight: bold">}</span>
 </pre>
 
@@ -153,4 +153,8 @@ The ANL package comes with some more example negotiators. These are not designed
 
 - When running a tournament using `anl2025_tournament` inside a Jupyter Notebook, you **must** pass `njobs=-1` to force serial execution of negotiations. This is required because the multiprocessing library used by NegMAS does not play nicely with Jupyter Notebooks. If you run the tournament using the same method from a `.py` python script file, you can omit this argument to run a tournament using all available cores.
 
+
+
+```python
+```
 [Download Notebook](/anl2025/tutorials/notebooks/tutorial_develop.ipynb)

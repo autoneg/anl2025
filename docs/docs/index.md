@@ -5,7 +5,6 @@ This package is a thin-wrapper around the [NegMAS](https://negmas.readthedocs.io
 
 1. A method for generating scenarios to run tournaments in the same settings as in the ANL competition. These functions are always called `anl2025_tournament` for year `2025`.
 1. A command line interface (CLI) for running tournaments called `anl`.
-<!-- 1. A visualizer for inspecting tournament results and negotiations in details called `anlv`. -->
 1. A place to hold the official implementation of every strategy submitted to the ANL competition after each year. These can be found in the module `anl.anl2025.negotiator` for year `2025`.
 
 The official website for the ANL competition is: [https://anac.cs.brown.edu/anl](https://anac.cs.brown.edu/anl)
@@ -15,7 +14,12 @@ The Automated Negotiating Agent Competition (ANAC) is an international tournamen
 
 **Design and build a negotiation agent for sequential multi-deal negotiation. The agent encounters multiple opponents in sequence and is rewarded for the specific combination of the deals made in each negotiation.**
 
-If you would like to read more on the challenge, check out the call for participation [here](https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link).
+Steps to be taken from here:
+
+1. Check out the call for participation [here](https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link).
+1. Install the ANL2025 package (see installation guide).
+1. Download the official test scenarios, code for tutorials and the template agent code from [here](https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link).
+1. Do the tutorials to get started!
 
 ## Quick start
 *For a more detailed installation guide, please refer to the [Installation](https://autoneg.github.io/anl2025/install) page.*
@@ -53,7 +57,7 @@ anl2025 version
 You should get at least these versions:
 
 ```bash
-anl: 0.1.0 (NegMAS: 0.11.2)
+anl: 0.1.2 (NegMAS: 0.11.3)
 ```
 
 
