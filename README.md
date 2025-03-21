@@ -2,7 +2,7 @@
 This is the official package for the ANL 2025 competition.
 
 
-The Automated Negotiating Agent Competition (ANAC) is an international tournament that has been running since 2010 to bring together researchers from the negotiation community. In the Automated Negotiation League (ANL), participants explore the strategies and difficulties in creating efficient agents whose primary purpose is to negotiate with other agent’s strategies. Every year, the league presents a different challenge for the participating agents. 
+The Automated Negotiating Agent Competition (ANAC) is an international tournament that has been running since 2010 to bring together researchers from the negotiation community. In the Automated Negotiation League (ANL), participants explore the strategies and difficulties in creating efficient agents whose primary purpose is to negotiate with other agent’s strategies. Every year, the league presents a different challenge for the participating agents.
 
 This year’s challenge is: Design and build a negotiation agent for sequential multi-deal negotiation. The agent encounters multiple opponents in sequence and is rewarded for the specific combination of the deals made in each negotiation.
 

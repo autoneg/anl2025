@@ -1,6 +1,6 @@
 # ANL 2025 Documentation
 
-This repository is the official platform for running ANAC Automated Negotiation Leagues for year 2025. 
+This repository is the official platform for running ANAC Automated Negotiation Leagues for year 2025.
 This package is a thin-wrapper around the [NegMAS](https://negmas.readthedocs.io) library for automated negotiation. Its main goal is to provide the following functionalities:
 
 1. A method for generating scenarios to run tournaments in the same settings as in the ANL competition. These functions are always called `anl2025_tournament` for year `2025`.

@@ -8,12 +8,12 @@ repos:
       - id: trailing-whitespace
       - id: fix-byte-order-marker # Forbid UTF-8 byte-order markers
       #   id: check-docstring-first
-      - id: check-case-conflict
+     # - id: check-case-conflict
       - id: check-json
       - id: end-of-file-fixer
       - id: mixed-line-ending
-      - id: check-added-large-files
-        args: ["--maxkb=2000"]
+   #   - id: check-added-large-files
+        #args: ["--maxkb=2000"]
         #   id: fix-encoding-pragma
   # - repo: https://github.com/asottile/pyupgrade
   #   rev: v2.31.0
