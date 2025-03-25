@@ -166,9 +166,6 @@ class ANL2025Negotiator(SAOController):
         Args:
             negotiator_id: Connection ID to this negotiation thread
             state: The state of the negotiation thread at the end of the negotiation.
-
-        Remarks:
-            You MUST call the super class version using super().on_negotiation_end(negotiation_id, state).
         """
 
     def on_negotiation_start(self, negotiator_id: str, state: SAOState) -> None:
