@@ -482,9 +482,11 @@ class Tournament:
                 nedges = len(scenario.edge_ufuns)
                 sname = scenario.name if scenario.name else f"s{k:03}"
                 random.shuffle(competitors)
+                # put each competitor in center once per scenario
                 for j in range(len(competitors)):
                     if len(competitors) >= nedges + 1:
-                        players = competitors[: nedges + 1]
+                        players = [_ for _ in competitors]
+                        # players = competitors[: nedges + 1]
                     else:
                         # add extra players at the end if not enough competitors are available
                         players = competitors + list(
@@ -503,8 +505,12 @@ class Tournament:
                         output = path / "results" / sname / f"r{j:03}t{i:03}"
                     else:
                         output = None
+                    # if verbose:
+                    #     print(f"{j=}, {players=}")
                     center, center_params = players[j]
-                    edge_info = [_ for _ in players[:j] + players[j + 1 :]]
+                    edge_info = [_ for _ in players[:j] + players[j + 1 :]][
+                        : nedges + 1
+                    ]
                     # not sure if the following shuffle is useful!
                     # It tries to randomize the order of the edges to avoid
                     # having a systematic bias but we randomize competitors anyway.
@@ -537,9 +543,9 @@ class Tournament:
                             nedges_counted,
                         )
                     )
-            # This rotation guarantees that every competitor is
-            # the center once per scenario per repetition
-            competitors = [competitors[-1]] + competitors[:-1]
+                    # This rotation guarantees that every competitor is
+                    # the center once per scenario per repetition
+                    competitors = [competitors[-1]] + competitors[:-1]
         if verbose:
             print(f"Will run {len(jobs)} negotiations")
 
