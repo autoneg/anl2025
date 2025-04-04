@@ -1,3 +1,5 @@
+from typing import Any
+from attr import field
 from attrs import define
 from random import random
 from negmas.helpers.types import get_class
@@ -44,8 +46,13 @@ class RunParams:
     keep_order: bool = True
     share_ufuns: bool = False
     atomic: bool = False
+    end_on_no_response: bool = True
     method: str = DEFAULT_METHOD
     time_limit: float | None = None
+    hidden_time_limit: float | None = None
+    mechanism_params: dict[str, Any] = field(factory=dict)
+    ignore_mechanism_exceptions: bool = False
+    ignore_negotiator_exceptions: bool | None = None
 
 
 def get_ufun_class(x: str | type) -> type:

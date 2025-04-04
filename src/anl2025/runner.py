@@ -1,4 +1,5 @@
 from copy import deepcopy
+from time import perf_counter
 from rich import print
 from typing import Any
 from random import choice
@@ -62,6 +63,18 @@ class SessionResults:
     agreements: list[Outcome | None]
     center_utility: float
     edge_utilities: list[float]
+    n_succeeded: int = field(init=False)
+    n_timedout: int = field(init=False)
+    n_failed: int = field(init=False)
+    total_time: float
+    times: list[float]
+
+    def __attrs_post_init__(self):
+        self.n_succeeded = len([_ for _ in self.agreements if _ is not None])
+        self.n_timedout = len([_ for _ in self.mechanisms if _.state.timedout])
+        self.n_failed = len(self.agreements) - self.n_succeeded - self.n_timedout
+
+    # final_states: list[SAOState]
 
 
 @define
@@ -134,13 +147,21 @@ class AssignedScenario:
         for i, (edge_ufun, side_ufun, edge) in enumerate(
             zip(edge_ufuns, side_ufuns, edges, strict=True)
         ):
-            m = SAOMechanism(
-                outcome_space=edge_ufun.outcome_space,
-                one_offer_per_step=self.run_params.atomic,
+            params_ = {k: v for k, v in self.run_params.mechanism_params.items()}
+            params_ |= dict(
                 name=f"n{i}",
                 n_steps=self.run_params.nsteps,
-                end_on_no_response=True,
+                end_on_no_response=self.run_params.end_on_no_response,
+                time_limit=self.run_params.time_limit,
+                hidden_time_limit=self.run_params.hidden_time_limit,
+                outcome_space=edge_ufun.outcome_space,
+                one_offer_per_step=self.run_params.atomic,
             )
+            if self.run_params.ignore_negotiator_exceptions is not None:
+                params_[
+                    "ignore_negotiator_exceptions"
+                ] = self.run_params.ignore_negotiator_exceptions
+            m = SAOMechanism(**params_)
             m.id = m.name = f"n{i}"
             if verbose:
                 print(f"Adding edge {i} of type {type_name(edge)} (thread: {m.name})")
@@ -179,6 +200,9 @@ class AssignedScenario:
                 edge_utilities=[0.0] * len(edges),
                 edges=edges,
                 agreements=[None] * len(edges),
+                total_time=0.0,
+                times=[0.0] * len(mechanisms),
+                # final_states=[_.state for _ in mechanisms],
             )
 
         base = None
@@ -194,12 +218,15 @@ class AssignedScenario:
             m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
             plt.close()
 
+        _strt = perf_counter()
         SAOMechanism.runall(
             mechanisms,
             method=self.run_params.method,
             keep_order=self.run_params.keep_order,
             completion_callback=plot_result if output else None,
+            ignore_mechanism_exceptions=self.run_params.ignore_mechanism_exceptions,
         )  # type: ignore
+        total_time = perf_counter() - _strt
         if not name:
             name = unique_name("session", sep=".")
         agreements = [_.agreement for _ in mechanisms]
@@ -214,6 +241,9 @@ class AssignedScenario:
                 for edge_ufun, _ in zip(self._saved_scenario.edge_ufuns, agreements)
             ],
             edges=edges,
+            total_time=total_time,
+            times=[m.time for m in mechanisms],
+            # final_states=[_.state for _ in mechanisms],
         )
 
 
@@ -263,7 +293,7 @@ def assign_scenario(
     edges: list[ANL2025Negotiator] = []
     if verbose:
         print(
-            f"Will use the following agents for edges\n{[_.__name__ if not isinstance(_, str) else _.split('.')[-1] for _ in agents]}"
+            f"Center type={center.__class__.__name__}\nWill use the following agents for edges\n{[_.__name__ if not isinstance(_, str) else _.split('.')[-1] for _ in agents]}"
         )
     for i, (edge_ufun, edge_p) in enumerate(zip(edge_ufuns, edge_params)):
         if sample_edges:

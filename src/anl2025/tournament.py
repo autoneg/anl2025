@@ -1,7 +1,8 @@
 from collections import defaultdict
-from attr import asdict
+from attr import asdict, field
 from multiprocessing import cpu_count
 from concurrent.futures import ProcessPoolExecutor, as_completed
+from negmas.helpers import unique_name
 from negmas.serialization import dump
 from rich import print
 from rich.progress import track
@@ -69,6 +70,9 @@ class ScoreRecord(TypedDict):
         rotation: The rotation number of this run.
         scenario_index: Index of the scenario.
         index: Index of the agent. center = 0 and edges start at 1
+        errors: Number of errors of this agent
+        partner_errors: Number of errors of the opponent (partner)
+        mechanism_errors: Number of mechanism errors
     """
 
     agent: str
@@ -79,6 +83,10 @@ class ScoreRecord(TypedDict):
     rotation: int
     scenario_index: int
     index: int
+    errors: int
+    partner_errors: int
+    mechanism_errors: int
+    time: float
 
 
 @define
@@ -124,6 +132,19 @@ class TournamentResults:
     weighted_average: dict[str, float]
     scores: list[ScoreRecord]
     session_results: list[SessionInfo]
+    path: Path | None = None
+    n_threads_succeeded: int = field(init=False)
+    n_threads_timedout: int = field(init=False)
+    n_threads_failed: int = field(init=False)
+
+    def __attrs_post_init__(self):
+        self.n_threads_succeeded = sum(
+            [_.results.n_succeeded for _ in self.session_results]
+        )
+        self.n_threads_timedout = sum(
+            [_.results.n_timedout for _ in self.session_results]
+        )
+        self.n_threads_failed = sum([_.results.n_failed for _ in self.session_results])
 
 
 def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, SessionInfo]:
@@ -233,6 +254,10 @@ def anl2025_tournament(
     )
 
 
+def make_tournament_name():
+    return unique_name("t", sep="_")
+
+
 @define
 class Tournament:
     """Represents a tournament
@@ -248,6 +273,7 @@ class Tournament:
     scenarios: tuple[MultidealScenario, ...]
     run_params: RunParams
     competitor_params: tuple[dict[str, Any] | None, ...] | None = None
+    name: str = field(factory=make_tournament_name)
 
     @classmethod
     def from_scenarios(
@@ -268,6 +294,7 @@ class Tournament:
         edge_reserved_value_min: float = 0.1,
         edge_reserved_value_max: float = 0.4,
         competitor_params: tuple[dict[str, Any] | None, ...] | None = None,
+        name: str | None = None,
     ) -> Self:
         """Loads a tournament from the given scenarios (optionally generating new ones)
 
@@ -295,6 +322,7 @@ class Tournament:
         #         f"We have {len(competitors)} competitors which is not enough for {nedges} edges"
         #     )
         return cls(
+            name=name if name else make_tournament_name(),
             competitors=tuple(competitors),
             competitor_params=competitor_params,
             run_params=run_params,
@@ -473,6 +501,7 @@ class Tournament:
             non_competitors = None
 
         jobs = []
+
         for i in track(range(n_repetitions), "Preparing Negotiation Sessions"):
             competitors = [
                 (get_class(c), p)
@@ -574,16 +603,31 @@ class Tournament:
                     rotation=job.competitor_index,
                     scenario_index=job.scenario_index,
                     index=0,
+                    time=r.total_time,
+                    errors=sum(
+                        [
+                            m.state.has_error and m.state.erred_negotiator == cname
+                            for m in r.mechanisms
+                        ]
+                    ),
+                    partner_errors=sum(
+                        [
+                            m.state.has_error and m.state.erred_negotiator != cname
+                            for m in r.mechanisms
+                        ]
+                    ),
+                    # TODO: get the correct number of mechanism errors
+                    mechanism_errors=0,
                 )
             )
             final_scores[cname] += r.center_utility * center_multiplier
             final_scoresC[cname] += r.center_utility * center_multiplier
             count_center[cname] += 1
             for e, (c, p) in enumerate(job.edge_info[: job.nedges_counted]):
-                cname = type_name(c) if not p else f"{type_name(c)}_{hash(str(p))}"
+                ename = type_name(c) if not p else f"{type_name(c)}_{hash(str(p))}"
                 scores.append(
                     dict(
-                        agent=cname,
+                        agent=ename,
                         utility=r.edge_utilities[e] * edge_multiplier,
                         partner_average_utility=r.center_utility,
                         scenario=job.sname,
@@ -591,11 +635,26 @@ class Tournament:
                         rotation=job.competitor_index,
                         scenario_index=job.scenario_index,
                         index=e + 1,
+                        time=r.times[e],
+                        errors=sum(
+                            [
+                                m.state.has_error and m.state.erred_negotiator == ename
+                                for m in r.mechanisms
+                            ]
+                        ),
+                        partner_errors=sum(
+                            [
+                                m.state.has_error and m.state.erred_negotiator != ename
+                                for m in r.mechanisms
+                            ]
+                        ),
+                        # TODO: get the correct number of mechanism errors
+                        mechanism_errors=0,
                     )
                 )
-                final_scores[cname] += r.edge_utilities[e] * edge_multiplier
-                final_scoresE[cname] += r.edge_utilities[e] * edge_multiplier
-                count_edge[cname] += 1
+                final_scores[ename] += r.edge_utilities[e] * edge_multiplier
+                final_scoresE[ename] += r.edge_utilities[e] * edge_multiplier
+                count_edge[ename] += 1
 
             if verbose:
                 print(f"Center Utility: {r.center_utility}")
@@ -643,4 +702,5 @@ class Tournament:
             weighted_average={k: v for k, v in weighted_average.items()},
             scores=scores,
             session_results=results,
+            path=path,
         )
