@@ -57,7 +57,7 @@ anl2025 version
 You should get at least these versions:
 
 ```bash
-anl: 0.1.2 (NegMAS: 0.11.3)
+anl: 0.1.3 (NegMAS: 0.11.3)
 ```
 
 

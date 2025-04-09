@@ -219,13 +219,22 @@ class AssignedScenario:
             plt.close()
 
         _strt = perf_counter()
-        SAOMechanism.runall(
-            mechanisms,
-            method=self.run_params.method,
-            keep_order=self.run_params.keep_order,
-            completion_callback=plot_result if output else None,
-            ignore_mechanism_exceptions=self.run_params.ignore_mechanism_exceptions,
-        )  # type: ignore
+        # be compatible with negmas before 0.11.4
+        try:
+            SAOMechanism.runall(
+                mechanisms,
+                method=self.run_params.method,
+                keep_order=self.run_params.keep_order,
+                completion_callback=plot_result if output else None,
+                ignore_mechanism_exceptions=self.run_params.ignore_mechanism_exceptions,  # type: ignore
+            )  # type: ignore
+        except Exception:
+            SAOMechanism.runall(
+                mechanisms,
+                method=self.run_params.method,
+                keep_order=self.run_params.keep_order,
+                completion_callback=plot_result if output else None,
+            )  # type: ignore
         total_time = perf_counter() - _strt
         if not name:
             name = unique_name("session", sep=".")
