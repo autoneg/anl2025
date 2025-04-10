@@ -1,0 +1,24 @@
+id: employee2-afae43ae-1796-46ec-a730-ad91ce2c8545
+name: employee2
+outcome_space: null
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    0: 1
+    1: 2
+    2: 5
+    3: 4
+    4: 3
+    5: 0
+  type: negmas.preferences.value_fun.TableFun
+- mapping:
+    100: 0.1
+    150: 1
+    200: 4
+    250: 5
+    300: 6
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 0.4
+- 0.6
