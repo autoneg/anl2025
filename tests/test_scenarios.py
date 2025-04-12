@@ -174,6 +174,11 @@ def test_load_example_scenario_target_quantity():
     run_session(scenario)
 
 
+def test_load_example_scenario_job_hunt():
+    scenario = load_example_scenario("JobHunt")
+    run_session(scenario)
+
+
 def test_get_example_scenarios():
     names = get_example_scenario_names()
     assert names

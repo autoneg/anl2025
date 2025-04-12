@@ -8,9 +8,9 @@ from .target_quantity import *  # noqa: F403
 
 
 __all__ = (
-    dinners.__all__
-    + job_hunt.__all__
-    + target_quantity.__all__
+    dinners.__all__  # noqa: F405
+    + job_hunt.__all__  # noqa: F405
+    + target_quantity.__all__  # noqa: F405
     + ["load_example_scenario", "get_example_scenario_names"]
 )  # type: ignore # noqa: F405
 
@@ -26,7 +26,7 @@ def load_example_scenario(name: str | None = None) -> MultidealScenario:
     """Loads an example scenario.
 
     Remarks:
-        - Currently the following scenarios are available: Dinners and TargetQuantity.
+        - Currently the following scenarios are available: Dinners, JobHunt and TargetQuantity.
         - If you do not pass any name a randomly chosen example scenario will be returned.
     """
     if not name:

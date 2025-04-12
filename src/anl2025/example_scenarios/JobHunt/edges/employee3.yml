@@ -1,24 +1,4 @@
-id: employer03-370fbd7b-e0c5-4faa-901d-dda69ca97775
 name: employer03
-outcome_space:
-  issues:
-  - n_values: 6
-    name: days
-    type: negmas.outcomes.contiguous_issue.ContiguousIssue
-    values:
-    - 0
-    - 5
-  - n_values: 5
-    name: salary
-    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
-    values:
-    - 100
-    - 150
-    - 200
-    - 250
-    - 300
-  name: JobHunt
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
 reserved_value: 0.0
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:
