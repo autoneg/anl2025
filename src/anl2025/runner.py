@@ -103,6 +103,7 @@ class AssignedScenario:
         output: Path | str | None = None,
         verbose: bool = False,
         dry: bool = False,
+        normalize_scores: bool = True,
     ) -> SessionResults:
         """Runs a multi-deal negotiation and gets the results"""
         if output and isinstance(output, str):
@@ -238,17 +239,28 @@ class AssignedScenario:
         total_time = perf_counter() - _strt
         if not name:
             name = unique_name("session", sep=".")
-        agreements = [_.agreement for _ in mechanisms]
+        agreements = tuple(_.agreement for _ in mechanisms)
+        center_utility = float(self._saved_scenario.center_ufun(agreements))
+        edge_utilities = [
+            float(edge_ufun(_)) if edge_ufun else float("nan")
+            for edge_ufun, _ in zip(self._saved_scenario.edge_ufuns, agreements)
+        ]
+        if normalize_scores:
+            center_minmax = center_ufun.minmax()
+            center_utility = center_minmax[0] + center_utility * (
+                center_minmax[1] - center_minmax[0]
+            )
+            edge_minmax = [_.minmax() for _ in edge_ufuns]
+            edge_utilities = [
+                mn + u * (mx - mn) for u, (mn, mx) in zip(edge_utilities, edge_minmax)
+            ]
 
         return SessionResults(
             mechanisms=mechanisms,
             center=center,
-            agreements=agreements,
-            center_utility=float(self._saved_scenario.center_ufun(tuple(agreements))),
-            edge_utilities=[
-                float(edge_ufun(_)) if edge_ufun else float("nan")
-                for edge_ufun, _ in zip(self._saved_scenario.edge_ufuns, agreements)
-            ],
+            agreements=list(agreements),
+            center_utility=center_utility,
+            edge_utilities=edge_utilities,
             edges=edges,
             total_time=total_time,
             times=[m.time for m in mechanisms],

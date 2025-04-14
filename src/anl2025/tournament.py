@@ -147,7 +147,9 @@ class TournamentResults:
         self.n_threads_failed = sum([_.results.n_failed for _ in self.session_results])
 
 
-def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, SessionInfo]:
+def run_session(
+    job: JobInfo, dry: bool, verbose: bool, normalize_scores: bool = True
+) -> tuple[JobInfo, SessionInfo]:
     if verbose:
         print(f"Scenario {job.assigned.scenario.name}")
     assigned = job.assigned
@@ -164,6 +166,7 @@ def run_session(job: JobInfo, dry: bool, verbose: bool) -> tuple[JobInfo, Sessio
         name=f"{sname}_{j}_{i}",
         dry=dry,
         verbose=verbose,
+        normalize_scores=normalize_scores,
     )
     return job, SessionInfo(
         scenario_name=sname,
@@ -438,6 +441,7 @@ class Tournament:
         n_jobs: int | float | None = 0,
         center_multiplier: float | None = None,
         edge_multiplier: float = 1,
+        normalize_scores: bool = True,
     ) -> TournamentResults:
         """Run the tournament
 
@@ -663,14 +667,15 @@ class Tournament:
 
         if n_jobs is None:
             for job in track(jobs, "Running Negotiations"):
-                job, info = run_session(job, dry, verbose)
+                job, info = run_session(job, dry, verbose, normalize_scores)
                 process_info(job, info)
         else:
             assert n_jobs > 0
             with ProcessPoolExecutor(max_workers=n_jobs) as executor:
                 # Submit all jobs and store the futures
                 futures = [
-                    executor.submit(run_session, job, dry, verbose) for job in jobs
+                    executor.submit(run_session, job, dry, verbose, normalize_scores)
+                    for job in jobs
                 ]
 
                 # Process results as they become available
