@@ -1,6 +1,7 @@
 import sys
 import copy
 from typing import Any, Optional
+from negmas.helpers import unique_name
 from negmas.preferences import UtilityFunction
 from attr import define, field
 from pathlib import Path
@@ -250,8 +251,14 @@ def make_multideal_scenario(
     # edge ufuns
     edge_reserved_value_min: float = 0.1,
     edge_reserved_value_max: float = 0.4,
+    name: str | None = None,
 ) -> MultidealScenario:
-    ufuns = [generate_multi_issue_ufuns(nissues, nvalues) for _ in range(nedges)]
+    ufuns = [
+        generate_multi_issue_ufuns(
+            nissues, nvalues, os_name=unique_name("s", add_time=False, sep="")
+        )
+        for _ in range(nedges)
+    ]
     edge_ufuns = [_[0] for _ in ufuns]
     for u in edge_ufuns:
         u.reserved_value = sample_between(
@@ -287,6 +294,11 @@ def make_multideal_scenario(
             )
 
     return MultidealScenario(
+        name=name
+        if name
+        else unique_name(
+            f"s{center_ufun.outcome_space.cardinality}", add_time=False, sep=""
+        ),
         center_ufun=center_ufun,
         side_ufuns=side_ufuns,
         edge_ufuns=tuple(edge_ufuns),
