@@ -125,7 +125,7 @@ def do_make(
     t = Tournament.from_scenarios(
         competitors=(competitors),
         scenarios=tuple(scenarios),
-        run_params=RunParams(nsteps, keep_order, share_ufuns, atomic, method),
+        run_params=RunParams(nsteps, keep_order, share_ufuns, atomic, method=method),
         n_generated=generated,
         nedges=nedges,
         nissues=nissues,
@@ -158,6 +158,12 @@ def do_run(
     data["role"] = data["index"].apply(lambda x: "center" if x == 0 else "edge")
     data.to_csv(output / "scores.csv", index=False)
     dump(results.final_scores, output / "final_scores.yaml")
+    dump(results.final_scoresE, output / "final_scores_when_center.yaml")
+    dump(results.final_scoresC, output / "final_scores_when_edge.yaml")
+    dump(results.weighted_average, output / "weighted_average.yaml")
+    dump(results.unweighted_average, output / "unweighted_average.yaml")
+    dump(results.center_count, output / "center_count.yaml")
+    dump(results.edge_count, output / "edge_count.yaml")
     print(f"Got {len(results.scores)} scores")
     df = data.groupby(["agent", "role"])["utility"].describe().reset_index()
     if len(df) > 0:
@@ -171,7 +177,7 @@ def do_run(
 
     # Add rows to the table
 
-    scores = results.final_scores
+    scores = results.weighted_average
     sorted_scores = dict(sorted(scores.items(), key=lambda item: item[1], reverse=True))
     for i, (name, score) in enumerate(sorted_scores.items()):
         table.add_row(str(i + 1), name, f"{score:.3f}")
