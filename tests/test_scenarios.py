@@ -4,6 +4,7 @@ from pathlib import Path
 from anl2025.inout import load_multideal_scenario
 from anl2025.negotiator import Random2025
 from anl2025.runner import MultidealScenario, run_session
+from anl2025.scenario import make_multideal_scenario
 from anl2025.scenarios import get_example_scenario_names, load_example_scenario
 from anl2025.scenarios.dinners import make_dinners_scenario
 from anl2025.scenarios.job_hunt import make_job_hunt_scenario
@@ -185,3 +186,8 @@ def test_get_example_scenarios():
 
     for name in names:
         load_example_scenario(name)
+
+
+def test_random_scenario():
+    scenario = make_multideal_scenario(nedges=3)
+    run_session(scenario)

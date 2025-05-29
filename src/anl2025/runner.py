@@ -103,7 +103,7 @@ class AssignedScenario:
         output: Path | str | None = None,
         verbose: bool = False,
         dry: bool = False,
-        normalize_scores: bool = True,
+        normalize_scores: bool = False,
     ) -> SessionResults:
         """Runs a multi-deal negotiation and gets the results"""
         if output and isinstance(output, str):
@@ -246,11 +246,22 @@ class AssignedScenario:
             for edge_ufun, _ in zip(self._saved_scenario.edge_ufuns, agreements)
         ]
         if normalize_scores:
+            _strt = perf_counter()
+            edge_minmax = [_.minmax() for _ in edge_ufuns]
+            if verbose:
+                print(
+                    f"Edge utilities normalized in {perf_counter() - _strt:.2f} seconds",
+                    flush=True,
+                )
             center_minmax = center_ufun.minmax()
+            if verbose:
+                print(
+                    f"Normalization completed in {perf_counter() - _strt:.2f} seconds",
+                    flush=True,
+                )
             center_utility = center_minmax[0] + center_utility * (
                 center_minmax[1] - center_minmax[0]
             )
-            edge_minmax = [_.minmax() for _ in edge_ufuns]
             edge_utilities = [
                 mn + u * (mx - mn) for u, (mn, mx) in zip(edge_utilities, edge_minmax)
             ]

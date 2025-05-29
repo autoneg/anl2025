@@ -87,6 +87,8 @@ class ScoreRecord(TypedDict):
     partner_errors: int
     mechanism_errors: int
     time: float
+    self_error_details: str
+    partner_error_details: str
 
 
 @define
@@ -148,7 +150,7 @@ class TournamentResults:
 
 
 def run_session(
-    job: JobInfo, dry: bool, verbose: bool, normalize_scores: bool = True
+    job: JobInfo, dry: bool, verbose: bool, normalize_scores: bool = False
 ) -> tuple[JobInfo, SessionInfo]:
     if verbose:
         print(f"Scenario {job.assigned.scenario.name}")
@@ -441,7 +443,7 @@ class Tournament:
         n_jobs: int | float | None = 0,
         center_multiplier: float | None = None,
         edge_multiplier: float = 1,
-        normalize_scores: bool = True,
+        normalize_scores: bool = False,
     ) -> TournamentResults:
         """Run the tournament
 
@@ -614,6 +616,22 @@ class Tournament:
                             for m in r.mechanisms
                         ]
                     ),
+                    self_error_details="".join(
+                        [
+                            f"{m.state.error_details}\n"
+                            if m.state.erred_negotiator == cname
+                            else ""
+                            for m in r.mechanisms
+                        ]
+                    ),
+                    partner_error_details="".join(
+                        [
+                            f"{m.state.error_details}\n"
+                            if m.state.erred_negotiator != cname
+                            else ""
+                            for m in r.mechanisms
+                        ]
+                    ),
                     partner_errors=sum(
                         [
                             m.state.has_error and m.state.erred_negotiator != cname
@@ -649,6 +667,22 @@ class Tournament:
                         partner_errors=sum(
                             [
                                 m.state.has_error and m.state.erred_negotiator != ename
+                                for m in r.mechanisms
+                            ]
+                        ),
+                        self_error_details="".join(
+                            [
+                                f"{m.state.error_details}\n"
+                                if m.state.erred_negotiator == ename
+                                else ""
+                                for m in r.mechanisms
+                            ]
+                        ),
+                        partner_error_details="".join(
+                            [
+                                f"{m.state.error_details}\n"
+                                if m.state.erred_negotiator != ename
+                                else ""
                                 for m in r.mechanisms
                             ]
                         ),
