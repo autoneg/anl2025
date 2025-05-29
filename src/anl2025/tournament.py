@@ -604,7 +604,7 @@ class Tournament:
             )
             r = info.results
             center_ids = [m.nmi.annotation["center_id"] for m in r.mechanisms]
-            [m.nmi.annotation["edge_id"] for m in r.mechanisms]
+            edge_ids = [m.nmi.annotation["edge_id"] for m in r.mechanisms]
             results.append(info)
             center, center_params = job.center, job.center_params
             cname = (
@@ -676,13 +676,13 @@ class Tournament:
                         errors=sum(
                             [
                                 m.state.has_error and m.state.erred_negotiator == eid
-                                for m, eid in zip(r.mechanisms, center_ids)
+                                for m, eid in zip(r.mechanisms, edge_ids)
                             ]
                         ),
                         partner_errors=sum(
                             [
                                 m.state.has_error and m.state.erred_negotiator != eid
-                                for m, eid in zip(r.mechanisms, center_ids)
+                                for m, eid in zip(r.mechanisms, edge_ids)
                             ]
                         ),
                         self_error_details="".join(
@@ -690,7 +690,7 @@ class Tournament:
                                 f"{m.state.error_details}\n"
                                 if m.state.erred_negotiator == eid
                                 else ""
-                                for m, eid in zip(r.mechanisms, center_ids)
+                                for m, eid in zip(r.mechanisms, edge_ids)
                             ]
                         ),
                         partner_error_details="".join(
@@ -698,7 +698,7 @@ class Tournament:
                                 f"{m.state.error_details}\n"
                                 if m.state.erred_negotiator != eid
                                 else ""
-                                for m, eid in zip(r.mechanisms, center_ids)
+                                for m, eid in zip(r.mechanisms, edge_ids)
                             ]
                         ),
                         # TODO: get the correct number of mechanism errors
