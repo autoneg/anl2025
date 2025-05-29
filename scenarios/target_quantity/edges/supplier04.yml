@@ -1,4 +1,4 @@
-id: supplier04-fce6a12c-ced4-4a42-930c-b0754dd2c305
+id: supplier04-c813b19a-3828-44c7-a528-21bcac46c5a2
 name: supplier04
 outcome_space:
   issues:
@@ -14,11 +14,11 @@ reserved_value: 0.0
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:
 - mapping:
-    1: 0.0
-    2: 0.0
-    3: 0.0
-    4: 0.2892597621783556
-    5: 1.0
+    1: 0.2968941671360208
+    2: 0.6484470835680104
+    3: 1.0
+    4: 0.5148072244533759
+    5: 0.0296144489067518
   type: negmas.preferences.value_fun.TableFun
 weights:
 - 1.0
