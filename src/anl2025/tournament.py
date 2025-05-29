@@ -126,13 +126,24 @@ class SessionInfo:
 class TournamentResults:
     """Results of a tournament"""
 
-    final_scores: dict[str, float]
-    final_scoresE: dict[str, float]
-    final_scoresC: dict[str, float]
-    center_count: dict[str, float]
-    edge_count: dict[str, float]
-    weighted_average: dict[str, float]
-    scores: list[ScoreRecord]
+    final_scores: dict[
+        str, float
+    ]  # Accumulated scores of each agent with center utilities multiplied by the center multiplier
+    final_scoresE: dict[
+        str, float
+    ]  # Average scores of each agent when it played as edge
+    final_scoresC: dict[
+        str, float
+    ]  # Average scores of each agent when it played as center
+    center_count: dict[str, float]  # Number of times each agent played as center
+    edge_count: dict[str, float]  # Number of times each agent played as edge
+    weighted_average: dict[
+        str, float
+    ]  # Average score of each agent normalizing by the number of times it played as center or edge (e.g. 0.5(final_scoresE/edge_count+ final_scoresC/center_count))
+    unweighted_average: dict[
+        str, float
+    ]  # Average score of each agent without normalizing by the number of times it played as center or edge (e.g. final_scores/(edge_count+center_count))
+    scores: list[ScoreRecord]  # Raw scores of agents in all negotiations
     session_results: list[SessionInfo]
     path: Path | None = None
     n_threads_succeeded: int = field(init=False)
@@ -480,9 +491,10 @@ class Tournament:
 
         results = []
         assert isinstance(self.competitor_params, tuple)
-        final_scores = defaultdict(float)
-        final_scoresC = defaultdict(float)
-        final_scoresE = defaultdict(float)
+        acc_scores = defaultdict(float)
+        raw_scores = defaultdict(float)
+        weighted_scores_center = defaultdict(float)
+        weighted_scores_edge = defaultdict(float)
         count_edge = defaultdict(float)
         count_center = defaultdict(float)
 
@@ -591,6 +603,8 @@ class Tournament:
                 else len(job.edge_info)
             )
             r = info.results
+            center_ids = [m.nmi.annotation["center_id"] for m in r.mechanisms]
+            [m.nmi.annotation["edge_id"] for m in r.mechanisms]
             results.append(info)
             center, center_params = job.center, job.center_params
             cname = (
@@ -612,38 +626,39 @@ class Tournament:
                     time=r.total_time,
                     errors=sum(
                         [
-                            m.state.has_error and m.state.erred_negotiator == cname
-                            for m in r.mechanisms
+                            m.state.has_error and m.state.erred_negotiator == cid
+                            for m, cid in zip(r.mechanisms, center_ids)
                         ]
                     ),
                     self_error_details="".join(
                         [
                             f"{m.state.error_details}\n"
-                            if m.state.erred_negotiator == cname
+                            if m.state.erred_negotiator == cid
                             else ""
-                            for m in r.mechanisms
+                            for m, cid in zip(r.mechanisms, center_ids)
                         ]
                     ),
                     partner_error_details="".join(
                         [
                             f"{m.state.error_details}\n"
-                            if m.state.erred_negotiator != cname
+                            if m.state.erred_negotiator != cid
                             else ""
-                            for m in r.mechanisms
+                            for m, cid in zip(r.mechanisms, center_ids)
                         ]
                     ),
                     partner_errors=sum(
                         [
-                            m.state.has_error and m.state.erred_negotiator != cname
-                            for m in r.mechanisms
+                            m.state.has_error and m.state.erred_negotiator != cid
+                            for m, cid in zip(r.mechanisms, center_ids)
                         ]
                     ),
                     # TODO: get the correct number of mechanism errors
                     mechanism_errors=0,
                 )
             )
-            final_scores[cname] += r.center_utility * center_multiplier
-            final_scoresC[cname] += r.center_utility * center_multiplier
+            acc_scores[cname] += r.center_utility * center_multiplier
+            raw_scores[cname] += r.center_utility
+            weighted_scores_center[cname] += r.center_utility * center_multiplier
             count_center[cname] += 1
             for e, (c, p) in enumerate(job.edge_info[: job.nedges_counted]):
                 ename = type_name(c) if not p else f"{type_name(c)}_{hash(str(p))}"
@@ -660,38 +675,39 @@ class Tournament:
                         time=r.times[e],
                         errors=sum(
                             [
-                                m.state.has_error and m.state.erred_negotiator == ename
-                                for m in r.mechanisms
+                                m.state.has_error and m.state.erred_negotiator == eid
+                                for m, eid in zip(r.mechanisms, center_ids)
                             ]
                         ),
                         partner_errors=sum(
                             [
-                                m.state.has_error and m.state.erred_negotiator != ename
-                                for m in r.mechanisms
+                                m.state.has_error and m.state.erred_negotiator != eid
+                                for m, eid in zip(r.mechanisms, center_ids)
                             ]
                         ),
                         self_error_details="".join(
                             [
                                 f"{m.state.error_details}\n"
-                                if m.state.erred_negotiator == ename
+                                if m.state.erred_negotiator == eid
                                 else ""
-                                for m in r.mechanisms
+                                for m, eid in zip(r.mechanisms, center_ids)
                             ]
                         ),
                         partner_error_details="".join(
                             [
                                 f"{m.state.error_details}\n"
-                                if m.state.erred_negotiator != ename
+                                if m.state.erred_negotiator != eid
                                 else ""
-                                for m in r.mechanisms
+                                for m, eid in zip(r.mechanisms, center_ids)
                             ]
                         ),
                         # TODO: get the correct number of mechanism errors
                         mechanism_errors=0,
                     )
                 )
-                final_scores[ename] += r.edge_utilities[e] * edge_multiplier
-                final_scoresE[ename] += r.edge_utilities[e] * edge_multiplier
+                acc_scores[ename] += r.edge_utilities[e] * edge_multiplier
+                raw_scores[ename] += r.edge_utilities[e]
+                weighted_scores_edge[ename] += r.edge_utilities[e] * edge_multiplier
                 count_edge[ename] += 1
 
             if verbose:
@@ -720,25 +736,39 @@ class Tournament:
                     except Exception as e:
                         print(f"Job failed with exception: {e}")
 
+        # weighted_average_* are the average scores of each agent when they are in the center or edge position
         weighted_average = {}
-        for agent in final_scores.keys():
-            average_score_E = (
-                final_scoresE[agent] / count_edge[agent] if count_edge[agent] > 0 else 0
+        for agent in acc_scores.keys():
+            weighted_average_edge = (
+                weighted_scores_edge[agent] / count_edge[agent]
+                if count_edge[agent] > 0
+                else 0
             )
-            average_score_C = (
-                final_scoresC[agent] / count_center[agent]
+            weighted_average_center = (
+                weighted_scores_center[agent] / count_center[agent]
                 if count_center[agent] > 0
                 else 0
             )
-            weighted_average[agent] = 0.5 * (average_score_C + average_score_E)
+            weighted_average[agent] = 0.5 * (
+                weighted_average_center + weighted_average_edge
+            )
+        # total count for each agent
+        count: dict[str, float] = dict()
+        for k, v in count_edge.items():
+            count[k] = v
+        for k, v in count_center.items():
+            count[k] += v
 
         return TournamentResults(
-            final_scores={k: v for k, v in final_scores.items()},
+            final_scores={k: v for k, v in acc_scores.items()},
             edge_count={k: v for k, v in count_edge.items()},
             center_count={k: v for k, v in count_center.items()},
-            final_scoresC={k: v for k, v in final_scoresC.items()},
-            final_scoresE={k: v for k, v in final_scoresE.items()},
+            final_scoresC={k: v for k, v in weighted_scores_center.items()},
+            final_scoresE={k: v for k, v in weighted_scores_edge.items()},
             weighted_average={k: v for k, v in weighted_average.items()},
+            unweighted_average={
+                k: (v / count[k]) if count[k] else v for k, v in acc_scores.items()
+            },
             scores=scores,
             session_results=results,
             path=path,

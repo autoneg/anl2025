@@ -148,6 +148,7 @@ class AssignedScenario:
         for i, (edge_ufun, side_ufun, edge) in enumerate(
             zip(edge_ufuns, side_ufuns, edges, strict=True)
         ):
+            annotation = dict(center_id=f"s{i}", edge_id=f"e{i}")
             params_ = {k: v for k, v in self.run_params.mechanism_params.items()}
             params_ |= dict(
                 name=f"n{i}",
@@ -157,6 +158,7 @@ class AssignedScenario:
                 hidden_time_limit=self.run_params.hidden_time_limit,
                 outcome_space=edge_ufun.outcome_space,
                 one_offer_per_step=self.run_params.atomic,
+                annotation=annotation,
             )
             if self.run_params.ignore_negotiator_exceptions is not None:
                 params_[
@@ -170,24 +172,24 @@ class AssignedScenario:
                 center.create_negotiator(
                     cntxt=dict(center=True, ufun=side_ufun, index=i),
                     ufun=side_ufun,
-                    id=f"s{i}",
+                    id=annotation["center_id"],
                     private_info=dict(opponent_ufun=edge_ufun)
                     if self.run_params.share_ufuns
                     else dict(),
                 )
             )
-            m.negotiators[-1].id = m.negotiators[-1].name = f"s{i}"
+            m.negotiators[-1].id = m.negotiators[-1].name = annotation["center_id"]
             m.add(
                 edge.create_negotiator(
                     cntxt=dict(center=False, ufun=edge_ufun, index=i),
                     ufun=edge_ufun,
-                    id=f"e{i}",
+                    id=annotation["edge_id"],
                     private_info=dict(opponent_ufun=side_ufun)
                     if self.run_params.share_ufuns
                     else dict(),
                 )
             )
-            m.negotiators[-1].id = m.negotiators[-1].name = f"e{i}"
+            m.negotiators[-1].id = m.negotiators[-1].name = annotation["edge_id"]
             mechanisms.append(m)
         assert isinstance(center.ufun, CenterUFun)
         center.init()
