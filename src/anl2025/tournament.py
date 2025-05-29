@@ -592,7 +592,7 @@ class Tournament:
                     )
                     # This rotation guarantees that every competitor is
                     # the center once per scenario per repetition
-                    competitors = [competitors[-1]] + competitors[:-1]
+                    # competitors = [competitors[-1]] + competitors[:-1]
         if verbose:
             print(f"Will run {len(jobs)} negotiations")
 
