@@ -72,10 +72,10 @@ def scenario_maker(
     center_ufun_type: str | type[CenterUFun] = "MaxCenterUFun",
     center_ufun_params: dict[str, Any] | None = None,
     # fractions of different types
-    dinners: float = 0.3,
-    job_hunt: float = 0.3,
-    target_quantity: float = 0.3,
-    others: float = 0.1,
+    dinners: float | None = None,
+    job_hunt: float | None = None,
+    target_quantity: float | None = None,
+    others: float | None = None,
     verbose: bool = False,
 ) -> MultidealScenario:
     """
@@ -99,6 +99,14 @@ def scenario_maker(
     Returns:
         MultidealScenario: The generated scenario object.
     """
+    if dinners is None:
+        dinners = random.random()
+    if job_hunt is None:
+        job_hunt = random.random()
+    if target_quantity is None:
+        target_quantity = random.random()
+    if others is None:
+        others = random.random()
     s = dinners + job_hunt + target_quantity + others
     assert s > 0, "The sum of scenario weights must be positive"
     dinners /= s
