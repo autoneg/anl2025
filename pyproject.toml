@@ -1,6 +1,6 @@
 [project]
 name = "anl2025"
-version = "0.1.4"
+version = "0.1.5"
 description = "Temporary development of anl2025"
 readme = "README.md"
 requires-python = "~=3.11"

@@ -1,3 +1,19 @@
+# Change Log
+## 0.1.5 (2025-05-30)
+
+
+* bugfix: reporting partner exceptions
+* bugfix: ensuring everyone runs center same n. times
+* CLI: switching to weighted average scors
+* Correcting exception reporting and more stats
+  bugfix: exception text was always reported as partner exception!
+  feature: We now save unweighted and weighted scores as well as the
+  final-scores.
+* feature: Adding error details and disabling normalization
+* feature: Adding names to generated scenarios. make_multideal_scenario() now always adds a name for the scenario
+* feature: Adding score normalization. run_session(), and Tournament.run() now take a normalize_scores parameter which defaults to True. If this is true, the scores of all sessions will be normalized before being saved to SesionInfo instances.
+* feature: Adding JobHunt as an example scenario
+* Documentation update
 
 ## 0.1.3 (2025-04-10)
 
