@@ -79,7 +79,7 @@ def make_dinners_scenario(
     if n_days is None:
         n_days = n_friends
     if not friend_names:
-        friend_names = tuple(f"Friend{i+1}" for i in range(n_friends))
+        friend_names = tuple(f"Friend{i + 1}" for i in range(n_friends))
     assert (
         len(friend_names) == n_friends
     ), f"You passed {len(friend_names)} friend names but {n_friends=}"

@@ -58,6 +58,107 @@ DEFAULT_ANL2025_COMPETITORS = (
 )
 
 
+def scenario_maker(
+    nedges: int = 3,
+    nissues: int = 3,
+    nvalues: int = 7,
+    # edge ufuns
+    center_reserved_value_min: float = 0.0,
+    center_reserved_value_max: float = 0.0,
+    # edge ufuns
+    edge_reserved_value_min: float = 0.1,
+    edge_reserved_value_max: float = 0.4,
+    # others parameters
+    center_ufun_type: str | type[CenterUFun] = "MaxCenterUFun",
+    center_ufun_params: dict[str, Any] | None = None,
+    # fractions of different types
+    dinners: float = 0.3,
+    job_hunt: float = 0.3,
+    target_quantity: float = 0.3,
+    others: float = 0.1,
+    verbose: bool = False,
+) -> MultidealScenario:
+    """
+    Generates a MultidealScenario with customizable parameters for negotiation tournaments.
+
+    Args:
+        nedges (int): Number of edges (agents) in the scenario. Always used.
+        nissues (int): Number of negotiation issues. Maybe ignored for some scenarios.
+        nvalues (int): Number of possible values per issue. Maybe ignored for some scenarios.
+        center_reserved_value_min (float): Minimum reserved value for the center agent.
+        center_reserved_value_max (float): Maximum reserved value for the center agent.
+        edge_reserved_value_min (float): Minimum reserved value for edge agents.
+        edge_reserved_value_max (float): Maximum reserved value for edge agents.
+        center_ufun_type (str | type[CenterUFun]): Utility function type for the center agent.
+        center_ufun_params (dict[str, Any] | None): Parameters for the center agent's utility function.
+        dinners (float): Fraction of scenarios with "dinners" type.
+        job_hunt (float): Fraction of scenarios with "job_hunt" type.
+        target_quantity (float): Fraction of scenarios with "target_quantity" type.
+        others (float): Fraction of scenarios with other types.
+
+    Returns:
+        MultidealScenario: The generated scenario object.
+    """
+    s = dinners + job_hunt + target_quantity + others
+    assert s > 0, "The sum of scenario weights must be positive"
+    dinners /= s
+    job_hunt /= s
+    target_quantity /= s
+    others /= s
+    r = random.random()
+    if r <= others:
+        if verbose:
+            print("Generating a random scenario")
+        return make_multideal_scenario(
+            nedges=nedges,
+            nissues=nissues,
+            nvalues=nvalues,
+            center_reserved_value_min=center_reserved_value_min,
+            center_reserved_value_max=center_reserved_value_max,
+            center_ufun_type=center_ufun_type,
+            center_ufun_params=center_ufun_params,
+            edge_reserved_value_min=edge_reserved_value_min,
+            edge_reserved_value_max=edge_reserved_value_max,
+        )
+    if r <= others + dinners:
+        if verbose:
+            print("Generating a dinners scenario")
+        from anl2025.scenarios.dinners import make_dinners_scenario
+
+        return make_dinners_scenario(
+            n_friends=nedges,
+            n_days=nedges,
+            center_reserved_value=(
+                center_reserved_value_min,
+                center_reserved_value_max,
+            ),
+            edge_reserved_values=(edge_reserved_value_min, edge_reserved_value_max),
+            values=None,
+            public_graph=True,
+        )
+    if r <= others + dinners + job_hunt:
+        if verbose:
+            print("Generating a job hunt scenario")
+        from anl2025.scenarios.job_hunt import make_job_hunt_scenario
+
+        return make_job_hunt_scenario(
+            n_employers=nedges,
+            work_days=nvalues,
+            salary=[50 * (2 + _) for _ in range(nvalues)],
+        )
+    from anl2025.scenarios.target_quantity import make_target_quantity_scenario
+
+    if verbose:
+        print("Generating a target quantity scenario")
+    return make_target_quantity_scenario(
+        n_suppliers=nedges,
+        quantity=(1, nvalues + 1),
+        target_quantity=(2, nvalues * nedges),
+        collector_reserved_value=(center_reserved_value_min, center_reserved_value_max),
+        supplier_reserved_values=(edge_reserved_value_min, edge_reserved_value_max),
+    )
+
+
 class ScoreRecord(TypedDict):
     """Score of a single run for a single agent
 
@@ -89,6 +190,7 @@ class ScoreRecord(TypedDict):
     time: float
     self_error_details: str
     partner_error_details: str
+    mechanism_error_details: str
 
 
 @define
@@ -139,7 +241,7 @@ class TournamentResults:
     edge_count: dict[str, float]  # Number of times each agent played as edge
     weighted_average: dict[
         str, float
-    ]  # Average score of each agent normalizing by the number of times it played as center or edge (e.g. 0.5(final_scoresE/edge_count+ final_scoresC/center_count))
+    ]  # Average score of each agent normalizing by the number of times it played as center or edge (e.g. 0.5)
     unweighted_average: dict[
         str, float
     ]  # Average score of each agent without normalizing by the number of times it played as center or edge (e.g. final_scores/(edge_count+center_count))
@@ -311,6 +413,7 @@ class Tournament:
         edge_reserved_value_max: float = 0.4,
         competitor_params: tuple[dict[str, Any] | None, ...] | None = None,
         name: str | None = None,
+        verbose: bool = False,
     ) -> Self:
         """Loads a tournament from the given scenarios (optionally generating new ones)
 
@@ -329,6 +432,7 @@ class Tournament:
             edge_reserved_value_min: Minimum reserved value of  edges for generated scenarios.
             edge_reserved_value_max: Maximum reserved value of  edges for generated scenarios.
             competitor_params: Optional competitor paramters
+            verbose: Print progress messages
 
         Returns:
             A `Tournament` ready to run
@@ -345,7 +449,7 @@ class Tournament:
             scenarios=tuple(
                 list(scenarios)
                 + [
-                    make_multideal_scenario(
+                    scenario_maker(
                         nedges=nedges,
                         nissues=nissues,
                         nvalues=nvalues,
@@ -355,6 +459,7 @@ class Tournament:
                         center_ufun_params=center_ufun_params,
                         edge_reserved_value_min=edge_reserved_value_min,
                         edge_reserved_value_max=edge_reserved_value_max,
+                        verbose=verbose,
                     )
                     for _ in range(n_generated)
                 ]
@@ -654,6 +759,7 @@ class Tournament:
                     ),
                     # TODO: get the correct number of mechanism errors
                     mechanism_errors=0,
+                    mechanism_error_details="",
                 )
             )
             acc_scores[cname] += r.center_utility * center_multiplier

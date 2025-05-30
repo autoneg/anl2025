@@ -69,6 +69,7 @@ def do_make(
     name: str = "auto",
     method: str = DEFAULT_METHOD,
     public_graph: bool = True,
+    verbose: bool = False,
 ):
     if generated is None:
         generated = 3 if path is None else 0
@@ -135,6 +136,7 @@ def do_make(
         center_ufun_type=center_ufun,
         edge_reserved_value_min=edge_reserved_value_min,
         edge_reserved_value_max=edge_reserved_value_max,
+        verbose=verbose,
     )
     path = output / "info.yaml"
     t.save(
@@ -584,6 +586,13 @@ def make(
             rich_help_panel="Tournament Control",
         ),
     ] = TYPE_IDENTIFIER,
+    verbose: Annotated[
+        bool,
+        typer.Option(
+            help="Verbose mode. If given, the tournament will print more information",
+            rich_help_panel="Tournament Control",
+        ),
+    ] = False,
     center_reserved_value_min: Annotated[
         float,
         typer.Option(
@@ -710,6 +719,7 @@ def make(
         separate_scenarios=separate_scenarios,
         name=name,
         method=method,
+        verbose=verbose,
     )
     if tournament:
         print(f"Tournament information is saved in {path}. Use `run` to run it")
@@ -921,6 +931,7 @@ def run(
         separate_scenarios=separate_scenarios,
         name=name,
         method=method,
+        verbose=verbose,
     )
     if not t or path is None:
         return
