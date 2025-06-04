@@ -765,13 +765,14 @@ class LinearCombinationCenterUFun(UtilityCombiningCenterUFun):
             s = sum(weights)
             if s:
                 weights = tuple(_ / s for _ in weights)
-        self._weights = weights
+        if weights is None:
+            w = np.random.rand(self.n_edges)
+            s = w.sum()
+            self._weights = tuple((w / s).tolist())
+        else:
+            self._weights: tuple[float, ...] = weights
 
     def combine(self, values: Sequence[float]) -> float:
-        if self._weights is None:
-            self._weights = np.random.rand(len(values))
-            s = self._weights.sum()
-            self._weights = tuple((self._weights / s).tolist())
         return sum(a * b for a, b in zip(values, self._weights, strict=True))
 
 
