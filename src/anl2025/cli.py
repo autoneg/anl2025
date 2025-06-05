@@ -44,7 +44,12 @@ def version():
 
 def do_make(
     path: Path | None,
+    *,
     generated: int | None = None,
+    fraction_dinners: float | None = None,
+    fraction_job_hunt: float | None = None,
+    fraction_target_quantity: float | None = None,
+    fraction_others: float | None = None,
     competitor: list[str] = [
         "Boulware2025",
         "Random2025",
@@ -71,6 +76,16 @@ def do_make(
     public_graph: bool = True,
     verbose: bool = False,
 ):
+    if (
+        fraction_dinners is not None
+        or fraction_target_quantity is not None
+        or fraction_job_hunt is not None
+        or fraction_others is not None
+    ):
+        fraction_dinners = fraction_dinners or 0.0
+        fraction_target_quantity = fraction_target_quantity or 0.0
+        fraction_job_hunt = fraction_job_hunt or 0.0
+        fraction_others = fraction_others or 0.0
     if generated is None:
         generated = 3 if path is None else 0
     if name == "auto":
@@ -137,6 +152,10 @@ def do_make(
         edge_reserved_value_min=edge_reserved_value_min,
         edge_reserved_value_max=edge_reserved_value_max,
         verbose=verbose,
+        fraction_dinners=fraction_dinners,
+        fraction_job_hunt=fraction_job_hunt,
+        fraction_target_quantity=fraction_target_quantity,
+        fraction_others=fraction_others,
     )
     path = output / "info.yaml"
     t.save(
@@ -547,6 +566,34 @@ def make(
             rich_help_panel="Tournament Control",
         ),
     ] = None,  # type: ignore
+    dinners: Annotated[
+        float,
+        typer.Option(
+            help="Fraction of generated scenarios in the dinners domain. Only used if --generate is nonzero",
+            rich_help_panel="Generated Scenarios",
+        ),
+    ] = None,  # type: ignore
+    target_quantity: Annotated[
+        float,
+        typer.Option(
+            help="Fraction of generated scenarios in the target_quantity domain. Only used if --generate is nonzero",
+            rich_help_panel="Generated Scenarios",
+        ),
+    ] = None,  # type: ignore
+    job_hunt: Annotated[
+        float,
+        typer.Option(
+            help="Fraction of generated scenarios in the job_hunt domain. Only used if --generate is nonzero",
+            rich_help_panel="Generated Scenarios",
+        ),
+    ] = None,  # type: ignore
+    others: Annotated[
+        float,
+        typer.Option(
+            help="Fraction of generated scenarios in the other domain. Only used if --generate is nonzero",
+            rich_help_panel="Generated Scenarios",
+        ),
+    ] = None,  # type: ignore
     competitor: Annotated[
         list[str],
         typer.Option(
@@ -701,6 +748,10 @@ def make(
     tournament, path = do_make(
         path=scenarios_path,
         generated=generate,
+        fraction_dinners=dinners,
+        fraction_job_hunt=job_hunt,
+        fraction_others=others,
+        fraction_target_quantity=target_quantity,
         competitor=competitor,
         nissues=nissues,
         nvalues=nvalues,
@@ -739,6 +790,34 @@ def run(
         typer.Option(
             help="Number of random scenarios to generate",
             rich_help_panel="Tournament Control",
+        ),
+    ] = None,  # type: ignore
+    dinners: Annotated[
+        float,
+        typer.Option(
+            help="Fraction of generated scenarios in the dinners domain. Only used if --generate is nonzero",
+            rich_help_panel="Generated Scenarios",
+        ),
+    ] = None,  # type: ignore
+    target_quantity: Annotated[
+        float,
+        typer.Option(
+            help="Fraction of generated scenarios in the target_quantity domain. Only used if --generate is nonzero",
+            rich_help_panel="Generated Scenarios",
+        ),
+    ] = None,  # type: ignore
+    job_hunt: Annotated[
+        float,
+        typer.Option(
+            help="Fraction of generated scenarios in the job_hunt domain. Only used if --generate is nonzero",
+            rich_help_panel="Generated Scenarios",
+        ),
+    ] = None,  # type: ignore
+    others: Annotated[
+        float,
+        typer.Option(
+            help="Fraction of generated scenarios in the other domain. Only used if --generate is nonzero",
+            rich_help_panel="Generated Scenarios",
         ),
     ] = None,  # type: ignore
     competitor: Annotated[
@@ -913,6 +992,10 @@ def run(
     t, path = do_make(
         path=scenarios_path,
         generated=generate,
+        fraction_dinners=dinners,
+        fraction_job_hunt=job_hunt,
+        fraction_others=others,
+        fraction_target_quantity=target_quantity,
         competitor=competitor,
         nissues=nissues,
         nvalues=nvalues,
