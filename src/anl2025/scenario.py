@@ -294,11 +294,7 @@ def make_multideal_scenario(
             )
 
     return MultidealScenario(
-        name=name
-        if name
-        else unique_name(
-            f"s{center_ufun.outcome_space.cardinality}", add_time=False, sep=""
-        ),
+        name=name if name else unique_name("random", add_time=False, sep="_"),
         center_ufun=center_ufun,
         side_ufuns=side_ufuns,
         edge_ufuns=tuple(edge_ufuns),

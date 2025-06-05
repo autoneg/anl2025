@@ -3,6 +3,7 @@ from itertools import product
 from numpy import argmin
 from typing import Iterable
 from negmas import LinearAdditiveUtilityFunction, TableFun
+from negmas.helpers import unique_name
 from negmas.outcomes import (
     make_os,
     make_issue,
@@ -85,6 +86,7 @@ def make_target_quantity_scenario(
     supplier_reserved_values: FloatRange = 0.0,
     supplier_shortfall_penalty: FloatRange | None = (0.3, 0.9),
     supplier_excess_penalty: FloatRange | None = (0.3, 0.9),
+    name: str | None = None,
 ) -> MultidealScenario:
     """Creates a target-quantity type scenario
 
@@ -101,6 +103,7 @@ def make_target_quantity_scenario(
         supplier_reserved_values: Range or a single value for supplier's reserved value
         supplier_shortfall_penalty: suppliers' penalty for buying an item less than their target. Can be a range to sample form it
         supplier_excess_penalty: suppliers' penalty for buying an item more than their target. Can be a range to sample form it
+        name: Name of the scenario. If not given, it will be generated automatically and will start wit "target-quantity"
 
     Remarks:
         - Supplier's target value is sampled uniformly from the range of values
@@ -111,7 +114,7 @@ def make_target_quantity_scenario(
     if supplier_excess_penalty is None:
         supplier_excess_penalty = excess_penalty
     if supplier_names is None:
-        supplier_names = [f"supplier{_+1:02}" for _ in range(n_suppliers)]
+        supplier_names = [f"supplier{_ + 1:02}" for _ in range(n_suppliers)]
     os = make_os([make_issue(quantity, name="quantity")], name="TargetQantity")
     assert isinstance(os, DiscreteCartesianOutcomeSpace)
     quantities = list(os.issues[0].all)
@@ -152,4 +155,9 @@ def make_target_quantity_scenario(
         for name in supplier_names
     )
 
-    return MultidealScenario(center_ufun, edge_ufuns, public_graph=public_graph)
+    return MultidealScenario(
+        center_ufun,
+        edge_ufuns,
+        public_graph=public_graph,
+        name=name if name else unique_name("target-quantity", add_time=False, sep="_"),
+    )

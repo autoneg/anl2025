@@ -4,6 +4,7 @@ import itertools
 import random
 from typing import Iterable
 import numpy as np
+from negmas.helpers import unique_name
 from anl2025.scenario import MultidealScenario
 from anl2025.ufun import LambdaCenterUFun
 from negmas import LinearUtilityAggregationFunction, make_issue, make_os
@@ -61,6 +62,7 @@ def make_dinners_scenario(
     edge_reserved_values: tuple[float, float] = (0.0, 0.5),
     values: dict[tuple[int, ...], float] | None = None,
     public_graph: bool = True,
+    name: str | None = None,
 ) -> MultidealScenario:
     """Creates a variation of the Dinners multideal scenario
 
@@ -72,6 +74,7 @@ def make_dinners_scenario(
         edge_reserved_valus: The reserved value of the friends (edges). Always, a min-max range
         values: A mapping from the number of dinners per day (a tuple of n_days integers) to utility value of the center
         public_graph: Should edges know n_edges and outcome_spaces?
+        name: The name of the scenario. If `None`, it will start with "dinners".
 
     Returns:
         An initialized `MultidealScenario`.
@@ -94,7 +97,7 @@ def make_dinners_scenario(
             center_reserved_value[-1] - center_reserved_value[0]
         )
     return MultidealScenario(
-        name="dinners",
+        name=name if name else unique_name("dinners", add_time=False, sep="_"),
         edge_ufuns=tuple(
             LinearUtilityAggregationFunction.random(
                 os, reserved_value=edge_reserved_values, normalized=True

@@ -422,6 +422,11 @@ class Tournament:
         competitor_params: tuple[dict[str, Any] | None, ...] | None = None,
         name: str | None = None,
         verbose: bool = False,
+        # fractions of different scenario types to generate
+        fraction_dinners: float | None = None,
+        fraction_job_hunt: float | None = None,
+        fraction_target_quantity: float | None = None,
+        fraction_others: float | None = None,
     ) -> Self:
         """Loads a tournament from the given scenarios (optionally generating new ones)
 
@@ -441,6 +446,10 @@ class Tournament:
             edge_reserved_value_max: Maximum reserved value of  edges for generated scenarios.
             competitor_params: Optional competitor paramters
             verbose: Print progress messages
+            generated_dinners: fraction of generated scenarios that are dinners scenarios
+            generated_job_hunt: fraction of generated scenarios that are job hunt scenarios
+            generated_target_quantity: fraction of generated scenarios that are target quantity scenarios
+            generated_others: fraction of generated scenarios that are random scenarios
 
         Returns:
             A `Tournament` ready to run
@@ -468,6 +477,10 @@ class Tournament:
                         edge_reserved_value_min=edge_reserved_value_min,
                         edge_reserved_value_max=edge_reserved_value_max,
                         verbose=verbose,
+                        dinners=fraction_dinners,
+                        others=fraction_others,
+                        target_quantity=fraction_target_quantity,
+                        job_hunt=fraction_job_hunt,
                     )
                     for _ in range(n_generated)
                 ]
