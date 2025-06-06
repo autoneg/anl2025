@@ -25,7 +25,7 @@ def test_load_multideal_dinner(name):
     assert isinstance(scenario.center_ufun, LambdaCenterUFun)
     assert all(isinstance(_, UtilityFunction) for _ in scenario.edge_ufuns)
     assert scenario.side_ufuns is None
-    assert scenario.name == name
+    assert scenario.name.startswith(name)
     assert scenario.center_ufun.n_edges == 3
     assert all(_.n_edges == 3 for _ in scenario.edge_ufuns)  # type: ignore
     assert (
@@ -65,7 +65,7 @@ def test_load_multideal_dinner_created(n_friends, n_days):
     assert isinstance(scenario.center_ufun, LambdaCenterUFun)
     assert all(isinstance(_, UtilityFunction) for _ in scenario.edge_ufuns)
     assert scenario.side_ufuns is None
-    assert scenario.name == "dinners"
+    assert scenario.name.startswith("dinners")
     assert scenario.center_ufun.n_edges == n_friends
     assert all(_.n_edges == n_friends for _ in scenario.edge_ufuns)  # type: ignore
     assert (

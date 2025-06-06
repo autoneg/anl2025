@@ -1,4 +1,12 @@
 # Change Log
+
+
+## 0.1.6 (2025-06-06)
+* bugfix: Incorrect center utility for Linear
+* CLI: controlling fractions of generated scenarios. use --dinners/--target-quantity/--job-hunt/--others to control the fraction of each scenario type in the tournament. If any of these is given, the rest is considered zero.
+* feature: naming scenarios by type
+* feature: making tournament type mixture random
+* feature: all types of scenarios in tournaments
 ## 0.1.5 (2025-05-30)
 
 
