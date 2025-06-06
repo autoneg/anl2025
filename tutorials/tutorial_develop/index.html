@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
     
     
       
@@ -557,23 +557,23 @@
 <p><em>If you want to start developing your negotiator right away, you can download a template agent from <a href="https://drive.google.com/drive/folders/1xc5qt7XlZQQv6q1NVnu2vP6Ou-YOQUms?usp=drive_link">here</a> and tweak the code yourself. If you want more instructions, keep reading.</em></p>
 <h3 id="a-random-negotiator">A random negotiator</h3>
 <p>Here is an example of a random negotiator that implements the <code>propose()</code> and <code>respond()</code> methods. The negotiator accepts the bid with a certain probability (1-<code>p-reject</code>), and ends the negotiaiton with a very small probability (<code>p_end</code>). The agent proposes a random offer at each round, sampled from all the possible outcomes.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">random</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">negmas</span><span class="w"> </span><span class="kn">import</span> <span class="n">Outcome</span><span class="p">,</span> <span class="n">ResponseType</span><span class="p">,</span> <span class="n">SAOState</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="n">ANL2025Negotiator</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">negmas</span> <span class="kn">import</span> <span class="n">Outcome</span><span class="p">,</span> <span class="n">ResponseType</span><span class="p">,</span> <span class="n">SAOState</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">anl2025</span> <span class="kn">import</span> <span class="n">ANL2025Negotiator</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyRandom2025</span><span class="p">(</span><span class="n">ANL2025Negotiator</span><span class="p">):</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">class</span> <span class="nc">MyRandom2025</span><span class="p">(</span><span class="n">ANL2025Negotiator</span><span class="p">):</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">p_end</span> <span class="o">=</span> <span class="mf">0.0003</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">p_reject</span> <span class="o">=</span> <span class="mf">0.999</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">propose</span><span class="p">(</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">def</span> <span class="nf">propose</span><span class="p">(</span>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">negotiator_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">SAOState</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Outcome</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">nmi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nmi_from_id</span><span class="p">(</span><span class="n">negotiator_id</span><span class="p">)</span>
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="n">sampled_bid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nmi</span><span class="o">.</span><span class="n">outcome_space</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="k">return</span> <span class="n">sampled_bid</span>
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">respond</span><span class="p">(</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="k">def</span> <span class="nf">respond</span><span class="p">(</span>
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">negotiator_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">SAOState</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResponseType</span><span class="p">:</span>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="k">if</span> <span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_end</span><span class="p">:</span>
@@ -586,13 +586,13 @@
 </span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>            <span class="k">return</span> <span class="n">ResponseType</span><span class="o">.</span><span class="n">REJECT_OFFER</span>
 </span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        <span class="k">return</span> <span class="n">ResponseType</span><span class="o">.</span><span class="n">ACCEPT_OFFER</span>
 </span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
-</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_nmi_from_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">negotiators_id</span><span class="p">):</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    <span class="k">def</span> <span class="nf">get_nmi_from_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">negotiators_id</span><span class="p">):</span>
 </span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>        <span class="c1"># the nmi is the negotiator mechanism interface, available for each subnegotiation. Here you can find any information about the ongoing or ended negotiation, like the agreement or the previous bids.</span>
 </span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">negotiators</span><span class="p">[</span><span class="n">negotiators_id</span><span class="p">]</span><span class="o">.</span><span class="n">negotiator</span><span class="o">.</span><span class="n">nmi</span>
 </span></code></pre></div>
 <p>If MyRandom2025 negotiator has the role of center agent, it has a list of <code>side-negotiators</code>: that are the <em>subnegotiators</em> that negotiate bilaterally with one opponent. There is one side-negotiator for each edge agent. You can find that list in <code>self.negotiators</code>, callable by their id. Each such side-negotiator is an object that logs all the information about its one-to-one negotiation. One of these functions is called <code>nmi</code>, short for negotiator mechanism interface, where you can find information such as the outcome space, the previous bids and possibly the agreement.</p>
 <p>To test the agent, we use the functions as introduced in the tutorial <em>Run a negotiation</em>. We use a tournament to compare the results between the agents.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anl2025</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">anl2025</span> <span class="kn">import</span> <span class="p">(</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">make_multideal_scenario</span><span class="p">,</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">run_session</span><span class="p">,</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">anl2025_tournament</span><span class="p">,</span>
@@ -618,13 +618,13 @@
 </code></pre></div>
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
 
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3.5992120519854494</span>, <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5.712435757468</span>, <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9.716267320447574</span><span style="font-weight: bold">}</span>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4.5816918164266625</span>, <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5.744767544311361</span>, <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">9.822223808909238</span><span style="font-weight: bold">}</span>
 </pre>
 
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span>
-    <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.33542091047204553</span>,
-    <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.31735754208155553</span>,
-    <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.1679778668307108</span>
+    <span style="color: #008000; text-decoration-color: #008000">'__main__.MyRandom2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4225895547144686</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'Boulware2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.31915375246174227</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'Linear2025'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.1868165029693838</span>
 <span style="font-weight: bold">}</span>
 </pre>
 
@@ -714,7 +714,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.tabs.link"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f1b6f286.min.js"></script>
       
     
   </body>
