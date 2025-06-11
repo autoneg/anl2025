@@ -1,5 +1,6 @@
 from collections import defaultdict
 from attr import asdict, field
+from copy import deepcopy
 from multiprocessing import cpu_count
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from negmas.helpers import unique_name
@@ -680,10 +681,8 @@ class Tournament:
                         output = None
                     # if verbose:
                     #     print(f"{j=}, {players=}")
-                    center, center_params = players[j]
-                    edge_info = [_ for _ in players[:j] + players[j + 1 :]][
-                        : nedges + 1
-                    ]
+                    center, center_params = deepcopy(players[0])
+                    edge_info = deepcopy(players[1 : nedges + 1])
                     # not sure if the following shuffle is useful!
                     # It tries to randomize the order of the edges to avoid
                     # having a systematic bias but we randomize competitors anyway.
@@ -718,7 +717,7 @@ class Tournament:
                     )
                     # This rotation guarantees that every competitor is
                     # the center once per scenario per repetition
-                    # competitors = [competitors[-1]] + competitors[:-1]
+                    competitors = competitors[1:] + [competitors[0]]
         if verbose:
             print(f"Will run {len(jobs)} negotiations")
 
