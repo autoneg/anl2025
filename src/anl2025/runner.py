@@ -55,6 +55,7 @@ class SessionResults:
         agreements:  Negotiation outcomes for all threads.
         center_utility: The utility received by the center.
         edge_utilities: The utilities of all edges.
+        run_error: If the run failed, this will contain the exception text thrown by SAOMechanism.runall().
     """
 
     mechanisms: list[SAOMechanism]
@@ -68,6 +69,7 @@ class SessionResults:
     n_failed: int = field(init=False)
     total_time: float
     times: list[float]
+    run_error: str = ""
 
     def __attrs_post_init__(self):
         self.n_succeeded = len([_ for _ in self.agreements if _ is not None])
@@ -232,12 +234,28 @@ class AssignedScenario:
                 ignore_mechanism_exceptions=self.run_params.ignore_mechanism_exceptions,  # type: ignore
             )  # type: ignore
         except Exception:
-            SAOMechanism.runall(
-                mechanisms,
-                method=self.run_params.method,
-                keep_order=self.run_params.keep_order,
-                completion_callback=plot_result if output else None,
-            )  # type: ignore
+            try:
+                SAOMechanism.runall(
+                    mechanisms,
+                    method=self.run_params.method,
+                    keep_order=self.run_params.keep_order,
+                    completion_callback=plot_result if output else None,
+                )  # type: ignore
+
+            except Exception as e:
+                return SessionResults(
+                    mechanisms=mechanisms,
+                    center=center,
+                    agreements=[None] * len(mechanisms),
+                    center_utility=self._saved_scenario.center_ufun.reserved_value,
+                    edge_utilities=[
+                        u.reserved_value for u in self._saved_scenario.edge_ufuns
+                    ],
+                    edges=edges,
+                    total_time=perf_counter() - _strt,
+                    times=[m.time for m in mechanisms],
+                    run_error=str(e),
+                )
         total_time = perf_counter() - _strt
         if not name:
             name = unique_name("session", sep=".")
