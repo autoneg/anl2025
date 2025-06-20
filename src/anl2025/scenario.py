@@ -236,7 +236,9 @@ class MultidealScenario:
     def from_file(
         cls, path: Path | str, python_class_identifier=TYPE_IDENTIFIER
     ) -> Optional["MultidealScenario"]:
-        return cls.to_dict(load(path), python_class_identifier=python_class_identifier)  # type: ignore
+        return cls.from_dict(
+            load(path), python_class_identifier=python_class_identifier
+        )  # type: ignore
 
 
 def make_multideal_scenario(
