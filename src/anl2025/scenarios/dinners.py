@@ -17,12 +17,20 @@ class DinnersEvaluator:
 
     def __init__(
         self,
-        n_days: int,
-        n_friends: int,
+        n_days: int | None = None,
+        n_friends: int | None = None,
         reserved_value=0.0,
         values: dict[tuple[int, ...], float] | None = None,
+        days: list | None = None,
     ):
-        self.days = list(range(n_days))
+        assert n_days is not None or days is not None
+        if n_days is not None and days is not None:
+            assert len(days) == n_days, f"{n_days=} but {len(days)=}"
+        if n_days is None:
+            n_days = len(list(days))  # type: ignore
+        if days is None:
+            days = list(range(n_days))
+        self.days = days
         if values is None:
             # days = [self.days for _ in range(n_friends)]
             days = [[0, 1]] * n_days
