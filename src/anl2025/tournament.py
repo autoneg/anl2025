@@ -498,7 +498,7 @@ class Tournament:
     def save(
         self,
         path: Path | str,
-        separate_scenarios: bool = False,
+        separate_scenarios: bool = True,
         python_class_identifier=TYPE_IDENTIFIER,
     ):
         """
