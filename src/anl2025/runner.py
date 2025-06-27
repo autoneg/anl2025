@@ -147,19 +147,6 @@ class AssignedScenario:
             make_side_ufun(center_ufun, i, side) for i, side in enumerate(side_ufuns)
         ]
 
-        if dry:
-            return SessionResults(
-                mechanisms=mechanisms,
-                center=deepcopy(center),
-                center_utility=0.0,
-                edge_utilities=[0.0] * len(edges),
-                edges=deepcopy(edges),
-                agreements=[None] * len(edges),
-                total_time=0.0,
-                times=[0.0] * len(mechanisms),
-                # final_states=[_.state for _ in mechanisms],
-            )
-
         for i, (edge_ufun, side_ufun, edge) in enumerate(
             zip(edge_ufuns, side_ufuns, edges, strict=True)
         ):
@@ -207,6 +194,20 @@ class AssignedScenario:
             m.negotiators[-1].id = m.negotiators[-1].name = annotation["edge_id"]
             mechanisms.append(m)
         assert isinstance(center.ufun, CenterUFun)
+
+        if dry:
+            return SessionResults(
+                mechanisms=mechanisms,
+                center=deepcopy(center),
+                center_utility=0.0,
+                edge_utilities=[0.0] * len(edges),
+                edges=deepcopy(edges),
+                agreements=[None] * len(edges),
+                total_time=0.0,
+                times=[0.0] * len(mechanisms),
+                # final_states=[_.state for _ in mechanisms],
+            )
+
         center.init()
         for edge in edges:
             edge.init()
