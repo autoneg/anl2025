@@ -150,10 +150,10 @@ class AssignedScenario:
         if dry:
             return SessionResults(
                 mechanisms=mechanisms,
-                center=center,
+                center=deepcopy(center),
                 center_utility=0.0,
                 edge_utilities=[0.0] * len(edges),
-                edges=edges,
+                edges=deepcopy(edges),
                 agreements=[None] * len(edges),
                 total_time=0.0,
                 times=[0.0] * len(mechanisms),
