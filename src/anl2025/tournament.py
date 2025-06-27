@@ -655,8 +655,10 @@ class Tournament:
             for k, scenario in enumerate(self.scenarios):
                 nedges = len(scenario.edge_ufuns)
                 sname = scenario.name if scenario.name else f"s{k:03}"
-                if not verbose:
-                    print(f"Repetition {i}: Scenario {sname}")
+                if verbose:
+                    print(
+                        f"Repetition {i}: Scenario {sname}. Will run with {len(competitors)} competitors"
+                    )
                 random.shuffle(competitors)
                 # put each competitor in center once per scenario
                 for j in range(len(competitors)):
