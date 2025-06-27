@@ -133,7 +133,6 @@ class AssignedScenario:
         center_ufun.stationary_sides = (
             center_ufun.stationary_sides or self.run_params.method == SEQUENTIAL_METHOD
         )
-        len(edge_ufuns)
         if verbose:
             print(f"Adding center of type {type_name(center)}")
 
@@ -147,6 +146,20 @@ class AssignedScenario:
         side_ufuns = [
             make_side_ufun(center_ufun, i, side) for i, side in enumerate(side_ufuns)
         ]
+
+        if dry:
+            return SessionResults(
+                mechanisms=mechanisms,
+                center=center,
+                center_utility=0.0,
+                edge_utilities=[0.0] * len(edges),
+                edges=edges,
+                agreements=[None] * len(edges),
+                total_time=0.0,
+                times=[0.0] * len(mechanisms),
+                # final_states=[_.state for _ in mechanisms],
+            )
+
         for i, (edge_ufun, side_ufun, edge) in enumerate(
             zip(edge_ufuns, side_ufuns, edges, strict=True)
         ):
@@ -197,19 +210,6 @@ class AssignedScenario:
         center.init()
         for edge in edges:
             edge.init()
-        if dry:
-            return SessionResults(
-                mechanisms=mechanisms,
-                center=center,
-                center_utility=0.0,
-                edge_utilities=[0.0] * len(edges),
-                edges=edges,
-                agreements=[None] * len(edges),
-                total_time=0.0,
-                times=[0.0] * len(mechanisms),
-                # final_states=[_.state for _ in mechanisms],
-            )
-
         base = None
         if output:
             base = output / name
