@@ -208,14 +208,14 @@ class AssignedScenario:
                 # final_states=[_.state for _ in mechanisms],
             )
 
-        center.init()
-        for edge in edges:
-            edge.init()
         base = None
         if output:
             base = output / name
             (base / "log").mkdir(parents=True, exist_ok=True)
             (base / "plots").mkdir(parents=True, exist_ok=True)
+        center.init()
+        for edge in edges:
+            edge.init()
 
         def plot_result(i, m, base=base):
             assert base is not None
