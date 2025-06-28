@@ -191,3 +191,24 @@ def test_get_example_scenarios():
 def test_random_scenario():
     scenario = make_multideal_scenario(nedges=3)
     run_session(scenario)
+
+
+def test_load_dinners_saved():
+    scenario = MultidealScenario.from_folder(
+        Path(__file__).parent.parent / "scenarios" / "SSdinners"
+    )
+    run_session(scenario)
+    scenario = MultidealScenario.from_folder(
+        Path.home()
+        / "Downloads"
+        / "anl2025scenarios"
+        / "SSSdinners_R34WdZBE20250620H173250429335vj5koOKb"
+    )
+    run_session(scenario)
+    scenario = MultidealScenario.from_folder(
+        Path.home()
+        / "Downloads"
+        / "anl2025scenarios"
+        / "SS dinners_wHEt4CDh20250620H173250452586KQNwjtKC"
+    )
+    run_session(scenario)
