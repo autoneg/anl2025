@@ -683,7 +683,7 @@ class Tournament:
                         else min(len(competitors) - 1, nedges)
                     )
                     if path:
-                        output = path / "results" / sname / f"r{j:03}t{i:03}"
+                        output = path / "results" / sname / f"r{i:03}t{j:03}"
                     else:
                         output = None
                     # if verbose:
