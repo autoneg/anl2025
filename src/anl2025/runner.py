@@ -1,5 +1,6 @@
 from copy import deepcopy
 from time import perf_counter
+import traceback
 from rich import print
 from typing import Any
 from random import choice
@@ -269,6 +270,9 @@ class AssignedScenario:
                 ignore_mechanism_exceptions=self.run_params.ignore_mechanism_exceptions,  # type: ignore
             )  # type: ignore
         except Exception as e:
+            print(
+                f"Failed to run the the mechanisms: {e}\n{traceback.format_exc(limit=5)}"
+            )
             return SessionResults(
                 mechanisms=mechanisms,
                 center=center,
@@ -280,7 +284,7 @@ class AssignedScenario:
                 edges=edges,
                 total_time=perf_counter() - _strt,
                 times=[m.time for m in mechanisms],
-                run_error=f"Failed to run the the mechanisms: {e}",
+                run_error=f"Failed to run the the mechanisms: {e}\n{traceback.format_exc(limit=5)}",
             )
         total_time = perf_counter() - _strt
         if not name:
