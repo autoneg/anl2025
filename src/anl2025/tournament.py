@@ -200,6 +200,7 @@ class ScoreRecord(TypedDict):
     self_error_details: str
     partner_error_details: str
     mechanism_error_details: str
+    run_index: int
 
 
 @define
@@ -794,8 +795,9 @@ class Tournament:
                         ]
                     ),
                     # TODO: get the correct number of mechanism errors
-                    mechanism_errors=0,
-                    mechanism_error_details="",
+                    mechanism_errors=int(bool(r.run_error)),
+                    mechanism_error_details=r.run_error,
+                    run_index=job.run_index,
                 )
             )
             acc_scores[cname] += r.center_utility * center_multiplier
@@ -844,7 +846,9 @@ class Tournament:
                             ]
                         ),
                         # TODO: get the correct number of mechanism errors
-                        mechanism_errors=0,
+                        mechanism_errors=int(bool(r.run_error)),
+                        mechanism_error_details=r.run_error,
+                        run_index=job.run_index,
                     )
                 )
                 acc_scores[ename] += r.edge_utilities[e] * edge_multiplier
