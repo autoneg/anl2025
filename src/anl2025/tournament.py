@@ -274,8 +274,10 @@ class TournamentResults:
 def run_session(
     job: JobInfo, dry: bool, verbose: bool, normalize_scores: bool = False
 ) -> tuple[JobInfo, SessionInfo]:
-    if verbose:
-        print(f"Scenario {job.assigned.scenario.name}")
+    print(
+        f"Starting Scenario {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]}",
+        flush=True,
+    )
     assigned = job.assigned
     output = job.output
     sname = job.sname
@@ -291,6 +293,10 @@ def run_session(
         dry=dry,
         verbose=verbose,
         normalize_scores=normalize_scores,
+    )
+    print(
+        f"DONE Scenario {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} ({r.run_error})",
+        flush=True,
     )
     return job, SessionInfo(
         scenario_name=sname,
