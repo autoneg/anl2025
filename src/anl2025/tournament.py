@@ -1,9 +1,10 @@
 from collections import defaultdict
+from time import perf_counter
 from attr import asdict, field
 from copy import deepcopy
 from multiprocessing import cpu_count
 from concurrent.futures import ProcessPoolExecutor, as_completed
-from negmas.helpers import unique_name
+from negmas.helpers import humanize_time, unique_name
 from negmas.serialization import dump
 from rich import print
 from rich.progress import track
@@ -289,6 +290,7 @@ def run_session(
     center_params = job.center_params
     edges = job.edges
     edge_params = job.edge_params
+    _strt = perf_counter()
     try:
         r = assigned.run(
             output=output,
@@ -297,13 +299,16 @@ def run_session(
             verbose=verbose,
             normalize_scores=normalize_scores,
         )
-        print(
-            f"{job.run_index:04}: [green]DONE[/green] {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} ([red]{r.run_error}[/red])",
-            flush=True,
-        )
+        if r.run_error:
+            print(
+                f"{job.run_index:04}: [orange]DONE[/orange] {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} in {humanize_time(r.total_time)} ([red]{r.run_error}[/red])",
+                flush=True,
+            )
+        else:
+            print("<>", end="", flush=True)
     except Exception as e:
         print(
-            f"{job.run_index:04}: [red]FAILED[/red] {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} ({e})",
+            f"{job.run_index:04}: [red]FAILED[/red] {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} in {humanize_time(perf_counter() - _strt)} ({e})",
             flush=True,
         )
         r = SessionResults(
