@@ -725,8 +725,7 @@ class Tournament:
                     # This rotation guarantees that every competitor is
                     # the center once per scenario per repetition
                     competitors = competitors[1:] + [competitors[0]]
-        if verbose:
-            print(f"Will run {len(jobs)} negotiations")
+        print(f"Will run {len(jobs)} negotiations")
 
         def process_info(job: JobInfo, info: SessionInfo):
             center_multiplier = (
