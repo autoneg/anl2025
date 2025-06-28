@@ -268,29 +268,20 @@ class AssignedScenario:
                 completion_callback=plot_result if output else None,
                 ignore_mechanism_exceptions=self.run_params.ignore_mechanism_exceptions,  # type: ignore
             )  # type: ignore
-        except Exception:
-            try:
-                SAOMechanism.runall(
-                    mechanisms,
-                    method=self.run_params.method,
-                    keep_order=self.run_params.keep_order,
-                    completion_callback=plot_result if output else None,
-                )  # type: ignore
-
-            except Exception as e:
-                return SessionResults(
-                    mechanisms=mechanisms,
-                    center=center,
-                    agreements=[None] * len(mechanisms),
-                    center_utility=self._saved_scenario.center_ufun.reserved_value,
-                    edge_utilities=[
-                        u.reserved_value for u in self._saved_scenario.edge_ufuns
-                    ],
-                    edges=edges,
-                    total_time=perf_counter() - _strt,
-                    times=[m.time for m in mechanisms],
-                    run_error=f"Failed to run the the mechanisms: {e}",
-                )
+        except Exception as e:
+            return SessionResults(
+                mechanisms=mechanisms,
+                center=center,
+                agreements=[None] * len(mechanisms),
+                center_utility=self._saved_scenario.center_ufun.reserved_value,
+                edge_utilities=[
+                    u.reserved_value for u in self._saved_scenario.edge_ufuns
+                ],
+                edges=edges,
+                total_time=perf_counter() - _strt,
+                times=[m.time for m in mechanisms],
+                run_error=f"Failed to run the the mechanisms: {e}",
+            )
         total_time = perf_counter() - _strt
         if not name:
             name = unique_name("session", sep=".")
