@@ -305,7 +305,7 @@ def run_session(
                 flush=True,
             )
         else:
-            print("<>", end="", flush=True)
+            print(f"<{job.run_index}>", end="", flush=True)
     except Exception as e:
         print(
             f"{job.run_index:04}: [red]FAILED[/red] {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} in {humanize_time(perf_counter() - _strt)} ({e})",
