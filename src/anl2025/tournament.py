@@ -289,17 +289,34 @@ def run_session(
     center_params = job.center_params
     edges = job.edges
     edge_params = job.edge_params
-    r = assigned.run(
-        output=output,
-        name=f"{sname}_{j}_{i}",
-        dry=dry,
-        verbose=verbose,
-        normalize_scores=normalize_scores,
-    )
-    print(
-        f"{job.run_index:04}: [green]DONE[/green] {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} ([red]{r.run_error}[/red])",
-        flush=True,
-    )
+    try:
+        r = assigned.run(
+            output=output,
+            name=f"{sname}_{j}_{i}",
+            dry=dry,
+            verbose=verbose,
+            normalize_scores=normalize_scores,
+        )
+        print(
+            f"{job.run_index:04}: [green]DONE[/green] {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} ([red]{r.run_error}[/red])",
+            flush=True,
+        )
+    except Exception as e:
+        print(
+            f"{job.run_index:04}: [red]FAILED[/red] {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} ({e})",
+            flush=True,
+        )
+        r = SessionResults(
+            mechanisms=[None] * len(job.assigned.scenario.edge_ufuns),  # type: ignore
+            center=None,  # type: ignore
+            agreements=[None] * len(job.assigned.scenario.edge_ufuns),
+            center_utility=0.0,
+            edge_utilities=[0.0] * len(job.assigned.scenario.edge_ufuns),  # type: ignore
+            edges=[None] * len(job.assigned.scenario.edge_ufuns),  # type: ignore
+            total_time=0,
+            times=[0] * len(job.assigned.scenario.edge_ufuns),  # type: ignore
+            run_error=str(e),
+        )
     return job, SessionInfo(
         scenario_name=sname,
         repetition=i,
