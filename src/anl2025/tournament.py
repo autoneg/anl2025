@@ -216,6 +216,7 @@ class JobInfo:
     edge_params: tuple[dict, ...] | list[dict]
     edge_info: list[tuple[type, dict[str, Any] | None]]
     nedges_counted: int
+    run_index: int
 
 
 @define
@@ -275,7 +276,7 @@ def run_session(
     job: JobInfo, dry: bool, verbose: bool, normalize_scores: bool = False
 ) -> tuple[JobInfo, SessionInfo]:
     print(
-        f"Starting Scenario {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]}",
+        f"{job.run_index:04}: START {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]}",
         flush=True,
     )
     assigned = job.assigned
@@ -295,7 +296,7 @@ def run_session(
         normalize_scores=normalize_scores,
     )
     print(
-        f"DONE Scenario {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} ({r.run_error})",
+        f"{job.run_index:04}: [green]DONE[/green] {job.assigned.scenario.name}: center: {job.center.__name__}, edges: {[_.__name__ for _ in job.edges]} ([red]{r.run_error}[/red])",
         flush=True,
     )
     return job, SessionInfo(
@@ -655,6 +656,7 @@ class Tournament:
         print(
             f"Will use {len(self.scenarios)} scenarios and {len(self.competitors)} competitors"
         )
+        run_index = 0
 
         for i in track(range(n_repetitions), "Preparing Negotiation Sessions"):
             competitors = [
@@ -726,12 +728,14 @@ class Tournament:
                             edge_params,
                             edge_info,
                             nedges_counted,
+                            run_index,
                         )
                     )
+                    run_index += 1
                     # This rotation guarantees that every competitor is
                     # the center once per scenario per repetition
                     competitors = competitors[1:] + [competitors[0]]
-        print(f"Will run {len(jobs)} negotiations")
+        print(f"Will run {len(jobs)} negotiations (max run-index {run_index - 1})")
 
         def process_info(job: JobInfo, info: SessionInfo):
             center_multiplier = (
