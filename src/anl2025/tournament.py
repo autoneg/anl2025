@@ -646,6 +646,9 @@ class Tournament:
             non_competitors = None
 
         jobs = []
+        print(
+            f"Will use {len(self.scenarios)} scenarios and {len(self.competitors)} competitors"
+        )
 
         for i in track(range(n_repetitions), "Preparing Negotiation Sessions"):
             competitors = [
@@ -655,7 +658,7 @@ class Tournament:
             for k, scenario in enumerate(self.scenarios):
                 nedges = len(scenario.edge_ufuns)
                 sname = scenario.name if scenario.name else f"s{k:03}"
-                if verbose:
+                if not verbose:
                     print(
                         f"Repetition {i}: Scenario {sname}. Will run with {len(competitors)} competitors"
                     )

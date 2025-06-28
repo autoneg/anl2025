@@ -213,9 +213,43 @@ class AssignedScenario:
             base = output / name
             (base / "log").mkdir(parents=True, exist_ok=True)
             (base / "plots").mkdir(parents=True, exist_ok=True)
-        center.init()
+        try:
+            center.init()
+        except Exception as e:
+            print(
+                f"Failed to initialize the center agent: {center.id} ({type(center).__name__}): {e}"
+            )
+            return SessionResults(
+                mechanisms=mechanisms,
+                center=deepcopy(center),
+                center_utility=0.0,
+                edge_utilities=[0.0] * len(edges),
+                edges=deepcopy(edges),
+                agreements=[None] * len(edges),
+                total_time=0.0,
+                times=[0.0] * len(mechanisms),
+                run_error=f"Failed to initialize the center agent: {center.id} ({type(center).__name__}): {e}",
+                # final_states=[_.state for _ in mechanisms],
+            )
         for edge in edges:
-            edge.init()
+            try:
+                edge.init()
+            except Exception as e:
+                print(
+                    f"Failed to initialize the edge agent: {edge.id} ({type(edge).__name__}): {e}"
+                )
+                return SessionResults(
+                    mechanisms=mechanisms,
+                    center=deepcopy(center),
+                    center_utility=0.0,
+                    edge_utilities=[0.0] * len(edges),
+                    edges=deepcopy(edges),
+                    agreements=[None] * len(edges),
+                    total_time=0.0,
+                    times=[0.0] * len(mechanisms),
+                    run_error=f"Failed to initialize the edge agent: {edge.id} ({type(edge).__name__}): {e}",
+                    # final_states=[_.state for _ in mechanisms],
+                )
 
         def plot_result(i, m, base=base):
             assert base is not None
@@ -255,7 +289,7 @@ class AssignedScenario:
                     edges=edges,
                     total_time=perf_counter() - _strt,
                     times=[m.time for m in mechanisms],
-                    run_error=str(e),
+                    run_error=f"Failed to run the the mechanisms: {e}",
                 )
         total_time = perf_counter() - _strt
         if not name:
