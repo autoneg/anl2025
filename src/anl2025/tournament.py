@@ -1,5 +1,5 @@
 from collections import defaultdict
-from time import perf_counter
+from time import perf_counter, sleep
 from attr import asdict, field
 from copy import deepcopy
 from multiprocessing import cpu_count
@@ -889,21 +889,27 @@ class Tournament:
                 process_info(job, info)
         else:
             assert n_jobs > 0
-            with ProcessPoolExecutor(max_workers=n_jobs) as executor:
-                # Submit all jobs and store the futures
-                futures = [
-                    executor.submit(run_session, job, dry, verbose, normalize_scores)
-                    for job in jobs
-                ]
+            try:
+                with ProcessPoolExecutor(max_workers=n_jobs) as executor:
+                    # Submit all jobs and store the futures
+                    futures = [
+                        executor.submit(
+                            run_session, job, dry, verbose, normalize_scores
+                        )
+                        for job in jobs
+                    ]
 
-                # Process results as they become available
-                for future in as_completed(futures):
-                    try:
-                        job, info = future.result()
-                        process_info(job, info)
-                    except Exception as e:
-                        print(f"Job failed with exception: {e}")
+                    # Process results as they become available
+                    for future in as_completed(futures):
+                        try:
+                            job, info = future.result()
+                            process_info(job, info)
+                        except Exception as e:
+                            print(f"Job failed with exception: {e}")
+            except Exception as e:
+                print(f"Parallel execution failed with error {e}. Continuing")
 
+        sleep(10)
         # weighted_average_* are the average scores of each agent when they are in the center or edge position
         weighted_average = {}
         for agent in acc_scores.keys():
