@@ -661,105 +661,6 @@ class Tournament:
         def type_name(x):
             return get_full_type_name(x).replace("anl2025.negotiator.", "")
 
-        if non_comptitor_types:
-            non_comptitor_types = tuple(get_class(_) for _ in non_comptitor_types)
-            non_comptitor_params = (
-                non_comptitor_params
-                if non_comptitor_params
-                else tuple(dict() for _ in range(len(non_comptitor_types)))
-            )
-            non_competitors = [
-                (n, p)
-                for n, p in zip(non_comptitor_types, non_comptitor_params, strict=True)
-            ]
-        else:
-            non_competitors = None
-
-        jobs = []
-        print(
-            f"Will use {len(self.scenarios)} scenarios and {len(self.competitors)} competitors"
-        )
-        run_index = 0
-
-        for i in track(range(n_repetitions), "Preparing Negotiation Sessions"):
-            competitors = [
-                (get_class(c), p)
-                for c, p in zip(self.competitors, self.competitor_params, strict=True)
-            ]
-            for k, scenario in enumerate(self.scenarios):
-                nedges = len(scenario.edge_ufuns)
-                sname = scenario.name if scenario.name else f"s{k:03}"
-                if not verbose:
-                    print(
-                        f"Repetition {i}: Scenario {sname}. Will run with {len(competitors)} competitors"
-                    )
-                random.shuffle(competitors)
-                # put each competitor in center once per scenario
-                for j in range(len(competitors)):
-                    if len(competitors) >= nedges + 1:
-                        players = [_ for _ in competitors]
-                        # players = competitors[: nedges + 1]
-                    else:
-                        # add extra players at the end if not enough competitors are available
-                        players = competitors + list(
-                            random.choices(
-                                non_competitors if non_competitors else competitors,
-                                k=nedges + 1 - len(competitors),
-                            )
-                        )
-                    # ignore the randomly added edges if no-double-scores is set
-                    nedges_counted = (
-                        nedges
-                        if not no_double_scores
-                        else min(len(competitors) - 1, nedges)
-                    )
-                    if path:
-                        output = path / "results" / sname / f"r{i:03}t{j:03}"
-                    else:
-                        output = None
-                    # if verbose:
-                    #     print(f"{j=}, {players=}")
-                    center, center_params = deepcopy(players[0])
-                    edge_info = deepcopy(players[1 : nedges + 1])
-                    # not sure if the following shuffle is useful!
-                    # It tries to randomize the order of the edges to avoid
-                    # having a systematic bias but we randomize competitors anyway.
-                    random.shuffle(edge_info)
-                    edges = [_[0] for _ in edge_info]
-                    edge_params = [_[1] if _[1] else dict() for _ in edge_info]
-                    assigned = assign_scenario(
-                        scenario=scenario,
-                        run_params=self.run_params,
-                        center_type=center,
-                        center_params=center_params,
-                        edge_types=edges,  # type: ignore
-                        edge_params=edge_params,
-                        verbose=verbose,
-                        sample_edges=False,
-                    )
-                    jobs.append(
-                        JobInfo(
-                            assigned,
-                            output,
-                            sname,
-                            i,
-                            j,
-                            k,
-                            center,
-                            center_params,
-                            edges,
-                            edge_params,
-                            edge_info,
-                            nedges_counted,
-                            run_index,
-                        )
-                    )
-                    run_index += 1
-                    # This rotation guarantees that every competitor is
-                    # the center once per scenario per repetition
-                    competitors = competitors[1:] + [competitors[0]]
-        print(f"Will run {len(jobs)} negotiations (max run-index {run_index - 1})")
-
         def process_info(job: JobInfo, info: SessionInfo):
             center_multiplier = (
                 center_multiplier_val
@@ -882,6 +783,156 @@ class Tournament:
                 print(f"Center Utility: {r.center_utility}")
                 print(f"Edge Utilities: {r.edge_utilities}")
                 print(f"Agreement: {r.agreements}")
+
+        if non_comptitor_types:
+            non_comptitor_types = tuple(get_class(_) for _ in non_comptitor_types)
+            non_comptitor_params = (
+                non_comptitor_params
+                if non_comptitor_params
+                else tuple(dict() for _ in range(len(non_comptitor_types)))
+            )
+            non_competitors = [
+                (n, p)
+                for n, p in zip(non_comptitor_types, non_comptitor_params, strict=True)
+            ]
+        else:
+            non_competitors = None
+
+        jobs = []
+        print(
+            f"Will use {len(self.scenarios)} scenarios and {len(self.competitors)} competitors"
+        )
+        run_index = 0
+
+        for i in track(range(n_repetitions), "Preparing Negotiation Sessions"):
+            competitors = [
+                (get_class(c), p)
+                for c, p in zip(self.competitors, self.competitor_params, strict=True)
+            ]
+            for k, scenario in enumerate(self.scenarios):
+                nedges = len(scenario.edge_ufuns)
+                sname = scenario.name if scenario.name else f"s{k:03}"
+                if not verbose:
+                    print(
+                        f"Repetition {i}: Scenario {sname}. Will run with {len(competitors)} competitors"
+                    )
+                random.shuffle(competitors)
+                # put each competitor in center once per scenario
+                for j in range(len(competitors)):
+                    if len(competitors) >= nedges + 1:
+                        players = [_ for _ in competitors]
+                        # players = competitors[: nedges + 1]
+                    else:
+                        # add extra players at the end if not enough competitors are available
+                        players = competitors + list(
+                            random.choices(
+                                non_competitors if non_competitors else competitors,
+                                k=nedges + 1 - len(competitors),
+                            )
+                        )
+                    # ignore the randomly added edges if no-double-scores is set
+                    nedges_counted = (
+                        nedges
+                        if not no_double_scores
+                        else min(len(competitors) - 1, nedges)
+                    )
+                    if path:
+                        output = path / "results" / sname / f"r{i:03}t{j:03}"
+                    else:
+                        output = None
+                    # if verbose:
+                    #     print(f"{j=}, {players=}")
+                    center, center_params = deepcopy(players[0])
+                    edge_info = deepcopy(players[1 : nedges + 1])
+                    # not sure if the following shuffle is useful!
+                    # It tries to randomize the order of the edges to avoid
+                    # having a systematic bias but we randomize competitors anyway.
+                    random.shuffle(edge_info)
+                    edges = [_[0] for _ in edge_info]
+                    edge_params = [_[1] if _[1] else dict() for _ in edge_info]
+                    assigned = assign_scenario(
+                        scenario=scenario,
+                        run_params=self.run_params,
+                        center_type=center,
+                        center_params=center_params,
+                        edge_types=edges,  # type: ignore
+                        edge_params=edge_params,
+                        verbose=verbose,
+                        sample_edges=False,
+                    )
+                    job = JobInfo(
+                        assigned,
+                        output,
+                        sname,
+                        i,
+                        j,
+                        k,
+                        center,
+                        center_params,
+                        edges,
+                        edge_params,
+                        edge_info,
+                        nedges_counted,
+                        run_index,
+                    )
+
+                    if self.run_params.center_os_limit:
+                        cardinality = scenario.center_ufun.outcome_space.cardinality  # type: ignore
+                    else:
+                        cardinality = 0
+                    add_this_job = True
+                    for key, limit in self.run_params.center_os_limit.items():
+                        if (
+                            isinstance(key, str)
+                            and get_full_type_name(center).endswith(key)
+                            or (key == center)
+                        ) and limit < cardinality:
+                            if verbose:
+                                print(
+                                    f"Avoiding running {center} with limit {self.run_params.center_os_limit[key]} for a center os of size {cardinality}"
+                                )  # type: ignore
+                            else:
+                                print(
+                                    f"{center}-{scenario.name}[red]x[/red]",
+                                    end=" ",
+                                    flush=True,
+                                )
+
+                            r = SessionResults(
+                                mechanisms=[None]
+                                * len(job.assigned.scenario.edge_ufuns),  # type: ignore
+                                center=None,  # type: ignore
+                                agreements=[None]
+                                * len(job.assigned.scenario.edge_ufuns),
+                                center_utility=0.0,
+                                edge_utilities=[0.0]
+                                * len(job.assigned.scenario.edge_ufuns),  # type: ignore
+                                edges=[None] * len(job.assigned.scenario.edge_ufuns),  # type: ignore
+                                total_time=0,
+                                times=[0] * len(job.assigned.scenario.edge_ufuns),  # type: ignore
+                                run_error=f"Large outcome-space: Avoiding running {center} with limit {self.run_params.center_os_limit[key]} for a center os of size {cardinality}",
+                            )
+                            session_info = SessionInfo(
+                                scenario_name=sname,
+                                repetition=i,
+                                rotation=j,
+                                center_type_name=get_full_type_name(center),
+                                center_params=center_params
+                                if center_params
+                                else dict(),
+                                edge_type_names=[get_full_type_name(_) for _ in edges],
+                                edge_params=edge_params,  # type: ignore
+                                results=r,
+                            )
+                            scores.append(process_info(job, session_info))
+                            add_this_job = False
+                    if add_this_job:
+                        jobs.append(job)
+                    run_index += 1
+                    # This rotation guarantees that every competitor is
+                    # the center once per scenario per repetition
+                    competitors = competitors[1:] + [competitors[0]]
+        print(f"Will run {len(jobs)} negotiations (max run-index {run_index - 1})")
 
         if n_jobs is None:
             for job in track(jobs, "Running Negotiations"):

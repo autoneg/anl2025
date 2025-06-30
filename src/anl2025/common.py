@@ -39,6 +39,9 @@ class RunParams:
                 ANL2025 uses the sequential option which means that a complete negotiation is finished before
                 the next starts.
         time_limit: Number of seconds allowed per negotiation
+        center_os_limit: Allows for specifying a limit of outcome-space size for any negotiator when it is in the center.
+                         This is useful to avoid attempting to run agents that will definitely fail for large outcome-spaces breaking
+                         the tournament (e.g. due to a memory explosion resulting from attempting to create a list of all outcomes).
     """
 
     # mechanism params
@@ -53,6 +56,7 @@ class RunParams:
     mechanism_params: dict[str, Any] = field(factory=dict)
     ignore_mechanism_exceptions: bool = False
     ignore_negotiator_exceptions: bool | None = None
+    center_os_limit: dict = field(factory=dict)
 
 
 def get_ufun_class(x: str | type) -> type:

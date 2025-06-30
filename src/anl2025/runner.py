@@ -254,10 +254,17 @@ class AssignedScenario:
 
         def plot_result(i, m, base=base):
             assert base is not None
-            df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
-            df.to_csv(base / "log" / f"{m.id}.csv", index_label="index")
-            m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
-            plt.close()
+            try:
+                df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
+                df.to_csv(base / "log" / f"{m.id}.csv", index_label="index")
+                m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
+                plt.close()
+            except Exception as e:
+                print(f"Could not plot {m.id}: {e}")
+                try:
+                    plt.close()
+                except Exception:
+                    pass
 
         _strt = perf_counter()
         # be compatible with negmas before 0.11.4
