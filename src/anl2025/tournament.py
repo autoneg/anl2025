@@ -2,12 +2,12 @@ from collections import defaultdict
 from time import perf_counter, sleep
 from attr import asdict, field
 from copy import deepcopy
+from rich.progress import track
 from multiprocessing import cpu_count
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from negmas.helpers import humanize_time, unique_name
 from negmas.serialization import dump
 from rich import print
-from rich.progress import track
 from collections.abc import Sequence
 from typing import TypedDict
 from pathlib import Path
@@ -265,6 +265,12 @@ class TournamentResults:
     n_threads_succeeded: int = field(init=False)
     n_threads_timedout: int = field(init=False)
     n_threads_failed: int = field(init=False)
+    center_factor: dict[str, float] = field(
+        factory=dict
+    )  # the multiplier for center utility in each scenario
+    edge_factor: dict[str, float] = field(
+        factory=dict
+    )  # the multiplier for edge utility in each scenario
 
     def __attrs_post_init__(self):
         self.n_threads_succeeded = sum(
@@ -612,7 +618,7 @@ class Tournament:
         non_comptitor_params: tuple[dict[str, Any], ...] | None = None,
         n_jobs: int | float | None = 0,
         center_multiplier: float | None = None,
-        edge_multiplier: float = 1,
+        edge_multiplier: float | None = 1,
         normalize_scores: bool = False,
     ) -> TournamentResults:
         """Run the tournament
@@ -631,7 +637,7 @@ class Tournament:
             center_multiplier: A number to multiply center utilities with before calculating the score. Can be used
                                to give more or less value to being a center. If None, it will be equal to the number of edges.
             edge_multiplier: A number to multiply edge utilities with before calculating the score. Can be used
-                               to give more or less value to being an edge
+                               to give more or less value to being an edge. If None it will be one over the number of edges (to emphasize the center).
 
         Returns:
             `TournamentResults` with all scores and final-scores
@@ -656,18 +662,24 @@ class Tournament:
         weighted_scores_edge = defaultdict(float)
         count_edge = defaultdict(float)
         count_center = defaultdict(float)
+        center_factor = defaultdict(float)
+        edge_factor = defaultdict(float)
 
         scores = []
-        center_multiplier_val = center_multiplier
 
         def type_name(x):
             return get_full_type_name(x).replace("anl2025.negotiator.", "")
 
         def process_info(job: JobInfo, info: SessionInfo):
             cfactor = (
-                center_multiplier_val
-                if center_multiplier_val is not None
+                center_multiplier
+                if center_multiplier is not None
                 else len(job.edge_info)
+            )
+            efactor = (
+                edge_multiplier
+                if edge_multiplier is not None
+                else (1.0 / len(job.edge_info))
             )
             r = info.results
             center_ids = [m.nmi.annotation["center_id"] for m in r.mechanisms]
@@ -680,6 +692,8 @@ class Tournament:
                 else f"{type_name(center)}_{hash(str(center_params))}"
             )
             mean_edge_utility = sum(r.edge_utilities) / len(r.edge_utilities)
+            center_factor[job.sname] = cfactor
+            edge_factor[job.sname] = efactor
             scores.append(
                 dict(
                     agent=cname,
@@ -727,15 +741,15 @@ class Tournament:
                 )
             )
             acc_scores[cname] += r.center_utility * cfactor
-            raw_scores[cname] += r.center_utility
             weighted_scores_center[cname] += r.center_utility * cfactor
+            raw_scores[cname] += r.center_utility
             count_center[cname] += 1
             for e, (c, p) in enumerate(job.edge_info[: job.nedges_counted]):
                 ename = type_name(c) if not p else f"{type_name(c)}_{hash(str(p))}"
                 scores.append(
                     dict(
                         agent=ename,
-                        utility=r.edge_utilities[e] * edge_multiplier,
+                        utility=r.edge_utilities[e] * efactor,
                         raw_utility=r.edge_utilities[e],
                         partner_average_utility=r.center_utility,
                         scenario=job.sname,
@@ -778,9 +792,9 @@ class Tournament:
                         run_index=job.run_index,
                     )
                 )
-                acc_scores[ename] += r.edge_utilities[e] * edge_multiplier
+                acc_scores[ename] += r.edge_utilities[e] * efactor
+                weighted_scores_edge[ename] += r.edge_utilities[e] * efactor
                 raw_scores[ename] += r.edge_utilities[e]
-                weighted_scores_edge[ename] += r.edge_utilities[e] * edge_multiplier
                 count_edge[ename] += 1
 
             if verbose:
@@ -939,7 +953,8 @@ class Tournament:
         print(f"Will run {len(jobs)} negotiations (max run-index {run_index - 1})")
 
         if n_jobs is None:
-            for job in track(jobs, "Running Negotiations"):
+            # for job in track(jobs, "Running Negotiations"):
+            for job in jobs:
                 job, info = run_session(job, dry, verbose, normalize_scores)
                 process_info(job, info)
         else:
@@ -995,6 +1010,8 @@ class Tournament:
             final_scoresC={k: v for k, v in weighted_scores_center.items()},
             final_scoresE={k: v for k, v in weighted_scores_edge.items()},
             weighted_average={k: v for k, v in weighted_average.items()},
+            center_factor={k: v for k, v in center_factor.items()},
+            edge_factor={k: v for k, v in center_factor.items()},
             raw_scores={k: v for k, v in raw_scores.items()},
             unweighted_average={
                 k: (v / count[k]) if count[k] else v for k, v in acc_scores.items()
