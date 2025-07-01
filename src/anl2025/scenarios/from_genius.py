@@ -15,13 +15,14 @@ from negmas.preferences.crisp.linear import LinearAdditiveUtilityFunction
 def load_party(number):
     path_to_folder = pathlib.Path(__file__).parent / f"Party{number}"
     scen = Scenario.load(path_to_folder)
+    assert scen is not None
     scen.normalize()
     scen.info.update({"name": f"Party{number}"})
     return scen
 
 
 def make_multideal_scenario_from_genius(
-    scenario: Scenario | Path | str = None,
+    scenario: Scenario | Path | str | None = None,
     center_reserved_value_min: float = 0.0,
     center_reserved_value_max: float = 0.0,
     # edge ufuns
@@ -88,10 +89,10 @@ class GeniusEvaluator:
 
     def __call__(self, agreements):
         if not agreements:
-            return 0
+            return self.center_ufun.reserved_value
         if any(agreement is None for agreement in agreements):
-            return 0
-        return float(self.center_ufun(agreements))
+            return self.center_ufun.reserved_value
+        return float(self.center_ufun(tuple(agreements)))
 
 
 if __name__ == "__main__":
