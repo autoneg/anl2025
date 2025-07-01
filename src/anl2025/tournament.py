@@ -1011,7 +1011,7 @@ class Tournament:
             final_scoresE={k: v for k, v in weighted_scores_edge.items()},
             weighted_average={k: v for k, v in weighted_average.items()},
             center_factor={k: v for k, v in center_factor.items()},
-            edge_factor={k: v for k, v in center_factor.items()},
+            edge_factor={k: v for k, v in edge_factor.items()},
             raw_scores={k: v for k, v in raw_scores.items()},
             unweighted_average={
                 k: (v / count[k]) if count[k] else v for k, v in acc_scores.items()
