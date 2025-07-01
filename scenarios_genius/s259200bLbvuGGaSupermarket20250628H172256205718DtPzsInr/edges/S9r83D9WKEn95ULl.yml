@@ -1,0 +1,25 @@
+id: S9r83D9WKEn95ULl-6e5e5442-3761-4c3b-b237-fbd08fd45c7a
+name: S9r83D9WKEn95ULl
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Bread type
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Baguette
+    - Crackers
+    - Croissants
+    - Plain bread
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Baguette: 0.4444444444444445
+    Crackers: 0.0
+    Croissants: 0.1111111111111111
+    Plain bread: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

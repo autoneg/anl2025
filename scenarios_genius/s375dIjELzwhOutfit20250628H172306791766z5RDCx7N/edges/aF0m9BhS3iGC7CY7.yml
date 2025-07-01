@@ -1,0 +1,25 @@
+id: aF0m9BhS3iGC7CY7-6247307e-52aa-4bbf-b5fd-bc0bddd2781e
+name: aF0m9BhS3iGC7CY7
+outcome_space:
+  issues:
+  - n_values: 4
+    name: shirts
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - T-shirt
+    - Blouse
+    - Polo shirt
+    - sweaters
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Blouse: 0.0
+    Polo shirt: 0.5000000000000001
+    T-shirt: 1.0
+    sweaters: 0.7500000000000001
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,31 @@
+id: iyakXyey8eHiEB3V-3ff0b1b2-3249-4d73-8756-2435aa6fb334
+name: iyakXyey8eHiEB3V
+outcome_space:
+  issues:
+  - n_values: 7
+    name: Atmosphere
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Cultural heritage
+    - Local traditions
+    - Political stability
+    - Security (personal)
+    - Liveliness
+    - Turistic activities
+    - Hospitality
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: -0.015564022056854573
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Cultural heritage: 0.022935779816513756
+    Hospitality: 0.5366972477064219
+    Liveliness: 0.036697247706422
+    Local traditions: 0.022935779816513756
+    Political stability: 0.0
+    Security (personal): 0.0
+    Turistic activities: 0.9999999999999999
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

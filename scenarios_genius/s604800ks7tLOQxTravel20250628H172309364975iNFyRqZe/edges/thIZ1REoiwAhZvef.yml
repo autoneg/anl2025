@@ -1,0 +1,29 @@
+id: thIZ1REoiwAhZvef-031bb03b-936c-4627-9be1-4324cd0a6096
+name: thIZ1REoiwAhZvef
+outcome_space:
+  issues:
+  - n_values: 6
+    name: Culture
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Museum
+    - Music hall
+    - Theater
+    - Art gallery
+    - Cinema
+    - Congress center
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: -0.008098586095315673
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Art gallery: 0.5319767441860465
+    Cinema: 1.0
+    Congress center: 0.0
+    Museum: 0.02325581395348836
+    Music hall: 0.6773255813953487
+    Theater: 0.011627906976744193
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

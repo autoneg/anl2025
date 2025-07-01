@@ -1,0 +1,21 @@
+id: 6iraN9Iu5kfdDXGr-7ae5a14c-63a5-4c77-913a-764f5f129a07
+name: 6iraN9Iu5kfdDXGr
+outcome_space:
+  issues:
+  - n_values: 2
+    name: accessories
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - hat
+    - sunglasses
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    hat: 0.0
+    sunglasses: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

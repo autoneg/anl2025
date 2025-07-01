@@ -1,0 +1,25 @@
+id: Cg627NbjvMWMkPew-f4cab9b9-54c4-4e94-afc4-2df87764c385
+name: Cg627NbjvMWMkPew
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Spreads
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Cheese
+    - Jam
+    - Peanut butter
+    - Sandwichspread
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Cheese: 0.0
+    Jam: 1.0
+    Peanut butter: 0.1111111111111111
+    Sandwichspread: 0.4444444444444445
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

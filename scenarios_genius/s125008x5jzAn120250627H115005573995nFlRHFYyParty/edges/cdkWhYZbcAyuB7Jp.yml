@@ -1,0 +1,25 @@
+id: cdkWhYZbcAyuB7Jp-a754c166-f3b9-46a1-8380-c49375bd55f8
+name: cdkWhYZbcAyuB7Jp
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Drinks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Non-Alcoholic
+    - Beer Only
+    - Handmade Cocktails
+    - Catering
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: -5.0224375452197086e-17
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Beer Only: 0.6666666666666667
+    Catering: 0.0
+    Handmade Cocktails: 0.3333333333333333
+    Non-Alcoholic: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

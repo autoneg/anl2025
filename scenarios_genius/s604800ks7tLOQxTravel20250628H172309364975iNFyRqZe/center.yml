@@ -1,0 +1,238 @@
+evaluator:
+  center_ufun:
+    id: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Travel/travel_chox.xml-a2bdc69c-7e45-4f2f-8854-3a4ae6e88559
+    name: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Travel/travel_chox.xml
+    outcome_space:
+      issues:
+      - n_values: 7
+        name: Atmosphere
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Cultural heritage
+        - Local traditions
+        - Political stability
+        - Security (personal)
+        - Liveliness
+        - Turistic activities
+        - Hospitality
+      - n_values: 7
+        name: Amusement
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Nightlife and entertainment
+        - Nightclubs
+        - Excursion
+        - Casinos
+        - Zoo
+        - Festivals
+        - Amusement park
+      - n_values: 4
+        name: Culinary
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Local cuisine
+        - Lunch facilities
+        - International cuisine
+        - Cooking workshops
+      - n_values: 4
+        name: Shopping
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Shopping malls
+        - Markets
+        - Streets
+        - Small boutiques
+      - n_values: 6
+        name: Culture
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Museum
+        - Music hall
+        - Theater
+        - Art gallery
+        - Cinema
+        - Congress center
+      - n_values: 5
+        name: Sport
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Bike tours
+        - Hiking
+        - Indoor activities
+        - Outdoor activities
+        - Adventure
+      - n_values: 8
+        name: Environment
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Parks and Gardens
+        - Square
+        - Historical places
+        - See, river, etc.
+        - Monuments
+        - Special streets
+        - Palace
+        - Landscape and nature
+      name: ''
+      type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    reserved_value: -0.11061716193909857
+    type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+    values:
+    - mapping:
+        Cultural heritage: 0.004617663360550181
+        Hospitality: 0.9293068712528536
+        Liveliness: 0.01586008534100372
+        Local traditions: -0.017867180600356886
+        Political stability: 0.4880418085200523
+        Security (personal): 0.6257614777806081
+        Turistic activities: -0.006624758619903359
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Amusement park: 0.4880418085200523
+        Casinos: 0.01586008534100372
+        Excursion: -0.006624758619903359
+        Festivals: 0.004617663360550181
+        Nightclubs: -0.017867180600356886
+        Nightlife and entertainment: 0.9293068712528536
+        Zoo: 0.6257614777806081
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Cooking workshops: 0.06364037875793124
+        International cuisine: 0.9012008163017198
+        Local cuisine: 1.3171704295785007
+        Lunch facilities: 0.08612522271883832
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Markets: 0.08612522271883832
+        Shopping malls: 0.060829773262817854
+        Small boutiques: 1.3171704295785007
+        Streets: 0.9012008163017198
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Art gallery: -0.0038141531247899707
+        Cinema: 0.5105266524809594
+        Congress center: 0.0074282688556635695
+        Museum: 0.6510569272366286
+        Music hall: 0.01867069083611711
+        Theater: 0.9630341371942142
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Adventure: 0.0748828007383848
+        Bike tours: 1.2412840812104393
+        Hiking: 0.8477993118945655
+        Indoor activities: 0.0383449293019108
+        Outdoor activities: 0.05239795677747772
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Historical places: -0.023488391590583663
+        Landscape and nature: -0.012245969610130122
+        Monuments: 0.7775341745167309
+        Palace: 0.5189584689662995
+        Parks and Gardens: 0.3334585062888161
+        See, river, etc.: -0.03754141906615058
+        Special streets: 0.40091303817153734
+        Square: -0.031920208075923814
+      type: negmas.preferences.value_fun.TableFun
+    weights:
+    - 0.3704517173416688
+    - 0.04304893094970382
+    - 0.20809971361039253
+    - 0.04308224059878759
+    - 0.04701364277217884
+    - 0.0332933736028529
+    - 0.25501038112441554
+  type: anl2025.scenarios.from_genius.GeniusEvaluator
+name: U8RguPTflyisyDRL
+outcome_spaces:
+- issues:
+  - n_values: 7
+    name: Atmosphere
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Cultural heritage
+    - Local traditions
+    - Political stability
+    - Security (personal)
+    - Liveliness
+    - Turistic activities
+    - Hospitality
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 7
+    name: Amusement
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Nightlife and entertainment
+    - Nightclubs
+    - Excursion
+    - Casinos
+    - Zoo
+    - Festivals
+    - Amusement park
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Culinary
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Local cuisine
+    - Lunch facilities
+    - International cuisine
+    - Cooking workshops
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Shopping
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Shopping malls
+    - Markets
+    - Streets
+    - Small boutiques
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: Culture
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Museum
+    - Music hall
+    - Theater
+    - Art gallery
+    - Cinema
+    - Congress center
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Sport
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Bike tours
+    - Hiking
+    - Indoor activities
+    - Outdoor activities
+    - Adventure
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 8
+    name: Environment
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Parks and Gardens
+    - Square
+    - Historical places
+    - See, river, etc.
+    - Monuments
+    - Special streets
+    - Palace
+    - Landscape and nature
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.15
+type: anl2025.ufun.LambdaCenterUFun

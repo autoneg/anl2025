@@ -1,0 +1,230 @@
+evaluator:
+  center_ufun:
+    id: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Supermarket/Supermarket-A-prof1.xml-cca35ef8-5660-4f77-b24a-2e5ec460f9d4
+    name: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Supermarket/Supermarket-A-prof1.xml
+    outcome_space:
+      issues:
+      - n_values: 4
+        name: Bread type
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Baguette
+        - Crackers
+        - Croissants
+        - Plain bread
+      - n_values: 8
+        name: Fruit
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Apples
+        - Bananas
+        - Cherries
+        - Grapes
+        - Pears
+        - Oranges
+        - Melons
+        - Strawberries
+      - n_values: 7
+        name: Snacks
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Chocolate bars
+        - Doughnuts
+        - Nachos
+        - Popcorn
+        - Potato Chips
+        - Candy
+        - Cookies
+      - n_values: 8
+        name: Spreads
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Cheese
+        - Jam
+        - Peanut butter
+        - Sandwichspread
+        - Chocolate
+        - Ham
+        - Salami
+        - Egg Salad
+      - n_values: 7
+        name: Vegetables
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Beans
+        - Broccoli
+        - Leek
+        - Potatoes
+        - Spinach
+        - Carrots
+        - Tomatos
+      - n_values: 9
+        name: Drinks
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Energy Drinks
+        - Milk
+        - Tea
+        - Coffee
+        - Juice
+        - Coca Cola
+        - Fanta
+        - Beer
+        - Wine
+      name: ''
+      type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    reserved_value: -0.11731843575418996
+    type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+    values:
+    - mapping:
+        Baguette: 1.0000000000000002
+        Crackers: 0.10614525139664804
+        Croissants: -0.005586592178770958
+        Plain bread: 0.44134078212290506
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Apples: -0.005586592178770958
+        Bananas: 0.44134078212290506
+        Cherries: 0.21787709497206706
+        Grapes: 0.21787709497206706
+        Melons: 0.776536312849162
+        Oranges: 0.21787709497206706
+        Pears: 1.0000000000000002
+        Strawberries: 0.888268156424581
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Candy: 0.664804469273743
+        Chocolate bars: -0.005586592178770958
+        Cookies: 0.44134078212290506
+        Doughnuts: 0.10614525139664804
+        Nachos: 0.44134078212290506
+        Popcorn: 1.0000000000000002
+        Potato Chips: -0.005586592178770958
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Cheese: -0.005586592178770958
+        Chocolate: 0.776536312849162
+        Egg Salad: 0.776536312849162
+        Ham: 0.888268156424581
+        Jam: 0.10614525139664804
+        Peanut butter: 1.0000000000000002
+        Salami: 0.553072625698324
+        Sandwichspread: 0.44134078212290506
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Beans: -0.005586592178770958
+        Broccoli: 0.10614525139664804
+        Carrots: 0.21787709497206706
+        Leek: 0.44134078212290506
+        Potatoes: 0.21787709497206706
+        Spinach: 1.0000000000000002
+        Tomatos: 0.776536312849162
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Beer: 0.664804469273743
+        Coca Cola: 0.776536312849162
+        Coffee: 0.3296089385474861
+        Energy Drinks: 1.0000000000000002
+        Fanta: 0.664804469273743
+        Juice: 0.664804469273743
+        Milk: 0.664804469273743
+        Tea: 0.10614525139664804
+        Wine: 0.44134078212290506
+      type: negmas.preferences.value_fun.TableFun
+    weights:
+    - 0.3
+    - 0.2
+    - 0.05
+    - 0.15
+    - 0.25
+    - 0.05
+  type: anl2025.scenarios.from_genius.GeniusEvaluator
+name: g6NPZcZRh5d7l9LV
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: Bread type
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Baguette
+    - Crackers
+    - Croissants
+    - Plain bread
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 8
+    name: Fruit
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Apples
+    - Bananas
+    - Cherries
+    - Grapes
+    - Pears
+    - Oranges
+    - Melons
+    - Strawberries
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 7
+    name: Snacks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chocolate bars
+    - Doughnuts
+    - Nachos
+    - Popcorn
+    - Potato Chips
+    - Candy
+    - Cookies
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 8
+    name: Spreads
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Cheese
+    - Jam
+    - Peanut butter
+    - Sandwichspread
+    - Chocolate
+    - Ham
+    - Salami
+    - Egg Salad
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 7
+    name: Vegetables
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Beans
+    - Broccoli
+    - Leek
+    - Potatoes
+    - Spinach
+    - Carrots
+    - Tomatos
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 9
+    name: Drinks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Energy Drinks
+    - Milk
+    - Tea
+    - Coffee
+    - Juice
+    - Coca Cola
+    - Fanta
+    - Beer
+    - Wine
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.1
+type: anl2025.ufun.LambdaCenterUFun

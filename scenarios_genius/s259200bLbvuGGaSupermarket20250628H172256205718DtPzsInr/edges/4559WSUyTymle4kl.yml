@@ -1,0 +1,35 @@
+id: 4559WSUyTymle4kl-34f57d74-b66b-4a49-ac56-0daa31e27547
+name: 4559WSUyTymle4kl
+outcome_space:
+  issues:
+  - n_values: 9
+    name: Drinks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Energy Drinks
+    - Milk
+    - Tea
+    - Coffee
+    - Juice
+    - Coca Cola
+    - Fanta
+    - Beer
+    - Wine
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Beer: 0.6666666666666665
+    Coca Cola: 0.5555555555555556
+    Coffee: 0.1111111111111111
+    Energy Drinks: 1.0
+    Fanta: 0.7777777777777777
+    Juice: 0.0
+    Milk: 0.2222222222222222
+    Tea: 0.4444444444444445
+    Wine: 0.4444444444444445
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

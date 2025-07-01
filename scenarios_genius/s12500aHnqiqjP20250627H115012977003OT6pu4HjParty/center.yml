@@ -1,0 +1,170 @@
+evaluator:
+  center_ufun:
+    id: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Party18/party3_utility.xml-6bcd6ce4-9933-45b1-9fbe-4b4399a4db2b
+    name: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Party18/party3_utility.xml
+    outcome_space:
+      issues:
+      - n_values: 4
+        name: Food
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Chips and Nuts
+        - Finger-Food
+        - Handmade Food
+        - Catering
+      - n_values: 4
+        name: Drinks
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Non-Alcoholic
+        - Beer Only
+        - Handmade Cocktails
+        - Catering
+      - n_values: 4
+        name: Location
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Party Tent
+        - Your Dorm
+        - Party Room
+        - Ballroom
+      - n_values: 4
+        name: Invitations
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Plain
+        - Photo
+        - Custom, Handmade
+        - Custom, Printed
+      - n_values: 3
+        name: Music
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - MP3
+        - DJ
+        - Band
+      - n_values: 4
+        name: Cleanup
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Water and Soap
+        - Specialized Materials
+        - Special Equiment
+        - Hired Help
+      name: ''
+      type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    reserved_value: -0.7764308916193582
+    type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+    values:
+    - mapping:
+        Catering: 0.07666188395454643
+        Chips and Nuts: 0.929754659528451
+        Finger-Food: 0.5032082717414986
+        Handmade Food: 0.24728043906932717
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Beer Only: -0.43519378138979636
+        Catering: -0.3498845038324059
+        Handmade Cocktails: 0.5032082717414986
+        Non-Alcoholic: 0.929754659528451
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Ballroom: 1.1856824922006224
+        Party Room: 0.07666188395454643
+        Party Tent: 1.356301047315403
+        Your Dorm: 0.929754659528451
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Custom, Handmade: -0.09395667116023454
+        Custom, Printed: 0.24728043906932717
+        Photo: 0.07666188395454643
+        Plain: 0.5032082717414986
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Band: 0.929754659528451
+        DJ: 0.5032082717414986
+        MP3: 0.7591361044136701
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Hired Help: 0.929754659528451
+        Special Equiment: 0.5032082717414986
+        Specialized Materials: 0.07666188395454643
+        Water and Soap: -0.3498845038324059
+      type: negmas.preferences.value_fun.TableFun
+    weights:
+    - 0.2640679963502323
+    - 0.18976220855357126
+    - 0.2227006582881749
+    - 0.05801671655793909
+    - 0.16832340046936659
+    - 0.09712901978071599
+  type: anl2025.scenarios.from_genius.GeniusEvaluator
+name: yLcYCrchQcduaX9n
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: Food
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chips and Nuts
+    - Finger-Food
+    - Handmade Food
+    - Catering
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Drinks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Non-Alcoholic
+    - Beer Only
+    - Handmade Cocktails
+    - Catering
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Location
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Party Tent
+    - Your Dorm
+    - Party Room
+    - Ballroom
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Invitations
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Plain
+    - Photo
+    - Custom, Handmade
+    - Custom, Printed
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Music
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - MP3
+    - DJ
+    - Band
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Cleanup
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Water and Soap
+    - Specialized Materials
+    - Special Equiment
+    - Hired Help
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.30
+type: anl2025.ufun.LambdaCenterUFun

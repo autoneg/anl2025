@@ -1,0 +1,23 @@
+id: 4AGt4GyZ61rDhhtu-1648a381-f210-4810-aa6a-33253aab7c0b
+name: 4AGt4GyZ61rDhhtu
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Music
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - MP3
+    - DJ
+    - Band
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Band: 1.0
+    DJ: 0.5
+    MP3: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

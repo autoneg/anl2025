@@ -1,0 +1,25 @@
+id: PhFOhOhUaHCrq4bV-bd209e70-c400-4b3e-82b4-4070c68ce8ae
+name: PhFOhOhUaHCrq4bV
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Cleanup
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Water and Soap
+    - Specialized Materials
+    - Special Equiment
+    - Hired Help
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.026046457337293983
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Hired Help: 0.0
+    Special Equiment: 0.2
+    Specialized Materials: 0.5999999999999999
+    Water and Soap: 0.9999999999999999
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

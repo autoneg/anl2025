@@ -1,0 +1,25 @@
+id: lZ6G7LlDkT9Tfx4E-298137f8-d82b-46a7-bf2c-36fd05cb5b5d
+name: lZ6G7LlDkT9Tfx4E
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Invitations
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Plain
+    - Photo
+    - Custom, Handmade
+    - Custom, Printed
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Custom, Handmade: 0.0
+    Custom, Printed: 1.0
+    Photo: 0.08333333333333334
+    Plain: 0.9166666666666666
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

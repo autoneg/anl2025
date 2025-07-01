@@ -1,0 +1,23 @@
+id: GkyHpQF7QNf2zHXR-6d7b06f2-f52d-4a49-9712-d25c3ceaff9a
+name: GkyHpQF7QNf2zHXR
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Music
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - MP3
+    - DJ
+    - Band
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: -0.2174419283283825
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Band: 0.0
+    DJ: 0.5
+    MP3: 0.9999999999999999
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

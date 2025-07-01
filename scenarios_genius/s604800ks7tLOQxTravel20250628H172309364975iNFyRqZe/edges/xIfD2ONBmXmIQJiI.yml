@@ -1,0 +1,31 @@
+id: xIfD2ONBmXmIQJiI-0898799f-5fca-41c8-bbeb-3d83823ebc19
+name: xIfD2ONBmXmIQJiI
+outcome_space:
+  issues:
+  - n_values: 7
+    name: Amusement
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Nightlife and entertainment
+    - Nightclubs
+    - Excursion
+    - Casinos
+    - Zoo
+    - Festivals
+    - Amusement park
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.003419961642849032
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Amusement park: 0.03661971830985914
+    Casinos: 0.011267605633802812
+    Excursion: 0.0
+    Festivals: 0.535211267605634
+    Nightclubs: 0.535211267605634
+    Nightlife and entertainment: 1.0
+    Zoo: 0.025352112676056346
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,31 @@
+id: lcw2WNfb2P8itE69-40ad0aaf-a008-47ca-8ad5-b2190385dc7b
+name: lcw2WNfb2P8itE69
+outcome_space:
+  issues:
+  - n_values: 7
+    name: Snacks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chocolate bars
+    - Doughnuts
+    - Nachos
+    - Popcorn
+    - Potato Chips
+    - Candy
+    - Cookies
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Candy: 0.2222222222222222
+    Chocolate bars: 1.0
+    Cookies: 0.3333333333333333
+    Doughnuts: 0.4444444444444445
+    Nachos: 0.1111111111111111
+    Popcorn: 0.0
+    Potato Chips: 0.6666666666666665
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

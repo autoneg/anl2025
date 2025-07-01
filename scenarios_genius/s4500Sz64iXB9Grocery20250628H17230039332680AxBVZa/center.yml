@@ -1,0 +1,153 @@
+evaluator:
+  center_ufun:
+    id: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Grocery/Grocery_domain_mary.xml-e92907df-d9a2-43cc-be28-0454fa3cf4a7
+    name: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Grocery/Grocery_domain_mary.xml
+    outcome_space:
+      issues:
+      - n_values: 4
+        name: Bread type
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Baguette
+        - Crackers
+        - Croissants
+        - Plain bread
+      - n_values: 5
+        name: Fruit
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Apples
+        - Bananas
+        - Cherries
+        - Grapes
+        - Pears
+      - n_values: 4
+        name: Snacks
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Chocolate bars
+        - Doughnuts
+        - Nachos
+        - Popcorn
+      - n_values: 4
+        name: Spreads
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Cheese
+        - Jam
+        - Peanut butter
+        - Sandwichspread
+      - n_values: 5
+        name: Vegetables
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Beans
+        - Broccoli
+        - Leek
+        - Potatoes
+        - Spinach
+      name: ''
+      type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    reserved_value: -0.1111111111111111
+    type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+    values:
+    - mapping:
+        Baguette: 1.0
+        Crackers: 0.1111111111111111
+        Croissants: 0.0
+        Plain bread: 0.4444444444444445
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Apples: 0.0
+        Bananas: 0.4444444444444445
+        Cherries: 0.2222222222222222
+        Grapes: 0.2222222222222222
+        Pears: 1.0
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Chocolate bars: 0.0
+        Doughnuts: 0.1111111111111111
+        Nachos: 0.4444444444444445
+        Popcorn: 1.0
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Cheese: 0.0
+        Jam: 0.1111111111111111
+        Peanut butter: 1.0
+        Sandwichspread: 0.4444444444444445
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Beans: 0.0
+        Broccoli: 0.1111111111111111
+        Leek: 0.4444444444444445
+        Potatoes: 0.2222222222222222
+        Spinach: 1.0
+      type: negmas.preferences.value_fun.TableFun
+    weights:
+    - 0.3
+    - 0.2
+    - 0.05
+    - 0.15
+    - 0.3
+  type: anl2025.scenarios.from_genius.GeniusEvaluator
+name: XDQx45mirR7pPau9
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: Bread type
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Baguette
+    - Crackers
+    - Croissants
+    - Plain bread
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Fruit
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Apples
+    - Bananas
+    - Cherries
+    - Grapes
+    - Pears
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Snacks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chocolate bars
+    - Doughnuts
+    - Nachos
+    - Popcorn
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Spreads
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Cheese
+    - Jam
+    - Peanut butter
+    - Sandwichspread
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Vegetables
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Beans
+    - Broccoli
+    - Leek
+    - Potatoes
+    - Spinach
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.1
+type: anl2025.ufun.LambdaCenterUFun

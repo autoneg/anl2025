@@ -1,0 +1,115 @@
+evaluator:
+  center_ufun:
+    id: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Outfit/Outfit-A-prof1.xml-d267ba32-4b36-4c00-a36c-9ea48615be5e
+    name: C:\Users\5856442\OneDrive - Universiteit Utrecht\Documents\GitHub\ANL2025Install\venv\src\anl2025\src\anl2025\scenarios\Outfit/Outfit-A-prof1.xml
+    outcome_space:
+      issues:
+      - n_values: 4
+        name: shirts
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - T-shirt
+        - Blouse
+        - Polo shirt
+        - sweaters
+      - n_values: 4
+        name: pants
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - Demin
+        - leather pants
+        - classic pants
+        - bermuda shorts
+      - n_values: 4
+        name: shoes
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - sneakers
+        - boots
+        - slipers
+        - sandals
+      - n_values: 2
+        name: accessories
+        type: negmas.outcomes.categorical_issue.CategoricalIssue
+        values:
+        - hat
+        - sunglasses
+      name: ''
+      type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    reserved_value: -0.16572872131024732
+    type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+    values:
+    - mapping:
+        Blouse: 0.04382402020763629
+        Polo shirt: -0.08190762470309389
+        T-shirt: -0.12381817300667061
+        sweaters: -0.03999707639951716
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        Demin: 0.46292950324340354
+        bermuda shorts: 0.6724822447612872
+        classic pants: 1.0915877277970543
+        leather pants: 1.9297986938685885
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        boots: 0.46292950324340354
+        sandals: 0.6724822447612872
+        slipers: -0.12381817300667061
+        sneakers: 1.0915877277970543
+      type: negmas.preferences.value_fun.TableFun
+    - mapping:
+        hat: -0.08190762470309389
+        sunglasses: 0.0019134719040595494
+      type: negmas.preferences.value_fun.TableFun
+    weights:
+    - 0.1470748535323689
+    - 0.20391796468437198
+    - 0.5495147806753784
+    - 0.09949240110788082
+  type: anl2025.scenarios.from_genius.GeniusEvaluator
+name: 9LVmz8YCFEaoRUvA
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: shirts
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - T-shirt
+    - Blouse
+    - Polo shirt
+    - sweaters
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: pants
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Demin
+    - leather pants
+    - classic pants
+    - bermuda shorts
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: shoes
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - sneakers
+    - boots
+    - slipers
+    - sandals
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 2
+    name: accessories
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - hat
+    - sunglasses
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.2
+type: anl2025.ufun.LambdaCenterUFun
