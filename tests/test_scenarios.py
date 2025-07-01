@@ -193,22 +193,34 @@ def test_random_scenario():
     run_session(scenario)
 
 
-def test_load_dinners_saved():
-    scenario = MultidealScenario.from_folder(
-        Path(__file__).parent.parent / "scenarios" / "SSdinners"
-    )
-    run_session(scenario)
-    scenario = MultidealScenario.from_folder(
-        Path.home()
-        / "Downloads"
-        / "anl2025scenarios"
-        / "SSSdinners_R34WdZBE20250620H173250429335vj5koOKb"
-    )
-    run_session(scenario)
-    scenario = MultidealScenario.from_folder(
-        Path.home()
-        / "Downloads"
-        / "anl2025scenarios"
-        / "SS dinners_wHEt4CDh20250620H173250452586KQNwjtKC"
-    )
-    run_session(scenario)
+def test_genius_scenarios():
+    folders = [
+        _
+        for _ in (Path(__file__).parent.parent / "scenarios_genius").glob("*")
+        if _.is_dir()
+    ]
+    scenarios = [MultidealScenario.from_folder(_) for _ in folders]
+    for scenario, folder in zip(scenarios, folders):
+        assert scenario, f"Failed to load {folder}"
+        run_session(scenario)
+
+
+# def test_load_dinners_saved():
+#     scenario = MultidealScenario.from_folder(
+#         Path(__file__).parent.parent / "scenarios" / "SSdinners"
+#     )
+#     run_session(scenario)
+#     scenario = MultidealScenario.from_folder(
+#         Path.home()
+#         / "Downloads"
+#         / "anl2025scenarios"
+#         / "SSSdinners_R34WdZBE20250620H173250429335vj5koOKb"
+#     )
+#     run_session(scenario)
+#     scenario = MultidealScenario.from_folder(
+#         Path.home()
+#         / "Downloads"
+#         / "anl2025scenarios"
+#         / "SS dinners_wHEt4CDh20250620H173250452586KQNwjtKC"
+#     )
+#     run_session(scenario)
