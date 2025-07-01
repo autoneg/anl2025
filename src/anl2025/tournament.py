@@ -188,6 +188,7 @@ class ScoreRecord(TypedDict):
 
     agent: str
     utility: float
+    raw_utility: float
     partner_average_utility: float
     scenario: str
     repetition: int
@@ -249,6 +250,7 @@ class TournamentResults:
     final_scoresC: dict[
         str, float
     ]  # Average scores of each agent when it played as center
+    raw_scores: dict[str, float]  # The scores without scaling center utility
     center_count: dict[str, float]  # Number of times each agent played as center
     edge_count: dict[str, float]  # Number of times each agent played as edge
     weighted_average: dict[
@@ -662,7 +664,7 @@ class Tournament:
             return get_full_type_name(x).replace("anl2025.negotiator.", "")
 
         def process_info(job: JobInfo, info: SessionInfo):
-            center_multiplier = (
+            cfactor = (
                 center_multiplier_val
                 if center_multiplier_val is not None
                 else len(job.edge_info)
@@ -681,7 +683,8 @@ class Tournament:
             scores.append(
                 dict(
                     agent=cname,
-                    utility=r.center_utility * center_multiplier,
+                    utility=r.center_utility * cfactor,
+                    raw_utility=r.center_utility,
                     partner_average_utility=mean_edge_utility,
                     scenario=job.sname,
                     repetition=job.rep_index,
@@ -723,9 +726,9 @@ class Tournament:
                     run_index=job.run_index,
                 )
             )
-            acc_scores[cname] += r.center_utility * center_multiplier
+            acc_scores[cname] += r.center_utility * cfactor
             raw_scores[cname] += r.center_utility
-            weighted_scores_center[cname] += r.center_utility * center_multiplier
+            weighted_scores_center[cname] += r.center_utility * cfactor
             count_center[cname] += 1
             for e, (c, p) in enumerate(job.edge_info[: job.nedges_counted]):
                 ename = type_name(c) if not p else f"{type_name(c)}_{hash(str(p))}"
@@ -733,6 +736,7 @@ class Tournament:
                     dict(
                         agent=ename,
                         utility=r.edge_utilities[e] * edge_multiplier,
+                        raw_utility=r.edge_utilities[e],
                         partner_average_utility=r.center_utility,
                         scenario=job.sname,
                         repetition=job.rep_index,
@@ -991,6 +995,7 @@ class Tournament:
             final_scoresC={k: v for k, v in weighted_scores_center.items()},
             final_scoresE={k: v for k, v in weighted_scores_edge.items()},
             weighted_average={k: v for k, v in weighted_average.items()},
+            raw_scores={k: v for k, v in raw_scores.items()},
             unweighted_average={
                 k: (v / count[k]) if count[k] else v for k, v in acc_scores.items()
             },
