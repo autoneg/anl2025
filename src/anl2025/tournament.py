@@ -684,8 +684,8 @@ class Tournament:
                 else (1.0 / len(job.edge_info))
             )
             r = info.results
-            center_ids = [m.nmi.annotation["center_id"] for m in r.mechanisms]
-            edge_ids = [m.nmi.annotation["edge_id"] for m in r.mechanisms]
+            center_ids = [m.nmi.annotation["center_id"] for m in r.mechanisms if m]
+            edge_ids = [m.nmi.annotation["edge_id"] for m in r.mechanisms if m]
             results.append(info)
             center, center_params = job.center, job.center_params
             cname = (
@@ -713,7 +713,9 @@ class Tournament:
                             m.state.has_error and m.state.erred_negotiator == cid
                             for m, cid in zip(r.mechanisms, center_ids)
                         ]
-                    ),
+                    )
+                    if center_ids
+                    else 0,
                     self_error_details="".join(
                         [
                             f"{m.state.error_details}\n"
@@ -721,7 +723,9 @@ class Tournament:
                             else ""
                             for m, cid in zip(r.mechanisms, center_ids)
                         ]
-                    ),
+                    )
+                    if center_ids
+                    else "",
                     partner_error_details="".join(
                         [
                             f"{m.state.error_details}\n"
@@ -729,13 +733,17 @@ class Tournament:
                             else ""
                             for m, cid in zip(r.mechanisms, center_ids)
                         ]
-                    ),
+                    )
+                    if center_ids
+                    else "",
                     partner_errors=sum(
                         [
                             m.state.has_error and m.state.erred_negotiator != cid
                             for m, cid in zip(r.mechanisms, center_ids)
                         ]
-                    ),
+                    )
+                    if center_ids
+                    else 0,
                     # TODO: get the correct number of mechanism errors
                     mechanism_errors=int(bool(r.run_error)),
                     mechanism_error_details=r.run_error,
@@ -765,13 +773,17 @@ class Tournament:
                                 m.state.has_error and m.state.erred_negotiator == eid
                                 for m, eid in zip(r.mechanisms, edge_ids)
                             ]
-                        ),
+                        )
+                        if edge_ids
+                        else 0,
                         partner_errors=sum(
                             [
                                 m.state.has_error and m.state.erred_negotiator != eid
                                 for m, eid in zip(r.mechanisms, edge_ids)
                             ]
-                        ),
+                        )
+                        if edge_ids
+                        else 0,
                         self_error_details="".join(
                             [
                                 f"{m.state.error_details}\n"
@@ -779,7 +791,9 @@ class Tournament:
                                 else ""
                                 for m, eid in zip(r.mechanisms, edge_ids)
                             ]
-                        ),
+                        )
+                        if edge_ids
+                        else "",
                         partner_error_details="".join(
                             [
                                 f"{m.state.error_details}\n"
@@ -787,7 +801,9 @@ class Tournament:
                                 else ""
                                 for m, eid in zip(r.mechanisms, edge_ids)
                             ]
-                        ),
+                        )
+                        if edge_ids
+                        else "",
                         # TODO: get the correct number of mechanism errors
                         mechanism_errors=int(bool(r.run_error)),
                         mechanism_error_details=r.run_error,
