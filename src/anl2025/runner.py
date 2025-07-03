@@ -74,7 +74,9 @@ class SessionResults:
 
     def __attrs_post_init__(self):
         self.n_succeeded = len([_ for _ in self.agreements if _ is not None])
-        self.n_timedout = len([_ for _ in self.mechanisms if _.state.timedout])
+        self.n_timedout = len(
+            [_ for _ in self.mechanisms if _ is not None and _.state.timedout]
+        )
         self.n_failed = len(self.agreements) - self.n_succeeded - self.n_timedout
 
     # final_states: list[SAOState]
