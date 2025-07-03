@@ -361,6 +361,7 @@ def anl2025_tournament(
     share_ufuns: bool = False,
     atomic: bool = False,
     method: str = DEFAULT_METHOD,
+    center_os_limit: dict = dict(),
 ) -> TournamentResults:
     """Creates and runs a tournament.
 
@@ -398,6 +399,7 @@ def anl2025_tournament(
         share_ufuns=share_ufuns,
         atomic=atomic,
         method=method,
+        center_os_limit=center_os_limit,
     )
     tournament = Tournament(
         competitors=competitors,
