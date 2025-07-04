@@ -1,0 +1,61 @@
+name: prof2
+reserved_value: -0.08235294117647061
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Baguette: 1.0
+    Crackers: 0.0
+    Croissants: 0.25
+  type: TableFun
+- mapping:
+    Apples: 1.0
+    Bananas: 0.2222222222222222
+    Cherries: 0.2222222222222222
+    Grapes: 0.4444444444444444
+    Melons: 0.3333333333333333
+    Oranges: 0.3333333333333333
+    Pears: 0.0
+  type: TableFun
+- mapping:
+    Candy: 0.2222222222222222
+    Chocolate bars: 1.0
+    Doughnuts: 0.4444444444444444
+    Popcorn: 0.0
+    Potato Chips: 0.5555555555555556
+  type: TableFun
+- mapping:
+    Cheese: 0.375
+    Chocolate: 0.125
+    Ham: 0.375
+    Jam: 1.0
+    Peanut butter: 0.0
+    Salami: 0.25
+  type: TableFun
+- mapping:
+    Beans: 1.0
+    Broccoli: 0.2222222222222222
+    Leek: 0.4444444444444444
+    Potatoes: 0.1111111111111111
+    Spinach: 0.0
+  type: TableFun
+- mapping:
+    Beer: 0.6666666666666666
+    Coca Cola: 0.5555555555555556
+    Coffee: 0.1111111111111111
+    Energy Drinks: 1.0
+    Juice: 0.0
+    Tea: 0.4444444444444444
+  type: TableFun
+- mapping:
+    Chicken: 0.42857142857142855
+    Sausages: 0.0
+    Steak: 1.0
+  type: TableFun
+weights:
+- 0.023529411764705882
+- 0.31764705882352945
+- 0.10588235294117648
+- 0.1411764705882353
+- 0.2647058823529412
+- 0.10588235294117648
+- 0.0411764705882353

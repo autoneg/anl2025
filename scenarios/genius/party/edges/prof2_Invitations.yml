@@ -1,0 +1,25 @@
+id: prof2_Invitations-e13a3270-523c-4b72-84c5-28afe9247add
+name: prof2_Invitations
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Invitations
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Plain
+    - Photo
+    - Custom, Handmade
+    - Custom, Printed
+  name: Invitations
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.188952780643861
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Custom, Handmade: 0.0
+    Custom, Printed: 1.0
+    Photo: 0.13953488372093023
+    Plain: 0.8372093023255814
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

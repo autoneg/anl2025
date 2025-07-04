@@ -1,0 +1,27 @@
+id: wife.xml_Cabinets-6e43ad00-b48f-4763-a263-e65542435bc3
+name: wife.xml_Cabinets
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Cabinets
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Pine
+    - Maple
+    - Oak
+    - Cherry
+    - Mahogany
+  name: Cabinets
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.01364810328774775
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Cherry: 0.797979797979798
+    Mahogany: 0.0
+    Maple: 0.98989898989899
+    Oak: 0.9595959595959597
+    Pine: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

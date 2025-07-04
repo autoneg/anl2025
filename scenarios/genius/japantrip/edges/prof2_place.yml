@@ -1,0 +1,25 @@
+id: prof2_place-4dc9c083-ef99-4db2-be60-674532b252d9
+name: prof2_place
+outcome_space:
+  issues:
+  - n_values: 4
+    name: place
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Tokyo
+    - Osaka
+    - Negoya
+    - Hokkaido
+  name: place
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.07605776234856856
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Hokkaido: 0.0
+    Negoya: 0.33333333333333337
+    Osaka: 1.0
+    Tokyo: 0.7777777777777779
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

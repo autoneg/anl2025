@@ -1,0 +1,27 @@
+id: prof2_Snacks-9be21a0a-b4b1-4bb1-946a-59339f668ae3
+name: prof2_Snacks
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Snacks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chocolate bars
+    - Doughnuts
+    - Popcorn
+    - Potato Chips
+    - Candy
+  name: Snacks
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0071484071998012995
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Candy: 0.2222222222222222
+    Chocolate bars: 1.0
+    Doughnuts: 0.4444444444444444
+    Popcorn: 0.0
+    Potato Chips: 0.5555555555555556
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

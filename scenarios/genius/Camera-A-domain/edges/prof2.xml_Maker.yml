@@ -1,0 +1,27 @@
+id: prof2.xml_Maker-6b99490e-60f5-4039-82ce-c4b73955571d
+name: prof2.xml_Maker
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Maker
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Canon
+    - Nikon
+    - Pentax
+    - Sony
+    - Panasonic
+  name: Maker
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.07144080427234437
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Canon: 0.0
+    Nikon: 0.13131313131313133
+    Panasonic: 0.030303030303030304
+    Pentax: 1.0
+    Sony: 0.5959595959595959
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,278 @@
+name: prof1
+outcome_spaces:
+- issues:
+  - n_values: 3
+    name: Bread type
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Baguette
+    - Crackers
+    - Croissants
+  name: Bread type
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 7
+    name: Fruit
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Apples
+    - Bananas
+    - Cherries
+    - Grapes
+    - Pears
+    - Oranges
+    - Melons
+  name: Fruit
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Snacks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chocolate bars
+    - Doughnuts
+    - Popcorn
+    - Potato Chips
+    - Candy
+  name: Snacks
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: Spreads
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Cheese
+    - Jam
+    - Peanut butter
+    - Chocolate
+    - Ham
+    - Salami
+  name: Spreads
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Vegetables
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Beans
+    - Broccoli
+    - Leek
+    - Potatoes
+    - Spinach
+  name: Vegetables
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: Drinks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Energy Drinks
+    - Tea
+    - Coffee
+    - Juice
+    - Coca Cola
+    - Beer
+  name: Drinks
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Meat
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chicken
+    - Sausages
+    - Steak
+  name: Meat
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.245686366508523
+side_ufuns:
+- id: prof1_Bread type-f30d32ab-6569-4586-b336-866a9f885ab1
+  name: prof1_Bread type
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Bread type
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Baguette
+      - Crackers
+      - Croissants
+    name: Bread type
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Baguette: 1.0
+      Crackers: 0.1111111111111111
+      Croissants: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Fruit-9b45171a-5c4c-4c69-9088-3a5a72731996
+  name: prof1_Fruit
+  outcome_space:
+    issues:
+    - n_values: 7
+      name: Fruit
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Apples
+      - Bananas
+      - Cherries
+      - Grapes
+      - Pears
+      - Oranges
+      - Melons
+    name: Fruit
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Apples: 0.0
+      Bananas: 0.3333333333333333
+      Cherries: 0.2222222222222222
+      Grapes: 0.2222222222222222
+      Melons: 0.4444444444444444
+      Oranges: 0.2222222222222222
+      Pears: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Snacks-bf380637-55b9-4666-8fde-7012f7fa0222
+  name: prof1_Snacks
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Snacks
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Chocolate bars
+      - Doughnuts
+      - Popcorn
+      - Potato Chips
+      - Candy
+    name: Snacks
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Candy: 0.2222222222222222
+      Chocolate bars: 0.0
+      Doughnuts: 0.1111111111111111
+      Popcorn: 1.0
+      Potato Chips: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Spreads-6895b2f0-f742-4850-9f75-ff726fb02846
+  name: prof1_Spreads
+  outcome_space:
+    issues:
+    - n_values: 6
+      name: Spreads
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Cheese
+      - Jam
+      - Peanut butter
+      - Chocolate
+      - Ham
+      - Salami
+    name: Spreads
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Cheese: 0.0
+      Chocolate: 0.4444444444444444
+      Ham: 0.0
+      Jam: 0.1111111111111111
+      Peanut butter: 1.0
+      Salami: 0.2222222222222222
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Vegetables-61f12cc0-48b2-4e97-987f-0efe374eee4b
+  name: prof1_Vegetables
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Vegetables
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Beans
+      - Broccoli
+      - Leek
+      - Potatoes
+      - Spinach
+    name: Vegetables
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Beans: 0.0
+      Broccoli: 0.1111111111111111
+      Leek: 0.4444444444444444
+      Potatoes: 0.2222222222222222
+      Spinach: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Drinks-b7b16a7c-2ca3-43ac-b2bc-27ef014d48f4
+  name: prof1_Drinks
+  outcome_space:
+    issues:
+    - n_values: 6
+      name: Drinks
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Energy Drinks
+      - Tea
+      - Coffee
+      - Juice
+      - Coca Cola
+      - Beer
+    name: Drinks
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Beer: 0.5
+      Coca Cola: 0.875
+      Coffee: 0.25
+      Energy Drinks: 1.0
+      Juice: 0.125
+      Tea: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Meat-ec55f887-6881-4d69-8580-08cd853ace86
+  name: prof1_Meat
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Meat
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Chicken
+      - Sausages
+      - Steak
+    name: Meat
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Chicken: 0.0
+      Sausages: 0.375
+      Steak: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

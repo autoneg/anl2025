@@ -1,0 +1,25 @@
+id: util2.xml_main-e3537c9d-1b8b-468b-ac81-0b5865c86f4a
+name: util2.xml_main
+outcome_space:
+  issues:
+  - n_values: 4
+    name: main
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - beef
+    - pork
+    - chicken
+    - fish
+  name: main
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.11350010328334095
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    beef: 0.3181818181818182
+    chicken: 0.4318181818181818
+    fish: 0.0
+    pork: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

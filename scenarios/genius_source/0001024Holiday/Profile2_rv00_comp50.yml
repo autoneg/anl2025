@@ -1,0 +1,40 @@
+name: Profile2_rv00_comp50
+reserved_value: -0.33333333333333326
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Amsterdam: 0.3333333333333333
+    London: 1.0
+    Miami: 0.6666666666666666
+    Paris: 0.0
+  type: TableFun
+- mapping:
+    '10': 0.3333333333333333
+    '14': 0.6666666666666666
+    '3': 1.0
+    '7': 0.0
+  type: TableFun
+- mapping:
+    '1000': 0.6666666666666666
+    '1500': 1.0
+    '400': 0.0
+    '700': 0.3333333333333333
+  type: TableFun
+- mapping:
+    Historical Places: 1.0
+    Museum: 0.0
+    Restaurant: 0.6666666666666666
+    Sport: 0.3333333333333333
+  type: TableFun
+- mapping:
+    Air Plane: 1.0
+    Bus: 0.3333333333333333
+    Car: 0.0
+    Train: 0.6666666666666666
+  type: TableFun
+weights:
+- 0.3845636878909692
+- 0.3543036570435768
+- 0.08606489785838092
+- 0.08804500858883274
+- 0.08702274861824043

@@ -1,0 +1,25 @@
+id: Zimbabwe_rv03_comp200_Impact on Other Aid-a9224591-d4cb-4c5b-9407-c2233a61ace7
+name: Zimbabwe_rv03_comp200_Impact on Other Aid
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Impact on Other Aid
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - No reduction
+    - Reduction equal to half of fund size
+    - Reduction equal to fund size
+    - No agreement
+  name: Impact on Other Aid
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.18956571600778688
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    No agreement: 0.0
+    No reduction: 1.0
+    Reduction equal to fund size: 0.2857142857142857
+    Reduction equal to half of fund size: 0.5714285714285714
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

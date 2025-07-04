@@ -1,0 +1,25 @@
+id: prof2_budget-b95ac9df-3326-4256-90fe-2241d61ebf7f
+name: prof2_budget
+outcome_space:
+  issues:
+  - n_values: 4
+    name: budget
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '900'
+    - '1800'
+    - '300'
+    - '100'
+  name: budget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.15042235509172774
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '100': 1.0
+    '1800': 0.0
+    '300': 0.888888888888889
+    '900': 0.11111111111111112
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

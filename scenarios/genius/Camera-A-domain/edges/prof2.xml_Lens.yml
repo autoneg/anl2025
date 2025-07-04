@@ -1,0 +1,23 @@
+id: prof2.xml_Lens-02ceabaf-b29d-4dc9-9fd6-bafdf6884f09
+name: prof2.xml_Lens
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Lens
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - High end model
+    - Middle range model
+    - Entry model
+  name: Lens
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.1643463653593753
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Entry model: 0.0
+    High end model: 1.0
+    Middle range model: 0.4791666666666667
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

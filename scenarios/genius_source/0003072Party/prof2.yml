@@ -1,0 +1,46 @@
+name: prof2
+reserved_value: 0.2612997553261324
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Catering: 0.9999999999999999
+    Chips and Nuts: 0.0
+    Finger-Food: 0.3835616438356165
+    Handmade Food: 0.6438356164383561
+  type: TableFun
+- mapping:
+    Beer Only: 0.12359550561797754
+    Catering: 0.0
+    Handmade Cocktails: 1.0
+    Non-Alcoholic: 0.2471910112359551
+  type: TableFun
+- mapping:
+    Ballroom: 0.0
+    Party Room: 1.0
+    Party Tent: 0.23333333333333334
+    Your Dorm: 0.15555555555555559
+  type: TableFun
+- mapping:
+    Custom, Handmade: 0.0
+    Custom, Printed: 1.0
+    Photo: 0.13953488372093023
+    Plain: 0.8372093023255814
+  type: TableFun
+- mapping:
+    Band: 0.5161290322580646
+    DJ: 0.0
+    MP3: 1.0
+  type: TableFun
+- mapping:
+    Hired Help: 0.10227272727272728
+    Special Equiment: 0.0
+    Specialized Materials: 0.27272727272727276
+    Water and Soap: 1.0
+  type: TableFun
+weights:
+- 0.08277137912514175
+- 0.24219132302918184
+- 0.11708539714746076
+- 0.2196574565853076
+- 0.07991883988780807
+- 0.2583756042250999

@@ -1,0 +1,23 @@
+id: util2_Furry-7f94104d-5d1c-4d15-8679-e78da8446cba
+name: util2_Furry
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Furry
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Short_fur
+    - Medium_fur
+    - Long_fur
+  name: Furry
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 1.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Long_fur: 1.0
+    Medium_fur: 1.0
+    Short_fur: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

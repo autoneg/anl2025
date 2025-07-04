@@ -1,0 +1,27 @@
+id: wife.xml_Lighting spots-cebf0ec9-a9c5-4619-9679-bde57d038c98
+name: wife.xml_Lighting spots
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Lighting spots
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '3'
+    - '5'
+    - '10'
+    - '15'
+    - '20'
+  name: Lighting spots
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.1426350013057051
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '10': 0.0
+    '15': 0.9191919191919192
+    '20': 0.98989898989899
+    '3': 1.0
+    '5': 0.8282828282828284
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

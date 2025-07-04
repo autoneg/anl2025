@@ -1,0 +1,25 @@
+id: Zimbabwe_rv03_comp200_Size of Fund-894d8ebf-3aa7-4c7c-9054-b7ba7b7fc007
+name: Zimbabwe_rv03_comp200_Size of Fund
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Size of Fund
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - $100 Billion
+    - $50 Billion
+    - $10 billion
+    - No agreement
+  name: Size of Fund
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.09619684392903649
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    $10 billion: 0.5
+    $100 Billion: 1.0
+    $50 Billion: 0.75
+    No agreement: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

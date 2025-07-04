@@ -1,0 +1,39 @@
+issues:
+- name: type
+  type: CategoricalIssue
+  values:
+  - swimming
+  - yoga
+  - aerobics
+  - running
+  - tennis
+- name: duration
+  type: CategoricalIssue
+  values:
+  - 30 min
+  - 1 hour
+  - 3 hours
+  - 5 hours
+- name: distance
+  type: CategoricalIssue
+  values:
+  - 0 km
+  - 1 km
+  - 5 km
+  - 40 km
+- name: intensity
+  type: CategoricalIssue
+  values:
+  - light
+  - moderate
+  - training
+  - bootcamp
+- name: price
+  type: CategoricalIssue
+  values:
+  - $5
+  - $15
+  - $50
+  - $200
+name: fitness
+type: DiscreteCartesianOutcomeSpace

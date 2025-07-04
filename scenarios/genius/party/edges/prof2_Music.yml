@@ -1,0 +1,23 @@
+id: prof2_Music-2b0db3eb-b600-44f2-ac3a-a31e0bad28b8
+name: prof2_Music
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Music
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - MP3
+    - DJ
+    - Band
+  name: Music
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.035187425551378194
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Band: 0.5161290322580646
+    DJ: 0.0
+    MP3: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

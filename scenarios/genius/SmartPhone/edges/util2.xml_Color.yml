@@ -1,0 +1,27 @@
+id: util2.xml_Color-331a257e-a8e4-4c87-94ef-fbdb0989c989
+name: util2.xml_Color
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Color
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Black
+    - White
+    - Red
+    - Blue
+    - Silver
+  name: Color
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.17875876618961062
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Black: 1.0
+    Blue: 0.6875
+    Red: 0.0
+    Silver: 0.28125
+    White: 0.21875
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

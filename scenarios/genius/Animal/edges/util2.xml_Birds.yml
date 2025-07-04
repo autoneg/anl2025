@@ -1,0 +1,25 @@
+id: util2.xml_Birds-b2388eb0-90f1-44ef-8e5c-a7297db214fd
+name: util2.xml_Birds
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Birds
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Eagle
+    - Swallow
+    - Pelican
+    - Penguin
+  name: Birds
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.06361162738399898
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Eagle: 0.0
+    Pelican: 0.4444444444444444
+    Penguin: 1.0
+    Swallow: 0.3333333333333333
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

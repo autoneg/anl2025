@@ -1,0 +1,27 @@
+id: wife.xml_Refrigerator-ac3b1e17-45aa-449e-aa93-309a1161eef7
+name: wife.xml_Refrigerator
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Refrigerator
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Traditional
+    - Side-by-side
+    - Top-refrigerator/bottom freezer
+    - French-door
+    - Four-door French-door
+  name: Refrigerator
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.061034262230519026
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Four-door French-door: 0.9292929292929294
+    French-door: 0.8080808080808082
+    Side-by-side: 0.98989898989899
+    Top-refrigerator/bottom freezer: 0.0
+    Traditional: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

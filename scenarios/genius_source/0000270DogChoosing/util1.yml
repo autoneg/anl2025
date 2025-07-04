@@ -1,0 +1,36 @@
+name: util1
+reserved_value: -0.2927383543425186
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Long_fur: 0.0
+    Medium_fur: 0.5
+    Short_fur: 1.0
+  type: TableFun
+- mapping:
+    Big: 0.0
+    Medium: 0.0
+    Small: 1.0
+  type: TableFun
+- mapping:
+    Calm: 0.0
+    Playful: 1.0
+  type: TableFun
+- mapping:
+    Independent: 0.0
+    Needy: 1.0
+    numb: 0.0
+  type: TableFun
+- mapping:
+    Black: 1.0
+    Brown: 1.0
+    Golden: 1.0
+    Spotted: 1.0
+    White: 1.0
+  type: TableFun
+weights:
+- 0.7526307692213243
+- 0.016541213004568206
+- 0.12335545184466128
+- 0.10746011135817816
+- 1.2454571267876817e-05

@@ -1,0 +1,25 @@
+id: util2.xml_salad-f9a91070-10ef-428b-9cc5-a90a5e7b1460
+name: util2.xml_salad
+outcome_space:
+  issues:
+  - n_values: 4
+    name: salad
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - green
+    - potato
+    - caesar
+    - sea
+  name: salad
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.17695846704757762
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    caesar: 0.35064935064935066
+    green: 1.0
+    potato: 0.0
+    sea: 0.1168831168831169
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

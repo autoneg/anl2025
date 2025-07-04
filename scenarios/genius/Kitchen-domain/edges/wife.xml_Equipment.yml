@@ -1,0 +1,27 @@
+id: wife.xml_Equipment-3f3941f4-8805-4544-9b29-3640a9f4b0d0
+name: wife.xml_Equipment
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Equipment
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Dishwasher
+    - Coffee machine
+    - Microwave
+    - Water Boiler
+    - Oven
+  name: Equipment
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.1992051672868511
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Coffee machine: 1.0
+    Dishwasher: 0.0
+    Microwave: 0.797979797979798
+    Oven: 0.98989898989899
+    Water Boiler: 0.9393939393939394
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

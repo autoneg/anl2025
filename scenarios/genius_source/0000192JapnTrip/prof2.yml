@@ -1,0 +1,32 @@
+name: prof2
+reserved_value: 0.011904761904761916
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Hokkaido: 0.0
+    Negoya: 0.33333333333333337
+    Osaka: 1.0
+    Tokyo: 0.7777777777777779
+  type: TableFun
+- mapping:
+    '100': 1.0
+    '1800': 0.0
+    '300': 0.888888888888889
+    '900': 0.11111111111111112
+  type: TableFun
+- mapping:
+    '3': 0.0
+    '4': 0.6666666666666666
+    '5': 1.0
+    '6': 1.0
+  type: TableFun
+- mapping:
+    Activity: 1.0
+    Shopping: 0.375
+    Sightseeing: 0.0
+  type: TableFun
+weights:
+- 0.42857142857142855
+- 0.10714285714285714
+- 0.1785714285714286
+- 0.2857142857142857

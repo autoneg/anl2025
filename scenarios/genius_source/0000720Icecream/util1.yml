@@ -1,0 +1,39 @@
+name: util1
+reserved_value: -0.22694989425346684
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '10': 1.0
+    '15': 1.0
+    '20': 1.0
+    '25': 1.0
+    '30': 1.0
+  type: TableFun
+- mapping:
+    one: 0.0
+    parfait: 1.0
+    three: 0.5
+    two: 0.25
+  type: TableFun
+- mapping:
+    cup: 0.0
+    sandwiched: 0.75
+    standard: 0.375
+    waffle: 1.0
+  type: TableFun
+- mapping:
+    Vanilla: 0.2857142857142857
+    caramel: 1.0
+    choco chips: 0.5714285714285714
+    chocolate: 0.7142857142857143
+    cookie and cream: 0.5714285714285714
+    green tea: 0.0
+    mint: 0.14285714285714285
+    mocha: 0.14285714285714285
+    strawberry: 0.42857142857142855
+  type: TableFun
+weights:
+- 0.0062123426932529585
+- 0.07038663295506135
+- 0.09728492271189351
+- 0.8261161016397922

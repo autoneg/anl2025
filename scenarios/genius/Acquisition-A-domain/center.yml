@@ -1,0 +1,176 @@
+name: prof1
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: Price
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - 1 million $
+    - 2.5 million $
+    - 5 million $
+    - 8 million $
+  name: Price
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: IP
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - IS receives all IP
+    - IS receives the patents, industrial design rights and trade secrets
+    - BI-Tech founders maintain all IP
+  name: IP
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Stocks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - BI-Tech founders get 2%
+    - BI-Tech founders get 2% + jobs at IS
+    - BI-Tech founders get 5%
+    - 'BI-Tech founders get 5% + jobs '
+  name: Stocks
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: EmployeeAgreements
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - salary raise of 15%
+    - same conditions
+    - private contracts
+    - half fired and half private contracts
+  name: EmployeeAgreements
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 2
+    name: Legal Liability
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - past activities remains with Bi-Tech
+    - IS liable for all activities
+  name: Legal Liability
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.11429714035388504
+side_ufuns:
+- id: prof1_Price-e378623b-641e-4a4b-8f37-6e9e93143064
+  name: prof1_Price
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Price
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - 1 million $
+      - 2.5 million $
+      - 5 million $
+      - 8 million $
+    name: Price
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      1 million $: 1.0
+      2.5 million $: 0.5
+      5 million $: 0.0
+      8 million $: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_IP-9332614a-3678-402e-a193-8548472ec6c1
+  name: prof1_IP
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: IP
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - IS receives all IP
+      - IS receives the patents, industrial design rights and trade secrets
+      - BI-Tech founders maintain all IP
+    name: IP
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      BI-Tech founders maintain all IP: 0.8333333333333333
+      IS receives all IP: 1.0
+      IS receives the patents, industrial design rights and trade secrets: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Stocks-322601fa-6a9b-400c-92ad-dabe9b666357
+  name: prof1_Stocks
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Stocks
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - BI-Tech founders get 2%
+      - BI-Tech founders get 2% + jobs at IS
+      - BI-Tech founders get 5%
+      - 'BI-Tech founders get 5% + jobs '
+    name: Stocks
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      BI-Tech founders get 2%: 0.16666666666666666
+      BI-Tech founders get 2% + jobs at IS: 1.0
+      BI-Tech founders get 5%: 0.0
+      'BI-Tech founders get 5% + jobs ': 0.5
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_EmployeeAgreements-0dfb2aba-e798-4de9-a277-4a0564df0f72
+  name: prof1_EmployeeAgreements
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: EmployeeAgreements
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - salary raise of 15%
+      - same conditions
+      - private contracts
+      - half fired and half private contracts
+    name: EmployeeAgreements
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      half fired and half private contracts: 0.0
+      private contracts: 1.0
+      salary raise of 15%: 0.75
+      same conditions: 0.75
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Legal Liability-36ccadd5-2af6-4e5c-a97b-a743f20bbba7
+  name: prof1_Legal Liability
+  outcome_space:
+    issues:
+    - n_values: 2
+      name: Legal Liability
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - past activities remains with Bi-Tech
+      - IS liable for all activities
+    name: Legal Liability
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      IS liable for all activities: 0.0
+      past activities remains with Bi-Tech: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

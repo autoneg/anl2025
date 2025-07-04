@@ -1,0 +1,21 @@
+id: util2_Calm-Playful-eb25fbdb-37cf-4044-bbeb-c6720fa0d9af
+name: util2_Calm-Playful
+outcome_space:
+  issues:
+  - n_values: 2
+    name: Calm-Playful
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Calm
+    - Playful
+  name: Calm-Playful
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.13222793774286998
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Calm: 1.0
+    Playful: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

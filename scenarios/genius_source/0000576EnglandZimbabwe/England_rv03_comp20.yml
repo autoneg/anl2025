@@ -1,0 +1,38 @@
+name: England_rv03_comp20
+reserved_value: -0.08549007773596794
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    $10 billion: 1.0
+    $100 Billion: 0.5
+    $50 Billion: 0.75
+    No agreement: 0.0
+  type: TableFun
+- mapping:
+    No agreement: 0.0
+    No reduction: 0.2857142857142857
+    Reduction equal to fund size: 1.0
+    Reduction equal to half of fund size: 0.7142857142857142
+  type: TableFun
+- mapping:
+    No agreement: 0.5454545454545454
+    Zimbabwe will increase tariffs on imports: 0.0
+    Zimbabwe will reduce tariffs on imports: 1.0
+  type: TableFun
+- mapping:
+    England will increase imports: 0.0
+    England will reduce imports: 1.0
+    No agreement: 0.5555555555555556
+  type: TableFun
+- mapping:
+    Creation of committee to develop agenda: 0.3333333333333333
+    Creation of committee to discuss creation of fund: 1.0
+    Creation of fund: 0.6666666666666666
+    'No': 0.0
+  type: TableFun
+weights:
+- 0.2964057344114466
+- 0.25931967592113864
+- 0.06591150752621024
+- 0.05392138580847536
+- 0.3244416963327292

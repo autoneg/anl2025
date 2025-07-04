@@ -1,0 +1,29 @@
+id: prof2_Spreads-eee95827-9135-4932-a695-71d11d3398d2
+name: prof2_Spreads
+outcome_space:
+  issues:
+  - n_values: 6
+    name: Spreads
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Cheese
+    - Jam
+    - Peanut butter
+    - Chocolate
+    - Ham
+    - Salami
+  name: Spreads
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.11516057867836534
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Cheese: 0.375
+    Chocolate: 0.125
+    Ham: 0.375
+    Jam: 1.0
+    Peanut butter: 0.0
+    Salami: 0.25
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

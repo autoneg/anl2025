@@ -1,0 +1,23 @@
+id: prof2.xml_Tripod-d2e73106-a54e-4725-ae8b-41d55e193d4c
+name: prof2.xml_Tripod
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Tripod
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - GITZO
+    - Manfrotto
+    - Induro
+  name: Tripod
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.061638857272624394
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    GITZO: 0.21428571428571427
+    Induro: 0.0
+    Manfrotto: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

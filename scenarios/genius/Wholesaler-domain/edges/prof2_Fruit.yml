@@ -1,0 +1,31 @@
+id: prof2_Fruit-7ed85173-d347-4f11-8b13-32c20dabea28
+name: prof2_Fruit
+outcome_space:
+  issues:
+  - n_values: 7
+    name: Fruit
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Apples
+    - Bananas
+    - Cherries
+    - Grapes
+    - Pears
+    - Oranges
+    - Melons
+  name: Fruit
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.12402372008630949
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Apples: 1.0
+    Bananas: 0.2222222222222222
+    Cherries: 0.2222222222222222
+    Grapes: 0.4444444444444444
+    Melons: 0.3333333333333333
+    Oranges: 0.3333333333333333
+    Pears: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

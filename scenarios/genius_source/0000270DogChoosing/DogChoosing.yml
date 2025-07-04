@@ -1,0 +1,34 @@
+issues:
+- name: Furry
+  type: CategoricalIssue
+  values:
+  - Short_fur
+  - Medium_fur
+  - Long_fur
+- name: Size
+  type: CategoricalIssue
+  values:
+  - Small
+  - Medium
+  - Big
+- name: Calm-Playful
+  type: CategoricalIssue
+  values:
+  - Calm
+  - Playful
+- name: Independent-Needy
+  type: CategoricalIssue
+  values:
+  - Independent
+  - numb
+  - Needy
+- name: Color
+  type: CategoricalIssue
+  values:
+  - White
+  - Black
+  - Brown
+  - Golden
+  - Spotted
+name: DogChoosing
+type: DiscreteCartesianOutcomeSpace

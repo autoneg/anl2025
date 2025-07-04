@@ -1,0 +1,27 @@
+id: util2.xml_Screen Size-0a6e234f-a239-403e-9ab8-6d3ebc221c8f
+name: util2.xml_Screen Size
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Screen Size
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '2.4'
+    - '2.8'
+    - '3.0'
+    - '3.2'
+    - '3.6'
+  name: Screen Size
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.048820292792543234
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '2.4': 1.0
+    '2.8': 0.2857142857142857
+    '3.0': 0.07142857142857142
+    '3.2': 0.0
+    '3.6': 0.6428571428571428
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,25 @@
+id: prof2_Stocks-e9cd4530-dc04-45d8-bfbd-e5eccb841eaf
+name: prof2_Stocks
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Stocks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - BI-Tech founders get 2%
+    - BI-Tech founders get 2% + jobs at IS
+    - BI-Tech founders get 5%
+    - 'BI-Tech founders get 5% + jobs '
+  name: Stocks
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.19256043856998986
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    BI-Tech founders get 2%: 0.0
+    BI-Tech founders get 2% + jobs at IS: 0.8
+    BI-Tech founders get 5%: 0.2
+    'BI-Tech founders get 5% + jobs ': 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,27 @@
+id: util2_howmuch-ba668398-b14e-403b-8773-3a51ce1da33e
+name: util2_howmuch
+outcome_space:
+  issues:
+  - n_values: 5
+    name: howmuch
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '10'
+    - '15'
+    - '20'
+    - '25'
+    - '30'
+  name: howmuch
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.03652964861786454
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '10': 1.0
+    '15': 0.75
+    '20': 0.5
+    '25': 0.25
+    '30': 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

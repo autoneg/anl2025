@@ -1,0 +1,59 @@
+discount: 0.8
+dynamic_reservation: true
+name: husband
+reserved_value: -.inf
+type: ExpDiscountedUFun
+ufun:
+  name: scenarios/xml/original/anac/y2013/Kitchen/husband.xml
+  reserved_value: -.inf
+  type: LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Ceramic: 0.3333333333333333
+      Electrical: 0.0
+      Gas: 0.8333333333333334
+      Hybrid: 0.9333333333333333
+      Induction: 1.0
+    type: TableFun
+  - mapping:
+      Four-door French-door: 0.75
+      French-door: 0.8928571428571428
+      Side-by-side: 0.46428571428571425
+      Top-refrigerator/bottom freezer: 1.0
+      Traditional: 0.0
+    type: TableFun
+  - mapping:
+      Cherry: 0.8387096774193548
+      Mahogany: 1.0
+      Maple: 0.5806451612903225
+      Oak: 0.7419354838709677
+      Pine: 0.0
+    type: TableFun
+  - mapping:
+      Acrylic: 0.0
+      Granite: 0.9583333333333333
+      Inox: 1.0
+      Limestone: 0.8333333333333333
+      Marble: 0.16666666666666666
+    type: TableFun
+  - mapping:
+      '10': 1.0
+      '15': 0.76
+      '20': 0.0
+      '3': 0.28
+      '5': 0.88
+    type: TableFun
+  - mapping:
+      Coffee machine: 0.0
+      Dishwasher: 1.0
+      Microwave: 0.9259259259259258
+      Oven: 0.8148148148148148
+      Water Boiler: 0.2222222222222222
+    type: TableFun
+  weights:
+  - 0.33104715715169863
+  - 0.16917508249028934
+  - 0.05418610033190862
+  - 0.171062505367341
+  - 0.06362249947906344
+  - 0.21090665517969895

@@ -1,0 +1,25 @@
+id: prof2.xml_Floor Mopping-bfe39cb0-995e-43d3-b6ab-24cd69032c21
+name: prof2.xml_Floor Mopping
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Floor Mopping
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+    - Both
+    - Maid
+  name: Floor Mopping
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.06729044949622758
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Both: 0.7142857142857143
+    Husbend: 1.0
+    Maid: 0.0
+    Wife: 0.2857142857142857
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

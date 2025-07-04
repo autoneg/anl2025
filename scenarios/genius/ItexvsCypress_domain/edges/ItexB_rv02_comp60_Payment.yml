@@ -1,0 +1,23 @@
+id: ItexB_rv02_comp60_Payment-1e70a7fb-ee53-4257-8300-c96790a55df3
+name: ItexB_rv02_comp60_Payment
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Payment
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Upon delivery
+    - 30 days after delivery
+    - 60 days after delivery
+  name: Payment
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.04374819772178935
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    30 days after delivery: 1.0
+    60 days after delivery: 0.0
+    Upon delivery: 0.375
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

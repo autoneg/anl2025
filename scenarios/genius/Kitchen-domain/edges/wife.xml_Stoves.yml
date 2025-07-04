@@ -1,0 +1,27 @@
+id: wife.xml_Stoves-5f7626c0-e658-4569-b2f1-88ffb2c782d6
+name: wife.xml_Stoves
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Stoves
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Ceramic
+    - Electrical
+    - Induction
+    - Gas
+    - Hybrid
+  name: Stoves
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.07542940083518242
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Ceramic: 0.9393939393939394
+    Electrical: 1.0
+    Gas: 0.9797979797979799
+    Hybrid: 0.7676767676767677
+    Induction: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

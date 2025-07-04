@@ -1,0 +1,179 @@
+name: England_rv03_comp20
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: Size of Fund
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - $100 Billion
+    - $50 Billion
+    - $10 billion
+    - No agreement
+  name: Size of Fund
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Impact on Other Aid
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - No reduction
+    - Reduction equal to half of fund size
+    - Reduction equal to fund size
+    - No agreement
+  name: Impact on Other Aid
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Zimbabwe Trade Policy
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Zimbabwe will reduce tariffs on imports
+    - Zimbabwe will increase tariffs on imports
+    - No agreement
+  name: Zimbabwe Trade Policy
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: England Trade Policy
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - England will reduce imports
+    - England will increase imports
+    - No agreement
+  name: England Trade Policy
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Forum on Other Health Issues
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Creation of fund
+    - Creation of committee to discuss creation of fund
+    - Creation of committee to develop agenda
+    - 'No'
+  name: Forum on Other Health Issues
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.17475255865461867
+side_ufuns:
+- id: England_rv03_comp20_Size of Fund-6951eb81-7b1e-479b-b989-6342ed0fd96e
+  name: England_rv03_comp20_Size of Fund
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Size of Fund
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - $100 Billion
+      - $50 Billion
+      - $10 billion
+      - No agreement
+    name: Size of Fund
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      $10 billion: 1.0
+      $100 Billion: 0.5
+      $50 Billion: 0.75
+      No agreement: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: England_rv03_comp20_Impact on Other Aid-c0d48eb2-93e6-4ac4-9c52-c1757e9809ba
+  name: England_rv03_comp20_Impact on Other Aid
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Impact on Other Aid
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - No reduction
+      - Reduction equal to half of fund size
+      - Reduction equal to fund size
+      - No agreement
+    name: Impact on Other Aid
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      No agreement: 0.0
+      No reduction: 0.2857142857142857
+      Reduction equal to fund size: 1.0
+      Reduction equal to half of fund size: 0.7142857142857142
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: England_rv03_comp20_Zimbabwe Trade Policy-765cbe6f-72e8-4247-b105-0b9887b74b7f
+  name: England_rv03_comp20_Zimbabwe Trade Policy
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Zimbabwe Trade Policy
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Zimbabwe will reduce tariffs on imports
+      - Zimbabwe will increase tariffs on imports
+      - No agreement
+    name: Zimbabwe Trade Policy
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      No agreement: 0.5454545454545454
+      Zimbabwe will increase tariffs on imports: 0.0
+      Zimbabwe will reduce tariffs on imports: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: England_rv03_comp20_England Trade Policy-d1f95ab1-014e-4586-a956-68511df59afb
+  name: England_rv03_comp20_England Trade Policy
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: England Trade Policy
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - England will reduce imports
+      - England will increase imports
+      - No agreement
+    name: England Trade Policy
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      England will increase imports: 0.0
+      England will reduce imports: 1.0
+      No agreement: 0.5555555555555556
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: England_rv03_comp20_Forum on Other Health Issues-7537d1f4-91a4-477d-8f9f-cc536739b610
+  name: England_rv03_comp20_Forum on Other Health Issues
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Forum on Other Health Issues
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Creation of fund
+      - Creation of committee to discuss creation of fund
+      - Creation of committee to develop agenda
+      - 'No'
+    name: Forum on Other Health Issues
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Creation of committee to develop agenda: 0.3333333333333333
+      Creation of committee to discuss creation of fund: 1.0
+      Creation of fund: 0.6666666666666666
+      'No': 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

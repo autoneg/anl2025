@@ -1,0 +1,44 @@
+issues:
+- name: Food
+  type: CategoricalIssue
+  values:
+  - Chips and Nuts
+  - Finger-Food
+  - Handmade Food
+  - Catering
+- name: Drinks
+  type: CategoricalIssue
+  values:
+  - Non-Alcoholic
+  - Beer Only
+  - Handmade Cocktails
+  - Catering
+- name: Location
+  type: CategoricalIssue
+  values:
+  - Party Tent
+  - Your Dorm
+  - Party Room
+  - Ballroom
+- name: Invitations
+  type: CategoricalIssue
+  values:
+  - Plain
+  - Photo
+  - Custom, Handmade
+  - Custom, Printed
+- name: Music
+  type: CategoricalIssue
+  values:
+  - MP3
+  - DJ
+  - Band
+- name: Cleanup
+  type: CategoricalIssue
+  values:
+  - Water and Soap
+  - Specialized Materials
+  - Special Equiment
+  - Hired Help
+name: party
+type: DiscreteCartesianOutcomeSpace

@@ -1,0 +1,188 @@
+name: util1.xml
+outcome_spaces:
+- issues:
+  - n_values: 6
+    name: Mammal
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Lion
+    - Elephant
+    - Cow
+    - Mouse
+    - Kangaroo
+    - Dolphin
+  name: Mammal
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Birds
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Eagle
+    - Swallow
+    - Pelican
+    - Penguin
+  name: Birds
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Reptiles
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Crocodile
+    - Lizard
+    - Tortoise
+    - Snake
+  name: Reptiles
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Amphibian
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Frog
+    - Salamander
+    - Newt
+  name: Amphibian
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Primates
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Human
+    - Chimpanzee
+    - Gorilla
+    - Orangutan
+  name: Primates
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.009499178224033044
+side_ufuns:
+- id: util1.xml_Mammal-e3559759-f1f5-41ce-b287-edd1931518d4
+  name: util1.xml_Mammal
+  outcome_space:
+    issues:
+    - n_values: 6
+      name: Mammal
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Lion
+      - Elephant
+      - Cow
+      - Mouse
+      - Kangaroo
+      - Dolphin
+    name: Mammal
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Cow: 0.1111111111111111
+      Dolphin: 0.7777777777777777
+      Elephant: 0.3333333333333333
+      Kangaroo: 0.6666666666666666
+      Lion: 1.0
+      Mouse: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_Birds-a0fe6504-bb49-478a-aac6-f67ff581c206
+  name: util1.xml_Birds
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Birds
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Eagle
+      - Swallow
+      - Pelican
+      - Penguin
+    name: Birds
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Eagle: 0.4444444444444444
+      Pelican: 1.0
+      Penguin: 0.6666666666666666
+      Swallow: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_Reptiles-f2ace91d-143b-422c-9aca-d0d4b222d280
+  name: util1.xml_Reptiles
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Reptiles
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Crocodile
+      - Lizard
+      - Tortoise
+      - Snake
+    name: Reptiles
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Crocodile: 1.0
+      Lizard: 0.0
+      Snake: 0.1111111111111111
+      Tortoise: 0.2222222222222222
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_Amphibian-07732517-8c0e-44d6-bf11-0150b3522074
+  name: util1.xml_Amphibian
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Amphibian
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Frog
+      - Salamander
+      - Newt
+    name: Amphibian
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Frog: 0.0
+      Newt: 1.0
+      Salamander: 0.6666666666666666
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_Primates-84e3fe1a-01ac-4a7a-9ee1-40cd67c13556
+  name: util1.xml_Primates
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Primates
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Human
+      - Chimpanzee
+      - Gorilla
+      - Orangutan
+    name: Primates
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Chimpanzee: 0.0
+      Gorilla: 0.3333333333333333
+      Human: 1.0
+      Orangutan: 0.7777777777777777
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

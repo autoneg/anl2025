@@ -1,0 +1,25 @@
+id: prof2_intensity-291de131-4c4f-4651-8776-5cbfaa16939b
+name: prof2_intensity
+outcome_space:
+  issues:
+  - n_values: 4
+    name: intensity
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - light
+    - moderate
+    - training
+    - bootcamp
+  name: intensity
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.17894208327087668
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    bootcamp: 0.0
+    light: 1.0
+    moderate: 0.6249999999999999
+    training: 0.25
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

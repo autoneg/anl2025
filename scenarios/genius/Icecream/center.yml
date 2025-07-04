@@ -1,0 +1,167 @@
+name: util1
+outcome_spaces:
+- issues:
+  - n_values: 5
+    name: howmuch
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '10'
+    - '15'
+    - '20'
+    - '25'
+    - '30'
+  name: howmuch
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: size
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - one
+    - two
+    - three
+    - parfait
+  name: size
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: cone
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - waffle
+    - standard
+    - sandwiched
+    - cup
+  name: cone
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 9
+    name: taste
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - chocolate
+    - mint
+    - strawberry
+    - Vanilla
+    - mocha
+    - caramel
+    - green tea
+    - cookie and cream
+    - choco chips
+  name: taste
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.23532802531043812
+side_ufuns:
+- id: util1_howmuch-4aa1d390-ce6a-445a-875a-5e04585b7734
+  name: util1_howmuch
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: howmuch
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - '10'
+      - '15'
+      - '20'
+      - '25'
+      - '30'
+    name: howmuch
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      '10': 1.0
+      '15': 1.0
+      '20': 1.0
+      '25': 1.0
+      '30': 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1_size-60aae761-9cb8-4ac8-bafa-f30ed42027d2
+  name: util1_size
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: size
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - one
+      - two
+      - three
+      - parfait
+    name: size
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      one: 0.0
+      parfait: 1.0
+      three: 0.5
+      two: 0.25
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1_cone-3c29ff03-7757-4815-b265-3d26c33c3c35
+  name: util1_cone
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: cone
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - waffle
+      - standard
+      - sandwiched
+      - cup
+    name: cone
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      cup: 0.0
+      sandwiched: 0.75
+      standard: 0.375
+      waffle: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1_taste-7bd02980-8889-45f4-bffa-19610ee1076d
+  name: util1_taste
+  outcome_space:
+    issues:
+    - n_values: 9
+      name: taste
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - chocolate
+      - mint
+      - strawberry
+      - Vanilla
+      - mocha
+      - caramel
+      - green tea
+      - cookie and cream
+      - choco chips
+    name: taste
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Vanilla: 0.2857142857142857
+      caramel: 1.0
+      choco chips: 0.5714285714285714
+      chocolate: 0.7142857142857143
+      cookie and cream: 0.5714285714285714
+      green tea: 0.0
+      mint: 0.14285714285714285
+      mocha: 0.14285714285714285
+      strawberry: 0.42857142857142855
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

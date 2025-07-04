@@ -1,0 +1,27 @@
+id: prof2.xml_Bag-eb9ddfb2-9b34-41b9-8fc5-ccc2cb5dd820
+name: prof2.xml_Bag
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Bag
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Domke
+    - Lowepro
+    - Tamrac
+    - National Geographic
+    - Artizan and Artist
+  name: Bag
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.17850696100566857
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Artizan and Artist: 0.33333333333333337
+    Domke: 0.11111111111111112
+    Lowepro: 1.0
+    National Geographic: 0.22222222222222224
+    Tamrac: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

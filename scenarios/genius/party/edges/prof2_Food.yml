@@ -1,0 +1,25 @@
+id: prof2_Food-3b40dad8-7729-43c9-a5a5-bd235dfc47eb
+name: prof2_Food
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Food
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chips and Nuts
+    - Finger-Food
+    - Handmade Food
+    - Catering
+  name: Food
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.17230044976553857
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Catering: 0.9999999999999999
+    Chips and Nuts: 0.0
+    Finger-Food: 0.3835616438356165
+    Handmade Food: 0.6438356164383561
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,25 @@
+id: util2_cone-436da153-1ca9-4b44-8e84-fc896e5c44d2
+name: util2_cone
+outcome_space:
+  issues:
+  - n_values: 4
+    name: cone
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - waffle
+    - standard
+    - sandwiched
+    - cup
+  name: cone
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.018454615714577984
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    cup: 1.0
+    sandwiched: 0.5
+    standard: 0.0
+    waffle: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

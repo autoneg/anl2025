@@ -1,0 +1,23 @@
+id: prof2.xml_Dishes Cleaning-1d70058f-563a-4308-bbb1-e7bd9f27ecb9
+name: prof2.xml_Dishes Cleaning
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Dishes Cleaning
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+    - Both
+  name: Dishes Cleaning
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.15732391594024323
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Both: 0.22222222222222224
+    Husbend: 1.0
+    Wife: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

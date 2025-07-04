@@ -1,0 +1,25 @@
+id: prof2_Price-c2d63ecd-927f-42cd-858b-06c230f44a47
+name: prof2_Price
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Price
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - 1 million $
+    - 2.5 million $
+    - 5 million $
+    - 8 million $
+  name: Price
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.14412644907389704
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    1 million $: 0.0
+    2.5 million $: 0.0
+    5 million $: 0.5
+    8 million $: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

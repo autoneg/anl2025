@@ -1,0 +1,25 @@
+id: util2.xml_soup-768ad545-000f-4c9e-bbac-f426d1f6c0c8
+name: util2.xml_soup
+outcome_space:
+  issues:
+  - n_values: 4
+    name: soup
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - corn(ice)
+    - corn(hot)
+    - onion
+    - miso
+  name: soup
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.021730821230502163
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    corn(hot): 0.11764705882352941
+    corn(ice): 0.0
+    miso: 0.2647058823529412
+    onion: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

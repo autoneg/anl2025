@@ -1,0 +1,38 @@
+issues:
+- name: Destination
+  type: CategoricalIssue
+  values:
+  - London
+  - Paris
+  - Amsterdam
+  - Miami
+- name: Duration
+  type: CategoricalIssue
+  values:
+  - '3'
+  - '7'
+  - '10'
+  - '14'
+- name: Budget
+  type: CategoricalIssue
+  values:
+  - '400'
+  - '700'
+  - '1000'
+  - '1500'
+- name: Activities
+  type: CategoricalIssue
+  values:
+  - Museum
+  - Sport
+  - Restaurant
+  - Historical Places
+- name: Transportation
+  type: CategoricalIssue
+  values:
+  - Car
+  - Bus
+  - Train
+  - Air Plane
+name: holiday
+type: DiscreteCartesianOutcomeSpace

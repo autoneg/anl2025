@@ -1,0 +1,25 @@
+id: prof2_Location-424e52ca-09e2-46fc-835d-150cf28a53a4
+name: prof2_Location
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Location
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Party Tent
+    - Your Dorm
+    - Party Room
+    - Ballroom
+  name: Location
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.023084021011546607
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Ballroom: 0.0
+    Party Room: 1.0
+    Party Tent: 0.23333333333333334
+    Your Dorm: 0.15555555555555559
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,146 @@
+name: prof1
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: place
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Tokyo
+    - Osaka
+    - Negoya
+    - Hokkaido
+  name: place
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: budget
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '900'
+    - '1800'
+    - '300'
+    - '100'
+  name: budget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: days
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+  name: days
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: purpose
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Sightseeing
+    - Activity
+    - Shopping
+  name: purpose
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.22028563441663218
+side_ufuns:
+- id: prof1_place-caca1781-afae-45c8-9b38-923c0c872fdc
+  name: prof1_place
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: place
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Tokyo
+      - Osaka
+      - Negoya
+      - Hokkaido
+    name: place
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Hokkaido: 0.0
+      Negoya: 0.0
+      Osaka: 0.0
+      Tokyo: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_budget-c42f04c9-9d67-4764-bd85-d1ead40aa3ec
+  name: prof1_budget
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: budget
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - '900'
+      - '1800'
+      - '300'
+      - '100'
+    name: budget
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      '100': 0.0
+      '1800': 1.0
+      '300': 0.11111111111111112
+      '900': 0.888888888888889
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_days-f4fb509d-0427-4960-9e6d-b221f8c35c6c
+  name: prof1_days
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: days
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - '3'
+      - '4'
+      - '5'
+      - '6'
+    name: days
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      '3': 1.0
+      '4': 0.11111111111111112
+      '5': 0.11111111111111112
+      '6': 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_purpose-f6c4d652-c28c-4da9-8b28-31957cec7271
+  name: prof1_purpose
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: purpose
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Sightseeing
+      - Activity
+      - Shopping
+    name: purpose
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Activity: 1.0
+      Shopping: 0.0
+      Sightseeing: 0.42857142857142855
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

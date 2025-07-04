@@ -1,0 +1,32 @@
+name: ItexB_rv02_comp60
+reserved_value: -0.030916226036091964
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    $3.47: 0.0
+    $3.71: 0.13793103448275862
+    $3.98: 0.3103448275862069
+    $4.12: 0.6551724137931034
+    $4.37: 1.0
+  type: TableFun
+- mapping:
+    20 days: 0.21052631578947367
+    30 days: 0.47368421052631576
+    45 days: 1.0
+    60 days: 0.0
+  type: TableFun
+- mapping:
+    30 days after delivery: 1.0
+    60 days after delivery: 0.0
+    Upon delivery: 0.375
+  type: TableFun
+- mapping:
+    10% spoilage allowed: 0.13793103448275862
+    5% spoilage allowed: 1.0
+    Full price: 0.0
+  type: TableFun
+weights:
+- 0.3232258111163977
+- 0.14044015653520076
+- 0.2246271453489682
+- 0.3117068869994334

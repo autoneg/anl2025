@@ -1,0 +1,23 @@
+id: util2.xml_dessert-1dce9dd3-07be-410b-9616-9f38ffc53ce7
+name: util2.xml_dessert
+outcome_space:
+  issues:
+  - n_values: 3
+    name: dessert
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - cake
+    - sherbet
+    - ice cream
+  name: dessert
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.08328627536502597
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    cake: 0.34285714285714286
+    ice cream: 1.0
+    sherbet: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

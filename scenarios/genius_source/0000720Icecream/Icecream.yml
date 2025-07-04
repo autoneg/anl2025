@@ -1,0 +1,37 @@
+issues:
+- name: howmuch
+  type: CategoricalIssue
+  values:
+  - '10'
+  - '15'
+  - '20'
+  - '25'
+  - '30'
+- name: size
+  type: CategoricalIssue
+  values:
+  - one
+  - two
+  - three
+  - parfait
+- name: cone
+  type: CategoricalIssue
+  values:
+  - waffle
+  - standard
+  - sandwiched
+  - cup
+- name: taste
+  type: CategoricalIssue
+  values:
+  - chocolate
+  - mint
+  - strawberry
+  - Vanilla
+  - mocha
+  - caramel
+  - green tea
+  - cookie and cream
+  - choco chips
+name: Icecream
+type: DiscreteCartesianOutcomeSpace

@@ -1,0 +1,59 @@
+issues:
+- name: Bread type
+  type: CategoricalIssue
+  values:
+  - Baguette
+  - Crackers
+  - Croissants
+- name: Fruit
+  type: CategoricalIssue
+  values:
+  - Apples
+  - Bananas
+  - Cherries
+  - Grapes
+  - Pears
+  - Oranges
+  - Melons
+- name: Snacks
+  type: CategoricalIssue
+  values:
+  - Chocolate bars
+  - Doughnuts
+  - Popcorn
+  - Potato Chips
+  - Candy
+- name: Spreads
+  type: CategoricalIssue
+  values:
+  - Cheese
+  - Jam
+  - Peanut butter
+  - Chocolate
+  - Ham
+  - Salami
+- name: Vegetables
+  type: CategoricalIssue
+  values:
+  - Beans
+  - Broccoli
+  - Leek
+  - Potatoes
+  - Spinach
+- name: Drinks
+  type: CategoricalIssue
+  values:
+  - Energy Drinks
+  - Tea
+  - Coffee
+  - Juice
+  - Coca Cola
+  - Beer
+- name: Meat
+  type: CategoricalIssue
+  values:
+  - Chicken
+  - Sausages
+  - Steak
+name: Wholesaler-domain
+type: DiscreteCartesianOutcomeSpace

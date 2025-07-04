@@ -1,0 +1,25 @@
+id: prof2_EmployeeAgreements-04052a87-29d0-4a37-8b5e-6029f950c9e3
+name: prof2_EmployeeAgreements
+outcome_space:
+  issues:
+  - n_values: 4
+    name: EmployeeAgreements
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - salary raise of 15%
+    - same conditions
+    - private contracts
+    - half fired and half private contracts
+  name: EmployeeAgreements
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.15331849920046192
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    half fired and half private contracts: 0.0
+    private contracts: 0.8
+    salary raise of 15%: 1.0
+    same conditions: 0.6000000000000001
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

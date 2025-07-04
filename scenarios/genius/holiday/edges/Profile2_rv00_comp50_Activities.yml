@@ -1,0 +1,25 @@
+id: Profile2_rv00_comp50_Activities-019f35ff-0df0-4872-bcd9-079c75881c32
+name: Profile2_rv00_comp50_Activities
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Activities
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Museum
+    - Sport
+    - Restaurant
+    - Historical Places
+  name: Activities
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.03110117515795188
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Historical Places: 1.0
+    Museum: 0.0
+    Restaurant: 0.6666666666666666
+    Sport: 0.3333333333333333
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

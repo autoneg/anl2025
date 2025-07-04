@@ -1,0 +1,37 @@
+name: prof2
+reserved_value: -2.2483660130718954
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    1 million $: 0.0
+    2.5 million $: 0.0
+    5 million $: 0.5
+    8 million $: 1.0
+  type: TableFun
+- mapping:
+    BI-Tech founders maintain all IP: 1.0
+    IS receives all IP: 0.0
+    IS receives the patents, industrial design rights and trade secrets: 0.25
+  type: TableFun
+- mapping:
+    BI-Tech founders get 2%: 0.0
+    BI-Tech founders get 2% + jobs at IS: 0.8
+    BI-Tech founders get 5%: 0.2
+    'BI-Tech founders get 5% + jobs ': 1.0
+  type: TableFun
+- mapping:
+    half fired and half private contracts: 0.0
+    private contracts: 0.8
+    salary raise of 15%: 1.0
+    same conditions: 0.6000000000000001
+  type: TableFun
+- mapping:
+    IS liable for all activities: 1.0
+    past activities remains with Bi-Tech: 0.0
+  type: TableFun
+weights:
+- 0.32679738562091504
+- 0.05228758169934641
+- 0.32679738562091504
+- 0.09803921568627451
+- 0.19607843137254904

@@ -1,0 +1,25 @@
+id: prof2_Drinks-07c20f9b-97d2-4229-a3ed-cc4eedb888ba
+name: prof2_Drinks
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Drinks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Non-Alcoholic
+    - Beer Only
+    - Handmade Cocktails
+    - Catering
+  name: Drinks
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.15255181895852823
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Beer Only: 0.12359550561797754
+    Catering: 0.0
+    Handmade Cocktails: 1.0
+    Non-Alcoholic: 0.2471910112359551
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,25 @@
+id: Profile2_rv00_comp50_Destination-a079e5b3-0506-49c6-9f99-4c4eeee82f76
+name: Profile2_rv00_comp50_Destination
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Destination
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - London
+    - Paris
+    - Amsterdam
+    - Miami
+  name: Destination
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.03413024489984378
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Amsterdam: 0.3333333333333333
+    London: 1.0
+    Miami: 0.6666666666666666
+    Paris: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

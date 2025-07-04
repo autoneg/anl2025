@@ -1,0 +1,185 @@
+name: Profile1_rv00_comp50
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: Destination
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - London
+    - Paris
+    - Amsterdam
+    - Miami
+  name: Destination
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Duration
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '3'
+    - '7'
+    - '10'
+    - '14'
+  name: Duration
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Budget
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '400'
+    - '700'
+    - '1000'
+    - '1500'
+  name: Budget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Activities
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Museum
+    - Sport
+    - Restaurant
+    - Historical Places
+  name: Activities
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Transportation
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Car
+    - Bus
+    - Train
+    - Air Plane
+  name: Transportation
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.11800615185325523
+side_ufuns:
+- id: Profile1_rv00_comp50_Destination-b028a886-0530-422d-a14b-19f6a0555b73
+  name: Profile1_rv00_comp50_Destination
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Destination
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - London
+      - Paris
+      - Amsterdam
+      - Miami
+    name: Destination
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Amsterdam: 0.6666666666666666
+      London: 0.0
+      Miami: 1.0
+      Paris: 0.3333333333333333
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: Profile1_rv00_comp50_Duration-dce89d93-45b7-4c52-80a5-7aea2cc9db71
+  name: Profile1_rv00_comp50_Duration
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Duration
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - '3'
+      - '7'
+      - '10'
+      - '14'
+    name: Duration
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      '10': 0.6666666666666666
+      '14': 1.0
+      '3': 0.0
+      '7': 0.3333333333333333
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: Profile1_rv00_comp50_Budget-92c10f94-e49f-467a-a9db-d1d835f7da57
+  name: Profile1_rv00_comp50_Budget
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Budget
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - '400'
+      - '700'
+      - '1000'
+      - '1500'
+    name: Budget
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      '1000': 0.6666666666666666
+      '1500': 1.0
+      '400': 0.0
+      '700': 0.3333333333333333
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: Profile1_rv00_comp50_Activities-21b56457-071f-4700-bc0a-d309c45fd3dc
+  name: Profile1_rv00_comp50_Activities
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Activities
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Museum
+      - Sport
+      - Restaurant
+      - Historical Places
+    name: Activities
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Historical Places: 1.0
+      Museum: 0.0
+      Restaurant: 0.6666666666666666
+      Sport: 0.3333333333333333
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: Profile1_rv00_comp50_Transportation-517ccb13-263b-4527-9bc7-47fa65228a45
+  name: Profile1_rv00_comp50_Transportation
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Transportation
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Car
+      - Bus
+      - Train
+      - Air Plane
+    name: Transportation
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Air Plane: 1.0
+      Bus: 0.3333333333333333
+      Car: 0.0
+      Train: 0.6666666666666666
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

@@ -1,0 +1,25 @@
+id: ItexB_rv02_comp60_Delivery-2b1c6794-f69b-49a2-862c-e1adfc5c720c
+name: ItexB_rv02_comp60_Delivery
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Delivery
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - 60 days
+    - 45 days
+    - 30 days
+    - 20 days
+  name: Delivery
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.19716851264414445
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    20 days: 0.21052631578947367
+    30 days: 0.47368421052631576
+    45 days: 1.0
+    60 days: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,29 @@
+id: prof2_Drinks-c15b00c3-1581-4da8-9443-a2a5076e27e5
+name: prof2_Drinks
+outcome_space:
+  issues:
+  - n_values: 6
+    name: Drinks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Energy Drinks
+    - Tea
+    - Coffee
+    - Juice
+    - Coca Cola
+    - Beer
+  name: Drinks
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.11938031889074163
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Beer: 0.6666666666666666
+    Coca Cola: 0.5555555555555556
+    Coffee: 0.1111111111111111
+    Energy Drinks: 1.0
+    Juice: 0.0
+    Tea: 0.4444444444444444
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,25 @@
+id: Profile2_rv00_comp50_Budget-e6e0d568-7412-4980-a6f6-fec4bfbd9af4
+name: Profile2_rv00_comp50_Budget
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Budget
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '400'
+    - '700'
+    - '1000'
+    - '1500'
+  name: Budget
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.1312065870816608
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '1000': 0.6666666666666666
+    '1500': 1.0
+    '400': 0.0
+    '700': 0.3333333333333333
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0
