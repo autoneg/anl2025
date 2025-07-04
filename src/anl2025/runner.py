@@ -262,7 +262,8 @@ class AssignedScenario:
                 m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
                 plt.close()
             except Exception as e:
-                print(f"Could not plot {m.id}: {e}")
+                if verbose:
+                    print(f"Could not plot {m.id}: {e}")
                 try:
                     plt.close()
                 except Exception:
