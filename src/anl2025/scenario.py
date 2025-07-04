@@ -197,12 +197,16 @@ class MultidealScenario:
         def save(fname, ufuns):
             if ufuns is None:
                 return
+
+            def _adjust_name(name: str) -> str:
+                return name.split("/")[-1].replace(":", ".").replace(" ", "_")
+
             base = folder / fname
             base.mkdir(parents=True, exist_ok=True)
             for u in ufuns:
                 dump(
                     serialize(u, python_class_identifier=python_class_identifier),
-                    base / f"{u.name}.yml",
+                    base / f"{_adjust_name(u.name)}.yml",
                 )
 
         save(EDGES_FOLDER_NAME, self.edge_ufuns)

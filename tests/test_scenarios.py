@@ -1,6 +1,7 @@
 import shutil
 from itertools import product
 from pathlib import Path
+from negmas.inout import Scenario
 from anl2025.inout import load_multideal_scenario
 from anl2025.negotiator import Random2025
 from anl2025.runner import MultidealScenario, run_session
@@ -11,6 +12,7 @@ from anl2025.scenarios.job_hunt import make_job_hunt_scenario
 from anl2025.scenarios.target_quantity import make_target_quantity_scenario
 from anl2025.ufun import FlatteningCombiner, HierarchicalCombiner, LambdaCenterUFun
 from negmas import DiscreteCartesianOutcomeSpace, UtilityFunction
+from anl2025.scenarios.genius import make_multideal_scenario_from_genius
 import pytest
 
 from hypothesis import given, strategies as st, example, settings
@@ -193,16 +195,30 @@ def test_random_scenario():
     run_session(scenario)
 
 
-def test_genius_scenarios():
-    folders = [
-        _
-        for _ in (Path(__file__).parent.parent / "scenarios_genius").glob("*")
-        if _.is_dir()
-    ]
-    scenarios = [MultidealScenario.from_folder(_) for _ in folders]
-    for scenario, folder in zip(scenarios, folders):
-        assert scenario, f"Failed to load {folder}"
+def test_genius():
+    base = Path(__file__).parent.parent / "scenarios" / "genius_source"
+    dst = Path(__file__).parent.parent / "scenarios" / "genius"
+    for p in base.glob("*"):
+        if not p.is_dir():
+            continue
+        orig = Scenario.load(p, ignore_discount=True)
+        assert orig is not None, f"Failed to load {p}"
+        scenario = make_multideal_scenario_from_genius(orig)
+        assert scenario is not None
+        scenario.to_folder(dst / scenario.name)
         run_session(scenario)
+
+
+# def test_genius_scenarios():
+#     folders = [
+#         _
+#         for _ in (Path(__file__).parent.parent / "scenarios_genius").glob("*")
+#         if _.is_dir()
+#     ]
+#     scenarios = [MultidealScenario.from_folder(_) for _ in folders]
+#     for scenario, folder in zip(scenarios, folders):
+#         assert scenario, f"Failed to load {folder}"
+#         run_session(scenario)
 
 
 # def test_load_dinners_saved():

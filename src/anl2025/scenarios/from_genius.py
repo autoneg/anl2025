@@ -12,7 +12,7 @@ from anl2025.common import (
 from negmas.preferences.crisp.linear import LinearAdditiveUtilityFunction
 
 
-def load_party(number):
+def load_party(number: int):
     path_to_folder = pathlib.Path(__file__).parent / f"Party{number}"
     scen = Scenario.load(path_to_folder)
     assert scen is not None

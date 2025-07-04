@@ -689,9 +689,16 @@ class UtilityCombiningCenterUFun(CenterUFun):
     The utility of the center is a function of the ufuns of the edges.
     """
 
-    def __init__(self, *args, side_ufuns: tuple[BaseUtilityFunction, ...], **kwargs):
+    def __init__(
+        self,
+        *args,
+        side_ufuns: tuple[BaseUtilityFunction, ...],
+        allow_partial_agreements=True,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self.ufuns = tuple(deepcopy(_) for _ in side_ufuns)
+        self.allow_partial_agreements = allow_partial_agreements
         # This is already done in CenterUFun now
         # self._effective_side_ufuns = tuple(
         #     make_side_ufun(self, i, side) for i, side in enumerate(self.ufuns)
@@ -702,6 +709,10 @@ class UtilityCombiningCenterUFun(CenterUFun):
         """Combines the utilities of all negotiation  threads into a single value"""
 
     def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
+        if not self.allow_partial_agreements and (
+            not offer or any(_ is None for _ in offer)
+        ):
+            return self.reserved_value
         offer = self._combiner.separated_outcomes(offer)
         if not offer:
             return self.reserved_value
@@ -759,7 +770,12 @@ class LinearCombinationCenterUFun(UtilityCombiningCenterUFun):
     The utility of the center is the maximum of the utilities it got in each negotiation (called side utilities)
     """
 
-    def __init__(self, *args, weights: tuple[float, ...] | None = None, **kwargs):
+    def __init__(
+        self,
+        *args,
+        weights: tuple[float, ...] | None = None,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         if isinstance(weights, Iterable):
             s = sum(weights)
