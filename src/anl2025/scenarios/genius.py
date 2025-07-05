@@ -1,3 +1,4 @@
+import numpy as np
 from negmas import (
     AffineUtilityFunction,
     IdentityFun,
@@ -62,6 +63,7 @@ def make_multideal_scenario_from_genius(
             )
         center_weights.append(orig_edge_ufun.weights[i])
         rng = val.minmax(issue)
+        rng = tuple(_ if not np.isinf(_) and not np.isnan(_) else 0.0 for _ in rng)
         edge_ufuns.append(
             LinearUtilityAggregationFunction(
                 name=f"{_adjust_name(orig_edge_ufun.name)}_{issue.name}",
@@ -96,14 +98,8 @@ def make_multideal_scenario_from_genius(
 
     outcome_spaces = tuple(outcome_spaces)
     center_min_max = scenario.ufuns[center_index].minmax(os)
-
-    center_ufun = LinearCombinationCenterUFun(
-        name=_adjust_name(scenario.ufuns[center_index].name),
-        side_ufuns=tuple(side_ufuns),
-        weights=tuple(center_weights),
-        outcome_spaces=outcome_spaces,
-        n_edges=n_edges,
-        reserved_value=sample_between(
+    center_r = (
+        sample_between(
             center_reserved_value_min * (center_min_max[1] - center_min_max[0])
             + center_min_max[0],
             center_reserved_value_max * (center_min_max[1] - center_min_max[0])
@@ -112,8 +108,18 @@ def make_multideal_scenario_from_genius(
         )
         if center_reserved_value_min is not None
         and center_reserved_value_max is not None
-        else scenario.ufuns[center_index].reserved_value,
-        allow_partial_agreements=allow_partial_agreements,
+        else (scenario.ufuns[center_index].reserved_value)
+    )
+    if np.isinf(center_r) or np.isnan(center_r):
+        center_r = 0.0
+
+    center_ufun = LinearCombinationCenterUFun(
+        name=_adjust_name(scenario.ufuns[center_index].name),
+        side_ufuns=tuple(side_ufuns),
+        weights=tuple(center_weights),
+        outcome_spaces=outcome_spaces,
+        n_edges=n_edges,
+        reserved_value=center_r,
     )
 
     return MultidealScenario(
