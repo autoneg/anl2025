@@ -1,5 +1,6 @@
 from collections import defaultdict
 from time import perf_counter, sleep
+import numpy as np
 from attr import asdict, field
 from copy import deepcopy
 from rich.progress import track
@@ -622,6 +623,7 @@ class Tournament:
         center_multiplier: float | None = None,
         edge_multiplier: float | None = 1,
         normalize_scores: bool = False,
+        avoid_inf_nan: bool = True,
     ) -> TournamentResults:
         """Run the tournament
 
@@ -693,14 +695,21 @@ class Tournament:
                 if not center_params
                 else f"{type_name(center)}_{hash(str(center_params))}"
             )
-            mean_edge_utility = sum(r.edge_utilities) / len(r.edge_utilities)
+            eutilities = [
+                _ if not avoid_inf_nan or (not np.isinf(_) and not np.isnan(_)) else 0.0
+                for _ in r.edge_utilities
+            ]
+            mean_edge_utility = sum(eutilities) / len(eutilities)
             center_factor[job.sname] = cfactor
             edge_factor[job.sname] = efactor
+            cutility = r.center_utility
+            if avoid_inf_nan and (np.isinf(cutility) or np.isnan(cutility)):
+                cutility = 0.0
             scores.append(
                 dict(
                     agent=cname,
-                    utility=r.center_utility * cfactor,
-                    raw_utility=r.center_utility,
+                    utility=cutility * cfactor,
+                    raw_utility=cutility,
                     partner_average_utility=mean_edge_utility,
                     scenario=job.sname,
                     repetition=job.rep_index,
@@ -754,18 +763,18 @@ class Tournament:
                     run_index=job.run_index,
                 )
             )
-            acc_scores[cname] += r.center_utility * cfactor
-            weighted_scores_center[cname] += r.center_utility * cfactor
-            raw_scores[cname] += r.center_utility
+            acc_scores[cname] += cutility * cfactor
+            weighted_scores_center[cname] += cutility * cfactor
+            raw_scores[cname] += cutility
             count_center[cname] += 1
             for e, (c, p) in enumerate(job.edge_info[: job.nedges_counted]):
                 ename = type_name(c) if not p else f"{type_name(c)}_{hash(str(p))}"
                 scores.append(
                     dict(
                         agent=ename,
-                        utility=r.edge_utilities[e] * efactor,
+                        utility=eutilities[e] * efactor,
                         raw_utility=r.edge_utilities[e],
-                        partner_average_utility=r.center_utility,
+                        partner_average_utility=cutility,
                         scenario=job.sname,
                         repetition=job.rep_index,
                         rotation=job.competitor_index,
@@ -814,9 +823,9 @@ class Tournament:
                         run_index=job.run_index,
                     )
                 )
-                acc_scores[ename] += r.edge_utilities[e] * efactor
-                weighted_scores_edge[ename] += r.edge_utilities[e] * efactor
-                raw_scores[ename] += r.edge_utilities[e]
+                acc_scores[ename] += eutilities[e] * efactor
+                weighted_scores_edge[ename] += eutilities[e] * efactor
+                raw_scores[ename] += eutilities[e]
                 count_edge[ename] += 1
 
             if verbose:
