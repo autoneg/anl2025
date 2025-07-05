@@ -716,24 +716,28 @@ class Tournament:
                     )
                     if center_ids
                     else 0,
-                    self_error_details="".join(
-                        [
-                            f"{m.state.error_details}\n"
-                            if m.state.erred_negotiator == cid
-                            else ""
-                            for m, cid in zip(r.mechanisms, center_ids)
-                        ]
-                    )
+                    self_error_details=(
+                        "".join(
+                            [
+                                f"{m.state.error_details}\n"
+                                if m.state.erred_negotiator == cid
+                                else ""
+                                for m, cid in zip(r.mechanisms, center_ids)
+                            ]
+                        )
+                    ).strip()
                     if center_ids
                     else "",
-                    partner_error_details="".join(
-                        [
-                            f"{m.state.error_details}\n"
-                            if m.state.erred_negotiator != cid
-                            else ""
-                            for m, cid in zip(r.mechanisms, center_ids)
-                        ]
-                    )
+                    partner_error_details=(
+                        "".join(
+                            [
+                                f"{m.state.error_details}\n"
+                                if m.state.erred_negotiator != cid
+                                else ""
+                                for m, cid in zip(r.mechanisms, center_ids)
+                            ]
+                        )
+                    ).strip()
                     if center_ids
                     else "",
                     partner_errors=sum(
