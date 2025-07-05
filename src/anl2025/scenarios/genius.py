@@ -90,7 +90,7 @@ def make_multideal_scenario_from_genius(
                 values=[val],
                 weights=[1.0],
                 outcome_space=edge_os,
-                reserved_value=float("-inf"),
+                reserved_value=0.0,
             )
         )
 

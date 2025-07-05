@@ -709,11 +709,11 @@ class UtilityCombiningCenterUFun(CenterUFun):
         """Combines the utilities of all negotiation  threads into a single value"""
 
     def eval(self, offer: tuple[Outcome | None, ...] | Outcome | None) -> float:
+        offer = self._combiner.separated_outcomes(offer)
         if not self.allow_partial_agreements and (
             not offer or any(_ is None for _ in offer)
         ):
             return self.reserved_value
-        offer = self._combiner.separated_outcomes(offer)
         if not offer:
             return self.reserved_value
         return self.combine(tuple(float(u(_)) for u, _ in zip(self.ufuns, offer)))
