@@ -973,7 +973,7 @@ class Tournament:
                                 edge_params=edge_params,  # type: ignore
                                 results=r,
                             )
-                            scores.append(process_info(job, session_info))
+                            process_info(job, session_info)
                             add_this_job = False
                     if add_this_job:
                         jobs.append(job)
