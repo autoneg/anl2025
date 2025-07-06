@@ -620,8 +620,8 @@ class Tournament:
         non_comptitor_types: tuple[str | type[ANL2025Negotiator], ...] | None = None,
         non_comptitor_params: tuple[dict[str, Any], ...] | None = None,
         n_jobs: int | float | None = 0,
-        center_multiplier: float | None = None,
-        edge_multiplier: float | None = 1,
+        center_multiplier: float | None = 1,
+        edge_multiplier: float | None = None,
         normalize_scores: bool = False,
         avoid_inf_nan: bool = True,
     ) -> TournamentResults:
