@@ -1,0 +1,236 @@
+name: util1.xml
+outcome_spaces:
+- issues:
+  - n_values: 6
+    name: Maker
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Apple
+    - Samson
+    - Sony
+    - Black Berry
+    - Nokia
+    - HTC
+  name: Maker
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Screen Size
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '2.4'
+    - '2.8'
+    - '3.0'
+    - '3.2'
+    - '3.6'
+  name: Screen Size
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Color
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Black
+    - White
+    - Red
+    - Blue
+    - Silver
+  name: Color
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Carrier
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Verizon Wireless
+    - AT and T Mobility
+    - Sprint Nextel
+    - T-Mobile USA
+  name: Carrier
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: OS
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Android
+    - iOS
+    - Windows Mobile
+    - Black Berry
+  name: OS
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: ' Accessory'
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Camera
+    - Blue tooth
+    - Water Proof
+    - Infrared communication
+    - Good Battery
+  name: ' Accessory'
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.05289132128107519
+side_ufuns:
+- id: util1.xml_Maker-156e1e6b-5628-4250-8670-f1960cc38fdb
+  name: util1.xml_Maker
+  outcome_space:
+    issues:
+    - n_values: 6
+      name: Maker
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Apple
+      - Samson
+      - Sony
+      - Black Berry
+      - Nokia
+      - HTC
+    name: Maker
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Apple: 1.0
+      Black Berry: 0.2
+      HTC: 0.0
+      Nokia: 0.04
+      Samson: 0.14
+      Sony: 0.6
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_Screen Size-71161798-0e00-4cf0-9744-82cea93b8201
+  name: util1.xml_Screen Size
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Screen Size
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - '2.4'
+      - '2.8'
+      - '3.0'
+      - '3.2'
+      - '3.6'
+    name: Screen Size
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      '2.4': 0.06557377049180328
+      '2.8': 1.0
+      '3.0': 0.36065573770491804
+      '3.2': 0.0
+      '3.6': 0.16393442622950818
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_Color-962407bf-f1d4-4001-b91b-39fdab9c4a25
+  name: util1.xml_Color
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Color
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Black
+      - White
+      - Red
+      - Blue
+      - Silver
+    name: Color
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Black: 1.0
+      Blue: 0.7916666666666666
+      Red: 0.0
+      Silver: 0.16666666666666666
+      White: 0.4791666666666667
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_Carrier-e7bec2e2-db02-4482-91fe-6f7a13acbc88
+  name: util1.xml_Carrier
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Carrier
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Verizon Wireless
+      - AT and T Mobility
+      - Sprint Nextel
+      - T-Mobile USA
+    name: Carrier
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      AT and T Mobility: 1.0
+      Sprint Nextel: 0.0
+      T-Mobile USA: 0.5714285714285714
+      Verizon Wireless: 0.21428571428571427
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_OS-f29db07f-9c49-4342-82e6-4797a51f42a4
+  name: util1.xml_OS
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: OS
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Android
+      - iOS
+      - Windows Mobile
+      - Black Berry
+    name: OS
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Android: 0.11111111111111112
+      Black Berry: 0.22222222222222224
+      Windows Mobile: 0.0
+      iOS: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_ Accessory-bea5270f-564e-4dbd-b132-189c5dfa6b2f
+  name: util1.xml_ Accessory
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: ' Accessory'
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Camera
+      - Blue tooth
+      - Water Proof
+      - Infrared communication
+      - Good Battery
+    name: ' Accessory'
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Blue tooth: 0.3333333333333333
+      Camera: 1.0
+      Good Battery: 0.6666666666666666
+      Infrared communication: 0.0
+      Water Proof: 0.5
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

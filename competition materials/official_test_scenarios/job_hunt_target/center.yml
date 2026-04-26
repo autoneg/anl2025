@@ -1,0 +1,112 @@
+name: employer
+type: anl2025.ufun.MaxCenterUFun
+reserved_value: 0.0
+n_edges: 4
+side_ufuns:
+  - name: employee1
+    reserved_value: 0.0
+    type: LinearAdditiveUtilityFunction
+    values:
+    - type: TableFun
+      mapping:
+        0: 1
+        1: 2
+        2: 5
+        3: 4
+        4: 3
+        5: 0
+    - type: TableFun
+      mapping:
+        100: 0.1
+        150: 1
+        200: 4
+        250: 5
+        300: 6
+    weights:
+    - 0.4
+    - 0.6
+  - name: employee1
+    reserved_value: 0.0
+    type: LinearAdditiveUtilityFunction
+    values:
+    - type: TableFun
+      mapping:
+        0: 1
+        1: 2
+        2: 5
+        3: 4
+        4: 3
+        5: 0
+    - type: TableFun
+      mapping:
+        100: 0.1
+        150: 1
+        200: 4
+        250: 5
+        300: 6
+    weights:
+    - 0.4
+    - 0.6
+  - name: employee1
+    reserved_value: 0.0
+    type: LinearAdditiveUtilityFunction
+    values:
+    - type: TableFun
+      mapping:
+        0: 1
+        1: 2
+        2: 5
+        3: 4
+        4: 3
+        5: 0
+    - type: TableFun
+      mapping:
+        100: 0.1
+        150: 1
+        200: 4
+        250: 5
+        300: 6
+    weights:
+    - 0.4
+    - 0.6
+  - name: employee1
+    reserved_value: 0.0
+    type: LinearAdditiveUtilityFunction
+    values:
+    - type: TableFun
+      mapping:
+        0: 1
+        1: 2
+        2: 5
+        3: 4
+        4: 3
+        5: 0
+    - type: TableFun
+      mapping:
+        100: 0.1
+        150: 1
+        200: 4
+        250: 5
+        300: 6
+    weights:
+    - 0.4
+    - 0.6
+outcome_space:
+  issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace

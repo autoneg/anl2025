@@ -1,0 +1,35 @@
+issues:
+- name: Floor Mopping
+  type: CategoricalIssue
+  values:
+  - Husbend
+  - Wife
+  - Both
+  - Maid
+- name: Dishes Cleaning
+  type: CategoricalIssue
+  values:
+  - Husbend
+  - Wife
+  - Both
+- name: Laundry
+  type: CategoricalIssue
+  values:
+  - Husbend
+  - Wife
+- name: Cooking
+  type: CategoricalIssue
+  values:
+  - Husbend
+  - Wife
+  - Both
+  - Take-away food
+- name: Gardening
+  type: CategoricalIssue
+  values:
+  - Husbend
+  - Wife
+  - Both
+  - Gardener
+name: HouseKeeping-C-domain
+type: DiscreteCartesianOutcomeSpace

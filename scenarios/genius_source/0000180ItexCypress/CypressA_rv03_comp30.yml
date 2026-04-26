@@ -1,0 +1,32 @@
+name: CypressA_rv03_comp30
+reserved_value: -0.024880504246082583
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    $3.47: 1.0
+    $3.71: 0.8205128205128205
+    $3.98: 0.6153846153846154
+    $4.12: 0.23076923076923075
+    $4.37: 0.0
+  type: TableFun
+- mapping:
+    20 days: 1.0
+    30 days: 0.75
+    45 days: 0.375
+    60 days: 0.0
+  type: TableFun
+- mapping:
+    30 days after delivery: 0.3571428571428571
+    60 days after delivery: 0.0
+    Upon delivery: 1.0
+  type: TableFun
+- mapping:
+    10% spoilage allowed: 0.0
+    5% spoilage allowed: 0.3157894736842105
+    Full price: 1.0
+  type: TableFun
+weights:
+- 0.6521826020989914
+- 0.10420569614177322
+- 0.08817230487583722
+- 0.15543939688339817

@@ -1,0 +1,25 @@
+id: Profile2_rv00_comp50_Transportation-40a3ba50-a184-4152-810d-258899fb4f02
+name: Profile2_rv00_comp50_Transportation
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Transportation
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Car
+    - Bus
+    - Train
+    - Air Plane
+  name: Transportation
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.18801482823282226
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Air Plane: 1.0
+    Bus: 0.3333333333333333
+    Car: 0.0
+    Train: 0.6666666666666666
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

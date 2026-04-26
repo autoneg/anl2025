@@ -1,0 +1,17 @@
+name: Center
+type: anl2025.ufun.LambdaCenterUFun
+reserved_value: 0.0
+n_edges: 3
+outcome_space:
+  type: DiscreteCartesianOutcomeSpace
+  name: Day
+  issues:
+  - type: CategoricalIssue
+    name: Day
+    values:
+    - 'Mon'
+    - 'Tue'
+    - 'Wed'
+evaluator:
+  type: dinners_center.DinnersEvaluator
+  reserved_value: 0.0

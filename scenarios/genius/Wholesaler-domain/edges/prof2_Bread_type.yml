@@ -1,0 +1,23 @@
+id: prof2_Bread type-174d63f4-d9c7-41b6-8da3-e4acef1692b2
+name: prof2_Bread type
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Bread type
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Baguette
+    - Crackers
+    - Croissants
+  name: Bread type
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.05164747541786716
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Baguette: 1.0
+    Crackers: 0.0
+    Croissants: 0.25
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

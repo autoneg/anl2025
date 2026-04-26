@@ -1,0 +1,23 @@
+id: util2_Independent-Needy-18af829c-28e6-466b-8eb0-be48b543bf4c
+name: util2_Independent-Needy
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Independent-Needy
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Independent
+    - numb
+    - Needy
+  name: Independent-Needy
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.15075511124624194
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Independent: 1.0
+    Needy: 0.0
+    numb: 0.5
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

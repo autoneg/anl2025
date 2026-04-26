@@ -1,0 +1,176 @@
+name: prof1.xml
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: Floor Mopping
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+    - Both
+    - Maid
+  name: Floor Mopping
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Dishes Cleaning
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+    - Both
+  name: Dishes Cleaning
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 2
+    name: Laundry
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+  name: Laundry
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Cooking
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+    - Both
+    - Take-away food
+  name: Cooking
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Gardening
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+    - Both
+    - Gardener
+  name: Gardening
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.14588999135738612
+side_ufuns:
+- id: prof1.xml_Floor Mopping-792bab13-928c-4f7b-8f8a-9b3a6d768939
+  name: prof1.xml_Floor Mopping
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Floor Mopping
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Husbend
+      - Wife
+      - Both
+      - Maid
+    name: Floor Mopping
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Both: 0.22222222222222224
+      Husbend: 0.0
+      Maid: 0.6666666666666667
+      Wife: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1.xml_Dishes Cleaning-2669ba3f-17c3-495b-9252-b01400eb35ba
+  name: prof1.xml_Dishes Cleaning
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Dishes Cleaning
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Husbend
+      - Wife
+      - Both
+    name: Dishes Cleaning
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Both: 0.75
+      Husbend: 0.0
+      Wife: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1.xml_Laundry-1b6620be-4ab7-4ba6-ba6b-8bb72bf9af4b
+  name: prof1.xml_Laundry
+  outcome_space:
+    issues:
+    - n_values: 2
+      name: Laundry
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Husbend
+      - Wife
+    name: Laundry
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Husbend: 0.0
+      Wife: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1.xml_Cooking-24426cf3-14dc-4cda-86b5-e8441c1d46f9
+  name: prof1.xml_Cooking
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Cooking
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Husbend
+      - Wife
+      - Both
+      - Take-away food
+    name: Cooking
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Both: 0.33333333333333337
+      Husbend: 0.0
+      Take-away food: 1.0
+      Wife: 0.6666666666666667
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1.xml_Gardening-5b9fa235-638d-4faa-91ca-3a37d13f98ce
+  name: prof1.xml_Gardening
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Gardening
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Husbend
+      - Wife
+      - Both
+      - Gardener
+    name: Gardening
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Both: 1.0
+      Gardener: 0.0
+      Husbend: 0.4444444444444445
+      Wife: 0.6666666666666667
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

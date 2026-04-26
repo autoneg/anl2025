@@ -1,0 +1,35 @@
+id: util2_taste-534cdf63-dbbc-4625-88c0-0fab3bc0d252
+name: util2_taste
+outcome_space:
+  issues:
+  - n_values: 9
+    name: taste
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - chocolate
+    - mint
+    - strawberry
+    - Vanilla
+    - mocha
+    - caramel
+    - green tea
+    - cookie and cream
+    - choco chips
+  name: taste
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 1.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Vanilla: 1.0
+    caramel: 1.0
+    choco chips: 1.0
+    chocolate: 1.0
+    cookie and cream: 1.0
+    green tea: 1.0
+    mint: 1.0
+    mocha: 1.0
+    strawberry: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

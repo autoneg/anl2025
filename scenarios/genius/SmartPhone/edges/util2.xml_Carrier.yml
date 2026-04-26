@@ -1,0 +1,25 @@
+id: util2.xml_Carrier-c93d8cbe-31e8-48a6-92cb-5962cf91f9a5
+name: util2.xml_Carrier
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Carrier
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Verizon Wireless
+    - AT and T Mobility
+    - Sprint Nextel
+    - T-Mobile USA
+  name: Carrier
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.136112951164406
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    AT and T Mobility: 0.45
+    Sprint Nextel: 0.0
+    T-Mobile USA: 0.15
+    Verizon Wireless: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

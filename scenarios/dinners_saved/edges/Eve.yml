@@ -1,0 +1,23 @@
+id: Eve-35132341-9829-4d26-8459-f6ba3d41a933
+name: Eve
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Day
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Fri
+    - Sat
+    - Sun
+  name: Day
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Fri: 1.0
+    Sat: 0.367
+    Sun: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

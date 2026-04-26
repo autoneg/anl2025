@@ -1,0 +1,52 @@
+name: Center
+type: anl2025.ufun.LambdaCenterUFun
+reserved_value: 0.0
+n_edges: 3
+outcome_spaces:
+  - type: DiscreteCartesianOutcomeSpace
+    name: AmyTarget
+    issues:
+    - type: CategoricalIssue
+      name: Quantity
+      values:
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+  - type: DiscreteCartesianOutcomeSpace
+    name: EveTarget
+    issues:
+    - type: CategoricalIssue
+      name: Quantity
+      values:
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+  - type: DiscreteCartesianOutcomeSpace
+    name: SteveTarget
+    issues:
+    - type: CategoricalIssue
+      name: Quantity
+      values:
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+  - type: DiscreteCartesianOutcomeSpace
+    name: BoTarget
+    issues:
+    - type: CategoricalIssue
+      name: Quantity
+      values:
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+evaluator:
+  type: tq_center.TargetEvaluator
+  reserved_value: 0.0

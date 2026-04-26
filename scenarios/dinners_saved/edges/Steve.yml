@@ -1,0 +1,23 @@
+id: Steve-74da8f35-a8d9-4bc5-bf6b-fe9a563bbb5e
+name: Steve
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Day
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Fri
+    - Sat
+    - Sun
+  name: Day
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.1
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Fri: 0.09
+    Sat: 1.0
+    Sun: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

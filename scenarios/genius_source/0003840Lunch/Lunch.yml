@@ -1,0 +1,45 @@
+issues:
+- name: salad
+  type: CategoricalIssue
+  values:
+  - green
+  - potato
+  - caesar
+  - sea
+- name: soup
+  type: CategoricalIssue
+  values:
+  - corn(ice)
+  - corn(hot)
+  - onion
+  - miso
+- name: carbohydrate
+  type: CategoricalIssue
+  values:
+  - rice
+  - bread(roll)
+  - bread(rye)
+  - bread(french)
+- name: main
+  type: CategoricalIssue
+  values:
+  - beef
+  - pork
+  - chicken
+  - fish
+- name: drink
+  type: CategoricalIssue
+  values:
+  - coke
+  - tea
+  - green tea
+  - apple
+  - orange
+- name: dessert
+  type: CategoricalIssue
+  values:
+  - cake
+  - sherbet
+  - ice cream
+name: Lunch
+type: DiscreteCartesianOutcomeSpace

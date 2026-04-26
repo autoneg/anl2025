@@ -1,0 +1,239 @@
+name: husband.xml
+outcome_spaces:
+- issues:
+  - n_values: 5
+    name: Stoves
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Ceramic
+    - Electrical
+    - Induction
+    - Gas
+    - Hybrid
+  name: Stoves
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Refrigerator
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Traditional
+    - Side-by-side
+    - Top-refrigerator/bottom freezer
+    - French-door
+    - Four-door French-door
+  name: Refrigerator
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Cabinets
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Pine
+    - Maple
+    - Oak
+    - Cherry
+    - Mahogany
+  name: Cabinets
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Countertops
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Granite
+    - Limestone
+    - Marble
+    - Inox
+    - Acrylic
+  name: Countertops
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Lighting spots
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '3'
+    - '5'
+    - '10'
+    - '15'
+    - '20'
+  name: Lighting spots
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Equipment
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Dishwasher
+    - Coffee machine
+    - Microwave
+    - Water Boiler
+    - Oven
+  name: Equipment
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.25554078363026184
+side_ufuns:
+- id: husband.xml_Stoves-de41aff6-31a1-4cc6-94ad-35cbeaef6b43
+  name: husband.xml_Stoves
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Stoves
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Ceramic
+      - Electrical
+      - Induction
+      - Gas
+      - Hybrid
+    name: Stoves
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Ceramic: 0.3333333333333333
+      Electrical: 0.0
+      Gas: 0.8333333333333334
+      Hybrid: 0.9333333333333333
+      Induction: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: husband.xml_Refrigerator-75dbd10b-8a32-43b6-b5fb-7122a2fc3a13
+  name: husband.xml_Refrigerator
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Refrigerator
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Traditional
+      - Side-by-side
+      - Top-refrigerator/bottom freezer
+      - French-door
+      - Four-door French-door
+    name: Refrigerator
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Four-door French-door: 0.75
+      French-door: 0.8928571428571428
+      Side-by-side: 0.46428571428571425
+      Top-refrigerator/bottom freezer: 1.0
+      Traditional: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: husband.xml_Cabinets-32dfa68f-b264-4a7c-9c0e-72845f73aa81
+  name: husband.xml_Cabinets
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Cabinets
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Pine
+      - Maple
+      - Oak
+      - Cherry
+      - Mahogany
+    name: Cabinets
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Cherry: 0.8387096774193548
+      Mahogany: 1.0
+      Maple: 0.5806451612903225
+      Oak: 0.7419354838709677
+      Pine: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: husband.xml_Countertops-8ae8b5a9-52fe-4e74-bbfc-332fa9809b20
+  name: husband.xml_Countertops
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Countertops
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Granite
+      - Limestone
+      - Marble
+      - Inox
+      - Acrylic
+    name: Countertops
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Acrylic: 0.0
+      Granite: 0.9583333333333333
+      Inox: 1.0
+      Limestone: 0.8333333333333333
+      Marble: 0.16666666666666666
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: husband.xml_Lighting spots-8cc3d591-b1dd-4104-ae17-3448f7cfbdc5
+  name: husband.xml_Lighting spots
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Lighting spots
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - '3'
+      - '5'
+      - '10'
+      - '15'
+      - '20'
+    name: Lighting spots
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      '10': 1.0
+      '15': 0.76
+      '20': 0.0
+      '3': 0.28
+      '5': 0.88
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: husband.xml_Equipment-b0ff62a7-d520-4697-afc2-438146cb8e33
+  name: husband.xml_Equipment
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Equipment
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Dishwasher
+      - Coffee machine
+      - Microwave
+      - Water Boiler
+      - Oven
+    name: Equipment
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Coffee machine: 0.0
+      Dishwasher: 1.0
+      Microwave: 0.9259259259259258
+      Oven: 0.8148148148148148
+      Water Boiler: 0.2222222222222222
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

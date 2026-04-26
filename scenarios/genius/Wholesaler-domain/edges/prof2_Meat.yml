@@ -1,0 +1,23 @@
+id: prof2_Meat-66909463-1d69-4ec6-b109-d51a53ea0cb8
+name: prof2_Meat
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Meat
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chicken
+    - Sausages
+    - Steak
+  name: Meat
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.025130662456558886
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Chicken: 0.42857142857142855
+    Sausages: 0.0
+    Steak: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

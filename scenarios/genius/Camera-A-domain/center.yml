@@ -1,0 +1,221 @@
+name: prof1.xml
+outcome_spaces:
+- issues:
+  - n_values: 5
+    name: Maker
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Canon
+    - Nikon
+    - Pentax
+    - Sony
+    - Panasonic
+  name: Maker
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Body
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Full size
+    - APS-C
+    - Micro Four Thirds
+    - compact
+  name: Body
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Lens
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - High end model
+    - Middle range model
+    - Entry model
+  name: Lens
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Tripod
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - GITZO
+    - Manfrotto
+    - Induro
+  name: Tripod
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Bag
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Domke
+    - Lowepro
+    - Tamrac
+    - National Geographic
+    - Artizan and Artist
+  name: Bag
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Accessory
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Electronic Flash
+    - Battery Grip
+    - Memory
+    - Strap
+  name: Accessory
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.04271545670582561
+side_ufuns:
+- id: prof1.xml_Maker-5d610bed-664c-41bc-b9e4-f6d3b0cc6211
+  name: prof1.xml_Maker
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Maker
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Canon
+      - Nikon
+      - Pentax
+      - Sony
+      - Panasonic
+    name: Maker
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Canon: 1.0
+      Nikon: 0.9354838709677419
+      Panasonic: 0.06451612903225806
+      Pentax: 0.0
+      Sony: 0.04838709677419355
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1.xml_Body-b5e76014-b3e7-427a-95b7-0bb2eb79f9a9
+  name: prof1.xml_Body
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Body
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Full size
+      - APS-C
+      - Micro Four Thirds
+      - compact
+    name: Body
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      APS-C: 0.2857142857142857
+      Full size: 1.0
+      Micro Four Thirds: 0.07142857142857142
+      compact: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1.xml_Lens-d6d44b90-cad3-40b3-9f46-1f2abd9cb0c2
+  name: prof1.xml_Lens
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Lens
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - High end model
+      - Middle range model
+      - Entry model
+    name: Lens
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Entry model: 0.0
+      High end model: 1.0
+      Middle range model: 0.21875
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1.xml_Tripod-bd1b846f-922d-4db6-9bbf-dde4af4dad63
+  name: prof1.xml_Tripod
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Tripod
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - GITZO
+      - Manfrotto
+      - Induro
+    name: Tripod
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      GITZO: 1.0
+      Induro: 0.0
+      Manfrotto: 0.45
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1.xml_Bag-4e5a000e-0c92-4221-a100-08fdd9c73c07
+  name: prof1.xml_Bag
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Bag
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Domke
+      - Lowepro
+      - Tamrac
+      - National Geographic
+      - Artizan and Artist
+    name: Bag
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Artizan and Artist: 0.0
+      Domke: 1.0
+      Lowepro: 0.12307692307692308
+      National Geographic: 0.09230769230769231
+      Tamrac: 0.06153846153846154
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1.xml_Accessory-25bb6f88-36c1-439f-bdf3-bd5c3ad6813f
+  name: prof1.xml_Accessory
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Accessory
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Electronic Flash
+      - Battery Grip
+      - Memory
+      - Strap
+    name: Accessory
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Battery Grip: 1.0
+      Electronic Flash: 0.16279069767441862
+      Memory: 0.023255813953488372
+      Strap: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

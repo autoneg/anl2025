@@ -1,0 +1,51 @@
+issues:
+- name: Stoves
+  type: CategoricalIssue
+  values:
+  - Ceramic
+  - Electrical
+  - Induction
+  - Gas
+  - Hybrid
+- name: Refrigerator
+  type: CategoricalIssue
+  values:
+  - Traditional
+  - Side-by-side
+  - Top-refrigerator/bottom freezer
+  - French-door
+  - Four-door French-door
+- name: Cabinets
+  type: CategoricalIssue
+  values:
+  - Pine
+  - Maple
+  - Oak
+  - Cherry
+  - Mahogany
+- name: Countertops
+  type: CategoricalIssue
+  values:
+  - Granite
+  - Limestone
+  - Marble
+  - Inox
+  - Acrylic
+- name: Lighting spots
+  type: CategoricalIssue
+  values:
+  - '3'
+  - '5'
+  - '10'
+  - '15'
+  - '20'
+- name: Equipment
+  type: CategoricalIssue
+  values:
+  - Dishwasher
+  - Coffee machine
+  - Microwave
+  - Water Boiler
+  - Oven
+name: Kitchen-domain
+type: DiscreteCartesianOutcomeSpace

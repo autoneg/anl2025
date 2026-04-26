@@ -1,0 +1,25 @@
+id: Profile2_rv00_comp50_Duration-a78ab448-161d-4377-9045-305723df4a3b
+name: Profile2_rv00_comp50_Duration
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Duration
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '3'
+    - '7'
+    - '10'
+    - '14'
+  name: Duration
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.09801434024858464
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '10': 0.3333333333333333
+    '14': 0.6666666666666666
+    '3': 1.0
+    '7': 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

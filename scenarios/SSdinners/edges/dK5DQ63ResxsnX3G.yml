@@ -1,0 +1,25 @@
+id: 3027936d-a85f-43b3-95ee-00835bc89979
+name: dK5DQ63ResxsnX3G
+outcome_space:
+  issues:
+  - n_values: 2
+    name: Day
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 1
+  name: ''
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.3736171898483509
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- bias: 0
+  f: !!binary |
+    X19MQU1CREFPQkpfXzqABZWDAAAAAAAAAIwJZnVuY3Rvb2xzlIwHcGFydGlhbJSTlIwfbmVnbWFz
+    LnByZWZlcmVuY2VzLmNyaXNwLmxpbmVhcpSMGF9yYW5kX21hcHBpbmdfbm9ybWFsaXplZJSTlIWU
+    UpQoaAUpfZQojAJteJRLAYwCbW6USwCMAXKURz/c7xIpRdkkdU50lGIu
+  max_value: null
+  min_value: null
+  type: negmas.preferences.value_fun.LambdaFun
+weights:
+- 1.0

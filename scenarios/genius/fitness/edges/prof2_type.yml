@@ -1,0 +1,27 @@
+id: prof2_type-6e1d4d93-bfe5-417d-9b3c-5b5bb164ca2e
+name: prof2_type
+outcome_space:
+  issues:
+  - n_values: 5
+    name: type
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - swimming
+    - yoga
+    - aerobics
+    - running
+    - tennis
+  name: type
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.15898020073456576
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    aerobics: 0.33333333333333337
+    running: 0.0
+    swimming: 1.0
+    tennis: 0.7777777777777779
+    yoga: 0.5555555555555556
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

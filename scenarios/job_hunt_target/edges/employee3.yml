@@ -1,0 +1,22 @@
+name: employer03
+reserved_value: 0.0
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    0: 1.0
+    1: 0.4959861736609204
+    2: 0.0
+    3: 0.4959861736609204
+    4: 1.0
+    5: 0.24799308683046015
+  type: negmas.preferences.value_fun.TableFun
+- mapping:
+    100: 1.0
+    150: 0.0
+    200: 0.0
+    250: 1.0
+    300: 0.4006426532637504
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 0.27897755790714135
+- 0.7210224420928586

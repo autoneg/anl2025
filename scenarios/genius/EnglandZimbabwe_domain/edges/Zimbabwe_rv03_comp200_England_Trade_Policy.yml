@@ -1,0 +1,23 @@
+id: Zimbabwe_rv03_comp200_England Trade Policy-b97dc5cf-4394-4235-a267-daae70a1e6d5
+name: Zimbabwe_rv03_comp200_England Trade Policy
+outcome_space:
+  issues:
+  - n_values: 3
+    name: England Trade Policy
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - England will reduce imports
+    - England will increase imports
+    - No agreement
+  name: England Trade Policy
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.1667907084157793
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    England will increase imports: 1.0
+    England will reduce imports: 0.0
+    No agreement: 0.4444444444444444
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

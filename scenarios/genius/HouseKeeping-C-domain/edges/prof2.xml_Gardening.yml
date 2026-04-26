@@ -1,0 +1,25 @@
+id: prof2.xml_Gardening-f0260b8f-a238-4935-8fad-56171d205867
+name: prof2.xml_Gardening
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Gardening
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+    - Both
+    - Gardener
+  name: Gardening
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.13166804770592863
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Both: 0.33333333333333337
+    Gardener: 0.888888888888889
+    Husbend: 1.0
+    Wife: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

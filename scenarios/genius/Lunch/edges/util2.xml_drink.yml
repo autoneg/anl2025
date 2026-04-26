@@ -1,0 +1,27 @@
+id: util2.xml_drink-c3c80674-c14c-4994-8e8b-f506616b6c71
+name: util2.xml_drink
+outcome_space:
+  issues:
+  - n_values: 5
+    name: drink
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - coke
+    - tea
+    - green tea
+    - apple
+    - orange
+  name: drink
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.13725709574829423
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    apple: 0.5604395604395604
+    coke: 0.0
+    green tea: 1.0
+    orange: 0.5054945054945056
+    tea: 0.39560439560439564
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

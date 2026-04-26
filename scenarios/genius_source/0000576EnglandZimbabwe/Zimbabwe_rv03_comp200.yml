@@ -1,0 +1,38 @@
+name: Zimbabwe_rv03_comp200
+reserved_value: -0.07052025315669515
+type: LinearAdditiveUtilityFunction
+values:
+- mapping:
+    $10 billion: 0.5
+    $100 Billion: 1.0
+    $50 Billion: 0.75
+    No agreement: 0.0
+  type: TableFun
+- mapping:
+    No agreement: 0.0
+    No reduction: 1.0
+    Reduction equal to fund size: 0.2857142857142857
+    Reduction equal to half of fund size: 0.5714285714285714
+  type: TableFun
+- mapping:
+    No agreement: 0.5
+    Zimbabwe will increase tariffs on imports: 1.0
+    Zimbabwe will reduce tariffs on imports: 0.0
+  type: TableFun
+- mapping:
+    England will increase imports: 1.0
+    England will reduce imports: 0.0
+    No agreement: 0.4444444444444444
+  type: TableFun
+- mapping:
+    Creation of committee to develop agenda: 0.6000000000000001
+    Creation of committee to discuss creation of fund: 0.8
+    Creation of fund: 1.0
+    'No': 0.0
+  type: TableFun
+weights:
+- 0.15902567942872936
+- 0.1419329777116739
+- 0.12424772394101413
+- 0.27948280929510794
+- 0.2953108096234747

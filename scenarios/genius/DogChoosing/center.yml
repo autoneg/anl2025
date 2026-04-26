@@ -1,0 +1,173 @@
+name: util1
+outcome_spaces:
+- issues:
+  - n_values: 3
+    name: Furry
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Short_fur
+    - Medium_fur
+    - Long_fur
+  name: Furry
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Size
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Small
+    - Medium
+    - Big
+  name: Size
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 2
+    name: Calm-Playful
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Calm
+    - Playful
+  name: Calm-Playful
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Independent-Needy
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Independent
+    - numb
+    - Needy
+  name: Independent-Needy
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: Color
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - White
+    - Black
+    - Brown
+    - Golden
+    - Spotted
+  name: Color
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.06658244657018185
+side_ufuns:
+- id: util1_Furry-d1d4450d-fd25-431d-accc-6a1f5e3a8e62
+  name: util1_Furry
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Furry
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Short_fur
+      - Medium_fur
+      - Long_fur
+    name: Furry
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Long_fur: 0.0
+      Medium_fur: 0.5
+      Short_fur: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1_Size-31ad5dd7-e42f-4c50-877d-677f6e803f49
+  name: util1_Size
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Size
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Small
+      - Medium
+      - Big
+    name: Size
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Big: 0.0
+      Medium: 0.0
+      Small: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1_Calm-Playful-98548d14-6f01-4cad-8e86-a212ce03cc7b
+  name: util1_Calm-Playful
+  outcome_space:
+    issues:
+    - n_values: 2
+      name: Calm-Playful
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Calm
+      - Playful
+    name: Calm-Playful
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Calm: 0.0
+      Playful: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1_Independent-Needy-c9910446-c400-42ab-98d6-0c667b5fff77
+  name: util1_Independent-Needy
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Independent-Needy
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Independent
+      - numb
+      - Needy
+    name: Independent-Needy
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Independent: 0.0
+      Needy: 1.0
+      numb: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1_Color-2b763d9c-ce5a-451e-a53c-7d3ab3204c94
+  name: util1_Color
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Color
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - White
+      - Black
+      - Brown
+      - Golden
+      - Spotted
+    name: Color
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Black: 1.0
+      Brown: 1.0
+      Golden: 1.0
+      Spotted: 1.0
+      White: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

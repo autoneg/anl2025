@@ -1,0 +1,27 @@
+id: prof2_Vegetables-4dcf518f-97da-4519-9123-eb85c26dd490
+name: prof2_Vegetables
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Vegetables
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Beans
+    - Broccoli
+    - Leek
+    - Potatoes
+    - Spinach
+  name: Vegetables
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.07646172764417164
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Beans: 1.0
+    Broccoli: 0.2222222222222222
+    Leek: 0.4444444444444444
+    Potatoes: 0.1111111111111111
+    Spinach: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

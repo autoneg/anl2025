@@ -1,0 +1,27 @@
+id: util2_Color-55777e9b-20c7-410b-91a0-d7ef33c7896b
+name: util2_Color
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Color
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - White
+    - Black
+    - Brown
+    - Golden
+    - Spotted
+  name: Color
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.13690165820974798
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Black: 0.0
+    Brown: 0.0
+    Golden: 0.0
+    Spotted: 0.0
+    White: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,25 @@
+id: prof2.xml_Accessory-dccd56d1-a8ba-4e60-894c-546b00992a09
+name: prof2.xml_Accessory
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Accessory
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Electronic Flash
+    - Battery Grip
+    - Memory
+    - Strap
+  name: Accessory
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.16071995551768284
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Battery Grip: 0.3333333333333333
+    Electronic Flash: 1.0
+    Memory: 0.5
+    Strap: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

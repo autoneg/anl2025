@@ -1,0 +1,146 @@
+name: CypressA_rv03_comp30
+outcome_spaces:
+- issues:
+  - n_values: 5
+    name: Price
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - $4.37
+    - $4.12
+    - $3.98
+    - $3.71
+    - $3.47
+  name: Price
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Delivery
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - 60 days
+    - 45 days
+    - 30 days
+    - 20 days
+  name: Delivery
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Payment
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Upon delivery
+    - 30 days after delivery
+    - 60 days after delivery
+  name: Payment
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Returns
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Full price
+    - 5% spoilage allowed
+    - 10% spoilage allowed
+  name: Returns
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.04402123527369128
+side_ufuns:
+- id: CypressA_rv03_comp30_Price-7b900821-0d04-4c23-b61a-af62251b6aca
+  name: CypressA_rv03_comp30_Price
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: Price
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - $4.37
+      - $4.12
+      - $3.98
+      - $3.71
+      - $3.47
+    name: Price
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      $3.47: 1.0
+      $3.71: 0.8205128205128205
+      $3.98: 0.6153846153846154
+      $4.12: 0.23076923076923075
+      $4.37: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: CypressA_rv03_comp30_Delivery-a7dbcba5-876c-49c0-89cc-a4f01b82a7f4
+  name: CypressA_rv03_comp30_Delivery
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Delivery
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - 60 days
+      - 45 days
+      - 30 days
+      - 20 days
+    name: Delivery
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      20 days: 1.0
+      30 days: 0.75
+      45 days: 0.375
+      60 days: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: CypressA_rv03_comp30_Payment-b57ce5c1-5593-4bb8-bf9d-db3dd4416c05
+  name: CypressA_rv03_comp30_Payment
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Payment
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Upon delivery
+      - 30 days after delivery
+      - 60 days after delivery
+    name: Payment
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      30 days after delivery: 0.3571428571428571
+      60 days after delivery: 0.0
+      Upon delivery: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: CypressA_rv03_comp30_Returns-0934f275-e1de-462b-8f40-609ecd2c2d2f
+  name: CypressA_rv03_comp30_Returns
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Returns
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Full price
+      - 5% spoilage allowed
+      - 10% spoilage allowed
+    name: Returns
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      10% spoilage allowed: 0.0
+      5% spoilage allowed: 0.3157894736842105
+      Full price: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

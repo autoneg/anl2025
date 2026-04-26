@@ -1,0 +1,65 @@
+evaluator:
+  reserved_value: 0.0
+  type: anl2025.scenarios.target_quantity.TargetEvaluator
+  values:
+    0: 0.19321970694090615
+    1: 0.42467552839350947
+    2: 0.5885085491685399
+    3: 0.7262807390183289
+    4: 0.876081712995366
+    5: 1.0
+    6: 0.7205941040257611
+    7: 0.5717134423224336
+    8: 0.19404133803427248
+    9: 0.0
+    10: 0.0
+    11: 0.0
+    12: 0.0
+    13: 0.0
+    14: 0.0
+    15: 0.0
+    16: 0.0
+    17: 0.0
+    18: 0.0
+    19: 0.0
+    20: 0.0
+name: Collector
+outcome_spaces:
+- issues:
+  - n_values: 5
+    name: quantity
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 1
+    - 5
+  name: TargetQantity
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: quantity
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 1
+    - 5
+  name: TargetQantity
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: quantity
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 1
+    - 5
+  name: TargetQantity
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: quantity
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 1
+    - 5
+  name: TargetQantity
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: anl2025.ufun.LambdaCenterUFun

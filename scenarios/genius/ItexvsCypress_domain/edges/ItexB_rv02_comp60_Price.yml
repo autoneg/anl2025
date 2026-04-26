@@ -1,0 +1,27 @@
+id: ItexB_rv02_comp60_Price-9f2babb6-6105-41aa-b1b3-74cf0be67752
+name: ItexB_rv02_comp60_Price
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Price
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - $4.37
+    - $4.12
+    - $3.98
+    - $3.71
+    - $3.47
+  name: Price
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.018578557812025977
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    $3.47: 0.0
+    $3.71: 0.13793103448275862
+    $3.98: 0.3103448275862069
+    $4.12: 0.6551724137931034
+    $4.37: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,218 @@
+name: prof1
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: Food
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Chips and Nuts
+    - Finger-Food
+    - Handmade Food
+    - Catering
+  name: Food
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Drinks
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Non-Alcoholic
+    - Beer Only
+    - Handmade Cocktails
+    - Catering
+  name: Drinks
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Location
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Party Tent
+    - Your Dorm
+    - Party Room
+    - Ballroom
+  name: Location
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Invitations
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Plain
+    - Photo
+    - Custom, Handmade
+    - Custom, Printed
+  name: Invitations
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: Music
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - MP3
+    - DJ
+    - Band
+  name: Music
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: Cleanup
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Water and Soap
+    - Specialized Materials
+    - Special Equiment
+    - Hired Help
+  name: Cleanup
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.2740600496735972
+side_ufuns:
+- id: prof1_Food-987dc693-3f7c-4476-a14d-6140f42410e7
+  name: prof1_Food
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Food
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Chips and Nuts
+      - Finger-Food
+      - Handmade Food
+      - Catering
+    name: Food
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Catering: 0.0
+      Chips and Nuts: 1.0
+      Finger-Food: 0.54
+      Handmade Food: 0.52
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Drinks-32cf81a7-1dfa-42e1-902b-01bf03c8f415
+  name: prof1_Drinks
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Drinks
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Non-Alcoholic
+      - Beer Only
+      - Handmade Cocktails
+      - Catering
+    name: Drinks
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Beer Only: 1.0
+      Catering: 0.09902370990237101
+      Handmade Cocktails: 0.5704323570432358
+      Non-Alcoholic: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Location-f80724a7-1ede-4148-9ab8-594931018320
+  name: prof1_Location
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Location
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Party Tent
+      - Your Dorm
+      - Party Room
+      - Ballroom
+    name: Location
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Ballroom: 0.7105263157894738
+      Party Room: 1.0
+      Party Tent: 0.38157894736842113
+      Your Dorm: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Invitations-19ff143b-1ccb-4d72-95de-ab19164808f7
+  name: prof1_Invitations
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Invitations
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Plain
+      - Photo
+      - Custom, Handmade
+      - Custom, Printed
+    name: Invitations
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Custom, Handmade: 1.0
+      Custom, Printed: 0.31578947368421056
+      Photo: 0.6578947368421053
+      Plain: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Music-5e69a29f-cc30-473a-b6e2-5479cefc1ba1
+  name: prof1_Music
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: Music
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - MP3
+      - DJ
+      - Band
+    name: Music
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Band: 0.0
+      DJ: 1.0
+      MP3: 0.46875000000000006
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: prof1_Cleanup-d600b45e-cb50-4db8-92f7-2ba7ec7dc910
+  name: prof1_Cleanup
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: Cleanup
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - Water and Soap
+      - Specialized Materials
+      - Special Equiment
+      - Hired Help
+    name: Cleanup
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Hired Help: 0.0
+      Special Equiment: 0.015384615384615401
+      Specialized Materials: 1.0
+      Water and Soap: 0.5230769230769232
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

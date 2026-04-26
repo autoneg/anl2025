@@ -1,0 +1,25 @@
+id: prof2_days-4800972c-167f-4a4f-b44c-2c735455d00a
+name: prof2_days
+outcome_space:
+  issues:
+  - n_values: 4
+    name: days
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - '3'
+    - '4'
+    - '5'
+    - '6'
+  name: days
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.05849337524013814
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    '3': 0.0
+    '4': 0.6666666666666666
+    '5': 1.0
+    '6': 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

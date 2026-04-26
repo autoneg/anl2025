@@ -1,0 +1,21 @@
+id: prof2_Legal Liability-8b6177dd-3e1d-41d8-87ae-b6e2487c460f
+name: prof2_Legal Liability
+outcome_space:
+  issues:
+  - n_values: 2
+    name: Legal Liability
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - past activities remains with Bi-Tech
+    - IS liable for all activities
+  name: Legal Liability
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.07604965170145533
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    IS liable for all activities: 1.0
+    past activities remains with Bi-Tech: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

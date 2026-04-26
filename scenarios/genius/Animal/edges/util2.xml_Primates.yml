@@ -1,0 +1,25 @@
+id: util2.xml_Primates-4a72d203-76fe-4fff-ad72-db2ba8d1a2ed
+name: util2.xml_Primates
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Primates
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Human
+    - Chimpanzee
+    - Gorilla
+    - Orangutan
+  name: Primates
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.08088254115222643
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Chimpanzee: 0.0
+    Gorilla: 0.2222222222222222
+    Human: 1.0
+    Orangutan: 0.4444444444444444
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

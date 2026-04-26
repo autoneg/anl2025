@@ -1,0 +1,39 @@
+issues:
+- name: Mammal
+  type: CategoricalIssue
+  values:
+  - Lion
+  - Elephant
+  - Cow
+  - Mouse
+  - Kangaroo
+  - Dolphin
+- name: Birds
+  type: CategoricalIssue
+  values:
+  - Eagle
+  - Swallow
+  - Pelican
+  - Penguin
+- name: Reptiles
+  type: CategoricalIssue
+  values:
+  - Crocodile
+  - Lizard
+  - Tortoise
+  - Snake
+- name: Amphibian
+  type: CategoricalIssue
+  values:
+  - Frog
+  - Salamander
+  - Newt
+- name: Primates
+  type: CategoricalIssue
+  values:
+  - Human
+  - Chimpanzee
+  - Gorilla
+  - Orangutan
+name: Animal
+type: DiscreteCartesianOutcomeSpace

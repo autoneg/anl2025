@@ -1,0 +1,23 @@
+id: prof2_IP-19446161-d77a-4018-b29e-5a012bf42a81
+name: prof2_IP
+outcome_space:
+  issues:
+  - n_values: 3
+    name: IP
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - IS receives all IP
+    - IS receives the patents, industrial design rights and trade secrets
+    - BI-Tech founders maintain all IP
+  name: IP
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.16276750087707514
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    BI-Tech founders maintain all IP: 1.0
+    IS receives all IP: 0.0
+    IS receives the patents, industrial design rights and trade secrets: 0.25
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

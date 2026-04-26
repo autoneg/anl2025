@@ -1,0 +1,27 @@
+id: wife.xml_Countertops-65e6217b-5e3e-42e2-815b-0cd454f94c91
+name: wife.xml_Countertops
+outcome_space:
+  issues:
+  - n_values: 5
+    name: Countertops
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Granite
+    - Limestone
+    - Marble
+    - Inox
+    - Acrylic
+  name: Countertops
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.11112461437396703
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Acrylic: 1.0
+    Granite: 0.8383838383838385
+    Inox: 0.0
+    Limestone: 0.98989898989899
+    Marble: 0.9393939393939394
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

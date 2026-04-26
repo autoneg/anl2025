@@ -1,0 +1,30 @@
+issues:
+- name: Price
+  type: CategoricalIssue
+  values:
+  - $4.37
+  - $4.12
+  - $3.98
+  - $3.71
+  - $3.47
+- name: Delivery
+  type: CategoricalIssue
+  values:
+  - 60 days
+  - 45 days
+  - 30 days
+  - 20 days
+- name: Payment
+  type: CategoricalIssue
+  values:
+  - Upon delivery
+  - 30 days after delivery
+  - 60 days after delivery
+- name: Returns
+  type: CategoricalIssue
+  values:
+  - Full price
+  - 5% spoilage allowed
+  - 10% spoilage allowed
+name: ItexvsCypress_domain
+type: DiscreteCartesianOutcomeSpace

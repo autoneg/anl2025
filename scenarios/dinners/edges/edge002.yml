@@ -1,0 +1,11 @@
+name: Eve
+reserved_value: 0.0
+type: LinearAdditiveUtilityFunction
+values:
+- type: TableFun
+  mapping:
+    'Fri': 1.0
+    'Sat': 0.367
+    'Sun': 0.0
+weights:
+- 1.0

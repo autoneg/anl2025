@@ -1,0 +1,25 @@
+id: Zimbabwe_rv03_comp200_Forum on Other Health Issues-41ff78f7-0c22-4793-99bd-2658d72b729e
+name: Zimbabwe_rv03_comp200_Forum on Other Health Issues
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Forum on Other Health Issues
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Creation of fund
+    - Creation of committee to discuss creation of fund
+    - Creation of committee to develop agenda
+    - 'No'
+  name: Forum on Other Health Issues
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.13749565592411414
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Creation of committee to develop agenda: 0.6000000000000001
+    Creation of committee to discuss creation of fund: 0.8
+    Creation of fund: 1.0
+    'No': 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

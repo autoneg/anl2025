@@ -1,0 +1,25 @@
+id: prof2.xml_Cooking-c1e00ec1-b92c-4acf-93f9-ad5fd6baa534
+name: prof2.xml_Cooking
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Cooking
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+    - Both
+    - Take-away food
+  name: Cooking
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.14641521425408577
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Both: 1.0
+    Husbend: 0.6666666666666666
+    Take-away food: 0.0
+    Wife: 0.5
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

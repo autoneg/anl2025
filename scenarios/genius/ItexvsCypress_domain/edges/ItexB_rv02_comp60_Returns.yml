@@ -1,0 +1,23 @@
+id: ItexB_rv02_comp60_Returns-0ad05d5f-e686-468d-95f8-68725279e312
+name: ItexB_rv02_comp60_Returns
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Returns
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Full price
+    - 5% spoilage allowed
+    - 10% spoilage allowed
+  name: Returns
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.04720000068538704
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    10% spoilage allowed: 0.13793103448275862
+    5% spoilage allowed: 1.0
+    Full price: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

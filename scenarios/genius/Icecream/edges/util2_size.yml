@@ -1,0 +1,25 @@
+id: util2_size-efd53153-d2b7-48da-8b5b-2d5ceb85f097
+name: util2_size
+outcome_space:
+  issues:
+  - n_values: 4
+    name: size
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - one
+    - two
+    - three
+    - parfait
+  name: size
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.07475836337798307
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    one: 1.0
+    parfait: 0.3333333333333333
+    three: 0.0
+    two: 0.6666666666666666
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

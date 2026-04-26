@@ -1,0 +1,23 @@
+id: prof2_purpose-32b9c28f-67db-4db4-8aa2-2f983e86b509
+name: prof2_purpose
+outcome_space:
+  issues:
+  - n_values: 3
+    name: purpose
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Sightseeing
+    - Activity
+    - Shopping
+  name: purpose
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.17011978089698132
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Activity: 1.0
+    Shopping: 0.375
+    Sightseeing: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

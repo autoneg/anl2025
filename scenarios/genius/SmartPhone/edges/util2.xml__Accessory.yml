@@ -1,0 +1,27 @@
+id: util2.xml_ Accessory-eb375b3c-b108-4d88-be10-963b7c9bdfde
+name: util2.xml_ Accessory
+outcome_space:
+  issues:
+  - n_values: 5
+    name: ' Accessory'
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Camera
+    - Blue tooth
+    - Water Proof
+    - Infrared communication
+    - Good Battery
+  name: ' Accessory'
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.09730317469429911
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Blue tooth: 1.0
+    Camera: 0.16279069767441862
+    Good Battery: 0.3023255813953488
+    Infrared communication: 0.0
+    Water Proof: 0.023255813953488372
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

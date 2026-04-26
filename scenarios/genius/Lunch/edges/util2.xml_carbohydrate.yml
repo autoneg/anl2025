@@ -1,0 +1,25 @@
+id: util2.xml_carbohydrate-1b5917f3-b6e7-4c02-9af3-db14d338df5f
+name: util2.xml_carbohydrate
+outcome_space:
+  issues:
+  - n_values: 4
+    name: carbohydrate
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - rice
+    - bread(roll)
+    - bread(rye)
+    - bread(french)
+  name: carbohydrate
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.11299524450839288
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    bread(french): 1.0
+    bread(roll): 0.3382352941176471
+    bread(rye): 0.0
+    rice: 0.4117647058823529
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

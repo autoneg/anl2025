@@ -1,0 +1,50 @@
+issues:
+- name: Maker
+  type: CategoricalIssue
+  values:
+  - Apple
+  - Samson
+  - Sony
+  - Black Berry
+  - Nokia
+  - HTC
+- name: Screen Size
+  type: CategoricalIssue
+  values:
+  - '2.4'
+  - '2.8'
+  - '3.0'
+  - '3.2'
+  - '3.6'
+- name: Color
+  type: CategoricalIssue
+  values:
+  - Black
+  - White
+  - Red
+  - Blue
+  - Silver
+- name: Carrier
+  type: CategoricalIssue
+  values:
+  - Verizon Wireless
+  - AT and T Mobility
+  - Sprint Nextel
+  - T-Mobile USA
+- name: OS
+  type: CategoricalIssue
+  values:
+  - Android
+  - iOS
+  - Windows Mobile
+  - Black Berry
+- name: ' Accessory'
+  type: CategoricalIssue
+  values:
+  - Camera
+  - Blue tooth
+  - Water Proof
+  - Infrared communication
+  - Good Battery
+name: SmartPhone
+type: DiscreteCartesianOutcomeSpace

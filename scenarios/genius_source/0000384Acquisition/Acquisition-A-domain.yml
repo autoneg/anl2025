@@ -1,0 +1,35 @@
+issues:
+- name: Price
+  type: CategoricalIssue
+  values:
+  - 1 million $
+  - 2.5 million $
+  - 5 million $
+  - 8 million $
+- name: IP
+  type: CategoricalIssue
+  values:
+  - IS receives all IP
+  - IS receives the patents, industrial design rights and trade secrets
+  - BI-Tech founders maintain all IP
+- name: Stocks
+  type: CategoricalIssue
+  values:
+  - BI-Tech founders get 2%
+  - BI-Tech founders get 2% + jobs at IS
+  - BI-Tech founders get 5%
+  - 'BI-Tech founders get 5% + jobs '
+- name: EmployeeAgreements
+  type: CategoricalIssue
+  values:
+  - salary raise of 15%
+  - same conditions
+  - private contracts
+  - half fired and half private contracts
+- name: Legal Liability
+  type: CategoricalIssue
+  values:
+  - past activities remains with Bi-Tech
+  - IS liable for all activities
+name: Acquisition-A-domain
+type: DiscreteCartesianOutcomeSpace

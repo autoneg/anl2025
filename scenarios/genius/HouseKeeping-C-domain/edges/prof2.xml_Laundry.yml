@@ -1,0 +1,21 @@
+id: prof2.xml_Laundry-b17e05ee-e222-477f-9692-8113aefb22a1
+name: prof2.xml_Laundry
+outcome_space:
+  issues:
+  - n_values: 2
+    name: Laundry
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Husbend
+    - Wife
+  name: Laundry
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.053147979161018905
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Husbend: 1.0
+    Wife: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

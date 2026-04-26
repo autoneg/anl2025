@@ -1,0 +1,29 @@
+id: util2.xml_Maker-511b2b2f-e5e1-42c4-b56d-b8c79c07f4ae
+name: util2.xml_Maker
+outcome_space:
+  issues:
+  - n_values: 6
+    name: Maker
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Apple
+    - Samson
+    - Sony
+    - Black Berry
+    - Nokia
+    - HTC
+  name: Maker
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0849261381060713
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Apple: 1.0
+    Black Berry: 0.04838709677419355
+    HTC: 0.6129032258064516
+    Nokia: 0.06451612903225806
+    Samson: 0.9354838709677419
+    Sony: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

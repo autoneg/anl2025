@@ -1,0 +1,25 @@
+id: util2.xml_OS-58282d3d-4681-4964-889a-cfef528be6a2
+name: util2.xml_OS
+outcome_space:
+  issues:
+  - n_values: 4
+    name: OS
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Android
+    - iOS
+    - Windows Mobile
+    - Black Berry
+  name: OS
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.10506890254488373
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Android: 1.0
+    Black Berry: 0.03278688524590164
+    Windows Mobile: 0.0
+    iOS: 0.06557377049180328
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

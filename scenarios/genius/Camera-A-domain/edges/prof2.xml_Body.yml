@@ -1,0 +1,25 @@
+id: prof2.xml_Body-15c70eba-e47e-4923-8dfc-8daf5debab77
+name: prof2.xml_Body
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Body
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Full size
+    - APS-C
+    - Micro Four Thirds
+    - compact
+  name: Body
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.04059644136175855
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    APS-C: 1.0
+    Full size: 0.06557377049180328
+    Micro Four Thirds: 0.36065573770491804
+    compact: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

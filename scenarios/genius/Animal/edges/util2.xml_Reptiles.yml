@@ -1,0 +1,25 @@
+id: util2.xml_Reptiles-d7286ac6-cd92-47a7-ab03-05ce953060f4
+name: util2.xml_Reptiles
+outcome_space:
+  issues:
+  - n_values: 4
+    name: Reptiles
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Crocodile
+    - Lizard
+    - Tortoise
+    - Snake
+  name: Reptiles
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.15099729164545742
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Crocodile: 0.6666666666666666
+    Lizard: 1.0
+    Snake: 0.8888888888888888
+    Tortoise: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

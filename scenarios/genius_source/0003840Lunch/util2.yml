@@ -1,0 +1,53 @@
+discount: 0.5
+dynamic_reservation: true
+name: util2
+reserved_value: -.inf
+type: ExpDiscountedUFun
+ufun:
+  name: scenarios/xml/original/anac/y2013/Lunch/util2.xml
+  reserved_value: -.inf
+  type: LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      caesar: 0.35064935064935066
+      green: 1.0
+      potato: 0.0
+      sea: 0.1168831168831169
+    type: TableFun
+  - mapping:
+      corn(hot): 0.11764705882352941
+      corn(ice): 0.0
+      miso: 0.2647058823529412
+      onion: 1.0
+    type: TableFun
+  - mapping:
+      bread(french): 1.0
+      bread(roll): 0.3382352941176471
+      bread(rye): 0.0
+      rice: 0.4117647058823529
+    type: TableFun
+  - mapping:
+      beef: 0.3181818181818182
+      chicken: 0.4318181818181818
+      fish: 0.0
+      pork: 1.0
+    type: TableFun
+  - mapping:
+      apple: 0.5604395604395604
+      coke: 0.0
+      green tea: 1.0
+      orange: 0.5054945054945056
+      tea: 0.39560439560439564
+    type: TableFun
+  - mapping:
+      cake: 0.34285714285714286
+      ice cream: 1.0
+      sherbet: 0.0
+    type: TableFun
+  weights:
+  - 0.16201805687194953
+  - 0.12909896463114037
+  - 0.26418274567535854
+  - 0.32457990028203426
+  - 0.068957336199129
+  - 0.05116299634038823

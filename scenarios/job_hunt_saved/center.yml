@@ -1,0 +1,173 @@
+name: employer
+outcome_spaces:
+- issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 6
+    name: days
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 5
+  - n_values: 5
+    name: salary
+    type: negmas.outcomes.cardinal_issue.DiscreteCardinalIssue
+    values:
+    - 100
+    - 150
+    - 200
+    - 250
+    - 300
+  name: JobHunt
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+side_ufuns:
+- id: employee1-db944a34-aff0-4b08-b59c-2d25551d65ed
+  name: employee1
+  outcome_space: null
+  reserved_value: 0.0
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      0: 1
+      1: 2
+      2: 5
+      3: 4
+      4: 3
+      5: 0
+    type: negmas.preferences.value_fun.TableFun
+  - mapping:
+      100: 0.1
+      150: 1
+      200: 4
+      250: 5
+      300: 6
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 0.4
+  - 0.6
+- id: employee1-a4860323-78df-45eb-a4e1-ea636b779428
+  name: employee1
+  outcome_space: null
+  reserved_value: 0.0
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      0: 1
+      1: 2
+      2: 5
+      3: 4
+      4: 3
+      5: 0
+    type: negmas.preferences.value_fun.TableFun
+  - mapping:
+      100: 0.1
+      150: 1
+      200: 4
+      250: 5
+      300: 6
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 0.4
+  - 0.6
+- id: employee1-b8b6c61f-a27d-4cdf-8719-78b3e95cc32b
+  name: employee1
+  outcome_space: null
+  reserved_value: 0.0
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      0: 1
+      1: 2
+      2: 5
+      3: 4
+      4: 3
+      5: 0
+    type: negmas.preferences.value_fun.TableFun
+  - mapping:
+      100: 0.1
+      150: 1
+      200: 4
+      250: 5
+      300: 6
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 0.4
+  - 0.6
+- id: employee1-ec6ff031-4143-492c-ac42-8c190b8b8fb0
+  name: employee1
+  outcome_space: null
+  reserved_value: 0.0
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      0: 1
+      1: 2
+      2: 5
+      3: 4
+      4: 3
+      5: 0
+    type: negmas.preferences.value_fun.TableFun
+  - mapping:
+      100: 0.1
+      150: 1
+      200: 4
+      250: 5
+      300: 6
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 0.4
+  - 0.6
+type: anl2025.ufun.MaxCenterUFun

@@ -1,0 +1,23 @@
+id: Zimbabwe_rv03_comp200_Zimbabwe Trade Policy-2a67c486-5af3-432f-8ebe-1e32b7d44f70
+name: Zimbabwe_rv03_comp200_Zimbabwe Trade Policy
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Zimbabwe Trade Policy
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Zimbabwe will reduce tariffs on imports
+    - Zimbabwe will increase tariffs on imports
+    - No agreement
+  name: Zimbabwe Trade Policy
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.016108010384411387
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    No agreement: 0.5
+    Zimbabwe will increase tariffs on imports: 1.0
+    Zimbabwe will reduce tariffs on imports: 0.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

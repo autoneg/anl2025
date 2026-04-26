@@ -1,0 +1,31 @@
+evaluator:
+  days:
+  - 0
+  - 1
+  reserved_value: 0.0
+  type: anl2025.scenarios.dinners.DinnersEvaluator
+  values:
+    (0,  0) : 0.0
+    (0,  1) : 0.21464799471755003
+    (1, 0) : 0.1893968374824435
+    (1, 1) : 1.0
+name: jtxHCLUoEjFLRX5w
+outcome_spaces:
+- issues:
+  - name: Day
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 1
+  name: Friend1Day
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - name: Day
+    type: negmas.outcomes.contiguous_issue.ContiguousIssue
+    values:
+    - 0
+    - 1
+  name: Friend2Day
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.0
+type: anl2025.ufun.LambdaCenterUFun

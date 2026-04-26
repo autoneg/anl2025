@@ -1,0 +1,29 @@
+id: util2.xml_Mammal-7cb4698e-cbf3-44bd-90b3-37f417616ebb
+name: util2.xml_Mammal
+outcome_space:
+  issues:
+  - n_values: 6
+    name: Mammal
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Lion
+    - Elephant
+    - Cow
+    - Mouse
+    - Kangaroo
+    - Dolphin
+  name: Mammal
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.11810700174732423
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Cow: 0.4444444444444444
+    Dolphin: 0.2222222222222222
+    Elephant: 0.0
+    Kangaroo: 1.0
+    Lion: 0.5555555555555556
+    Mouse: 0.1111111111111111
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

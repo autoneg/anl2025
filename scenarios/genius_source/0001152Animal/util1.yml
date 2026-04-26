@@ -1,0 +1,47 @@
+discount: 0.75
+dynamic_reservation: true
+name: util1
+reserved_value: -.inf
+type: ExpDiscountedUFun
+ufun:
+  name: scenarios/xml/original/anac/y2013/Animal/util1.xml
+  reserved_value: -.inf
+  type: LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      Cow: 0.1111111111111111
+      Dolphin: 0.7777777777777777
+      Elephant: 0.3333333333333333
+      Kangaroo: 0.6666666666666666
+      Lion: 1.0
+      Mouse: 0.0
+    type: TableFun
+  - mapping:
+      Eagle: 0.4444444444444444
+      Pelican: 1.0
+      Penguin: 0.6666666666666666
+      Swallow: 0.0
+    type: TableFun
+  - mapping:
+      Crocodile: 1.0
+      Lizard: 0.0
+      Snake: 0.1111111111111111
+      Tortoise: 0.2222222222222222
+    type: TableFun
+  - mapping:
+      Frog: 0.0
+      Newt: 1.0
+      Salamander: 0.6666666666666666
+    type: TableFun
+  - mapping:
+      Chimpanzee: 0.0
+      Gorilla: 0.3333333333333333
+      Human: 1.0
+      Orangutan: 0.7777777777777777
+    type: TableFun
+  weights:
+  - 0.30408373542368633
+  - 0.19556239552660176
+  - 0.09506315897656326
+  - 0.1010352859238036
+  - 0.30425542414934514

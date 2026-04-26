@@ -1,0 +1,23 @@
+id: util2.xml_Amphibian-227e9036-0ccb-4504-9947-0e0ec10672b8
+name: util2.xml_Amphibian
+outcome_space:
+  issues:
+  - n_values: 3
+    name: Amphibian
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - Frog
+    - Salamander
+    - Newt
+  name: Amphibian
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.16286002987850248
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    Frog: 0.0
+    Newt: 0.7777777777777777
+    Salamander: 1.0
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

@@ -1,0 +1,50 @@
+[project]
+name = "anl2025"
+version = "0.1.6"
+description = "Temporary development of anl2025"
+readme = "README.md"
+requires-python = "~=3.11"
+dependencies = [
+    "negmas>=0.11.3",
+    "typer>=0.12.5",
+    "multiprocess>=0.70.17",
+]
+
+[tool.uv.sources]
+negmas = { path = "../negmas" , editable = true }
+# anl = { path = "../anl" , editable = true }
+# anl-agents = { path = "../anl-agents" , editable = true }
+
+[project.scripts]
+anl2025 = "anl2025.cli:app"
+
+[project.optional-dependencies]
+doc = [
+    "jupyter>=1.1.1",
+    "mkdocs-include-markdown-plugin>=7.1.4",
+    "mkdocs-material>=9.6.4",
+    "mkdocs>=1.6.1",
+    "mkdocstrings-python>=1.16.0",
+    "mkdocstrings>=0.28.1",
+]
+anl2024 = [
+    "anl>=0.1.13",
+    "anl-agents>=0.1.1",
+    # "tensorflow>=2.18.0",
+]
+dev = [
+    "pre-commit>=4.2.0",
+    "hypothesis>=6.118.8",
+    "pytest>=8.3.3",
+    "jupyter>=1.1.1",
+]
+
+[build-system]
+requires = ["setuptools >= 40.6.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "papermill>=2.6.0",
+    "twine>=6.1.0",
+]

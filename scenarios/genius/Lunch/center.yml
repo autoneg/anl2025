@@ -1,0 +1,221 @@
+name: util1.xml
+outcome_spaces:
+- issues:
+  - n_values: 4
+    name: salad
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - green
+    - potato
+    - caesar
+    - sea
+  name: salad
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: soup
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - corn(ice)
+    - corn(hot)
+    - onion
+    - miso
+  name: soup
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: carbohydrate
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - rice
+    - bread(roll)
+    - bread(rye)
+    - bread(french)
+  name: carbohydrate
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 4
+    name: main
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - beef
+    - pork
+    - chicken
+    - fish
+  name: main
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 5
+    name: drink
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - coke
+    - tea
+    - green tea
+    - apple
+    - orange
+  name: drink
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+- issues:
+  - n_values: 3
+    name: dessert
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - cake
+    - sherbet
+    - ice cream
+  name: dessert
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.11803636601711537
+side_ufuns:
+- id: util1.xml_salad-099b277f-40aa-4092-b242-fc9066100afd
+  name: util1.xml_salad
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: salad
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - green
+      - potato
+      - caesar
+      - sea
+    name: salad
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      caesar: 0.5698924731182796
+      green: 0.2903225806451613
+      potato: 1.0
+      sea: 0.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_soup-c9194534-3afa-459e-b7ce-22c69411b82d
+  name: util1.xml_soup
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: soup
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - corn(ice)
+      - corn(hot)
+      - onion
+      - miso
+    name: soup
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      corn(hot): 1.0
+      corn(ice): 0.24242424242424243
+      miso: 0.0
+      onion: 0.2878787878787879
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_carbohydrate-d38842d5-37f6-44ad-994d-f46b5e54fc08
+  name: util1.xml_carbohydrate
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: carbohydrate
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - rice
+      - bread(roll)
+      - bread(rye)
+      - bread(french)
+    name: carbohydrate
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      bread(french): 0.0
+      bread(roll): 0.9999999999999999
+      bread(rye): 0.4387755102040816
+      rice: 0.5918367346938775
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_main-baf22995-4c9f-490e-97fa-884208410052
+  name: util1.xml_main
+  outcome_space:
+    issues:
+    - n_values: 4
+      name: main
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - beef
+      - pork
+      - chicken
+      - fish
+    name: main
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      beef: 1.0
+      chicken: 0.8804347826086957
+      fish: 0.0
+      pork: 0.2717391304347826
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_drink-e3319266-5e15-4222-860a-12ef137e08dc
+  name: util1.xml_drink
+  outcome_space:
+    issues:
+    - n_values: 5
+      name: drink
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - coke
+      - tea
+      - green tea
+      - apple
+      - orange
+    name: drink
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      apple: 0.48051948051948057
+      coke: 1.0
+      green tea: 0.0
+      orange: 0.4155844155844156
+      tea: 0.5454545454545455
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+- id: util1.xml_dessert-9036fb75-f700-4421-be27-73b8cc2697a7
+  name: util1.xml_dessert
+  outcome_space:
+    issues:
+    - n_values: 3
+      name: dessert
+      type: negmas.outcomes.categorical_issue.CategoricalIssue
+      values:
+      - cake
+      - sherbet
+      - ice cream
+    name: dessert
+    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  reserved_value: -.inf
+  type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+  values:
+  - mapping:
+      cake: 0.38461538461538464
+      ice cream: 0.0
+      sherbet: 1.0
+    type: negmas.preferences.value_fun.TableFun
+  weights:
+  - 1.0
+type: anl2025.ufun.LinearCombinationCenterUFun

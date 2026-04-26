@@ -1,0 +1,25 @@
+id: prof2_duration-d4d086da-929f-43ff-a6df-9abd06b45bab
+name: prof2_duration
+outcome_space:
+  issues:
+  - n_values: 4
+    name: duration
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - 30 min
+    - 1 hour
+    - 3 hours
+    - 5 hours
+  name: duration
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.02399902213195684
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    1 hour: 0.7058823529411765
+    3 hours: 1.0
+    30 min: 0.0
+    5 hours: 0.4117647058823529
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

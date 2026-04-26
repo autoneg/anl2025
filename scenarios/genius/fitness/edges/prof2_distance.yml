@@ -1,0 +1,25 @@
+id: prof2_distance-864302d6-a07f-4536-a891-382c8b4be71d
+name: prof2_distance
+outcome_space:
+  issues:
+  - n_values: 4
+    name: distance
+    type: negmas.outcomes.categorical_issue.CategoricalIssue
+    values:
+    - 0 km
+    - 1 km
+    - 5 km
+    - 40 km
+  name: distance
+  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+reserved_value: 0.17402731393304582
+type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
+values:
+- mapping:
+    0 km: 1.0
+    1 km: 0.7222222222222223
+    40 km: 0.0
+    5 km: 0.2222222222222222
+  type: negmas.preferences.value_fun.TableFun
+weights:
+- 1.0

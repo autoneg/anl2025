@@ -1,0 +1,36 @@
+issues:
+- name: Size of Fund
+  type: CategoricalIssue
+  values:
+  - $100 Billion
+  - $50 Billion
+  - $10 billion
+  - No agreement
+- name: Impact on Other Aid
+  type: CategoricalIssue
+  values:
+  - No reduction
+  - Reduction equal to half of fund size
+  - Reduction equal to fund size
+  - No agreement
+- name: Zimbabwe Trade Policy
+  type: CategoricalIssue
+  values:
+  - Zimbabwe will reduce tariffs on imports
+  - Zimbabwe will increase tariffs on imports
+  - No agreement
+- name: England Trade Policy
+  type: CategoricalIssue
+  values:
+  - England will reduce imports
+  - England will increase imports
+  - No agreement
+- name: Forum on Other Health Issues
+  type: CategoricalIssue
+  values:
+  - Creation of fund
+  - Creation of committee to discuss creation of fund
+  - Creation of committee to develop agenda
+  - 'No'
+name: EnglandZimbabwe_domain
+type: DiscreteCartesianOutcomeSpace
