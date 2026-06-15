@@ -5,7 +5,7 @@ description = "Temporary development of anl2025"
 readme = "README.md"
 requires-python = "~=3.11"
 dependencies = [
-    "negmas>=0.11.3",
+    "negmas>=0.15.6",
     "typer>=0.12.5",
     "multiprocess>=0.70.17",
 ]
@@ -21,7 +21,7 @@ constraint-dependencies = [
 ]
 
 [tool.uv.sources]
-# Resolve negmas from PyPI (latest matching >=0.11.3). Re-enable the line below
+# Resolve negmas from PyPI (latest matching >=0.15.6). Re-enable the line below
 # to develop against a local checkout.
 # negmas = { path = "../negmas" , editable = true }
 # anl = { path = "../anl" , editable = true }
@@ -49,6 +49,8 @@ dev = [
     "hypothesis>=6.118.8",
     "pytest>=8.3.3",
     "jupyter>=1.1.1",
+    # used by the tutorial notebooks exercised in tests/test_jupyter.py
+    "seaborn>=0.13",
 ]
 
 [build-system]

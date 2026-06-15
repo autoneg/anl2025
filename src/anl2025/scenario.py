@@ -35,6 +35,69 @@ TRACE_COLS = (
 )
 
 
+def _restore_shared_outcome_spaces(obj: Any) -> Any:
+    """Re-injects ``issues`` into outcome spaces that ``serialize`` abbreviated.
+
+    ``negmas`` (>= 0.15) deduplicates repeated objects by id while serializing:
+    the ``issues`` field of any outcome space whose issues were already emitted in
+    the same ``serialize`` call is dropped (``good_field`` returns ``False`` once
+    ``id(issues)`` is in the object memory). ``deserialize`` cannot rebuild that
+    dropped field, so a scenario that reuses one outcome space across negotiation
+    threads (the common case) fails to round-trip with::
+
+        DiscreteCartesianOutcomeSpace.__init__() missing 1 required positional
+        argument: 'issues'
+
+    An outcome space is only ever abbreviated when it shares its ``issues`` object
+    with one emitted earlier in full, so the missing field always equals some full
+    sibling. We recover it by matching on the outcome space ``name`` and, when the
+    name differs (threads may name their identical spaces differently), falling
+    back to the single ``issues`` value shared by every full sibling. A no-op for
+    documents that already carry ``issues`` everywhere (e.g. those written by older
+    negmas). If full siblings genuinely disagree and no name matches, the entry is
+    left untouched rather than guessed.
+    """
+
+    by_name: dict[str, Any] = {}
+    all_issues: list[Any] = []
+
+    def collect(node):
+        if isinstance(node, dict):
+            cls = node.get("type") or node.get("__python_class__")
+            name = node.get("name")
+            if isinstance(cls, str) and cls.endswith("OutcomeSpace") and "issues" in node:
+                all_issues.append(node["issues"])
+                if name is not None:
+                    by_name.setdefault(name, node["issues"])
+            for v in node.values():
+                collect(v)
+        elif isinstance(node, (list, tuple)):
+            for v in node:
+                collect(v)
+
+    collect(obj)
+    # the single shared issues value, if every full sibling agrees
+    unique = all_issues[0] if all_issues and all(_ == all_issues[0] for _ in all_issues) else None
+
+    def fill(node):
+        if isinstance(node, dict):
+            cls = node.get("type") or node.get("__python_class__")
+            is_os = isinstance(cls, str) and cls.endswith("OutcomeSpace")
+            if is_os and "issues" not in node:
+                name = node.get("name")
+                issues = by_name[name] if name in by_name else unique
+                if issues is not None:
+                    node["issues"] = copy.deepcopy(issues)
+            for v in node.values():
+                fill(v)
+        elif isinstance(node, (list, tuple)):
+            for v in node:
+                fill(v)
+
+    fill(obj)
+    return obj
+
+
 def type_name_adapter(x: str, types_map=TYPES_MAP) -> str:
     if x in types_map:
         return TYPES_MAP[x]
@@ -131,7 +194,7 @@ class MultidealScenario:
             type_marker=type_marker,
             type_name_adapter=type_name_adapter,
         )
-        center_ufun = deserialize(load(center_file), **dparams)  # type: ignore
+        center_ufun = deserialize(_restore_shared_outcome_spaces(load(center_file)), **dparams)  # type: ignore
         assert isinstance(
             center_ufun, CenterUFun
         ), f"{type(center_ufun)} but expected a CenterUFun \n{center_ufun}"
@@ -141,7 +204,7 @@ class MultidealScenario:
             if not f.is_dir():
                 return None
             return tuple(
-                deserialize(load(_), **dparams)  # type: ignore
+                deserialize(_restore_shared_outcome_spaces(load(_)), **dparams)  # type: ignore
                 for _ in f.glob("*.yml")
             )
 
@@ -231,7 +294,7 @@ class MultidealScenario:
     def from_dict(
         cls, d: dict[str, Any], python_class_identifier=TYPE_IDENTIFIER
     ) -> Optional["MultidealScenario"]:
-        return deserialize(d, python_class_identifier=python_class_identifier)  # type: ignore
+        return deserialize(_restore_shared_outcome_spaces(d), python_class_identifier=python_class_identifier)  # type: ignore
 
     def to_file(self, path: Path | str, python_class_identifier=TYPE_IDENTIFIER):
         dump(self.to_dict(python_class_identifier=python_class_identifier), path)
