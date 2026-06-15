@@ -340,7 +340,9 @@ class CenterUFun(UtilityFunction, ABC):
     ):
         super().__init__(*args, **kwargs)
         if not outcome_spaces and self.outcome_space:
-            outcome_spaces = tuple([self.outcome_space] * n_edges)
+            # Give each negotiation thread its own copy of the outcome space
+            # rather than sharing a single object across all of them.
+            outcome_spaces = tuple(deepcopy(self.outcome_space) for _ in range(n_edges))
         self._combiner = combiner_type(outcome_spaces)
         self._outcome_spaces = self._combiner.separated_spaces()
         self.n_edges = len(outcome_spaces)
