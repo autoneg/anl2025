@@ -233,7 +233,7 @@ requires-dist = [
     { name = "mkdocstrings", marker = "extra == 'doc'", specifier = ">=0.28.1" },
     { name = "mkdocstrings-python", marker = "extra == 'doc'", specifier = ">=1.16.0" },
     { name = "multiprocess", specifier = ">=0.70.17" },
-    { name = "negmas", specifier = ">=0.15.6" },
+    { name = "negmas", specifier = ">=0.11.3" },
     { name = "pre-commit", marker = "extra == 'dev'", specifier = ">=4.2.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.3" },
     { name = "typer", specifier = ">=0.12.5" },
