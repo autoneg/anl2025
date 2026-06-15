@@ -5,13 +5,25 @@ description = "Temporary development of anl2025"
 readme = "README.md"
 requires-python = "~=3.11"
 dependencies = [
-    "negmas>=0.11.3",
+    "negmas>=0.15.6",
     "typer>=0.12.5",
     "multiprocess>=0.70.17",
 ]
 
+[tool.uv]
+# We do not depend on tensorflow/torch directly; they are pulled in transitively
+# via anl-agents (the `anl2024` extra). Constrain them to versions with CPython
+# 3.13 wheels so the project installs on Python 3.11 onward. A constraint only
+# narrows the version of an already-required package — it does not add a dependency.
+constraint-dependencies = [
+    "tensorflow>=2.20",
+    "torch>=2.6",
+]
+
 [tool.uv.sources]
-negmas = { path = "../negmas" , editable = true }
+# Resolve negmas from PyPI (latest matching >=0.15.6). Re-enable the line below
+# to develop against a local checkout.
+# negmas = { path = "../negmas" , editable = true }
 # anl = { path = "../anl" , editable = true }
 # anl-agents = { path = "../anl-agents" , editable = true }
 

@@ -257,9 +257,19 @@ class AssignedScenario:
         def plot_result(i, m, base=base):
             assert base is not None
             try:
-                df = pd.DataFrame(data=m.full_trace, columns=TRACE_COLS)  # type: ignore
+                trace = list(m.full_trace)  # type: ignore
+                # negmas >= 0.15 adds extra trace fields (e.g. text, data) so we
+                # read the column names from the trace element itself when possible
+                # instead of assuming the legacy 7-column layout.
+                columns = list(getattr(trace[0], "_fields", TRACE_COLS)) if trace else list(TRACE_COLS)
+                df = pd.DataFrame(data=trace, columns=columns)  # type: ignore
                 df.to_csv(base / "log" / f"{m.id}.csv", index_label="index")
-                m.plot(save_fig=True, path=str(base / "plots"), fig_name=f"n{i}.png")
+                m.plot(
+                    save_fig=True,
+                    path=str(base / "plots"),
+                    fig_name=f"n{i}.png",
+                    show=False,
+                )
                 plt.close()
             except Exception as e:
                 if verbose:

@@ -1,3 +1,11 @@
+# Select a non-interactive matplotlib backend for the CLI before anything
+# imports pyplot. The CLI always runs headless in a terminal, so figures are
+# only ever saved to disk (plotly display is suppressed separately via
+# ``show=False`` in the runner).
+import matplotlib
+
+matplotlib.use("Agg")
+
 from anl2025.scenario import MultidealScenario
 from rich.table import Table
 import importlib.metadata
