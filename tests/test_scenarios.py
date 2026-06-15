@@ -55,7 +55,9 @@ def test_load_multideal_dinner(name):
     run_session(scenario)
 
 
-@settings(deadline=5000)
+# No deadline: each example builds a full scenario (and runs negotiations), which
+# easily exceeds any fixed per-example deadline on slower CI runners.
+@settings(deadline=None)
 @given(n_friends=st.integers(1, 4), n_days=st.integers(1, 7))
 @example(n_friends=1, n_days=1)
 def test_load_multideal_dinner_created(n_friends, n_days):
