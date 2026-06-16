@@ -185,7 +185,7 @@ wheels = [
 
 [[package]]
 name = "anl2025"
-version = "0.1.6"
+version = "0.1.7"
 source = { editable = "." }
 dependencies = [
     { name = "multiprocess" },
@@ -234,7 +234,7 @@ requires-dist = [
     { name = "mkdocstrings", marker = "extra == 'doc'", specifier = ">=0.28.1" },
     { name = "mkdocstrings-python", marker = "extra == 'doc'", specifier = ">=1.16.0" },
     { name = "multiprocess", specifier = ">=0.70.17" },
-    { name = "negmas", specifier = ">=0.15.6" },
+    { name = "negmas", specifier = ">=0.15.7" },
     { name = "pre-commit", marker = "extra == 'dev'", specifier = ">=4.2.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.3" },
     { name = "seaborn", marker = "extra == 'dev'", specifier = ">=0.13" },
@@ -2367,7 +2367,7 @@ wheels = [
 
 [[package]]
 name = "negmas"
-version = "0.15.6"
+version = "0.15.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
@@ -2401,9 +2401,9 @@ dependencies = [
     { name = "typer" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c3/a2/1272af309bcc73c7da74e94278fcdbda84640f10c56b8a4edc3ee1d2875d/negmas-0.15.6.tar.gz", hash = "sha256:5da861feeda570b7c493b96c357adbe685b8d8970d599abe156e4b6dd55a09bd", size = 803401, upload-time = "2026-06-15T11:35:46.456Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/85/79/721f6640c9c958940fd7253e9198c2c2a8555791bc89b1fa6799711f0396/negmas-0.15.7.tar.gz", hash = "sha256:c5c3be13d2e7e17764818ab06db9beff3c65ebef123f7d2f7e0543c1e0d61a57", size = 804246, upload-time = "2026-06-16T03:32:34.811Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bb/90/b29180f170080408cab074c3568458d1eca41ac13575b92892cb53317078/negmas-0.15.6-py3-none-any.whl", hash = "sha256:d6d4fc47b8f88bcc27f337a210b51e325a2c4b743150e6e16a8431865958a80f", size = 875112, upload-time = "2026-06-15T11:35:45.026Z" },
+    { url = "https://files.pythonhosted.org/packages/c4/2c/bd22a505319581e7a0dd88c1a71bcb37398959208ea198636295ae476a08/negmas-0.15.7-py3-none-any.whl", hash = "sha256:581d63eef9ba5bc516ca206d64e908fef551336282d569fe0b40963a93d3e465", size = 875459, upload-time = "2026-06-16T03:32:32.916Z" },
 ]
 
 [[package]]

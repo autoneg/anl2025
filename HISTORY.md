@@ -1,6 +1,16 @@
 # Change Log
 
 
+## 0.1.7 (2026-06-16)
+* compat: require `negmas>=0.15.7` and support the negmas 0.15 serialization format
+* bugfix: scenario serialization now round-trips correctly. Outcome spaces reused across negotiation threads were saved without their issues (a negmas serialize/deserialize asymmetry) and failed to reload; fixed upstream in negmas 0.15.7
+* feature: each negotiation thread is given its own copy of the outcome space instead of sharing a single object
+* bugfix: headless plotting. The CLI now selects the non-interactive `Agg` matplotlib backend and the runner passes `show=False`, fixing crashes while saving tournament plots in a terminal
+* compat: read trace columns from the trace element (`_fields`) to support the extra fields added in negmas 0.15
+* build: add `seaborn` (dev extra) used by the tutorial notebooks exercised in the tests
+* tests: disable the hypothesis deadline on `test_load_multideal_dinner_created` (it builds full scenarios per example and tripped the deadline on slow CI runners)
+* note: scenario folders that were *saved* with negmas 0.15.0–0.15.6 may be abbreviated (missing `issues`) and can no longer be read; regenerate them with this release.
+
 ## 0.1.6 (2025-06-06)
 * bugfix: Incorrect center utility for Linear
 * CLI: controlling fractions of generated scenarios. use --dinners/--target-quantity/--job-hunt/--others to control the fraction of each scenario type in the tournament. If any of these is given, the rest is considered zero.

@@ -1,11 +1,11 @@
 [project]
 name = "anl2025"
-version = "0.1.6"
+version = "0.1.7"
 description = "Temporary development of anl2025"
 readme = "README.md"
 requires-python = "~=3.11"
 dependencies = [
-    "negmas>=0.15.6",
+    "negmas>=0.15.7",
     "typer>=0.12.5",
     "multiprocess>=0.70.17",
 ]
@@ -21,7 +21,7 @@ constraint-dependencies = [
 ]
 
 [tool.uv.sources]
-# Resolve negmas from PyPI (latest matching >=0.15.6). Re-enable the line below
+# Resolve negmas from PyPI (latest matching >=0.15.7). Re-enable the line below
 # to develop against a local checkout.
 # negmas = { path = "../negmas" , editable = true }
 # anl = { path = "../anl" , editable = true }
