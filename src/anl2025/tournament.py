@@ -39,9 +39,9 @@ from anl2025.common import DEFAULT_METHOD, TYPE_IDENTIFIER
 from attr import define
 
 try:
-    # `_apply` rather than `seed_all` because a task's seed must not become the
-    # base that the other tasks' seeds are derived from (see `task_seed`).
-    from negmas.helpers.rand import _apply as apply_seed, task_seed
+    # `apply_seed` rather than `seed_all` because a task's seed must not become
+    # the base that the other tasks' seeds are derived from (see `task_seed`).
+    from negmas.helpers.rand import apply_seed, task_seed
 except ImportError:  # negmas is too old to have a global seed; nothing to do
 
     def apply_seed(seed):  # type: ignore[misc]
