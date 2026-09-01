@@ -1,5 +1,8 @@
 # Change Log
 
+## Unreleased
+* feature: tournaments follow negmas's global seed. Setting `NEGMAS_RAND_SEED` before a run now makes `anl2025_tournament` reproducible: every negotiation is given its own seed derived from its run-index through `negmas.helpers.rand.task_seed`, so the result does not depend on which worker process ran it. Without the environment variable nothing is seeded and behaviour is unchanged. Requires a negmas new enough to provide `negmas.helpers.rand`; with an older one the hook is skipped.
+
 
 ## 0.1.7 (2026-06-16)
 * compat: require `negmas>=0.15.7` and support the negmas 0.15 serialization format

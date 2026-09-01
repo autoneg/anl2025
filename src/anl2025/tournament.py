@@ -38,6 +38,19 @@ from anl2025.runner import (
 from anl2025.common import DEFAULT_METHOD, TYPE_IDENTIFIER
 from attr import define
 
+try:
+    # `_apply` rather than `seed_all` because a task's seed must not become the
+    # base that the other tasks' seeds are derived from (see `task_seed`).
+    from negmas.helpers.rand import _apply as apply_seed, task_seed
+except ImportError:  # negmas is too old to have a global seed; nothing to do
+
+    def apply_seed(seed):  # type: ignore[misc]
+        return None
+
+    def task_seed(index):  # type: ignore[misc]
+        return None
+
+
 __all__ = [
     "Tournament",
     "TournamentResults",
@@ -281,6 +294,36 @@ class TournamentResults:
             [_.results.n_timedout for _ in self.session_results]
         )
         self.n_threads_failed = sum([_.results.n_failed for _ in self.session_results])
+
+
+def _run_session_seeded(
+    seed: int | None,
+    job: JobInfo,
+    dry: bool,
+    verbose: bool,
+    normalize_scores: bool = False,
+) -> tuple[JobInfo, SessionInfo]:
+    """Runs one session after seeding this process with the session's own seed.
+
+    Every worker process re-applies ``NEGMAS_RAND_SEED`` as it imports negmas,
+    so without this they all start from the *same* random stream and what a
+    negotiation draws depends on how many tasks its worker happened to run
+    before it -- two seeded runs of the same tournament do not agree, and two
+    tasks that draw the same sequence produce the same result.
+    `negmas.helpers.rand.task_seed` derives a distinct seed per negotiation from
+    the run's seed and its run-index, so a seeded tournament repeats whatever
+    the scheduling order or the number of workers, while the negotiations still
+    differ from one another. `seed` is `None` when nothing is seeded, and then
+    this is exactly `run_session`.
+
+    Remarks:
+        - A serial run still does not reproduce a parallel one: serial sessions
+          share the scenario objects they run on, while every worker unpickles
+          its own copy. That predates this seeding.
+    """
+    if seed is not None:
+        apply_seed(seed)
+    return run_session(job, dry, verbose, normalize_scores)
 
 
 def run_session(
@@ -986,7 +1029,9 @@ class Tournament:
         if n_jobs is None:
             # for job in track(jobs, "Running Negotiations"):
             for job in jobs:
-                job, info = run_session(job, dry, verbose, normalize_scores)
+                job, info = _run_session_seeded(
+                    task_seed(job.run_index), job, dry, verbose, normalize_scores
+                )
                 process_info(job, info)
         else:
             assert n_jobs > 0
@@ -995,7 +1040,12 @@ class Tournament:
                     # Submit all jobs and store the futures
                     futures = [
                         executor.submit(
-                            run_session, job, dry, verbose, normalize_scores
+                            _run_session_seeded,
+                            task_seed(job.run_index),
+                            job,
+                            dry,
+                            verbose,
+                            normalize_scores,
                         )
                         for job in jobs
                     ]
