@@ -11,7 +11,7 @@ outcome_space:
     - Micro Four Thirds
     - compact
   name: Body
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.04059644136175855
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

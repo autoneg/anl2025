@@ -12,7 +12,7 @@ outcome_space:
     - '15'
     - '20'
   name: Lighting spots
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.1426350013057051
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

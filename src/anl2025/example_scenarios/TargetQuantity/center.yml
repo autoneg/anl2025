@@ -3,7 +3,7 @@ type: anl2025.ufun.LambdaCenterUFun
 reserved_value: 0.0
 n_edges: 3
 outcome_spaces:
-  - type: DiscreteCartesianOutcomeSpace
+  - type: EnumerableCartesianOutcomeSpace
     name: AmyTarget
     issues:
     - type: CategoricalIssue
@@ -14,7 +14,7 @@ outcome_spaces:
       - '3'
       - '4'
       - '5'
-  - type: DiscreteCartesianOutcomeSpace
+  - type: EnumerableCartesianOutcomeSpace
     name: EveTarget
     issues:
     - type: CategoricalIssue
@@ -25,7 +25,7 @@ outcome_spaces:
       - '3'
       - '4'
       - '5'
-  - type: DiscreteCartesianOutcomeSpace
+  - type: EnumerableCartesianOutcomeSpace
     name: SteveTarget
     issues:
     - type: CategoricalIssue
@@ -36,7 +36,7 @@ outcome_spaces:
         - '3'
         - '4'
         - '5'
-  - type: DiscreteCartesianOutcomeSpace
+  - type: EnumerableCartesianOutcomeSpace
     name: BoTarget
     issues:
     - type: CategoricalIssue

@@ -9,7 +9,7 @@ outcome_space:
     - 0
     - 1
   name: ''
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.31723661408716186
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

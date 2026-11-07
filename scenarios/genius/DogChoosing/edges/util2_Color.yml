@@ -12,7 +12,7 @@ outcome_space:
     - Golden
     - Spotted
   name: Color
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.13690165820974798
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

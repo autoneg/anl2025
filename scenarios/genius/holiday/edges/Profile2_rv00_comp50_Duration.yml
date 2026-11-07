@@ -11,7 +11,7 @@ outcome_space:
     - '10'
     - '14'
   name: Duration
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.09801434024858464
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

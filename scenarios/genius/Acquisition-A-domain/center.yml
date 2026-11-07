@@ -10,7 +10,7 @@ outcome_spaces:
     - 5 million $
     - 8 million $
   name: Price
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: IP
@@ -20,7 +20,7 @@ outcome_spaces:
     - IS receives the patents, industrial design rights and trade secrets
     - BI-Tech founders maintain all IP
   name: IP
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Stocks
@@ -31,7 +31,7 @@ outcome_spaces:
     - BI-Tech founders get 5%
     - 'BI-Tech founders get 5% + jobs '
   name: Stocks
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: EmployeeAgreements
@@ -42,7 +42,7 @@ outcome_spaces:
     - private contracts
     - half fired and half private contracts
   name: EmployeeAgreements
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 2
     name: Legal Liability
@@ -51,7 +51,7 @@ outcome_spaces:
     - past activities remains with Bi-Tech
     - IS liable for all activities
   name: Legal Liability
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.11429714035388504
 side_ufuns:
 - id: prof1_Price-e378623b-641e-4a4b-8f37-6e9e93143064
@@ -67,7 +67,7 @@ side_ufuns:
       - 5 million $
       - 8 million $
     name: Price
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -91,7 +91,7 @@ side_ufuns:
       - IS receives the patents, industrial design rights and trade secrets
       - BI-Tech founders maintain all IP
     name: IP
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -115,7 +115,7 @@ side_ufuns:
       - BI-Tech founders get 5%
       - 'BI-Tech founders get 5% + jobs '
     name: Stocks
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -140,7 +140,7 @@ side_ufuns:
       - private contracts
       - half fired and half private contracts
     name: EmployeeAgreements
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -163,7 +163,7 @@ side_ufuns:
       - past activities remains with Bi-Tech
       - IS liable for all activities
     name: Legal Liability
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

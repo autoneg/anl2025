@@ -9,7 +9,7 @@ outcome_spaces:
     - Medium_fur
     - Long_fur
   name: Furry
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Size
@@ -19,7 +19,7 @@ outcome_spaces:
     - Medium
     - Big
   name: Size
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 2
     name: Calm-Playful
@@ -28,7 +28,7 @@ outcome_spaces:
     - Calm
     - Playful
   name: Calm-Playful
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Independent-Needy
@@ -38,7 +38,7 @@ outcome_spaces:
     - numb
     - Needy
   name: Independent-Needy
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Color
@@ -50,7 +50,7 @@ outcome_spaces:
     - Golden
     - Spotted
   name: Color
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.06658244657018185
 side_ufuns:
 - id: util1_Furry-d1d4450d-fd25-431d-accc-6a1f5e3a8e62
@@ -65,7 +65,7 @@ side_ufuns:
       - Medium_fur
       - Long_fur
     name: Furry
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -88,7 +88,7 @@ side_ufuns:
       - Medium
       - Big
     name: Size
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -110,7 +110,7 @@ side_ufuns:
       - Calm
       - Playful
     name: Calm-Playful
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -132,7 +132,7 @@ side_ufuns:
       - numb
       - Needy
     name: Independent-Needy
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -157,7 +157,7 @@ side_ufuns:
       - Golden
       - Spotted
     name: Color
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

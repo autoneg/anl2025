@@ -31,4 +31,4 @@ issues:
   - Golden
   - Spotted
 name: DogChoosing
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

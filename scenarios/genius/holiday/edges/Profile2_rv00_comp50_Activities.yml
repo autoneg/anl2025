@@ -11,7 +11,7 @@ outcome_space:
     - Restaurant
     - Historical Places
   name: Activities
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.03110117515795188
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

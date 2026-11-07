@@ -10,7 +10,7 @@ outcome_space:
     - Medium_fur
     - Long_fur
   name: Furry
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 1.0
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

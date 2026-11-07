@@ -32,4 +32,4 @@ issues:
   - past activities remains with Bi-Tech
   - IS liable for all activities
 name: Acquisition-A-domain
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

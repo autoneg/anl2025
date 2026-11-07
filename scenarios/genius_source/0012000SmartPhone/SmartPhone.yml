@@ -47,4 +47,4 @@ issues:
   - Infrared communication
   - Good Battery
 name: SmartPhone
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

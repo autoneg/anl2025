@@ -11,7 +11,7 @@ outcome_space:
     - Reduction equal to fund size
     - No agreement
   name: Impact on Other Aid
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.18956571600778688
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

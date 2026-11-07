@@ -10,7 +10,7 @@ outcome_space:
     - England will increase imports
     - No agreement
   name: England Trade Policy
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.1667907084157793
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

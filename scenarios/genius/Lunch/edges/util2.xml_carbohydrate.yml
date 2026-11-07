@@ -11,7 +11,7 @@ outcome_space:
     - bread(rye)
     - bread(french)
   name: carbohydrate
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.11299524450839288
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

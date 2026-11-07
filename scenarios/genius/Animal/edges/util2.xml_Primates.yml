@@ -11,7 +11,7 @@ outcome_space:
     - Gorilla
     - Orangutan
   name: Primates
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.08088254115222643
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

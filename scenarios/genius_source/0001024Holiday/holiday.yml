@@ -35,4 +35,4 @@ issues:
   - Train
   - Air Plane
 name: holiday
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

@@ -12,7 +12,7 @@ outcome_space:
     - Cherry
     - Mahogany
   name: Cabinets
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.01364810328774775
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

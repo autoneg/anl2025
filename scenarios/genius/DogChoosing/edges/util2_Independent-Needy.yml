@@ -10,7 +10,7 @@ outcome_space:
     - numb
     - Needy
   name: Independent-Needy
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.15075511124624194
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

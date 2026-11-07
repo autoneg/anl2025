@@ -12,7 +12,7 @@ outcome_space:
     - Sony
     - Panasonic
   name: Maker
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.07144080427234437
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

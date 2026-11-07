@@ -12,7 +12,7 @@ outcome_space:
     - '25'
     - '30'
   name: howmuch
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.03652964861786454
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

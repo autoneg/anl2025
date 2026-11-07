@@ -18,7 +18,7 @@ outcome_spaces:
     - 0
     - 1
   name: Friend1Day
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - name: Day
     type: negmas.outcomes.contiguous_issue.ContiguousIssue
@@ -26,6 +26,6 @@ outcome_spaces:
     - 0
     - 1
   name: Friend2Day
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.0
 type: anl2025.ufun.LambdaCenterUFun

@@ -11,7 +11,7 @@ outcome_space:
     - '300'
     - '100'
   name: budget
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.15042235509172774
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -13,7 +13,7 @@ outcome_space:
     - Ham
     - Salami
   name: Spreads
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.11516057867836534
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -42,4 +42,4 @@ issues:
   - sherbet
   - ice cream
 name: Lunch
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

@@ -10,7 +10,7 @@ outcome_space:
     - Crackers
     - Croissants
   name: Bread type
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.05164747541786716
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

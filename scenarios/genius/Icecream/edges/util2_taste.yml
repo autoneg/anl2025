@@ -16,7 +16,7 @@ outcome_space:
     - cookie and cream
     - choco chips
   name: taste
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 1.0
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -12,7 +12,7 @@ outcome_space:
     - Inox
     - Acrylic
   name: Countertops
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.11112461437396703
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

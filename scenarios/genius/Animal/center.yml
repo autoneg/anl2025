@@ -12,7 +12,7 @@ outcome_spaces:
     - Kangaroo
     - Dolphin
   name: Mammal
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Birds
@@ -23,7 +23,7 @@ outcome_spaces:
     - Pelican
     - Penguin
   name: Birds
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Reptiles
@@ -34,7 +34,7 @@ outcome_spaces:
     - Tortoise
     - Snake
   name: Reptiles
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Amphibian
@@ -44,7 +44,7 @@ outcome_spaces:
     - Salamander
     - Newt
   name: Amphibian
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Primates
@@ -55,7 +55,7 @@ outcome_spaces:
     - Gorilla
     - Orangutan
   name: Primates
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.009499178224033044
 side_ufuns:
 - id: util1.xml_Mammal-e3559759-f1f5-41ce-b287-edd1931518d4
@@ -73,7 +73,7 @@ side_ufuns:
       - Kangaroo
       - Dolphin
     name: Mammal
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -100,7 +100,7 @@ side_ufuns:
       - Pelican
       - Penguin
     name: Birds
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -125,7 +125,7 @@ side_ufuns:
       - Tortoise
       - Snake
     name: Reptiles
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -149,7 +149,7 @@ side_ufuns:
       - Salamander
       - Newt
     name: Amphibian
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -173,7 +173,7 @@ side_ufuns:
       - Gorilla
       - Orangutan
     name: Primates
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

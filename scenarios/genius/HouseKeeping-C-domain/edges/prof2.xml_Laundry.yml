@@ -9,7 +9,7 @@ outcome_space:
     - Husbend
     - Wife
   name: Laundry
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.053147979161018905
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

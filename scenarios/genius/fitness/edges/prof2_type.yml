@@ -12,7 +12,7 @@ outcome_space:
     - running
     - tennis
   name: type
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.15898020073456576
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

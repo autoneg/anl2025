@@ -10,7 +10,7 @@ outcome_space:
     - Sausages
     - Steak
   name: Meat
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.025130662456558886
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

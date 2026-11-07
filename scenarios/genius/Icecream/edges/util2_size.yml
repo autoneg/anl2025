@@ -11,7 +11,7 @@ outcome_space:
     - three
     - parfait
   name: size
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.07475836337798307
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -33,7 +33,7 @@ outcome_spaces:
     - 1
     - 5
   name: TargetQantity
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: quantity
@@ -42,7 +42,7 @@ outcome_spaces:
     - 1
     - 5
   name: TargetQantity
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: quantity
@@ -51,7 +51,7 @@ outcome_spaces:
     - 1
     - 5
   name: TargetQantity
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: quantity
@@ -60,6 +60,6 @@ outcome_spaces:
     - 1
     - 5
   name: TargetQantity
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.0
 type: anl2025.ufun.LambdaCenterUFun

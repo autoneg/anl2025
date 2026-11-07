@@ -12,7 +12,7 @@ outcome_spaces:
     - Nokia
     - HTC
   name: Maker
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Screen Size
@@ -24,7 +24,7 @@ outcome_spaces:
     - '3.2'
     - '3.6'
   name: Screen Size
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Color
@@ -36,7 +36,7 @@ outcome_spaces:
     - Blue
     - Silver
   name: Color
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Carrier
@@ -47,7 +47,7 @@ outcome_spaces:
     - Sprint Nextel
     - T-Mobile USA
   name: Carrier
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: OS
@@ -58,7 +58,7 @@ outcome_spaces:
     - Windows Mobile
     - Black Berry
   name: OS
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: ' Accessory'
@@ -70,7 +70,7 @@ outcome_spaces:
     - Infrared communication
     - Good Battery
   name: ' Accessory'
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.05289132128107519
 side_ufuns:
 - id: util1.xml_Maker-156e1e6b-5628-4250-8670-f1960cc38fdb
@@ -88,7 +88,7 @@ side_ufuns:
       - Nokia
       - HTC
     name: Maker
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -116,7 +116,7 @@ side_ufuns:
       - '3.2'
       - '3.6'
     name: Screen Size
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -143,7 +143,7 @@ side_ufuns:
       - Blue
       - Silver
     name: Color
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -169,7 +169,7 @@ side_ufuns:
       - Sprint Nextel
       - T-Mobile USA
     name: Carrier
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -194,7 +194,7 @@ side_ufuns:
       - Windows Mobile
       - Black Berry
     name: OS
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -220,7 +220,7 @@ side_ufuns:
       - Infrared communication
       - Good Battery
     name: ' Accessory'
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

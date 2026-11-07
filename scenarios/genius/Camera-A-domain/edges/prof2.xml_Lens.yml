@@ -10,7 +10,7 @@ outcome_space:
     - Middle range model
     - Entry model
   name: Lens
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.1643463653593753
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

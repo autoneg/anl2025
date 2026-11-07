@@ -11,7 +11,7 @@ outcome_space:
     - BI-Tech founders get 5%
     - 'BI-Tech founders get 5% + jobs '
   name: Stocks
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.19256043856998986
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

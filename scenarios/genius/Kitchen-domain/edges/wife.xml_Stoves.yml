@@ -12,7 +12,7 @@ outcome_space:
     - Gas
     - Hybrid
   name: Stoves
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.07542940083518242
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

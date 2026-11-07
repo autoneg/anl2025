@@ -10,7 +10,7 @@ outcome_spaces:
     - Handmade Food
     - Catering
   name: Food
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Drinks
@@ -21,7 +21,7 @@ outcome_spaces:
     - Handmade Cocktails
     - Catering
   name: Drinks
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Location
@@ -32,7 +32,7 @@ outcome_spaces:
     - Party Room
     - Ballroom
   name: Location
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Invitations
@@ -43,7 +43,7 @@ outcome_spaces:
     - Custom, Handmade
     - Custom, Printed
   name: Invitations
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Music
@@ -53,7 +53,7 @@ outcome_spaces:
     - DJ
     - Band
   name: Music
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Cleanup
@@ -64,7 +64,7 @@ outcome_spaces:
     - Special Equiment
     - Hired Help
   name: Cleanup
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.2740600496735972
 side_ufuns:
 - id: prof1_Food-987dc693-3f7c-4476-a14d-6140f42410e7
@@ -80,7 +80,7 @@ side_ufuns:
       - Handmade Food
       - Catering
     name: Food
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -105,7 +105,7 @@ side_ufuns:
       - Handmade Cocktails
       - Catering
     name: Drinks
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -130,7 +130,7 @@ side_ufuns:
       - Party Room
       - Ballroom
     name: Location
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -155,7 +155,7 @@ side_ufuns:
       - Custom, Handmade
       - Custom, Printed
     name: Invitations
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -179,7 +179,7 @@ side_ufuns:
       - DJ
       - Band
     name: Music
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -203,7 +203,7 @@ side_ufuns:
       - Special Equiment
       - Hired Help
     name: Cleanup
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

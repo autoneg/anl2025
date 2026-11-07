@@ -10,7 +10,7 @@ outcome_spaces:
     - Both
     - Maid
   name: Floor Mopping
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Dishes Cleaning
@@ -20,7 +20,7 @@ outcome_spaces:
     - Wife
     - Both
   name: Dishes Cleaning
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 2
     name: Laundry
@@ -29,7 +29,7 @@ outcome_spaces:
     - Husbend
     - Wife
   name: Laundry
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Cooking
@@ -40,7 +40,7 @@ outcome_spaces:
     - Both
     - Take-away food
   name: Cooking
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Gardening
@@ -51,7 +51,7 @@ outcome_spaces:
     - Both
     - Gardener
   name: Gardening
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.14588999135738612
 side_ufuns:
 - id: prof1.xml_Floor Mopping-792bab13-928c-4f7b-8f8a-9b3a6d768939
@@ -67,7 +67,7 @@ side_ufuns:
       - Both
       - Maid
     name: Floor Mopping
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -91,7 +91,7 @@ side_ufuns:
       - Wife
       - Both
     name: Dishes Cleaning
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -113,7 +113,7 @@ side_ufuns:
       - Husbend
       - Wife
     name: Laundry
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -136,7 +136,7 @@ side_ufuns:
       - Both
       - Take-away food
     name: Cooking
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -161,7 +161,7 @@ side_ufuns:
       - Both
       - Gardener
     name: Gardening
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

@@ -11,7 +11,7 @@ outcome_space:
     - caesar
     - sea
   name: salad
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.17695846704757762
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

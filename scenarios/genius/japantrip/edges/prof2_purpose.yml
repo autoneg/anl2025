@@ -10,7 +10,7 @@ outcome_space:
     - Activity
     - Shopping
   name: purpose
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.17011978089698132
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

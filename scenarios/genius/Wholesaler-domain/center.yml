@@ -9,7 +9,7 @@ outcome_spaces:
     - Crackers
     - Croissants
   name: Bread type
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 7
     name: Fruit
@@ -23,7 +23,7 @@ outcome_spaces:
     - Oranges
     - Melons
   name: Fruit
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Snacks
@@ -35,7 +35,7 @@ outcome_spaces:
     - Potato Chips
     - Candy
   name: Snacks
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 6
     name: Spreads
@@ -48,7 +48,7 @@ outcome_spaces:
     - Ham
     - Salami
   name: Spreads
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Vegetables
@@ -60,7 +60,7 @@ outcome_spaces:
     - Potatoes
     - Spinach
   name: Vegetables
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 6
     name: Drinks
@@ -73,7 +73,7 @@ outcome_spaces:
     - Coca Cola
     - Beer
   name: Drinks
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Meat
@@ -83,7 +83,7 @@ outcome_spaces:
     - Sausages
     - Steak
   name: Meat
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.245686366508523
 side_ufuns:
 - id: prof1_Bread type-f30d32ab-6569-4586-b336-866a9f885ab1
@@ -98,7 +98,7 @@ side_ufuns:
       - Crackers
       - Croissants
     name: Bread type
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -125,7 +125,7 @@ side_ufuns:
       - Oranges
       - Melons
     name: Fruit
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -154,7 +154,7 @@ side_ufuns:
       - Potato Chips
       - Candy
     name: Snacks
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -182,7 +182,7 @@ side_ufuns:
       - Ham
       - Salami
     name: Spreads
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -210,7 +210,7 @@ side_ufuns:
       - Potatoes
       - Spinach
     name: Vegetables
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -238,7 +238,7 @@ side_ufuns:
       - Coca Cola
       - Beer
     name: Drinks
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -264,7 +264,7 @@ side_ufuns:
       - Sausages
       - Steak
     name: Meat
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

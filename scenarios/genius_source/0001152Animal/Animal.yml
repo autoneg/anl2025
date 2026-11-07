@@ -36,4 +36,4 @@ issues:
   - Gorilla
   - Orangutan
 name: Animal
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

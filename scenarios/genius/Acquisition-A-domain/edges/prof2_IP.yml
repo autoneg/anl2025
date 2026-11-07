@@ -10,7 +10,7 @@ outcome_space:
     - IS receives the patents, industrial design rights and trade secrets
     - BI-Tech founders maintain all IP
   name: IP
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.16276750087707514
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

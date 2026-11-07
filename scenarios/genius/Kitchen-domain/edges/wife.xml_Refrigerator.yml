@@ -12,7 +12,7 @@ outcome_space:
     - French-door
     - Four-door French-door
   name: Refrigerator
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.061034262230519026
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

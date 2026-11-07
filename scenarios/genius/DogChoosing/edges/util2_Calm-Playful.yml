@@ -9,7 +9,7 @@ outcome_space:
     - Calm
     - Playful
   name: Calm-Playful
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.13222793774286998
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -14,7 +14,7 @@ outcome_space:
     - Oranges
     - Melons
   name: Fruit
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.12402372008630949
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

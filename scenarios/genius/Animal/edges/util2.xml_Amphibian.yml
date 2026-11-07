@@ -10,7 +10,7 @@ outcome_space:
     - Salamander
     - Newt
   name: Amphibian
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.16286002987850248
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

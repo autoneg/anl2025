@@ -11,7 +11,7 @@ outcome_space:
     - Sprint Nextel
     - T-Mobile USA
   name: Carrier
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.136112951164406
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

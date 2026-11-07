@@ -11,7 +11,7 @@ outcome_space:
     - Creation of committee to develop agenda
     - 'No'
   name: Forum on Other Health Issues
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.13749565592411414
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -11,7 +11,7 @@ outcome_space:
     - Windows Mobile
     - Black Berry
   name: OS
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.10506890254488373
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

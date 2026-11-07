@@ -10,7 +10,7 @@ outcome_spaces:
     - $10 billion
     - No agreement
   name: Size of Fund
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Impact on Other Aid
@@ -21,7 +21,7 @@ outcome_spaces:
     - Reduction equal to fund size
     - No agreement
   name: Impact on Other Aid
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Zimbabwe Trade Policy
@@ -31,7 +31,7 @@ outcome_spaces:
     - Zimbabwe will increase tariffs on imports
     - No agreement
   name: Zimbabwe Trade Policy
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: England Trade Policy
@@ -41,7 +41,7 @@ outcome_spaces:
     - England will increase imports
     - No agreement
   name: England Trade Policy
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Forum on Other Health Issues
@@ -52,7 +52,7 @@ outcome_spaces:
     - Creation of committee to develop agenda
     - 'No'
   name: Forum on Other Health Issues
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.17475255865461867
 side_ufuns:
 - id: England_rv03_comp20_Size of Fund-6951eb81-7b1e-479b-b989-6342ed0fd96e
@@ -68,7 +68,7 @@ side_ufuns:
       - $10 billion
       - No agreement
     name: Size of Fund
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -93,7 +93,7 @@ side_ufuns:
       - Reduction equal to fund size
       - No agreement
     name: Impact on Other Aid
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -117,7 +117,7 @@ side_ufuns:
       - Zimbabwe will increase tariffs on imports
       - No agreement
     name: Zimbabwe Trade Policy
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -140,7 +140,7 @@ side_ufuns:
       - England will increase imports
       - No agreement
     name: England Trade Policy
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -164,7 +164,7 @@ side_ufuns:
       - Creation of committee to develop agenda
       - 'No'
     name: Forum on Other Health Issues
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

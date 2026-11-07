@@ -11,7 +11,7 @@ outcome_space:
     - 3 hours
     - 5 hours
   name: duration
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.02399902213195684
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

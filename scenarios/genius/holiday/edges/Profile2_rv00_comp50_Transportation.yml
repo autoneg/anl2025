@@ -11,7 +11,7 @@ outcome_space:
     - Train
     - Air Plane
   name: Transportation
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.18801482823282226
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

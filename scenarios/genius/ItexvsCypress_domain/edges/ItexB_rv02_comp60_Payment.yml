@@ -10,7 +10,7 @@ outcome_space:
     - 30 days after delivery
     - 60 days after delivery
   name: Payment
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.04374819772178935
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -34,4 +34,4 @@ issues:
   - cookie and cream
   - choco chips
 name: Icecream
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

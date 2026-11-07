@@ -10,7 +10,7 @@ outcome_space:
     - Wife
     - Both
   name: Dishes Cleaning
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.15732391594024323
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

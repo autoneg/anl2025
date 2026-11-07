@@ -13,7 +13,7 @@ outcome_space:
     - Kangaroo
     - Dolphin
   name: Mammal
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.11810700174732423
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -3,7 +3,7 @@ type: anl2025.ufun.LambdaCenterUFun
 reserved_value: 0.0
 n_edges: 3
 outcome_spaces:
-  - type: DiscreteCartesianOutcomeSpace
+  - type: EnumerableCartesianOutcomeSpace
     name: AmyDay
     issues:
     - type: CategoricalIssue
@@ -12,7 +12,7 @@ outcome_spaces:
       - 'Fri'
       - 'Sat'
       - 'Sun'
-  - type: DiscreteCartesianOutcomeSpace
+  - type: EnumerableCartesianOutcomeSpace
     name: EveDay
     issues:
     - type: CategoricalIssue
@@ -21,7 +21,7 @@ outcome_spaces:
       - 'Fri'
       - 'Sat'
       - 'Sun'
-  - type: DiscreteCartesianOutcomeSpace
+  - type: EnumerableCartesianOutcomeSpace
     name: SteveDay
     issues:
     - type: CategoricalIssue

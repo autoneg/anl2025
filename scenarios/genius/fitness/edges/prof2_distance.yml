@@ -11,7 +11,7 @@ outcome_space:
     - 5 km
     - 40 km
   name: distance
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.17402731393304582
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

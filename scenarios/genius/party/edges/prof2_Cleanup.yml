@@ -11,7 +11,7 @@ outcome_space:
     - Special Equiment
     - Hired Help
   name: Cleanup
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.052263309359416546
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

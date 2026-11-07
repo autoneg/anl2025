@@ -13,7 +13,7 @@ outcome_space:
     - Coca Cola
     - Beer
   name: Drinks
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.11938031889074163
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

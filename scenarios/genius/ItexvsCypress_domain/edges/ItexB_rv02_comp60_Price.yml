@@ -12,7 +12,7 @@ outcome_space:
     - $3.71
     - $3.47
   name: Price
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.018578557812025977
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

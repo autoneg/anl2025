@@ -11,7 +11,7 @@ outcome_spaces:
     - $3.71
     - $3.47
   name: Price
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Delivery
@@ -22,7 +22,7 @@ outcome_spaces:
     - 30 days
     - 20 days
   name: Delivery
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Payment
@@ -32,7 +32,7 @@ outcome_spaces:
     - 30 days after delivery
     - 60 days after delivery
   name: Payment
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Returns
@@ -42,7 +42,7 @@ outcome_spaces:
     - 5% spoilage allowed
     - 10% spoilage allowed
   name: Returns
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.04402123527369128
 side_ufuns:
 - id: CypressA_rv03_comp30_Price-7b900821-0d04-4c23-b61a-af62251b6aca
@@ -59,7 +59,7 @@ side_ufuns:
       - $3.71
       - $3.47
     name: Price
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -85,7 +85,7 @@ side_ufuns:
       - 30 days
       - 20 days
     name: Delivery
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -109,7 +109,7 @@ side_ufuns:
       - 30 days after delivery
       - 60 days after delivery
     name: Payment
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -132,7 +132,7 @@ side_ufuns:
       - 5% spoilage allowed
       - 10% spoilage allowed
     name: Returns
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

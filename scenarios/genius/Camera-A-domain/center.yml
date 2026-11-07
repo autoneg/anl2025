@@ -11,7 +11,7 @@ outcome_spaces:
     - Sony
     - Panasonic
   name: Maker
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Body
@@ -22,7 +22,7 @@ outcome_spaces:
     - Micro Four Thirds
     - compact
   name: Body
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Lens
@@ -32,7 +32,7 @@ outcome_spaces:
     - Middle range model
     - Entry model
   name: Lens
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: Tripod
@@ -42,7 +42,7 @@ outcome_spaces:
     - Manfrotto
     - Induro
   name: Tripod
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Bag
@@ -54,7 +54,7 @@ outcome_spaces:
     - National Geographic
     - Artizan and Artist
   name: Bag
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Accessory
@@ -65,7 +65,7 @@ outcome_spaces:
     - Memory
     - Strap
   name: Accessory
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.04271545670582561
 side_ufuns:
 - id: prof1.xml_Maker-5d610bed-664c-41bc-b9e4-f6d3b0cc6211
@@ -82,7 +82,7 @@ side_ufuns:
       - Sony
       - Panasonic
     name: Maker
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -108,7 +108,7 @@ side_ufuns:
       - Micro Four Thirds
       - compact
     name: Body
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -132,7 +132,7 @@ side_ufuns:
       - Middle range model
       - Entry model
     name: Lens
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -155,7 +155,7 @@ side_ufuns:
       - Manfrotto
       - Induro
     name: Tripod
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -180,7 +180,7 @@ side_ufuns:
       - National Geographic
       - Artizan and Artist
     name: Bag
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -206,7 +206,7 @@ side_ufuns:
       - Memory
       - Strap
     name: Accessory
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

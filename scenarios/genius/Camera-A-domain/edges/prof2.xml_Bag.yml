@@ -12,7 +12,7 @@ outcome_space:
     - National Geographic
     - Artizan and Artist
   name: Bag
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.17850696100566857
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

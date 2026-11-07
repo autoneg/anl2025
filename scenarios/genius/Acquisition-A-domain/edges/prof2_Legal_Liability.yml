@@ -9,7 +9,7 @@ outcome_space:
     - past activities remains with Bi-Tech
     - IS liable for all activities
   name: Legal Liability
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.07604965170145533
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

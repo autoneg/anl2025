@@ -12,7 +12,7 @@ outcome_space:
     - Water Boiler
     - Oven
   name: Equipment
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.1992051672868511
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

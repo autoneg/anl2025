@@ -10,7 +10,7 @@ outcome_space:
     - 5% spoilage allowed
     - 10% spoilage allowed
   name: Returns
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.04720000068538704
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

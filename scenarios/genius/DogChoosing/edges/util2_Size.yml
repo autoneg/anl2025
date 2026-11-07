@@ -10,7 +10,7 @@ outcome_space:
     - Medium
     - Big
   name: Size
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.15218710955191506
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

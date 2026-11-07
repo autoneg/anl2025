@@ -11,7 +11,7 @@ outcome_space:
     - Both
     - Maid
   name: Floor Mopping
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.06729044949622758
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

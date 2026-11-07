@@ -12,7 +12,7 @@ outcome_space:
     - Infrared communication
     - Good Battery
   name: ' Accessory'
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.09730317469429911
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

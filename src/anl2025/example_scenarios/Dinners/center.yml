@@ -3,7 +3,7 @@ type: anl2025.ufun.LambdaCenterUFun
 reserved_value: 0.0
 n_edges: 3
 outcome_space:
-  type: DiscreteCartesianOutcomeSpace
+  type: EnumerableCartesianOutcomeSpace
   name: Day
   issues:
   - type: CategoricalIssue

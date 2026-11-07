@@ -10,7 +10,7 @@ outcome_spaces:
     - Negoya
     - Hokkaido
   name: place
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: budget
@@ -21,7 +21,7 @@ outcome_spaces:
     - '300'
     - '100'
   name: budget
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: days
@@ -32,7 +32,7 @@ outcome_spaces:
     - '5'
     - '6'
   name: days
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 3
     name: purpose
@@ -42,7 +42,7 @@ outcome_spaces:
     - Activity
     - Shopping
   name: purpose
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.22028563441663218
 side_ufuns:
 - id: prof1_place-caca1781-afae-45c8-9b38-923c0c872fdc
@@ -58,7 +58,7 @@ side_ufuns:
       - Negoya
       - Hokkaido
     name: place
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -83,7 +83,7 @@ side_ufuns:
       - '300'
       - '100'
     name: budget
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -108,7 +108,7 @@ side_ufuns:
       - '5'
       - '6'
     name: days
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -132,7 +132,7 @@ side_ufuns:
       - Activity
       - Shopping
     name: purpose
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

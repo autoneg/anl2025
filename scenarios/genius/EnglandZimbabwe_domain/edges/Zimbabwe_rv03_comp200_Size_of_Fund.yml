@@ -11,7 +11,7 @@ outcome_space:
     - $10 billion
     - No agreement
   name: Size of Fund
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.09619684392903649
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -11,7 +11,7 @@ outcome_spaces:
     - Gas
     - Hybrid
   name: Stoves
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Refrigerator
@@ -23,7 +23,7 @@ outcome_spaces:
     - French-door
     - Four-door French-door
   name: Refrigerator
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Cabinets
@@ -35,7 +35,7 @@ outcome_spaces:
     - Cherry
     - Mahogany
   name: Cabinets
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Countertops
@@ -47,7 +47,7 @@ outcome_spaces:
     - Inox
     - Acrylic
   name: Countertops
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Lighting spots
@@ -59,7 +59,7 @@ outcome_spaces:
     - '15'
     - '20'
   name: Lighting spots
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 5
     name: Equipment
@@ -71,7 +71,7 @@ outcome_spaces:
     - Water Boiler
     - Oven
   name: Equipment
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.25554078363026184
 side_ufuns:
 - id: husband.xml_Stoves-de41aff6-31a1-4cc6-94ad-35cbeaef6b43
@@ -88,7 +88,7 @@ side_ufuns:
       - Gas
       - Hybrid
     name: Stoves
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -115,7 +115,7 @@ side_ufuns:
       - French-door
       - Four-door French-door
     name: Refrigerator
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -142,7 +142,7 @@ side_ufuns:
       - Cherry
       - Mahogany
     name: Cabinets
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -169,7 +169,7 @@ side_ufuns:
       - Inox
       - Acrylic
     name: Countertops
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -196,7 +196,7 @@ side_ufuns:
       - '15'
       - '20'
     name: Lighting spots
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -223,7 +223,7 @@ side_ufuns:
       - Water Boiler
       - Oven
     name: Equipment
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

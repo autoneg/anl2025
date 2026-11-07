@@ -12,7 +12,7 @@ outcome_space:
     - Potato Chips
     - Candy
   name: Snacks
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.0071484071998012995
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

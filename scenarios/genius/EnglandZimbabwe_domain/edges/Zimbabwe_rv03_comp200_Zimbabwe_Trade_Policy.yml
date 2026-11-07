@@ -10,7 +10,7 @@ outcome_space:
     - Zimbabwe will increase tariffs on imports
     - No agreement
   name: Zimbabwe Trade Policy
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.016108010384411387
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

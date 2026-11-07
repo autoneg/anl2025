@@ -11,7 +11,7 @@ outcome_space:
     - 30 days
     - 20 days
   name: Delivery
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.19716851264414445
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

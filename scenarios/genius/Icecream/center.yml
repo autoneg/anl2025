@@ -11,7 +11,7 @@ outcome_spaces:
     - '25'
     - '30'
   name: howmuch
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: size
@@ -22,7 +22,7 @@ outcome_spaces:
     - three
     - parfait
   name: size
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: cone
@@ -33,7 +33,7 @@ outcome_spaces:
     - sandwiched
     - cup
   name: cone
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 9
     name: taste
@@ -49,7 +49,7 @@ outcome_spaces:
     - cookie and cream
     - choco chips
   name: taste
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.23532802531043812
 side_ufuns:
 - id: util1_howmuch-4aa1d390-ce6a-445a-875a-5e04585b7734
@@ -66,7 +66,7 @@ side_ufuns:
       - '25'
       - '30'
     name: howmuch
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -92,7 +92,7 @@ side_ufuns:
       - three
       - parfait
     name: size
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -117,7 +117,7 @@ side_ufuns:
       - sandwiched
       - cup
     name: cone
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -147,7 +147,7 @@ side_ufuns:
       - cookie and cream
       - choco chips
     name: taste
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

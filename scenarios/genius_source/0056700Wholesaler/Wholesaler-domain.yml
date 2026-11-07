@@ -56,4 +56,4 @@ issues:
   - Sausages
   - Steak
 name: Wholesaler-domain
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

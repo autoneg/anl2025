@@ -27,4 +27,4 @@ issues:
   - Activity
   - Shopping
 name: japantrip
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

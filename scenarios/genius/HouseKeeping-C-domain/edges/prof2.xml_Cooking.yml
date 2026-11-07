@@ -11,7 +11,7 @@ outcome_space:
     - Both
     - Take-away food
   name: Cooking
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.14641521425408577
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

@@ -48,4 +48,4 @@ issues:
   - Water Boiler
   - Oven
 name: Kitchen-domain
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace

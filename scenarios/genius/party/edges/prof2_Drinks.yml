@@ -11,7 +11,7 @@ outcome_space:
     - Handmade Cocktails
     - Catering
   name: Drinks
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.15255181895852823
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

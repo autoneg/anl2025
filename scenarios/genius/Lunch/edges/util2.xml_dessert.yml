@@ -10,7 +10,7 @@ outcome_space:
     - sherbet
     - ice cream
   name: dessert
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.08328627536502597
 type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
 values:

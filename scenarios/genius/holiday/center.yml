@@ -10,7 +10,7 @@ outcome_spaces:
     - Amsterdam
     - Miami
   name: Destination
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Duration
@@ -21,7 +21,7 @@ outcome_spaces:
     - '10'
     - '14'
   name: Duration
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Budget
@@ -32,7 +32,7 @@ outcome_spaces:
     - '1000'
     - '1500'
   name: Budget
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Activities
@@ -43,7 +43,7 @@ outcome_spaces:
     - Restaurant
     - Historical Places
   name: Activities
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 - issues:
   - n_values: 4
     name: Transportation
@@ -54,7 +54,7 @@ outcome_spaces:
     - Train
     - Air Plane
   name: Transportation
-  type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+  type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
 reserved_value: 0.11800615185325523
 side_ufuns:
 - id: Profile1_rv00_comp50_Destination-b028a886-0530-422d-a14b-19f6a0555b73
@@ -70,7 +70,7 @@ side_ufuns:
       - Amsterdam
       - Miami
     name: Destination
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -95,7 +95,7 @@ side_ufuns:
       - '10'
       - '14'
     name: Duration
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -120,7 +120,7 @@ side_ufuns:
       - '1000'
       - '1500'
     name: Budget
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -145,7 +145,7 @@ side_ufuns:
       - Restaurant
       - Historical Places
     name: Activities
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:
@@ -170,7 +170,7 @@ side_ufuns:
       - Train
       - Air Plane
     name: Transportation
-    type: negmas.outcomes.outcome_space.DiscreteCartesianOutcomeSpace
+    type: negmas.outcomes.outcome_space.EnumerableCartesianOutcomeSpace
   reserved_value: -.inf
   type: negmas.preferences.crisp.linear.LinearAdditiveUtilityFunction
   values:

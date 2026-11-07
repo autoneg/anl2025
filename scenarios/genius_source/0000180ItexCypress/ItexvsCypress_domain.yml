@@ -27,4 +27,4 @@ issues:
   - 5% spoilage allowed
   - 10% spoilage allowed
 name: ItexvsCypress_domain
-type: DiscreteCartesianOutcomeSpace
+type: EnumerableCartesianOutcomeSpace
