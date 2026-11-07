@@ -1,14 +1,14 @@
 3 threads
-- (3, 4)     => DiscreteCartesianOutcomeSpace(ContiguousIssue(7), ConiguousIssue(5))
-- None       => DiscreteCartesianOutcomeSpace(ContiguousIssue(7), ConiguousIssue(5))
-- ("xyz",)   => DiscreteCartesianOutcomeSpace(CategoricalIssue(["ab", "xyz"]), )
+- (3, 4)     => EnumerableCartesianOutcomeSpace(ContiguousIssue(7), ConiguousIssue(5))
+- None       => EnumerableCartesianOutcomeSpace(ContiguousIssue(7), ConiguousIssue(5))
+- ("xyz",)   => EnumerableCartesianOutcomeSpace(CategoricalIssue(["ab", "xyz"]), )
 
 
 HierarcchalCombiner
 
 outcome_space:
 
-DiscreteCartesianOutcomeSpace(
+EnumerableCartesianOutcomeSpace(
     OptionalIssue(CategoricalIssue([(0,0), (0,1), ..... (6,4)])),
     OptionalIssue(CategoricalIssue([(0,0), (0,1), ..... (6,4)])),
     OptionalIssue(CategoricalIssue([("ab",), ("xyz",)])),

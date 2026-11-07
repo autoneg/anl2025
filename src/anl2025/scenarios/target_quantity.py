@@ -7,7 +7,7 @@ from negmas.helpers import unique_name
 from negmas.outcomes import (
     make_os,
     make_issue,
-    DiscreteCartesianOutcomeSpace,
+    EnumerableCartesianOutcomeSpace,
     ContiguousIssue,
 )
 from anl2025.ufun import LambdaCenterUFun
@@ -116,7 +116,7 @@ def make_target_quantity_scenario(
     if supplier_names is None:
         supplier_names = [f"supplier{_ + 1:02}" for _ in range(n_suppliers)]
     os = make_os([make_issue(quantity, name="quantity")], name="TargetQantity")
-    assert isinstance(os, DiscreteCartesianOutcomeSpace)
+    assert isinstance(os, EnumerableCartesianOutcomeSpace)
     quantities = list(os.issues[0].all)
     if isinstance(os.issues[0], ContiguousIssue):
         totals = list(range(n_suppliers * os.issues[0].max_value + 1))

@@ -6,7 +6,7 @@ from negmas import SAONMI, InverseUFun, PolyAspiration, PresortingInverseUtility
 from negmas.sao.controllers import SAOController, SAOState
 from negmas import (
     ConcederTBNegotiator,
-    DiscreteCartesianOutcomeSpace,
+    EnumerableCartesianOutcomeSpace,
     ExtendedOutcome,
     LinearTBNegotiator,
     ResponseType,
@@ -246,7 +246,7 @@ class Random2025(ANL2025Negotiator):
         Remarks:
         """
         nmi = self.negotiators[negotiator_id].negotiator.nmi
-        os: DiscreteCartesianOutcomeSpace = nmi.outcome_space
+        os: EnumerableCartesianOutcomeSpace = nmi.outcome_space
         return list(os.sample(1))[0]
 
     def respond(

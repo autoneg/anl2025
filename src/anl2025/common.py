@@ -18,7 +18,7 @@ CENTER_FILE_NAME = "center.yml"
 EDGES_FOLDER_NAME = "edges"
 SIDES_FOLDER_NAME = "sides"
 TYPES_MAP = dict(
-    DiscreteCartesianOutcomeSpace="negmas.outcomes.DiscreteCartesianOutcomeSpace"
+    EnumerableCartesianOutcomeSpace="negmas.outcomes.EnumerableCartesianOutcomeSpace"
 )
 
 SEQUENTIAL_METHOD = "sequential"

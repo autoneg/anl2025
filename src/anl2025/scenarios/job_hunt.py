@@ -1,4 +1,4 @@
-from negmas.outcomes import make_os, make_issue, DiscreteCartesianOutcomeSpace
+from negmas.outcomes import make_os, make_issue, EnumerableCartesianOutcomeSpace
 from negmas.helpers import unique_name
 from anl2025.ufun import MaxCenterUFun
 from anl2025.scenario import MultidealScenario
@@ -36,7 +36,7 @@ def make_job_hunt_scenario(
         [make_issue(work_days, name="days"), make_issue(salary, name="salary")],
         name="JobHunt",
     )
-    assert isinstance(os, DiscreteCartesianOutcomeSpace)
+    assert isinstance(os, EnumerableCartesianOutcomeSpace)
     ufun_pairs = [
         generate_ufuns_for(os, ufun_names=(f"with_{ename}", f"{ename}"))
         for ename in employer_names

@@ -1,6 +1,6 @@
 from anl2025.scenarios.dinners import make_dinners_scenario
 from anl2025.ufun import FlatteningCombiner, HierarchicalCombiner
-from negmas import DiscreteCartesianOutcomeSpace, make_issue, make_os
+from negmas import EnumerableCartesianOutcomeSpace, make_issue, make_os
 
 
 def test_flatten_unflatten():
@@ -11,7 +11,7 @@ def test_flatten_unflatten():
         make_os(([make_issue("a", "b")])),
         make_os(([make_issue(4), make_issue(["zz", "aa"])])),
     )
-    assert all(isinstance(_, DiscreteCartesianOutcomeSpace) for _ in outcome_spaces)
+    assert all(isinstance(_, EnumerableCartesianOutcomeSpace) for _ in outcome_spaces)
     x = ((0, 1), None, ("x", "xyz"), ("34",), (4, "zz"))
     f = (0, 1, None, None, None, "x", "xyz", "34", 4, "zz")
     flattener = FlatteningCombiner(outcome_spaces)
@@ -39,9 +39,9 @@ def test_center_ufun_extremes():
     assert mn < mx
     assert abs(center(worst) - mn) < 1e-3
     assert abs(center(best) - mx) < 1e-3
-    assert isinstance(center.outcome_space, DiscreteCartesianOutcomeSpace)
+    assert isinstance(center.outcome_space, EnumerableCartesianOutcomeSpace)
     assert all(
-        isinstance(_, DiscreteCartesianOutcomeSpace) for _ in center.outcome_spaces
+        isinstance(_, EnumerableCartesianOutcomeSpace) for _ in center.outcome_spaces
     )
     if isinstance(center._combiner, FlatteningCombiner):
         assert len(center.outcome_space.issues) == sum(

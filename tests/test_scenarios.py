@@ -11,7 +11,7 @@ from anl2025.scenarios.dinners import make_dinners_scenario
 from anl2025.scenarios.job_hunt import make_job_hunt_scenario
 from anl2025.scenarios.target_quantity import make_target_quantity_scenario
 from anl2025.ufun import FlatteningCombiner, HierarchicalCombiner, LambdaCenterUFun
-from negmas import DiscreteCartesianOutcomeSpace, UtilityFunction
+from negmas import EnumerableCartesianOutcomeSpace, UtilityFunction
 from anl2025.scenarios.genius import make_multideal_scenario_from_genius
 import pytest
 
@@ -34,14 +34,14 @@ def test_load_multideal_dinner(name):
         scenario.center_ufun.outcome_spaces
         and len(scenario.center_ufun.outcome_spaces) == 3
     )
-    assert isinstance(scenario.center_ufun.outcome_space, DiscreteCartesianOutcomeSpace)
+    assert isinstance(scenario.center_ufun.outcome_space, EnumerableCartesianOutcomeSpace)
     assert all(
-        isinstance(_, DiscreteCartesianOutcomeSpace)
+        isinstance(_, EnumerableCartesianOutcomeSpace)
         for _ in scenario.center_ufun.outcome_spaces
     )
     assert len(scenario.center_ufun.outcome_space.issues) == 3
     os = scenario.center_ufun.outcome_spaces[0]
-    assert isinstance(os, DiscreteCartesianOutcomeSpace)
+    assert isinstance(os, EnumerableCartesianOutcomeSpace)
     all_outcomes = list(
         product(
             *(os.enumerate() for os in scenario.center_ufun.outcome_spaces)  # type: ignore
@@ -76,9 +76,9 @@ def test_load_multideal_dinner_created(n_friends, n_days):
         scenario.center_ufun.outcome_spaces
         and len(scenario.center_ufun.outcome_spaces) == n_friends
     )
-    assert isinstance(scenario.center_ufun.outcome_space, DiscreteCartesianOutcomeSpace)
+    assert isinstance(scenario.center_ufun.outcome_space, EnumerableCartesianOutcomeSpace)
     assert all(
-        isinstance(_, DiscreteCartesianOutcomeSpace)
+        isinstance(_, EnumerableCartesianOutcomeSpace)
         for _ in scenario.center_ufun.outcome_spaces
     )
     assert len(scenario.center_ufun.outcome_space.issues) == n_friends
@@ -87,7 +87,7 @@ def test_load_multideal_dinner_created(n_friends, n_days):
     elif isinstance(scenario.center_ufun._combiner, HierarchicalCombiner):
         assert (scenario.center_ufun.outcome_space.issues[0].cardinality) == n_days + 1
     os = scenario.center_ufun.outcome_spaces[0]
-    assert isinstance(os, DiscreteCartesianOutcomeSpace)
+    assert isinstance(os, EnumerableCartesianOutcomeSpace)
     full_outcomes = list(
         product(
             *(os.enumerate() for os in scenario.center_ufun.outcome_spaces)  # type: ignore
